@@ -11,9 +11,11 @@ import React, {
 } from "react"
 import { ControllerRenderProps } from "react-hook-form"
 import { colors } from "styles/colors"
-import { BaseFieldProps } from "."
 
-interface TextFieldProps extends BaseFieldProps {
+interface TextFieldProps {
+  placeholder?: string
+  isDisabled?: boolean
+  isInvalid: boolean
   type?: string
   icon?: {
     before?: ReactElement

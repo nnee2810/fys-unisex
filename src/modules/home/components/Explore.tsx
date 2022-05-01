@@ -1,9 +1,10 @@
 import { Box, Center, Grid } from "@chakra-ui/react"
 import CustomLink from "components/CustomLink"
-import { exploreItems, responsiveW } from "configs/constants"
+import { responsiveW } from "configs/constants"
 import { SectionTitle } from "modules/home/components/SectionTitle"
 import Image from "next/image"
 import React from "react"
+import { exploreItems } from "../constants"
 
 export default function Explore() {
   return (

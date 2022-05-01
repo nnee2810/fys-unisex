@@ -17,10 +17,12 @@ import styled from "@emotion/styled"
 import Badge from "components/Badge"
 import CustomLink from "components/CustomLink"
 import Logo from "components/Logo"
-import { headerNavItems, responsiveW, zIndex } from "configs/constants"
+import { responsiveW, zIndex } from "configs/constants"
+import { headerNavItems } from "modules/home/constants"
 import React, { useCallback, useEffect, useRef } from "react"
 import { AiOutlineHeart, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai"
 import { BsCart2 } from "react-icons/bs"
+import { colors } from "styles/colors"
 import ModalSearch from "./ModalSearch"
 
 function HeaderActions() {
@@ -58,7 +60,10 @@ function HeaderActions() {
 }
 function HeaderDesktop() {
   return (
-    <Box bg="white" boxShadow="xl" display={{ base: "none", lg: "block" }}>
+    <Box
+      borderBottom={`1px solid ${colors.lightGray}`}
+      display={{ base: "none", lg: "block" }}
+    >
       <Grid
         w={{ ...responsiveW }}
         mx="auto"
@@ -102,7 +107,10 @@ function HeaderDesktop() {
 function HeaderMobile() {
   const [navOpen, setNavOpen] = useBoolean()
   return (
-    <Box boxShadow="xl" display={{ base: "block", lg: "none" }}>
+    <Box
+      borderBottom={`1px solid ${colors.lightGray}`}
+      display={{ base: "block", lg: "none" }}
+    >
       <Grid
         templateColumns="repeat(3, 1fr)"
         w={{ ...responsiveW }}

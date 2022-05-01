@@ -3,9 +3,11 @@ import { ISelectOption } from "interfaces/ISelectOption"
 import React from "react"
 import { ControllerRenderProps } from "react-hook-form"
 import { colors } from "styles/colors"
-import { BaseFieldProps } from "."
 
-interface SelectFieldProps extends BaseFieldProps {
+interface SelectFieldProps {
+  placeholder?: string
+  isDisabled?: boolean
+  isInvalid: boolean
   options: ISelectOption[]
   field: ControllerRenderProps
 }
@@ -25,7 +27,7 @@ export default function SelectField({
       focusBorderColor={colors.green}
       {...field}
     >
-      {options.map((option) => (
+      {options?.map((option) => (
         <option value={option.value} key={option.value}>
           {option.label}
         </option>

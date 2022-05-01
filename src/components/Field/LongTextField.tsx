@@ -2,9 +2,11 @@ import { Textarea } from "@chakra-ui/react"
 import React from "react"
 import { ControllerRenderProps } from "react-hook-form"
 import { colors } from "styles/colors"
-import { BaseFieldProps } from "."
 
-interface LongTextFieldProps extends BaseFieldProps {
+interface LongTextFieldProps {
+  placeholder?: string
+  isDisabled?: boolean
+  isInvalid: boolean
   field: ControllerRenderProps
 }
 

@@ -49,7 +49,7 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>{generateTitle("Home")}</title>
+        <title>{generateTitle("Trang chủ")}</title>
       </Head>
       <Box>
         <Banners />

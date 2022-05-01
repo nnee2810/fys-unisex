@@ -7,19 +7,16 @@ import React, {
 } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import LongTextField from "./LongTextField"
+import RangeSliderField from "./RangeSliderField"
 import SelectField from "./SelectField"
 import TextField from "./TextField"
 
-export interface BaseFieldProps {
-  placeholder?: string
-  isDisabled?: boolean
-  isInvalid?: boolean
-}
-
-export interface FieldProps extends BaseFieldProps {
-  variant: "TEXT" | "LONGTEXT" | "SELECT" | "FILE"
+export interface FieldProps {
+  variant: "TEXT" | "LONGTEXT" | "SELECT" | "FILE" | "RANGE_SLIDER"
   name: string
   label?: string
+  placeholder?: string
+
   defaultValue?: number | string | null
   type?: string
   icon?: {
@@ -27,9 +24,14 @@ export interface FieldProps extends BaseFieldProps {
     after?: ReactElement
   }
   options?: ISelectOption[]
+  min?: number
+  max?: number
+  step?: number
+  isDisabled?: boolean
   onChange?: ChangeEventHandler<HTMLInputElement>
   onFocus?: FocusEventHandler<HTMLInputElement>
   onBlur?: FocusEventHandler<HTMLInputElement>
+  formatValue?: (value: number) => string
 }
 
 export default function Field({
@@ -39,11 +41,15 @@ export default function Field({
   label,
   placeholder,
   options,
-  isDisabled,
+  min,
+  max,
+  step,
   icon,
+  isDisabled,
   onChange,
   onFocus,
   onBlur,
+  formatValue,
 }: FieldProps) {
   const {
     control,
@@ -90,6 +96,14 @@ export default function Field({
                 isInvalid={!!errors[name]}
                 options={options!}
                 field={field}
+              />
+            )}
+            {variant === "RANGE_SLIDER" && (
+              <RangeSliderField
+                min={min!}
+                max={max!}
+                step={step}
+                formatValue={formatValue}
               />
             )}
           </>
