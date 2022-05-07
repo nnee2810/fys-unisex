@@ -1,47 +1,14 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { GetProductsDto } from "modules/products/dto/get-products-dto"
+import { createSlice } from "@reduxjs/toolkit"
 
-interface SliceState {
-  query: GetProductsDto
-}
+interface SliceState {}
 
-const initialState: SliceState = {
-  query: {
-    name: "",
-  },
-}
+const initialState: SliceState = {}
 
 const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {
-    setQuery(
-      state,
-      {
-        payload: {
-          name,
-          type,
-          gender,
-          inStock,
-          isFeatured,
-          isSale,
-          page,
-          limit,
-        },
-      }: PayloadAction<GetProductsDto>
-    ) {
-      state.query.name = name
-      state.query.type = type
-      state.query.gender = gender
-      state.query.inStock = inStock
-      state.query.isFeatured = isFeatured
-      state.query.isSale = isSale
-      state.query.page = page
-      state.query.limit = limit
-    },
-  },
+  reducers: {},
 })
 
 export const productSelector = (state: any) => state.product
-export const { setQuery } = productSlice.actions
 export default productSlice.reducer

@@ -1,10 +1,14 @@
-import { IPagination } from "interfaces/IPagination"
-
-export interface GetProductsDto extends IPagination {
+export interface GetProductsDto {
   name?: string
   type?: string
   gender?: string
-  inStock?: boolean
-  isSale?: boolean
+  inStock?: string
+  size?: string
+  minPrice?: number
+  maxPrice?: number
   isFeatured?: boolean
+  isSale?: boolean
+  sort?: string
+  page?: number
+  limit?: number
 }

@@ -25,13 +25,7 @@ export default function Banner() {
       {bannerItems.map((item, idx) => (
         <SwiperSlide key={"banner" + idx}>
           <Box h={{ base: "calc(100vh - 56px)", lg: "calc(100vh - 53px)" }}>
-            <Image
-              src={item}
-              width="100%"
-              height="100%"
-              layout="fill"
-              objectFit="cover"
-            />
+            <Image src={item} layout="fill" objectFit="cover" />
           </Box>
         </SwiperSlide>
       ))}

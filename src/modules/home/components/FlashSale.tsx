@@ -5,7 +5,7 @@ import { IProduct } from "interfaces/IProduct"
 import { SectionTitle } from "modules/home/components/SectionTitle"
 import React from "react"
 import { IoFlashOutline } from "react-icons/io5"
-import { colors } from "styles/colors"
+import { colors } from "styles/theme"
 import { Autoplay } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 
@@ -23,28 +23,29 @@ export default function FlashSale({ products }: FlashSaleProps) {
       </SectionTitle>
 
       <Box w={{ ...responsiveW }} mx="auto">
-        <Swiper
-          centeredSlides
-          slidesPerView="auto"
-          spaceBetween={20}
-          autoplay={{
-            delay: 2000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
-          modules={[Autoplay]}
-          loop
-          className="swiper-slide-fit"
-        >
-          {products.map((product) => (
-            <SwiperSlide key={"flash" + product._id}>
-              <Box w="270px">
-                <ProductItem data={product} />
-              </Box>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        )
+        {products.length ? (
+          <Swiper
+            centeredSlides
+            slidesPerView="auto"
+            spaceBetween={20}
+            autoplay={{
+              delay: 2000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            modules={[Autoplay]}
+            loop
+            className="swiper-slide-fit"
+          >
+            {products.map((product) => (
+              <SwiperSlide key={"flash" + product._id}>
+                <Box w="270px">
+                  <ProductItem data={product} />
+                </Box>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : null}
       </Box>
     </Box>
   )

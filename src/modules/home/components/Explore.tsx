@@ -29,17 +29,11 @@ export default function Explore() {
                   filter: "grayscale(0%)",
                 }}
               >
-                <Image
-                  src={item.src}
-                  width="100%"
-                  height="100%"
-                  layout="fill"
-                  objectFit="cover"
-                />
-                <Center position="absolute" w="100%" h="100%">
+                <Image src={item.src} layout="fill" objectFit="cover" />
+                <Center position="absolute" bottom="50%" w="100%">
                   <Box
-                    w="200px"
-                    py="6px"
+                    w="80%"
+                    py="2.5"
                     bg="white"
                     textAlign="center"
                     fontWeight="700"

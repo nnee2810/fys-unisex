@@ -1,55 +1,17 @@
 import { Box, Text } from "@chakra-ui/react"
-import { ISelectOption } from "interfaces/ISelectOption"
-import React, {
-  ChangeEventHandler,
-  FocusEventHandler,
-  ReactElement,
-} from "react"
-import { Controller, useFormContext } from "react-hook-form"
-import LongTextField from "./LongTextField"
-import RangeSliderField from "./RangeSliderField"
-import SelectField from "./SelectField"
-import TextField from "./TextField"
+import React from "react"
+import { Controller, ControllerProps, useFormContext } from "react-hook-form"
 
-export interface FieldProps {
-  variant: "TEXT" | "LONGTEXT" | "SELECT" | "FILE" | "RANGE_SLIDER"
+interface FieldProps extends ControllerProps {
   name: string
   label?: string
-  placeholder?: string
-
-  defaultValue?: number | string | null
-  type?: string
-  icon?: {
-    before?: ReactElement
-    after?: ReactElement
-  }
-  options?: ISelectOption[]
-  min?: number
-  max?: number
-  step?: number
-  isDisabled?: boolean
-  onChange?: ChangeEventHandler<HTMLInputElement>
-  onFocus?: FocusEventHandler<HTMLInputElement>
-  onBlur?: FocusEventHandler<HTMLInputElement>
-  formatValue?: (value: number) => string
 }
 
 export default function Field({
-  variant,
   name,
-  type,
+  render,
   label,
-  placeholder,
-  options,
-  min,
-  max,
-  step,
-  icon,
-  isDisabled,
-  onChange,
-  onFocus,
-  onBlur,
-  formatValue,
+  defaultValue,
 }: FieldProps) {
   const {
     control,
@@ -66,48 +28,8 @@ export default function Field({
       <Controller
         control={control}
         name={name}
-        render={({ field }) => (
-          <>
-            {variant === "TEXT" && (
-              <TextField
-                type={type}
-                placeholder={placeholder}
-                isDisabled={isDisabled}
-                isInvalid={!!errors[name]}
-                icon={icon}
-                field={field}
-                onChange={onChange}
-                onFocus={onFocus}
-                onBlur={onBlur}
-              />
-            )}
-            {variant === "LONGTEXT" && (
-              <LongTextField
-                placeholder={placeholder}
-                isDisabled={isDisabled}
-                isInvalid={!!errors[name]}
-                field={field}
-              />
-            )}
-            {variant === "SELECT" && (
-              <SelectField
-                placeholder={placeholder}
-                isDisabled={isDisabled}
-                isInvalid={!!errors[name]}
-                options={options!}
-                field={field}
-              />
-            )}
-            {variant === "RANGE_SLIDER" && (
-              <RangeSliderField
-                min={min!}
-                max={max!}
-                step={step}
-                formatValue={formatValue}
-              />
-            )}
-          </>
-        )}
+        render={render}
+        defaultValue={defaultValue}
       />
       {errors?.[name]?.message && (
         <Text color="red" fontSize="12">

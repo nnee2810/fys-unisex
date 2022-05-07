@@ -1,28 +1,11 @@
-import { Textarea } from "@chakra-ui/react"
+import { Textarea, TextareaProps } from "@chakra-ui/react"
 import React from "react"
 import { ControllerRenderProps } from "react-hook-form"
-import { colors } from "styles/colors"
 
-interface LongTextFieldProps {
-  placeholder?: string
-  isDisabled?: boolean
-  isInvalid: boolean
-  field: ControllerRenderProps
+export interface LongTextFieldProps extends TextareaProps {
+  field?: ControllerRenderProps
 }
 
-export default function LongTextField({
-  placeholder,
-  isDisabled,
-  isInvalid,
-  field,
-}: LongTextFieldProps) {
-  return (
-    <Textarea
-      placeholder={placeholder}
-      isDisabled={isDisabled}
-      isInvalid={isInvalid}
-      focusBorderColor={colors.green}
-      {...field}
-    />
-  )
+export default function TextareaField({ field, ...props }: LongTextFieldProps) {
+  return <Textarea {...field} {...props} />
 }

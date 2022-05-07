@@ -7,7 +7,7 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-  Tabs,
+  Tabs
 } from "@chakra-ui/react"
 import CustomLink from "components/CustomLink"
 import ProductItem from "components/ProductItem"
@@ -63,7 +63,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
         </Tabs>
         <Center my="6">
           <CustomLink href="/products">
-            <Button colorScheme="blackAlpha">
+            <Button >
               Khám phá gian hàng của DD Store
             </Button>
           </CustomLink>

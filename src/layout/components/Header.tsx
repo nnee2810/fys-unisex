@@ -19,12 +19,16 @@ import CustomLink from "components/CustomLink"
 import Logo from "components/Logo"
 import { responsiveW, zIndex } from "configs/constants"
 import { headerNavItems } from "modules/home/constants"
+import { useRouter } from "next/router"
 import React, { useCallback, useEffect, useRef } from "react"
 import { AiOutlineHeart, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai"
 import { BsCart2 } from "react-icons/bs"
-import { colors } from "styles/colors"
+import { colors } from "styles/theme"
 import ModalSearch from "./ModalSearch"
 
+interface HeaderProps {
+  path: string
+}
 function HeaderActions() {
   const [openSearch, setOpenSearch] = useBoolean()
   return (
@@ -58,21 +62,16 @@ function HeaderActions() {
     </>
   )
 }
-function HeaderDesktop() {
+function HeaderDesktop({ path }: HeaderProps) {
   return (
-    <Box
-      borderBottom={`1px solid ${colors.lightGray}`}
-      display={{ base: "none", lg: "block" }}
-    >
+    <Box display={{ base: "none", lg: "block" }}>
       <Grid
         w={{ ...responsiveW }}
         mx="auto"
         templateColumns="1fr auto 1fr"
         alignItems="center"
       >
-        <Flex>
-          <Logo />
-        </Flex>
+        <Logo />
         <Flex justifyContent="center">
           {headerNavItems.map((item, idx) => (
             <Popover
@@ -83,7 +82,9 @@ function HeaderDesktop() {
             >
               <CustomLink href={item.href}>
                 <PopoverTrigger>
-                  <HeaderItemStyled>{item.name}</HeaderItemStyled>
+                  <HeaderItemStyled isActive={path === item.href}>
+                    {item.name}
+                  </HeaderItemStyled>
                 </PopoverTrigger>
               </CustomLink>
 
@@ -104,13 +105,10 @@ function HeaderDesktop() {
     </Box>
   )
 }
-function HeaderMobile() {
+function HeaderMobile({ path }: HeaderProps) {
   const [navOpen, setNavOpen] = useBoolean()
   return (
-    <Box
-      borderBottom={`1px solid ${colors.lightGray}`}
-      display={{ base: "block", lg: "none" }}
-    >
+    <Box display={{ base: "block", lg: "none" }}>
       <Grid
         templateColumns="repeat(3, 1fr)"
         w={{ ...responsiveW }}
@@ -129,14 +127,18 @@ function HeaderMobile() {
           <Logo />
         </Center>
         <HeaderActions />
-      </Grid>{" "}
+      </Grid>
       <Drawer placement="left" isOpen={navOpen} onClose={setNavOpen.off}>
         <DrawerOverlay />
         <DrawerContent>
           <Box>
             {headerNavItems.map((item, idx) => (
               <CustomLink href={item.href} key={"header" + idx}>
-                <HeaderItemStyled isMobile onClick={setNavOpen.off}>
+                <HeaderItemStyled
+                  isActive={path === item.href}
+                  isMobile
+                  onClick={setNavOpen.off}
+                >
                   {item.name}
                 </HeaderItemStyled>
               </CustomLink>
@@ -149,6 +151,7 @@ function HeaderMobile() {
 }
 
 export default function Header() {
+  const router = useRouter()
   const [visible, setVisible] = useBoolean(true)
   const lastScrollY = useRef(0)
 
@@ -167,6 +170,9 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll)
     }
   }, [handleScroll])
+  useEffect(() => {
+    if (!visible) setVisible.on()
+  }, [router.asPath])
 
   return (
     <Box
@@ -174,23 +180,26 @@ export default function Header() {
       top="0"
       w="100%"
       bg="white"
+      boxShadow="md"
       transform={`translateY(${visible ? 0 : -125}px)`}
       transition="all .4s"
       zIndex={zIndex.header}
     >
-      <HeaderDesktop />
-      <HeaderMobile />
+      <HeaderDesktop path={router.pathname} />
+      <HeaderMobile path={router.pathname} />
     </Box>
   )
 }
 const HeaderItemStyled = styled(Box)`
   padding: 16px;
   font-weight: 500;
-  white-space: nowrap;
   transition: all 0.25s;
 
+  background: ${({ isActive }) => (isActive ? colors.primary : "#fff")};
+  color: ${({ isActive }) => (isActive ? "#fff" : colors.primary)};
+
   &:hover {
-    background: black;
+    background: ${colors.primary};
     color: white;
   }
 `

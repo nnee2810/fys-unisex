@@ -3,53 +3,56 @@ import {
   Flex,
   RangeSlider,
   RangeSliderFilledTrack,
+  RangeSliderProps,
   RangeSliderThumb,
   RangeSliderTrack,
   Text,
 } from "@chakra-ui/react"
 import React, { useState } from "react"
+import { ControllerRenderProps } from "react-hook-form"
 
-interface RangeSliderFieldProps {
+interface RangeSliderFieldProps extends RangeSliderProps {
+  field?: ControllerRenderProps
   min: number
   max: number
-  defaultValue?: number[]
   formatValue?: (value: number) => string
-  step?: number
 }
 
 export default function RangeSliderField({
+  field,
   min,
   max,
-  step,
-  defaultValue,
+  value,
   formatValue,
+  onChange,
+  ...props
 }: RangeSliderFieldProps) {
-  const [value, setValue] = useState(defaultValue || [min, max])
+  const [range, setRange] = useState(value || [min, max])
 
   const handleChange = (value: number[]) => {
-    setValue(value)
+    setRange(value)
   }
 
   return (
     <Box>
       <Flex justifyContent="space-between" fontWeight="500">
-        <Text>{formatValue ? formatValue(value[0]) : value[0]}</Text>
-        <Text>{formatValue ? formatValue(value[1]) : value[1]}</Text>
+        <Text>{formatValue ? formatValue(range[0]) : range[0]}</Text>
+        <Text>{formatValue ? formatValue(range[1]) : range[1]}</Text>
       </Flex>
       <RangeSlider
+        {...field}
+        {...props}
         aria-label={["min", "max"]}
-        colorScheme="green"
-        min={min}
-        max={max}
-        step={step}
-        defaultValue={defaultValue || [min, max]}
-        onChange={handleChange}
+        onChange={(value) => {
+          onChange && onChange(value)
+          handleChange(value)
+        }}
       >
         <RangeSliderTrack>
           <RangeSliderFilledTrack />
         </RangeSliderTrack>
-        <RangeSliderThumb index={0} />
-        <RangeSliderThumb index={1} />
+        <RangeSliderThumb index={0} zIndex="0" />
+        <RangeSliderThumb index={1} zIndex="0" />
       </RangeSlider>
     </Box>
   )

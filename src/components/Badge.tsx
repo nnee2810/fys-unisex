@@ -1,6 +1,6 @@
 import { Box, Center } from "@chakra-ui/react"
 import React, { ReactNode } from "react"
-import { colors } from "styles/colors"
+import { colors } from "styles/theme"
 
 interface BadgeProps {
   children: ReactNode

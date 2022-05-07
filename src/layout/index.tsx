@@ -12,7 +12,10 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <Box mt={{ base: "56px", lg: "53px" }}>
       <Header />
-      {children}
+      <Box minH={{ base: "calc(100vh - 56px)", lg: "calc(100vh - 53px)" }}>
+        {children}
+      </Box>
+
       <Footer />
       <BackToTop />
     </Box>

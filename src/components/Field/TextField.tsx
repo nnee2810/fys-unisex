@@ -2,61 +2,31 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  InputProps,
   InputRightElement,
 } from "@chakra-ui/react"
-import React, {
-  ChangeEventHandler,
-  FocusEventHandler,
-  ReactElement,
-} from "react"
+import React, { ReactElement } from "react"
 import { ControllerRenderProps } from "react-hook-form"
-import { colors } from "styles/colors"
+import { colors } from "styles/theme"
 
-interface TextFieldProps {
-  placeholder?: string
-  isDisabled?: boolean
-  isInvalid: boolean
-  type?: string
+export interface TextFieldProps extends InputProps {
+  field?: ControllerRenderProps
   icon?: {
     before?: ReactElement
     after?: ReactElement
   }
-  field?: ControllerRenderProps
-  onChange?: ChangeEventHandler<HTMLInputElement>
-  onFocus?: FocusEventHandler<HTMLInputElement>
-  onBlur?: FocusEventHandler<HTMLInputElement>
 }
 
-export default function TextField({
-  placeholder,
-  isDisabled,
-  isInvalid,
-  type,
-  icon,
-  field,
-  onChange,
-  onFocus,
-  onBlur,
-}: TextFieldProps) {
+export default function TextField({ field, icon, ...props }: TextFieldProps) {
   return (
     <InputGroup>
       {icon?.before && <InputLeftElement>{icon.before}</InputLeftElement>}
       <Input
-        type={type}
-        placeholder={placeholder}
-        isDisabled={isDisabled}
-        isInvalid={isInvalid}
-        focusBorderColor={colors.green}
         {...field}
-        onChange={(e) => {
-          field?.onChange(e)
-          onChange && onChange(e)
-        }}
-        onFocus={onFocus}
-        onBlur={(e) => {
-          field?.onBlur()
-          onBlur && onBlur(e)
-        }}
+        h="38px"
+        focusBorderColor={colors.primary}
+        borderColor={colors.lightGray}
+        {...props}
       />
       {icon?.after && <InputRightElement>{icon?.after}</InputRightElement>}
     </InputGroup>

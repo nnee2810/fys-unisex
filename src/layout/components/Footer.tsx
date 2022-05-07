@@ -3,6 +3,7 @@ import CustomLink from "components/CustomLink"
 import { responsiveW } from "configs/constants"
 import { ILinkItem } from "interfaces/ILinkItem"
 import React, { ReactNode } from "react"
+import { colors } from "styles/theme"
 
 interface Item {
   title: string
@@ -120,7 +121,7 @@ const footerItems: Item[] = [
 
 export default function Footer() {
   return (
-    <Box bg="black" py="60px">
+    <Box bg={colors.primary} py="60px">
       <Grid
         templateColumns={{
           md: "repeat(2, 1fr)",
@@ -130,7 +131,7 @@ export default function Footer() {
         gap="40px"
         w={{ ...responsiveW }}
         mx="auto"
-        bg="black"
+        bg={colors.primary}
         color="white"
       >
         {footerItems.map((item, idx) => (

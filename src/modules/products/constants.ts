@@ -21,3 +21,21 @@ export const typeOptions: ISelectOption[] = [
     value: "accessory",
   },
 ]
+export const sortOptions: ISelectOption[] = [
+  {
+    label: "Mới nhất",
+    value: "time",
+  },
+  {
+    label: "Giá thấp đến cao",
+    value: "price-asc",
+  },
+  {
+    label: "Giá cao đến thấp",
+    value: "price-desc",
+  },
+  {
+    label: "% giảm giá nhiều",
+    value: "percent",
+  },
+]

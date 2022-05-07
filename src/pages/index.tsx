@@ -1,4 +1,5 @@
 import { Box } from "@chakra-ui/react"
+import axios from "axios"
 import { IProduct } from "interfaces/IProduct"
 import Banners from "modules/home/components/Banners"
 import Commit from "modules/home/components/Commit"
@@ -19,25 +20,21 @@ interface HomeProps {
 export async function getServerSideProps(
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<HomeProps>> {
-  const flashSaleProducts =
-    (
-      await getProducts({
-        isSale: true,
-        limit: 10,
-      })
-    ).data || []
-  const featuredProducts =
-    (
-      await getProducts({
-        isFeatured: true,
-        limit: 30,
-      })
-    ).data || []
+  const [flashSaleProducts, featuredProducts] = await axios.all([
+    getProducts({
+      isSale: true,
+      limit: 10,
+    }),
+    getProducts({
+      isFeatured: true,
+      limit: 30,
+    }),
+  ])
 
   return {
     props: {
-      featuredProducts,
-      flashSaleProducts,
+      featuredProducts: featuredProducts.data || [],
+      flashSaleProducts: flashSaleProducts.data || [],
     },
   }
 }

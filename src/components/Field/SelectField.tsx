@@ -1,37 +1,35 @@
-import { Select } from "@chakra-ui/react"
-import { ISelectOption } from "interfaces/ISelectOption"
 import React from "react"
 import { ControllerRenderProps } from "react-hook-form"
-import { colors } from "styles/colors"
+import Select from "react-select"
+import { StateManagerProps } from "react-select/dist/declarations/src/useStateManager"
+import { colors } from "styles/theme"
 
-interface SelectFieldProps {
-  placeholder?: string
-  isDisabled?: boolean
-  isInvalid: boolean
-  options: ISelectOption[]
-  field: ControllerRenderProps
+interface SelectFieldProps extends StateManagerProps {
+  field?: ControllerRenderProps
 }
 
 export default function SelectField({
-  placeholder,
-  options,
-  isDisabled,
-  isInvalid,
   field,
+  placeholder,
+  ...props
 }: SelectFieldProps) {
   return (
     <Select
-      placeholder={placeholder}
-      isDisabled={isDisabled}
-      isInvalid={isInvalid}
-      focusBorderColor={colors.green}
       {...field}
-    >
-      {options?.map((option) => (
-        <option value={option.value} key={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </Select>
+      {...props}
+      placeholder={placeholder || "Chọn ..."}
+      isClearable
+      theme={(theme) => ({
+        ...theme,
+        borderRadius: 6,
+        colors: {
+          ...theme.colors,
+          neutral20: colors.lightGray,
+          primary25: colors.lightGray,
+          primary50: colors.gray,
+          primary: colors.primary,
+        },
+      })}
+    />
   )
 }

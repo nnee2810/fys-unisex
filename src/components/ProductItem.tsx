@@ -3,7 +3,7 @@ import { IProduct } from "interfaces/IProduct"
 import Image from "next/image"
 import React, { useState } from "react"
 import { AiFillHeart } from "react-icons/ai"
-import { colors } from "styles/colors"
+import { colors } from "styles/theme"
 import { formatCurrency } from "utils/formatCurrency"
 import { getFallbackImage } from "utils/getFallbackImage"
 import CustomLink from "./CustomLink"
@@ -17,23 +17,23 @@ const colorItems = ["red", "white", "black"]
 export default function ProductItem({ data }: ProductItemProps) {
   const [selectedColor, setSelectedColor] = useState(0)
   return (
-    <Box w="100%">
+    <Box>
       <Box pos="relative">
-        <AspectRatio ratio={3 / 4} borderRadius="8" overflow="hidden">
-          <Image
-            src={data.images[0] || getFallbackImage(500)}
-            width="100%"
-            height="100%"
-            layout="fill"
-            objectFit="cover"
-          />
-        </AspectRatio>
+        <CustomLink href={`/products/${data._id}`}>
+          <AspectRatio ratio={3 / 4} borderRadius="8" overflow="hidden">
+            <Image
+              src={data.images[0] || getFallbackImage(500)}
+              layout="fill"
+              objectFit="cover"
+            />
+          </AspectRatio>
+        </CustomLink>
         <Flex
           pos="absolute"
           top="12px"
           w="100%"
           px="3"
-          justifyContent="space-between"
+          justify="space-between"
           alignItems="center"
         >
           {data.isSale ? (

@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "react-query"
 import { Provider as ReduxProvider } from "react-redux"
 import store from "store"
 import "styles/globals.scss"
+import theme from "styles/theme"
 import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/pagination"
@@ -21,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ReduxProvider store={store}>
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
