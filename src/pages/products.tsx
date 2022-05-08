@@ -1,5 +1,6 @@
 import { Box, Grid } from "@chakra-ui/react"
 import { responsiveW } from "configs/constants"
+import _ from "lodash"
 import ProductList from "modules/products/components/ProductList"
 import SearchForm from "modules/products/components/SearchForm"
 import SortForm from "modules/products/components/SortForm"
@@ -24,7 +25,11 @@ export async function getServerSideProps({
   if (query.size) queryData.size = String(query.size)
   if (query.sort) queryData.sort = String(query.sort)
   if (query.type) queryData.type = String(query.type)
-  if (!isNaN(Number(query.page))) queryData.page = Number(query.page)
+  if (_.isNumber(Number(query.page))) queryData.page = Number(query.page)
+  if (_.isNumber(Number(query.minPrice)))
+    queryData.minPrice = Number(query.minPrice)
+  if (_.isNumber(Number(query.maxPrice)))
+    queryData.maxPrice = Number(query.maxPrice)
 
   return {
     props: {
@@ -49,7 +54,7 @@ export default function Products({ query }: ProductsProps) {
         >
           <SearchForm query={query} isLoading={isLoading} />
           <Box>
-            <SortForm query={query} data={data} />
+            <SortForm query={query} data={data} isLoading={isLoading} />
             <Box mt="6">
               <ProductList query={query} data={data} isLoading={isLoading} />
             </Box>

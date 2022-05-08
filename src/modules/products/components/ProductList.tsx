@@ -39,7 +39,7 @@ export default function ProductList({
         <>
           <Grid gridTemplateColumns="repeat(4, 1fr)" gap="5">
             {data.data.map((product) => (
-              <ProductItem data={product} key={product._id} />
+              <ProductItem data={product} key={product.id} />
             ))}
           </Grid>
           <Pagination

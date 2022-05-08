@@ -7,7 +7,7 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-  Tabs
+  Tabs,
 } from "@chakra-ui/react"
 import CustomLink from "components/CustomLink"
 import ProductItem from "components/ProductItem"
@@ -53,7 +53,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
                     .map((product) => (
                       <ProductItem
                         data={product}
-                        key={"featured" + product._id}
+                        key={"featured" + product.id}
                       />
                     ))}
                 </Grid>
@@ -63,9 +63,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
         </Tabs>
         <Center my="6">
           <CustomLink href="/products">
-            <Button >
-              Khám phá gian hàng của DD Store
-            </Button>
+            <Button>Khám phá gian hàng của DD Store</Button>
           </CustomLink>
         </Center>
       </Box>

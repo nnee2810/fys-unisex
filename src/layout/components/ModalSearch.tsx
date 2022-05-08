@@ -60,7 +60,7 @@ export default function ModalSearch({ isOpen, onClose }: IModalProps) {
               name="name"
               render={({ field }) => (
                 <TextField
-                  field={field}
+                  {...field}
                   placeholder="Tìm kiếm sản phẩm"
                   icon={{ before: <AiOutlineSearch fontSize="20" /> }}
                   borderWidth="0 0 1px 0"
@@ -80,17 +80,17 @@ export default function ModalSearch({ isOpen, onClose }: IModalProps) {
           ) : (
             <Box minH="56px" maxH="280px" overflow="auto">
               {data?.data?.length ? (
-                data?.data?.map((product) => (
-                  <CustomLink
-                    href={`/products/${product._id}`}
-                    key={product._id}
-                  >
+                data?.data?.map((product, idx) => (
+                  <CustomLink href={`/products/${product.id}`} key={product.id}>
                     <HStack
                       p="2"
+                      borderTop={
+                        !!idx ? `1px solid ${colors.lightGray}` : "none"
+                      }
                       cursor="pointer"
                       _hover={{ bg: colors.lightGray }}
-                      key={product._id}
                       onClick={onClose}
+                      key={product.id}
                     >
                       <Box w="40px" h="40px" borderRadius="6" overflow="hidden">
                         <Image

@@ -38,7 +38,7 @@ export default function FlashSale({ products }: FlashSaleProps) {
             className="swiper-slide-fit"
           >
             {products.map((product) => (
-              <SwiperSlide key={"flash" + product._id}>
+              <SwiperSlide key={"flash" + product.id}>
                 <Box w="270px">
                   <ProductItem data={product} />
                 </Box>

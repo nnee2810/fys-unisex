@@ -5,30 +5,28 @@ import {
   InputProps,
   InputRightElement,
 } from "@chakra-ui/react"
-import React, { ReactElement } from "react"
-import { ControllerRenderProps } from "react-hook-form"
+import React, { forwardRef, ReactElement } from "react"
 import { colors } from "styles/theme"
 
 export interface TextFieldProps extends InputProps {
-  field?: ControllerRenderProps
   icon?: {
     before?: ReactElement
     after?: ReactElement
   }
 }
-
-export default function TextField({ field, icon, ...props }: TextFieldProps) {
-  return (
+const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+  ({ icon, ...props }, ref) => (
     <InputGroup>
       {icon?.before && <InputLeftElement>{icon.before}</InputLeftElement>}
       <Input
-        {...field}
         h="38px"
         focusBorderColor={colors.primary}
         borderColor={colors.lightGray}
         {...props}
+        ref={ref}
       />
       {icon?.after && <InputRightElement>{icon?.after}</InputRightElement>}
     </InputGroup>
   )
-}
+)
+export default TextField

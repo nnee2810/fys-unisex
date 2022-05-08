@@ -19,7 +19,7 @@ export default function ProductItem({ data }: ProductItemProps) {
   return (
     <Box>
       <Box pos="relative">
-        <CustomLink href={`/products/${data._id}`}>
+        <CustomLink href={`/products/${data.id}`}>
           <AspectRatio ratio={3 / 4} borderRadius="8" overflow="hidden">
             <Image
               src={data.images[0] || getFallbackImage(500)}
@@ -64,7 +64,7 @@ export default function ProductItem({ data }: ProductItemProps) {
               borderRadius="10"
               cursor="pointer"
               onClick={() => setSelectedColor(idx)}
-              key={"productColor" + data._id + idx}
+              key={"productColor" + data.id + idx}
             >
               <Box w="100%" h="100%" borderRadius="10" bg={item} />
             </Box>
@@ -72,7 +72,7 @@ export default function ProductItem({ data }: ProductItemProps) {
         </HStack>
       </Box>
       <Box mt="2">
-        <CustomLink href={`/products/${data._id}`}>
+        <CustomLink href={`/products/${data.id}`}>
           <Text align="left" fontWeight="700">
             {data.name}
           </Text>

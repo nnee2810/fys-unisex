@@ -1,4 +1,5 @@
 import { Box, Text } from "@chakra-ui/react"
+import styled from "@emotion/styled"
 import React from "react"
 import { Controller, ControllerProps, useFormContext } from "react-hook-form"
 
@@ -20,11 +21,7 @@ export default function Field({
 
   return (
     <Box>
-      {label && (
-        <Text fontSize="12" fontWeight="700" color="gray">
-          {label}
-        </Text>
-      )}
+      {label && <FieldLabel>{label}</FieldLabel>}
       <Controller
         control={control}
         name={name}
@@ -39,3 +36,8 @@ export default function Field({
     </Box>
   )
 }
+export const FieldLabel = styled(Text)`
+  font-size: 12px;
+  font-weight: 700;
+  color: gray;
+`

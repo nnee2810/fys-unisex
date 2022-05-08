@@ -12,9 +12,10 @@ import { GetProductsDto } from "../dto/get-products-dto"
 interface SortProps {
   query: GetProductsDto
   data?: IPaginationResponse<IProduct[]>
+  isLoading?: boolean
 }
 
-export default function Sort({ query, data }: SortProps) {
+export default function Sort({ query, data, isLoading }: SortProps) {
   const router = useRouter()
 
   const handleSort = (value: string) => {
@@ -25,8 +26,10 @@ export default function Sort({ query, data }: SortProps) {
     router.push(`?${queryString}`)
   }
   const handleChangePage = (value: number) => {
+    console.log(value)
+
     if (!data) return
-    if (value < 0 || value > Math.floor(data.total / data.limit)) return
+    if (value < 0 || value >= Math.ceil(data.total / data.limit)) return
 
     const queryString = qs.stringify({
       ...query,

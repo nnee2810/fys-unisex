@@ -1,21 +1,12 @@
-import React from "react"
-import { ControllerRenderProps } from "react-hook-form"
+import React, { forwardRef } from "react"
 import Select from "react-select"
 import { StateManagerProps } from "react-select/dist/declarations/src/useStateManager"
 import { colors } from "styles/theme"
 
-interface SelectFieldProps extends StateManagerProps {
-  field?: ControllerRenderProps
-}
-
-export default function SelectField({
-  field,
-  placeholder,
-  ...props
-}: SelectFieldProps) {
-  return (
+interface SelectFieldProps extends StateManagerProps {}
+const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
+  ({ placeholder, ...props }, ref) => (
     <Select
-      {...field}
       {...props}
       placeholder={placeholder || "Chọn ..."}
       isClearable
@@ -32,4 +23,5 @@ export default function SelectField({
       })}
     />
   )
-}
+)
+export default SelectField
