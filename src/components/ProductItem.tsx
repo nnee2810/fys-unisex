@@ -25,6 +25,7 @@ export default function ProductItem({ data }: ProductItemProps) {
               src={data.images[0] || getFallbackImage(500)}
               layout="fill"
               objectFit="cover"
+              alt={data.name}
             />
           </AspectRatio>
         </CustomLink>

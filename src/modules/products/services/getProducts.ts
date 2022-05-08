@@ -9,7 +9,7 @@ export async function getProducts({
   limit = limitPerPage,
   ...params
 }: GetProductsDto): Promise<IPaginationResponse<IProduct[]>> {
-  return await (
+  return (
     await API.get("/products", {
       params: {
         page,

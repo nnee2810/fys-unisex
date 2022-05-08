@@ -29,4 +29,5 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     </InputGroup>
   )
 )
+TextField.displayName = "TextField"
 export default TextField

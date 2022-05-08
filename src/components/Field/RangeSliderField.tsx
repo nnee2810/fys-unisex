@@ -42,7 +42,6 @@ export default function RangeSliderField({
       <RangeSlider
         {...field}
         {...props}
-        aria-label={["min", "max"]}
         onChange={(value) => {
           onChange && onChange(value)
           handleChange(value)

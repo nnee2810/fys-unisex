@@ -24,4 +24,5 @@ const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
     />
   )
 )
+SelectField.displayName = "SelectField"
 export default SelectField

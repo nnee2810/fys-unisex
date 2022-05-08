@@ -2,7 +2,7 @@ import Link, { LinkProps } from "next/link"
 import React, { ReactNode } from "react"
 
 interface CustomLinkProps extends LinkProps {
-  children?: ReactNode | null
+  children?: ReactNode
 }
 
 export default function CustomLink({ as, href, children }: CustomLinkProps) {

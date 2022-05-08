@@ -9,7 +9,7 @@ export default function Logo() {
     <Flex>
       <CustomLink href="/">
         <Flex alignItems="center">
-          <Image src={getFallbackImage(40)} width="40" height="40" />
+          <Image src={getFallbackImage(40)} width="40" height="40" alt="logo"/>
         </Flex>
       </CustomLink>
     </Flex>

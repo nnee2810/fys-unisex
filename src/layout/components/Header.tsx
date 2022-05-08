@@ -1,5 +1,6 @@
 import {
   Box,
+  BoxProps,
   Center,
   Drawer,
   DrawerContent,
@@ -9,13 +10,12 @@ import {
   HStack,
   Popover,
   PopoverContent,
-  PopoverTrigger,
   Tooltip,
   useBoolean,
 } from "@chakra-ui/react"
-import styled from "@emotion/styled"
 import Badge from "components/Badge"
 import CustomLink from "components/CustomLink"
+import { CustomPopoverTrigger } from "components/CustomPopoverTrigger"
 import Logo from "components/Logo"
 import { responsiveW, zIndex } from "configs/constants"
 import { headerNavItems } from "modules/home/constants"
@@ -23,6 +23,7 @@ import { useRouter } from "next/router"
 import React, { useCallback, useEffect, useRef } from "react"
 import { AiOutlineHeart, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai"
 import { BsCart2 } from "react-icons/bs"
+import styled from "styled-components"
 import { colors } from "styles/theme"
 import ModalSearch from "./ModalSearch"
 
@@ -81,18 +82,17 @@ function HeaderDesktop({ path }: HeaderProps) {
               key={"header" + idx}
             >
               <CustomLink href={item.href}>
-                <PopoverTrigger>
-                  <HeaderItemStyled isActive={path === item.href}>
+                <CustomPopoverTrigger>
+                  <StyledHeaderItem isActive={path === item.href}>
                     {item.name}
-                  </HeaderItemStyled>
-                </PopoverTrigger>
+                  </StyledHeaderItem>
+                </CustomPopoverTrigger>
               </CustomLink>
-
               {item.childs?.length && (
                 <PopoverContent overflow="hidden">
                   {item.childs.map((child, idx) => (
                     <CustomLink href={child.href} key={"headerChild" + idx}>
-                      <HeaderItemStyled>{child.name}</HeaderItemStyled>
+                      <StyledHeaderItem>{child.name}</StyledHeaderItem>
                     </CustomLink>
                   ))}
                 </PopoverContent>
@@ -134,13 +134,13 @@ function HeaderMobile({ path }: HeaderProps) {
           <Box>
             {headerNavItems.map((item, idx) => (
               <CustomLink href={item.href} key={"header" + idx}>
-                <HeaderItemStyled
+                <StyledHeaderItem
                   isActive={path === item.href}
                   isMobile
                   onClick={setNavOpen.off}
                 >
                   {item.name}
-                </HeaderItemStyled>
+                </StyledHeaderItem>
               </CustomLink>
             ))}
           </Box>
@@ -190,7 +190,10 @@ export default function Header() {
     </Box>
   )
 }
-const HeaderItemStyled = styled(Box)`
+interface StyledHeaderItemProps extends BoxProps {
+  isActive?: boolean
+}
+const StyledHeaderItem = styled(Box)<StyledHeaderItemProps>`
   padding: 16px;
   font-weight: 500;
   transition: all 0.25s;
