@@ -9,13 +9,17 @@ import { colors } from "styles/theme"
 import { sortOptions } from "../constants"
 import { GetProductsDto } from "../dto/get-products-dto"
 
-interface SortProps {
+interface FormSortProductsProps {
   query: GetProductsDto
   data?: IPaginationResponse<IProduct[]>
   isLoading?: boolean
 }
 
-export default function Sort({ query, data, isLoading }: SortProps) {
+export default function FormSortProducts({
+  query,
+  data,
+  isLoading,
+}: FormSortProductsProps) {
   const router = useRouter()
 
   const handleSort = (value: string) => {

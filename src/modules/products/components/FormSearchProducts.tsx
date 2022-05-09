@@ -12,7 +12,7 @@ import * as yup from "yup"
 import { sizeOptions, sortOptions, typeOptions } from "../constants"
 import { GetProductsDto } from "../dto/get-products-dto"
 
-interface SearchFormProps {
+interface FormSearchProductsProps {
   query: GetProductsDto
   isLoading?: boolean
 }
@@ -48,7 +48,10 @@ const schema = yup.object().shape({
     .transform((value) => (isNaN(value) ? undefined : value)),
 })
 
-export default function SearchForm({ query, isLoading }: SearchFormProps) {
+export default function FormSearchProducts({
+  query,
+  isLoading,
+}: FormSearchProductsProps) {
   const router = useRouter()
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -97,20 +100,30 @@ export default function SearchForm({ query, isLoading }: SearchFormProps) {
             <Field
               name="name"
               label="Tên sản phẩm"
-              render={({ field }) => <TextField {...field} />}
+              render={({ field: { onChange, value } }) => (
+                <TextField onChange={onChange} value={value} />
+              )}
             />
             <Field
               name="size"
               label="Kích cỡ"
-              render={({ field }) => (
-                <SelectField {...field} options={sizeOptions} />
+              render={({ field: { onChange, value } }) => (
+                <SelectField
+                  onChange={onChange}
+                  value={value}
+                  options={sizeOptions}
+                />
               )}
             />
             <Field
               name="type"
               label="Loại sản phẩm"
-              render={({ field }) => (
-                <SelectField {...field} options={typeOptions} />
+              render={({ field: { onChange, value } }) => (
+                <SelectField
+                  onChange={onChange}
+                  value={value}
+                  options={typeOptions}
+                />
               )}
             />
             <Box>
@@ -118,8 +131,13 @@ export default function SearchForm({ query, isLoading }: SearchFormProps) {
               <HStack alignItems="flex-start">
                 <Field
                   name="minPrice"
-                  render={({ field }) => (
-                    <TextField {...field} type="number" placeholder="Từ" />
+                  render={({ field: { onChange, value } }) => (
+                    <TextField
+                      onChange={onChange}
+                      value={value}
+                      type="number"
+                      placeholder="Từ"
+                    />
                   )}
                 />
                 <Text transform="translateY(8px)" translateX="8px">
@@ -127,8 +145,13 @@ export default function SearchForm({ query, isLoading }: SearchFormProps) {
                 </Text>
                 <Field
                   name="maxPrice"
-                  render={({ field }) => (
-                    <TextField {...field} type="number" placeholder="Đến" />
+                  render={({ field: { onChange, value } }) => (
+                    <TextField
+                      onChange={onChange}
+                      value={value}
+                      type="number"
+                      placeholder="Đến"
+                    />
                   )}
                 />
               </HStack>

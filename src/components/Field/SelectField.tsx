@@ -1,11 +1,15 @@
-import React, { forwardRef } from "react"
+import React from "react"
 import Select from "react-select"
 import { StateManagerProps } from "react-select/dist/declarations/src/useStateManager"
 import { colors } from "styles/theme"
 
 interface SelectFieldProps extends StateManagerProps {}
-const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
-  ({ placeholder, ...props }, ref) => (
+
+export default function SelectField({
+  placeholder,
+  ...props
+}: SelectFieldProps) {
+  return (
     <Select
       {...props}
       placeholder={placeholder || "Chọn ..."}
@@ -23,6 +27,4 @@ const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
       })}
     />
   )
-)
-SelectField.displayName = "SelectField"
-export default SelectField
+}

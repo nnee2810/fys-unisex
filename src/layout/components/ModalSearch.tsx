@@ -1,6 +1,7 @@
 import {
   Box,
   Center,
+  Divider,
   HStack,
   Modal,
   ModalContent,
@@ -12,12 +13,12 @@ import {
 import CustomLink from "components/CustomLink"
 import Field from "components/Field"
 import TextField from "components/Field/TextField"
-import { responsiveW } from "configs/constants"
 import { IModalProps } from "interfaces/IModalProps"
+import debounce from "lodash.debounce"
 import { useGetProducts } from "modules/products/hooks/useGetProducts"
 import Image from "next/image"
 import { useRouter } from "next/router"
-import React, { useEffect } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { AiOutlineSearch } from "react-icons/ai"
 import { colors } from "styles/theme"
@@ -36,9 +37,9 @@ export default function ModalSearch({ isOpen, onClose }: IModalProps) {
       name: "",
     },
   })
-  const watchName = methods.watch("name")
+  const [queryName, setQueryName] = useState("")
   const { data, isLoading, refetch } = useGetProducts(
-    { name: watchName, limit: 10 },
+    { name: queryName, limit: 10 },
     { enabled: false }
   )
 
@@ -46,97 +47,124 @@ export default function ModalSearch({ isOpen, onClose }: IModalProps) {
     router.push(`products?name=${name}`)
     onClose()
   }
+  const handleChangeDebounce = useCallback(
+    debounce((value: string) => {
+      setQueryName(value)
+    }, 200),
+    []
+  )
 
   useEffect(() => {
-    if (watchName) refetch()
-  }, [watchName, refetch])
+    if (queryName) refetch()
+  }, [queryName, refetch])
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay backdropFilter="blur(1px)" />
-      <ModalContent minW={{ ...responsiveW }}>
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(handleSubmit)}>
-            <Field
-              name="name"
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  placeholder="Tìm kiếm sản phẩm"
-                  icon={{ before: <AiOutlineSearch fontSize="20" /> }}
-                  borderWidth="0 0 1px 0"
-                  focusBorderColor="none"
-                />
-              )}
-            />
-          </form>
-        </FormProvider>
-        {watchName &&
-          (isLoading ? (
-            <Stack p="2">
-              {generateArrayNumber(5).map((item) => (
-                <Skeleton h="45px" borderRadius="6" key={item} />
-              ))}
-            </Stack>
-          ) : (
-            <Box minH="56px" maxH="280px" overflow="auto">
-              {data?.data?.length ? (
-                data?.data?.map((product, idx) => (
-                  <CustomLink href={`/products/${product.id}`} key={product.id}>
-                    <HStack
-                      p="2"
-                      borderTop={
-                        !!idx ? `1px solid ${colors.lightGray}` : "none"
-                      }
-                      cursor="pointer"
-                      _hover={{ bg: colors.lightGray }}
-                      onClick={onClose}
-                      key={product.id}
-                    >
-                      <Box w="40px" h="40px" borderRadius="6" overflow="hidden">
-                        <Image
-                          src={product.images[0] || getFallbackImage(40)}
-                          width="100%"
-                          height="100%"
-                        />
-                      </Box>
-                      <Box>
-                        <Text fontWeight="700">{product.name}</Text>
-                        <HStack fontSize="12" fontWeight="500">
-                          {product.isSale ? (
-                            <>
-                              <Text color={colors.red}>
-                                {formatCurrency(product.salePrice)}
-                              </Text>
-                              <Text
-                                color={colors.gray}
-                                textDecor="line-through"
-                              >
-                                {formatCurrency(product.price)}
-                              </Text>
-                              <Text color={colors.red}>
-                                -
-                                {Math.round(
-                                  100 -
-                                    (product.salePrice / product.price) * 100
-                                )}
-                                %
-                              </Text>
-                            </>
-                          ) : (
-                            <Text>{formatCurrency(product.price)}</Text>
-                          )}
-                        </HStack>
-                      </Box>
-                    </HStack>
-                  </CustomLink>
-                ))
+      <ModalContent minW={{ base: "90vw", md: "600px" }}>
+        <Box p="2">
+          <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(handleSubmit)}>
+              <Field
+                name="name"
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    onChange={(e) => {
+                      onChange(e)
+                      handleChangeDebounce(e.target.value)
+                    }}
+                    value={value}
+                    placeholder="Tìm kiếm sản phẩm"
+                    icon={{ before: <AiOutlineSearch fontSize="20" /> }}
+                    border="none"
+                    focusBorderColor="none"
+                  />
+                )}
+              />
+            </form>
+          </FormProvider>
+        </Box>
+        {queryName && (
+          <>
+            <Divider />
+            <Box p="2">
+              {isLoading ? (
+                <Stack>
+                  {generateArrayNumber(5).map((item) => (
+                    <Skeleton h="45px" borderRadius="6" key={item} />
+                  ))}
+                </Stack>
               ) : (
-                <Center h="56px" fontWeight="500">
-                  Không tìm thấy sản phẩm nào
-                </Center>
+                <Box minH="56px" maxH="280px" overflow="auto">
+                  {data?.data?.length ? (
+                    <>
+                      {data?.data?.map((product) => (
+                        <CustomLink
+                          href={`/products/${product.id}`}
+                          key={product.id}
+                        >
+                          <HStack
+                            p="2"
+                            borderRadius="6"
+                            cursor="pointer"
+                            _hover={{ bg: colors.lightGray }}
+                            onClick={onClose}
+                            key={product.id}
+                          >
+                            <Box
+                              w="40px"
+                              h="40px"
+                              borderRadius="6"
+                              overflow="hidden"
+                            >
+                              <Image
+                                src={product.images[0] || getFallbackImage(40)}
+                                width="100%"
+                                height="100%"
+                              />
+                            </Box>
+                            <Box>
+                              <Text fontWeight="700">{product.name}</Text>
+                              <HStack fontSize="12" fontWeight="500">
+                                {product.isSale ? (
+                                  <>
+                                    <Text color={colors.red}>
+                                      {formatCurrency(product.salePrice)}
+                                    </Text>
+                                    <Text
+                                      color={colors.gray}
+                                      textDecor="line-through"
+                                    >
+                                      {formatCurrency(product.price)}
+                                    </Text>
+                                    <Text color={colors.red}>
+                                      -
+                                      {Math.round(
+                                        100 -
+                                          (product.salePrice / product.price) *
+                                            100
+                                      )}
+                                      %
+                                    </Text>
+                                  </>
+                                ) : (
+                                  <Text>{formatCurrency(product.price)}</Text>
+                                )}
+                              </HStack>
+                            </Box>
+                          </HStack>
+                        </CustomLink>
+                      ))}
+                    </>
+                  ) : (
+                    <Center h="56px" fontWeight="500">
+                      Không tìm thấy sản phẩm nào
+                    </Center>
+                  )}
+                </Box>
               )}
             </Box>
-          ))}
+          </>
+        )}
       </ModalContent>
     </Modal>
   )

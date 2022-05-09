@@ -5,17 +5,18 @@ import {
   InputProps,
   InputRightElement,
 } from "@chakra-ui/react"
-import React, { forwardRef, ReactElement } from "react"
+import React, { ReactElement } from "react"
 import { colors } from "styles/theme"
 
-export interface TextFieldProps extends InputProps {
+interface TextFieldProps extends InputProps {
   icon?: {
     before?: ReactElement
     after?: ReactElement
   }
 }
-const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ icon, ...props }, ref) => (
+
+export default function TextField({ icon, ...props }: TextFieldProps) {
+  return (
     <InputGroup>
       {icon?.before && <InputLeftElement>{icon.before}</InputLeftElement>}
       <Input
@@ -23,11 +24,8 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         focusBorderColor={colors.primary}
         borderColor={colors.lightGray}
         {...props}
-        ref={ref}
       />
       {icon?.after && <InputRightElement>{icon?.after}</InputRightElement>}
     </InputGroup>
   )
-)
-TextField.displayName = "TextField"
-export default TextField
+}
