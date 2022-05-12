@@ -2,6 +2,7 @@ import { ChakraProvider } from "@chakra-ui/react"
 import Layout from "layout"
 import type { AppProps } from "next/app"
 import Head from "next/head"
+import "rc-rate/assets/index.css"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Provider as ReduxProvider } from "react-redux"
 import store from "store"
@@ -15,6 +16,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
+      retry: 1,
     },
   },
 })

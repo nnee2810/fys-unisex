@@ -57,3 +57,13 @@ a {
     width: auto !important;
   }
 }
+.react-rater {
+  font-size: 20px;
+  line-height: unset;
+
+  &-star {
+    &.is-active {
+      color: #ff3102;
+    }
+  }
+}

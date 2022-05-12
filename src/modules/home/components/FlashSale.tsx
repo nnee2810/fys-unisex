@@ -1,8 +1,8 @@
 import { Box, HStack, Text } from "@chakra-ui/react"
-import ProductItem from "components/ProductItem"
 import { responsiveW } from "configs/constants"
 import { IProduct } from "interfaces/IProduct"
 import { SectionTitle } from "modules/home/components/SectionTitle"
+import ProductCard from "modules/products/components/ProductCard"
 import React from "react"
 import { IoFlashOutline } from "react-icons/io5"
 import { colors } from "styles/theme"
@@ -38,9 +38,9 @@ export default function FlashSale({ products }: FlashSaleProps) {
             className="swiper-slide-fit"
           >
             {products.map((product) => (
-              <SwiperSlide key={"flash" + product.id}>
+              <SwiperSlide key={product.id}>
                 <Box w="270px">
-                  <ProductItem data={product} />
+                  <ProductCard data={product} layout="vertical" />
                 </Box>
               </SwiperSlide>
             ))}

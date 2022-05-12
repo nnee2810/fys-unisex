@@ -1,12 +1,15 @@
 import { Box, Grid } from "@chakra-ui/react"
-import { responsiveW } from "configs/constants"
-import FormSearchProducts from "modules/products/components/FormSearchProducts"
-import FormSortProducts from "modules/products/components/FormSortProducts"
-import ProductList from "modules/products/components/ProductList"
+import CustomBreadcrumb from "components/CustomBreadcrumb"
+import CustomModal from "components/CustomModal"
+import { pagePadding, responsiveW } from "configs/constants"
+import FormSearchProducts from "modules/products/components/products/FormSearchProducts"
+import FormSortProducts from "modules/products/components/products/FormSortProducts"
+import ProductList from "modules/products/components/products/ProductList"
 import { GetProductsDto } from "modules/products/dto/get-products-dto"
 import { useGetProducts } from "modules/products/hooks/useGetProducts"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import Head from "next/head"
+import { useRouter } from "next/router"
 import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
 import { generateTitle } from "utils/generateTitle"
 
@@ -37,27 +40,46 @@ export async function getServerSideProps({
   }
 }
 export default function Products({ query }: ProductsProps) {
-  const { data, isLoading } = useGetProducts(query)
+  const router = useRouter()
+  const { data, isLoading, isError, refetch } = useGetProducts(query)
   return (
     <>
       <Head>
         <title>{generateTitle("Sản phẩm")}</title>
       </Head>
-      <Grid
-        w={{ ...responsiveW }}
-        mx="auto"
-        py="40px"
-        templateColumns="300px 1fr"
-        gap="40px"
-      >
-        <FormSearchProducts query={query} isLoading={isLoading} />
-        <Box>
-          <FormSortProducts query={query} data={data} isLoading={isLoading} />
-          <Box mt="6">
-            <ProductList query={query} data={data} isLoading={isLoading} />
+      <Box w={{ ...responsiveW }} mx="auto" py={pagePadding}>
+        <CustomBreadcrumb
+          data={[
+            {
+              name: "Trang chủ",
+              href: "/",
+            },
+            {
+              name: "Sản phẩm",
+              href: "#",
+            },
+          ]}
+        />
+        <Grid templateColumns="300px 1fr" gap="40px">
+          <FormSearchProducts query={query} isLoading={isLoading} />
+          <Box>
+            <FormSortProducts query={query} data={data} isLoading={isLoading} />
+            <Box mt="6">
+              <ProductList query={query} data={data} isLoading={isLoading} />
+            </Box>
           </Box>
-        </Box>
-      </Grid>
+        </Grid>
+      </Box>
+      <CustomModal
+        isOpen={isError}
+        title="Lỗi 😵"
+        closeText="Thử lại"
+        confirmText="Quay lại trang trước"
+        onClose={refetch}
+        onConfirm={() => router.back()}
+      >
+        <Box>Không tìm thấy sản phẩm hoặc lỗi trang</Box>
+      </CustomModal>
     </>
   )
 }

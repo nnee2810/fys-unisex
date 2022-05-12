@@ -10,9 +10,9 @@ import {
   Tabs,
 } from "@chakra-ui/react"
 import CustomLink from "components/CustomLink"
-import ProductItem from "components/ProductItem"
 import { responsiveW, zIndex } from "configs/constants"
 import { IProduct } from "interfaces/IProduct"
+import ProductCard from "modules/products/components/ProductCard"
 import React from "react"
 import { SectionTitle } from "./SectionTitle"
 
@@ -37,8 +37,8 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
             <Tab>Phụ kiện</Tab>
           </TabList>
           <TabPanels>
-            {["shirt", "pant", "accessory"].map((type) => (
-              <TabPanel key={"mustHave" + type} px="0">
+            {["shirt", "pant", "accessory"].map((type, idx) => (
+              <TabPanel key={idx} px="0">
                 <Grid
                   templateColumns={{
                     base: "repeat(2, 1fr)",
@@ -51,9 +51,10 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
                   {products
                     .filter((product) => product.type === type)
                     .map((product) => (
-                      <ProductItem
+                      <ProductCard
                         data={product}
-                        key={"featured" + product.id}
+                        layout="vertical"
+                        key={product.id}
                       />
                     ))}
                 </Grid>

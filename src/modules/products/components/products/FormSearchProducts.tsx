@@ -9,8 +9,8 @@ import qs from "query-string"
 import { FormProvider, useForm } from "react-hook-form"
 import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
 import * as yup from "yup"
-import { sizeOptions, sortOptions, typeOptions } from "../constants"
-import { GetProductsDto } from "../dto/get-products-dto"
+import { sizeOptions, sortOptions, typeOptions } from "../../constants"
+import { GetProductsDto } from "../../dto/get-products-dto"
 
 interface FormSearchProductsProps {
   query: GetProductsDto

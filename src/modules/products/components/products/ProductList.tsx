@@ -1,12 +1,12 @@
 import { Box, Grid, Skeleton, Text } from "@chakra-ui/react"
 import Pagination from "components/Pagination"
-import ProductItem from "components/ProductItem"
 import { IPaginationResponse } from "interfaces/IPaginationResponse"
 import { IProduct } from "interfaces/IProduct"
+import ProductCard from "modules/products/components/ProductCard"
+import { GetProductsDto } from "modules/products/dto/get-products-dto"
 import { useRouter } from "next/router"
 import qs from "query-string"
 import generateArrayNumber from "utils/generateArrayNumber"
-import { GetProductsDto } from "../dto/get-products-dto"
 
 interface ProductListProps {
   query: GetProductsDto
@@ -39,7 +39,7 @@ export default function ProductList({
         <>
           <Grid gridTemplateColumns="repeat(4, 1fr)" gap="5">
             {data.data.map((product) => (
-              <ProductItem data={product} key={product.id} />
+              <ProductCard data={product} layout="vertical" key={product.id} />
             ))}
           </Grid>
           <Pagination

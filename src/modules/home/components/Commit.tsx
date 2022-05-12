@@ -13,7 +13,7 @@ export default function Commit() {
       my="80px"
     >
       {commitItems.map((item, idx) => (
-        <Box key={"commit" + idx}>
+        <Box key={idx}>
           <Stack alignItems="center">
             <Box>{item.icon}</Box>
             <Text

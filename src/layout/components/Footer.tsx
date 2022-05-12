@@ -53,7 +53,7 @@ const footerItems: Item[] = [
     content: (
       <Stack>
         {exploreItems.map((item, idx) => (
-          <Box key={"explore" + idx}>
+          <Box key={idx}>
             <CustomLink href={item.href}>{item.name}</CustomLink>
           </Box>
         ))}
@@ -65,7 +65,7 @@ const footerItems: Item[] = [
     content: (
       <Stack>
         {serviceItems.map((item, idx) => (
-          <Box key={"service" + idx}>
+          <Box key={idx}>
             <CustomLink href={item.href}>{item.name}</CustomLink>
           </Box>
         ))}
@@ -135,7 +135,7 @@ export default function Footer() {
         color="white"
       >
         {footerItems.map((item, idx) => (
-          <Box key={"footer" + idx}>
+          <Box key={idx}>
             <Box pos="relative">
               <Text fontSize="18" fontWeight="500" textTransform="uppercase">
                 {item.title}

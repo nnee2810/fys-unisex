@@ -1,13 +1,13 @@
 import { Box, Flex, HStack, Text } from "@chakra-ui/react"
 import { IPaginationResponse } from "interfaces/IPaginationResponse"
 import { IProduct } from "interfaces/IProduct"
+import { sortOptions } from "modules/products/constants"
+import { GetProductsDto } from "modules/products/dto/get-products-dto"
 import { useRouter } from "next/router"
 import qs from "query-string"
 import React from "react"
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import { colors } from "styles/theme"
-import { sortOptions } from "../constants"
-import { GetProductsDto } from "../dto/get-products-dto"
 
 interface FormSortProductsProps {
   query: GetProductsDto

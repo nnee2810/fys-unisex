@@ -11,14 +11,14 @@ export default function Story() {
         <Center
           w={{ ...responsiveW }}
           h="500px"
-          borderRadius="24"
+          borderRadius="16"
           bgImg={getFallbackImage(500)}
           className="bg-fit"
         >
           <Box
             bg="#00000054"
             p="4"
-            borderRadius="36"
+            borderRadius="32"
             color="white"
             fontSize="20"
           >

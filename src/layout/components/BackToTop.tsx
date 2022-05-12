@@ -33,7 +33,7 @@ export default function BackToTop() {
         bottom="4"
         right="4"
         p="2"
-        bg="#ebebeb"
+        bg={colors.lightGray}
         borderRadius="8"
         cursor="pointer"
         zIndex={zIndex.backToTop}

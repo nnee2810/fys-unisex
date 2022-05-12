@@ -1,6 +1,5 @@
 import {
   Box,
-  BoxProps,
   Center,
   Drawer,
   DrawerContent,
@@ -25,7 +24,7 @@ import { AiOutlineHeart, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai"
 import { BsCart2 } from "react-icons/bs"
 import styled from "styled-components"
 import { colors } from "styles/theme"
-import ModalSearch from "./ModalSearch"
+import ModalSearchProducts from "./ModalSearchProducts"
 
 interface HeaderProps {
   path: string
@@ -59,7 +58,7 @@ function HeaderActions() {
           </Badge>
         </CustomLink>
       </HStack>
-      <ModalSearch isOpen={openSearch} onClose={setOpenSearch.off} />
+      <ModalSearchProducts isOpen={openSearch} onClose={setOpenSearch.off} />
     </>
   )
 }
@@ -79,11 +78,11 @@ function HeaderDesktop({ path }: HeaderProps) {
               trigger="hover"
               gutter={0}
               placement="bottom-start"
-              key={"header" + idx}
+              key={idx}
             >
               <CustomLink href={item.href}>
                 <CustomPopoverTrigger>
-                  <StyledHeaderItem isActive={path === item.href}>
+                  <StyledHeaderItem $active={path === item.href}>
                     {item.name}
                   </StyledHeaderItem>
                 </CustomPopoverTrigger>
@@ -91,7 +90,7 @@ function HeaderDesktop({ path }: HeaderProps) {
               {item.childs?.length && (
                 <PopoverContent overflow="hidden">
                   {item.childs.map((child, idx) => (
-                    <CustomLink href={child.href} key={"headerChild" + idx}>
+                    <CustomLink href={child.href} key={idx}>
                       <StyledHeaderItem>{child.name}</StyledHeaderItem>
                     </CustomLink>
                   ))}
@@ -133,10 +132,9 @@ function HeaderMobile({ path }: HeaderProps) {
         <DrawerContent>
           <Box>
             {headerNavItems.map((item, idx) => (
-              <CustomLink href={item.href} key={"header" + idx}>
+              <CustomLink href={item.href} key={idx}>
                 <StyledHeaderItem
-                  isActive={path === item.href}
-                  isMobile
+                  $active={path === item.href}
                   onClick={setNavOpen.off}
                 >
                   {item.name}
@@ -190,16 +188,14 @@ export default function Header() {
     </Box>
   )
 }
-interface StyledHeaderItemProps extends BoxProps {
-  isActive?: boolean
-}
-const StyledHeaderItem = styled(Box)<StyledHeaderItemProps>`
+
+const StyledHeaderItem = styled(Box)`
   padding: 16px;
   font-weight: 500;
   transition: all 0.25s;
 
-  background: ${({ isActive }) => (isActive ? colors.primary : "#fff")};
-  color: ${({ isActive }) => (isActive ? "#fff" : colors.primary)};
+  background: ${({ $active }) => ($active ? colors.primary : "#fff")};
+  color: ${({ $active }) => ($active ? "#fff" : colors.primary)};
 
   &:hover {
     background: ${colors.primary};
