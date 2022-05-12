@@ -2,7 +2,7 @@ import { Breadcrumb, BreadcrumbItem, Text } from "@chakra-ui/react"
 import { ILinkItem } from "interfaces/ILinkItem"
 import React from "react"
 import { BiChevronRight } from "react-icons/bi"
-import CustomLink from "./CustomLink"
+import NextLink from "./NextLink"
 
 interface CustomBreadcrumbProps {
   data: ILinkItem[]
@@ -13,9 +13,9 @@ export default function CustomBreadcrumb({ data }: CustomBreadcrumbProps) {
     <Breadcrumb separator={<BiChevronRight />} mb="20px" fontSize="16">
       {data.map((item, idx) => (
         <BreadcrumbItem key={idx}>
-          <CustomLink href={item.href}>
+          <NextLink href={item.href}>
             <Text _hover={{ textDecoration: "underline" }}>{item.name}</Text>
-          </CustomLink>
+          </NextLink>
         </BreadcrumbItem>
       ))}
     </Breadcrumb>

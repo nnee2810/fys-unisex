@@ -9,7 +9,7 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react"
-import CustomLink from "components/CustomLink"
+import NextLink from "components/NextLink"
 import { responsiveW, zIndex } from "configs/constants"
 import { IProduct } from "interfaces/IProduct"
 import ProductCard from "modules/products/components/ProductCard"
@@ -63,9 +63,9 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
           </TabPanels>
         </Tabs>
         <Center my="6">
-          <CustomLink href="/products">
+          <NextLink href="/products">
             <Button>Khám phá gian hàng của DD Store</Button>
-          </CustomLink>
+          </NextLink>
         </Center>
       </Box>
     </Box>

@@ -13,9 +13,9 @@ import {
   useBoolean,
 } from "@chakra-ui/react"
 import Badge from "components/Badge"
-import CustomLink from "components/CustomLink"
 import { CustomPopoverTrigger } from "components/CustomPopoverTrigger"
 import Logo from "components/Logo"
+import NextLink from "components/NextLink"
 import { responsiveW, zIndex } from "configs/constants"
 import { headerNavItems } from "modules/home/constants"
 import { useRouter } from "next/router"
@@ -39,7 +39,7 @@ function HeaderActions() {
             <AiOutlineSearch fontSize="24" />
           </Box>
         </Tooltip>
-        <CustomLink href="#">
+        <NextLink href="#">
           <Badge value={1}>
             <Tooltip label="Yêu thích">
               <Box>
@@ -47,8 +47,8 @@ function HeaderActions() {
               </Box>
             </Tooltip>
           </Badge>
-        </CustomLink>
-        <CustomLink href="#">
+        </NextLink>
+        <NextLink href="#">
           <Badge value={100} max={9}>
             <Tooltip label="Giỏ hàng">
               <Box transform="translateY(-1px)">
@@ -56,7 +56,7 @@ function HeaderActions() {
               </Box>
             </Tooltip>
           </Badge>
-        </CustomLink>
+        </NextLink>
       </HStack>
       <ModalSearchProducts isOpen={openSearch} onClose={setOpenSearch.off} />
     </>
@@ -80,19 +80,19 @@ function HeaderDesktop({ path }: HeaderProps) {
               placement="bottom-start"
               key={idx}
             >
-              <CustomLink href={item.href}>
+              <NextLink href={item.href}>
                 <CustomPopoverTrigger>
                   <StyledHeaderItem $active={path === item.href}>
                     {item.name}
                   </StyledHeaderItem>
                 </CustomPopoverTrigger>
-              </CustomLink>
+              </NextLink>
               {item.childs?.length && (
                 <PopoverContent overflow="hidden">
                   {item.childs.map((child, idx) => (
-                    <CustomLink href={child.href} key={idx}>
+                    <NextLink href={child.href} key={idx}>
                       <StyledHeaderItem>{child.name}</StyledHeaderItem>
-                    </CustomLink>
+                    </NextLink>
                   ))}
                 </PopoverContent>
               )}
@@ -132,14 +132,14 @@ function HeaderMobile({ path }: HeaderProps) {
         <DrawerContent>
           <Box>
             {headerNavItems.map((item, idx) => (
-              <CustomLink href={item.href} key={idx}>
+              <NextLink href={item.href} key={idx}>
                 <StyledHeaderItem
                   $active={path === item.href}
                   onClick={setNavOpen.off}
                 >
                   {item.name}
                 </StyledHeaderItem>
-              </CustomLink>
+              </NextLink>
             ))}
           </Box>
         </DrawerContent>

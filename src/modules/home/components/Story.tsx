@@ -1,5 +1,5 @@
 import { Box, Center, Flex } from "@chakra-ui/react"
-import CustomLink from "components/CustomLink"
+import NextLink from "components/NextLink"
 import { responsiveW } from "configs/constants"
 import React from "react"
 import { getFallbackImage } from "utils/getFallbackImage"
@@ -7,7 +7,7 @@ import { getFallbackImage } from "utils/getFallbackImage"
 export default function Story() {
   return (
     <Flex justifyContent="center" my="60px">
-      <CustomLink href="#">
+      <NextLink href="#">
         <Center
           w={{ ...responsiveW }}
           h="500px"
@@ -25,7 +25,7 @@ export default function Story() {
             Câu chuyện về DD Store
           </Box>
         </Center>
-      </CustomLink>
+      </NextLink>
     </Flex>
   )
 }

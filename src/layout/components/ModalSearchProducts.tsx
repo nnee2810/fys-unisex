@@ -9,9 +9,9 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react"
-import CustomLink from "components/CustomLink"
 import Field from "components/Field"
 import TextField from "components/Field/TextField"
+import NextLink from "components/NextLink"
 import { IModalProps } from "interfaces/IModalProps"
 import debounce from "lodash.debounce"
 import ProductCard from "modules/products/components/ProductCard"
@@ -112,11 +112,11 @@ export default function ModalSearchProducts({ isOpen, onClose }: IModalProps) {
                     <>
                       <Divider my="2" />
                       <Center py="2">
-                        <CustomLink href={`products?name=${queryName}`}>
+                        <NextLink href={`products?name=${queryName}`}>
                           <Text textDecoration="underline">
                             Xem thêm {data.total - 10} sản phẩm khác
                           </Text>
-                        </CustomLink>
+                        </NextLink>
                       </Center>
                     </>
                   )}

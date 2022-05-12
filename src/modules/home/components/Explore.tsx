@@ -1,6 +1,6 @@
 import { Box, Center, Grid } from "@chakra-ui/react"
-import CustomLink from "components/CustomLink"
 import ImageBox from "components/ImageBox"
+import NextLink from "components/NextLink"
 import { responsiveW } from "configs/constants"
 import { SectionTitle } from "modules/home/components/SectionTitle"
 import React from "react"
@@ -17,7 +17,7 @@ export default function Explore() {
           borderRadius="8"
         >
           {exploreItems.map((item, idx) => (
-            <CustomLink href={item.href} key={idx}>
+            <NextLink href={item.href} key={idx}>
               <Box
                 h={{ base: "250px", lg: "500px" }}
                 borderRadius="8"
@@ -42,7 +42,7 @@ export default function Explore() {
                   </Box>
                 </Center>
               </Box>
-            </CustomLink>
+            </NextLink>
           ))}
         </Grid>
       </Box>

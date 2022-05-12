@@ -14,8 +14,8 @@ import { AiFillHeart } from "react-icons/ai"
 import { colors } from "styles/theme"
 import { formatCurrency } from "utils/formatCurrency"
 import { getFallbackImage } from "utils/getFallbackImage"
-import CustomLink from "../../../components/CustomLink"
 import ImageBox from "../../../components/ImageBox"
+import NextLink from "../../../components/NextLink"
 
 interface ProductCardProps {
   data: IProduct
@@ -28,7 +28,7 @@ export default function ProductCard({ data, layout }: ProductCardProps) {
   const [selectedColor, setSelectedColor] = useState(0)
   if (layout === "vertical")
     return (
-      <CustomLink href={`/products/${data.id}`}>
+      <NextLink href={`/products/${data.id}`}>
         <Box>
           <Box pos="relative">
             <AspectRatio ratio={3 / 4} borderRadius="8" overflow="hidden">
@@ -75,11 +75,11 @@ export default function ProductCard({ data, layout }: ProductCardProps) {
           </Box>
           <Box mt="2">{renderProductInfo(data)}</Box>
         </Box>
-      </CustomLink>
+      </NextLink>
     )
   if (layout === "horizontal")
     return (
-      <CustomLink href={`/products/${data.id}`}>
+      <NextLink href={`/products/${data.id}`}>
         <HStack>
           <Square size="40px" borderRadius="6" overflow="hidden">
             <Image
@@ -90,7 +90,7 @@ export default function ProductCard({ data, layout }: ProductCardProps) {
           </Square>
           <Box>{renderProductInfo(data)}</Box>
         </HStack>
-      </CustomLink>
+      </NextLink>
     )
   return null
 }

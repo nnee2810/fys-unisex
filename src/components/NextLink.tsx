@@ -1,11 +1,11 @@
 import Link, { LinkProps } from "next/link"
 import React, { ReactNode } from "react"
 
-interface CustomLinkProps extends LinkProps {
+interface NextLinkProps extends LinkProps {
   children?: ReactNode
 }
 
-export default function CustomLink({ as, href, children }: CustomLinkProps) {
+export default function NextLink({ as, href, children }: NextLinkProps) {
   return (
     <Link as={as} href={href} passHref>
       <a>{children}</a>

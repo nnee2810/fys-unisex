@@ -1,5 +1,5 @@
 import { AspectRatio, Box, Grid, Stack, Text } from "@chakra-ui/react"
-import CustomLink from "components/CustomLink"
+import NextLink from "components/NextLink"
 import { responsiveW } from "configs/constants"
 import { ILinkItem } from "interfaces/ILinkItem"
 import React, { ReactNode } from "react"
@@ -54,7 +54,7 @@ const footerItems: Item[] = [
       <Stack>
         {exploreItems.map((item, idx) => (
           <Box key={idx}>
-            <CustomLink href={item.href}>{item.name}</CustomLink>
+            <NextLink href={item.href}>{item.name}</NextLink>
           </Box>
         ))}
       </Stack>
@@ -66,7 +66,7 @@ const footerItems: Item[] = [
       <Stack>
         {serviceItems.map((item, idx) => (
           <Box key={idx}>
-            <CustomLink href={item.href}>{item.name}</CustomLink>
+            <NextLink href={item.href}>{item.name}</NextLink>
           </Box>
         ))}
       </Stack>
