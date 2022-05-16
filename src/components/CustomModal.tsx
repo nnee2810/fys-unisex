@@ -1,5 +1,4 @@
 import {
-  Button,
   Grid,
   Modal,
   ModalBody,
@@ -9,6 +8,7 @@ import {
 } from "@chakra-ui/react"
 import { IModalProps } from "interfaces/IModalProps"
 import React from "react"
+import StyledButton from "./chakra/StyledButton"
 
 export default function CustomModal({
   isOpen,
@@ -26,10 +26,16 @@ export default function CustomModal({
         <ModalHeader>{title}</ModalHeader>
         <ModalBody>{children}</ModalBody>
         <Grid p="6" templateColumns="1fr 1fr" gap="2">
-          <Button colorScheme="blackAlpha" variant="outline" onClick={onClose}>
+          <StyledButton
+            colorScheme="blackAlpha"
+            variant="outline"
+            onClick={onClose}
+          >
             {closeText || "Đóng"}
-          </Button>
-          <Button onClick={onConfirm}>{confirmText || "Đồng ý"}</Button>
+          </StyledButton>
+          <StyledButton onClick={onConfirm}>
+            {confirmText || "Đồng ý"}
+          </StyledButton>
         </Grid>
       </ModalContent>
     </Modal>

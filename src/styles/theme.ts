@@ -7,6 +7,7 @@ export const colors = {
   green: "#38A169",
   red: "#ff3102",
 }
+
 export default extendTheme(
   {
     colors: {

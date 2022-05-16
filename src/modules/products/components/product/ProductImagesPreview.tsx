@@ -25,7 +25,7 @@ export default function ProductImagesPreview({
   return (
     <Box pos="relative">
       <ImageBox
-        h="700px"
+        h="650px"
         borderRadius="16"
         src={images[selectedImage]}
         alt={"productImage" + selectedImage}
@@ -44,7 +44,7 @@ export default function ProductImagesPreview({
                 border={`1px solid ${colors.primary}`}
                 borderRadius="8"
                 opacity={idx === selectedImage ? 1 : 0.5}
-                transition="all .25s"
+                transition="all .2s"
                 cursor="pointer"
                 src={image}
                 alt={"productImage" + idx}
@@ -83,7 +83,7 @@ const IconContainer = styled(Box)<BoxProps>`
   background-color: white;
   border-radius: 6px;
   opacity: 0.5;
-  transition: all 0.25s;
+  transition: all 0.2s;
   cursor: pointer;
 
   &:hover {

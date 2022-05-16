@@ -14,7 +14,7 @@ import { responsiveW, zIndex } from "configs/constants"
 import { IProduct } from "interfaces/IProduct"
 import ProductCard from "modules/products/components/ProductCard"
 import React from "react"
-import { SectionTitle } from "./SectionTitle"
+import { SectionTitle } from "../../../components/SectionTitle"
 
 interface FeaturedProductsProps {
   products: IProduct[]
@@ -23,7 +23,7 @@ interface FeaturedProductsProps {
 export default function FeaturedProducts({ products }: FeaturedProductsProps) {
   return (
     <Box>
-      <SectionTitle>Sản phẩm nổi bật</SectionTitle>
+      <SectionTitle textAlign="center">Sản phẩm nổi bật</SectionTitle>
       <Box w={{ ...responsiveW }} mx="auto">
         <Tabs align="center">
           <TabList

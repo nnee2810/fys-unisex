@@ -15,7 +15,6 @@ export default function BackToTop() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
     })
   }
 
@@ -37,7 +36,7 @@ export default function BackToTop() {
         borderRadius="8"
         cursor="pointer"
         zIndex={zIndex.backToTop}
-        transition="all .25s"
+        transition="all .2s"
         _hover={{
           bg: colors.primary,
           color: "white",

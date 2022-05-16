@@ -1,4 +1,3 @@
-import { Box } from "@chakra-ui/react"
 import { ILinkItem } from "interfaces/ILinkItem"
 import { ReactNode } from "react"
 import { AiOutlineGift } from "react-icons/ai"
@@ -89,26 +88,22 @@ export const exploreItems: ExploreItem[] = [
 ]
 export const commitItems: CommitItem[] = [
   {
-    icon: (
-      <Box>
-        <BsHeadset fontSize="40" />
-      </Box>
-    ),
+    icon: <BsHeadset />,
     title: "Hỗ trợ 24/7",
     content: "Đội ngũ tư vấn viên nhiệt tình, giàu kinh nghiệm",
   },
   {
-    icon: <GrDeliver fontSize="40" />,
+    icon: <GrDeliver />,
     title: "Giao hàng",
     content: "Thời gian giao hàng nhanh chóng",
   },
   {
-    icon: <MdLoop fontSize="40" />,
+    icon: <MdLoop />,
     title: "Đổi trả - hoàn tiền",
     content: "Đổi trả sản phẩm trong 7 ngày kể từ lúc đơn hàng giao tới bạn",
   },
   {
-    icon: <AiOutlineGift fontSize="40" />,
+    icon: <AiOutlineGift />,
     title: "Ưu đãi",
     content: "Rất nhiều ưu đãi dành cho khách hàng thân thiết",
   },

@@ -1,15 +1,15 @@
 import { Box, Center, Grid } from "@chakra-ui/react"
 import ImageBox from "components/ImageBox"
 import NextLink from "components/NextLink"
+import { SectionTitle } from "components/SectionTitle"
 import { responsiveW } from "configs/constants"
-import { SectionTitle } from "modules/home/components/SectionTitle"
 import React from "react"
 import { exploreItems } from "../constants"
 
 export default function Explore() {
   return (
     <Box>
-      <SectionTitle>Khám phá</SectionTitle>
+      <SectionTitle textAlign="center">Khám phá</SectionTitle>
       <Box w={{ ...responsiveW }} mt="24px" mx="auto">
         <Grid
           templateColumns={{ base: "auto", md: "repeat(3, 1fr)" }}
@@ -22,7 +22,7 @@ export default function Explore() {
                 h={{ base: "250px", lg: "500px" }}
                 borderRadius="8"
                 filter="grayscale(50%)"
-                transition="all .25s"
+                transition="all .2s"
                 overflow="hidden"
                 _hover={{
                   filter: "grayscale(0%)",

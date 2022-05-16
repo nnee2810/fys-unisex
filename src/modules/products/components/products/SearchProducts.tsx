@@ -1,5 +1,6 @@
-import { Box, Button, HStack, Stack, Text } from "@chakra-ui/react"
+import { Box, HStack, Stack, Text } from "@chakra-ui/react"
 import { yupResolver } from "@hookform/resolvers/yup"
+import StyledButton from "components/chakra/StyledButton"
 import Field, { FieldLabel } from "components/Field"
 import SelectField from "components/Field/SelectField"
 import TextField from "components/Field/TextField"
@@ -12,7 +13,7 @@ import * as yup from "yup"
 import { sizeOptions, sortOptions, typeOptions } from "../../constants"
 import { GetProductsDto } from "../../dto/get-products-dto"
 
-interface FormSearchProductsProps {
+interface SearchProductsProps {
   query: GetProductsDto
   isLoading?: boolean
 }
@@ -48,10 +49,10 @@ const schema = yup.object().shape({
     .transform((value) => (isNaN(value) ? undefined : value)),
 })
 
-export default function FormSearchProducts({
+export default function SearchProducts({
   query,
   isLoading,
-}: FormSearchProductsProps) {
+}: SearchProductsProps) {
   const router = useRouter()
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -158,13 +159,17 @@ export default function FormSearchProducts({
             </Box>
           </Stack>
           <Stack mt="6">
-            <Button type="submit" isLoading={isLoading} isDisabled={isLoading}>
+            <StyledButton
+              type="submit"
+              isLoading={isLoading}
+              isDisabled={isLoading}
+            >
               Lọc
-            </Button>
+            </StyledButton>
             {Object.keys(query).length && (
-              <Button colorScheme="red" onClick={handleReset}>
+              <StyledButton colorScheme="red" onClick={handleReset}>
                 Đặt lại
-              </Button>
+              </StyledButton>
             )}
           </Stack>
         </Box>

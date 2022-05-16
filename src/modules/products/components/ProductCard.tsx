@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react"
 import { IProduct } from "interfaces/IProduct"
 import Image from "next/image"
-import React, { useState } from "react"
+import React from "react"
 import { AiFillHeart } from "react-icons/ai"
 import { colors } from "styles/theme"
 import { formatCurrency } from "utils/formatCurrency"
@@ -22,10 +22,7 @@ interface ProductCardProps {
   layout: "vertical" | "horizontal"
 }
 
-const colorItems = ["red", "white", "black"]
-
 export default function ProductCard({ data, layout }: ProductCardProps) {
-  const [selectedColor, setSelectedColor] = useState(0)
   if (layout === "vertical")
     return (
       <NextLink href={`/products/${data.id}`}>
@@ -54,24 +51,6 @@ export default function ProductCard({ data, layout }: ProductCardProps) {
               )}
               <AiFillHeart color="white" fontSize="22" cursor="pointer" />
             </Flex>
-            <HStack pos="absolute" bottom="12px" w="100%" px="3" spacing="2px">
-              {colorItems.map((item, idx) => (
-                <Box
-                  w="35px"
-                  h="20px"
-                  p="1px"
-                  border={`2px solid ${
-                    selectedColor === idx ? "#2F5ACF" : "transparent"
-                  }`}
-                  borderRadius="8"
-                  cursor="pointer"
-                  onClick={() => setSelectedColor(idx)}
-                  key={idx}
-                >
-                  <Box w="100%" h="100%" borderRadius="8" bg={item} />
-                </Box>
-              ))}
-            </HStack>
           </Box>
           <Box mt="2">{renderProductInfo(data)}</Box>
         </Box>

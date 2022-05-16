@@ -1,7 +1,7 @@
 import { Box, HStack, Text } from "@chakra-ui/react"
+import { SectionTitle } from "components/SectionTitle"
 import { responsiveW } from "configs/constants"
 import { IProduct } from "interfaces/IProduct"
-import { SectionTitle } from "modules/home/components/SectionTitle"
 import ProductCard from "modules/products/components/ProductCard"
 import React from "react"
 import { IoFlashOutline } from "react-icons/io5"

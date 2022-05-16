@@ -8,12 +8,7 @@ interface FieldProps extends ControllerProps {
   label?: string
 }
 
-export default function Field({
-  name,
-  render,
-  label,
-  defaultValue,
-}: FieldProps) {
+export default function Field({ name, render, label }: FieldProps) {
   const {
     control,
     formState: { errors },
@@ -22,12 +17,7 @@ export default function Field({
   return (
     <Box>
       {label && <FieldLabel>{label}</FieldLabel>}
-      <Controller
-        control={control}
-        name={name}
-        render={render}
-        defaultValue={defaultValue}
-      />
+      <Controller control={control} name={name} render={render} />
       {errors?.[name]?.message && (
         <Text color="red" fontSize="12">
           {errors[name].message}
@@ -37,7 +27,7 @@ export default function Field({
   )
 }
 export const FieldLabel = styled(Text)`
+  margin-bottom: 2px;
   font-size: 12px;
   font-weight: 700;
-  color: gray;
 `

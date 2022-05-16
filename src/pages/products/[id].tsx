@@ -1,9 +1,12 @@
-import { Box, Grid, Skeleton, Stack } from "@chakra-ui/react"
+import { Box, Divider, Grid, Skeleton, Stack } from "@chakra-ui/react"
 import CustomBreadcrumb from "components/CustomBreadcrumb"
 import CustomModal from "components/CustomModal"
 import { pagePadding, responsiveW } from "configs/constants"
+import ProductDescription from "modules/products/components/product/ProductDescription"
 import ProductImagesPreview from "modules/products/components/product/ProductImagesPreview"
 import ProductOrder from "modules/products/components/product/ProductOrder"
+import ProductPolicy from "modules/products/components/product/ProductPolicy"
+import ProductReviews from "modules/products/components/product/ProductReviews"
 import ProductSummary from "modules/products/components/product/ProductSummary"
 import { useGetProduct } from "modules/products/hooks/useGetProduct"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
@@ -55,13 +58,21 @@ export default function Product({ id }: ProductProps) {
         />
         {isLoading && <LoadingSkeleton />}
         {data && (
-          <Grid templateColumns="1fr 1fr" gap="40px">
-            <ProductImagesPreview data={data} />
-            <Box>
-              <ProductSummary data={data} />
-              <ProductOrder />
-            </Box>
-          </Grid>
+          <>
+            <Grid templateColumns="1fr 1fr" gap="40px">
+              <ProductImagesPreview data={data} />
+              <Box>
+                <ProductSummary data={data} />
+                <ProductOrder />
+                <Divider my="30px" />
+                <ProductPolicy />
+              </Box>
+            </Grid>
+            <Divider my="30px" />
+            <ProductDescription />
+            <Divider my="30px" />
+            <ProductReviews />
+          </>
         )}
       </Box>
       <CustomModal

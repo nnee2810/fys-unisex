@@ -1,6 +1,7 @@
 import React from "react"
 import Select from "react-select"
 import { StateManagerProps } from "react-select/dist/declarations/src/useStateManager"
+import styled from "styled-components"
 import { colors } from "styles/theme"
 
 interface SelectFieldProps extends StateManagerProps {}
@@ -10,21 +11,29 @@ export default function SelectField({
   ...props
 }: SelectFieldProps) {
   return (
-    <Select
+    <StyledSelect
       {...props}
       placeholder={placeholder || "Chọn ..."}
       isClearable
-      theme={(theme) => ({
-        ...theme,
-        borderRadius: 6,
-        colors: {
-          ...theme.colors,
-          neutral20: colors.lightGray,
-          primary25: colors.lightGray,
-          primary50: colors.gray,
-          primary: colors.primary,
-        },
-      })}
+      classNamePrefix="react-select"
     />
   )
 }
+const StyledSelect = styled(Select)<StateManagerProps>`
+  .react-select {
+    &__control {
+      height: 40px;
+      border-color: ${colors.lightGray};
+      border-radius: 6px;
+
+      &:hover {
+        border-color: ${colors.gray};
+      }
+
+      &--is-focused {
+        box-shadow: 0 0 0 1px ${colors.primary};
+        border-color: ${colors.primary} !important;
+      }
+    }
+  }
+`

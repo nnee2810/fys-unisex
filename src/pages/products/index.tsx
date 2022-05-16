@@ -2,9 +2,9 @@ import { Box, Grid } from "@chakra-ui/react"
 import CustomBreadcrumb from "components/CustomBreadcrumb"
 import CustomModal from "components/CustomModal"
 import { pagePadding, responsiveW } from "configs/constants"
-import FormSearchProducts from "modules/products/components/products/FormSearchProducts"
-import FormSortProducts from "modules/products/components/products/FormSortProducts"
 import ProductList from "modules/products/components/products/ProductList"
+import SearchProducts from "modules/products/components/products/SearchProducts"
+import SortProducts from "modules/products/components/products/SortProducts"
 import { GetProductsDto } from "modules/products/dto/get-products-dto"
 import { useGetProducts } from "modules/products/hooks/useGetProducts"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
@@ -61,9 +61,9 @@ export default function Products({ query }: ProductsProps) {
           ]}
         />
         <Grid templateColumns="300px 1fr" gap="40px">
-          <FormSearchProducts query={query} isLoading={isLoading} />
+          <SearchProducts query={query} isLoading={isLoading} />
           <Box>
-            <FormSortProducts query={query} data={data} isLoading={isLoading} />
+            <SortProducts query={query} />
             <Box mt="6">
               <ProductList query={query} data={data} isLoading={isLoading} />
             </Box>

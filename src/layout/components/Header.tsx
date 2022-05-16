@@ -192,7 +192,7 @@ export default function Header() {
 const StyledHeaderItem = styled(Box)`
   padding: 16px;
   font-weight: 500;
-  transition: all 0.25s;
+  transition: all 0.2s;
 
   background: ${({ $active }) => ($active ? colors.primary : "#fff")};
   color: ${({ $active }) => ($active ? "#fff" : colors.primary)};

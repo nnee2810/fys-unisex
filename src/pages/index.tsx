@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react"
+import { Stack } from "@chakra-ui/react"
 import axios from "axios"
 import { IProduct } from "interfaces/IProduct"
 import Banners from "modules/home/components/Banners"
@@ -48,14 +48,14 @@ export default function Home({
       <Head>
         <title>{generateTitle("Trang chủ")}</title>
       </Head>
-      <Box>
+      <Stack spacing="60px">
         <Banners />
         <Explore />
         <FlashSale products={flashSaleProducts} />
         <FeaturedProducts products={featuredProducts} />
         <Story />
         <Commit />
-      </Box>
+      </Stack>
     </>
   )
 }
