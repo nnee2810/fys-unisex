@@ -13,15 +13,21 @@ import {
   useBoolean,
 } from "@chakra-ui/react"
 import Badge from "components/Badge"
-import { CustomPopoverTrigger } from "components/CustomPopoverTrigger"
 import Logo from "components/Logo"
 import NextLink from "components/NextLink"
+import PopoverTrigger from "components/PopoverTrigger"
 import { responsiveW, zIndex } from "configs/constants"
+import { useAppSelector } from "hooks/useAppStore"
 import { headerNavItems } from "modules/home/constants"
 import { useRouter } from "next/router"
 import React, { useCallback, useEffect, useRef } from "react"
-import { AiOutlineHeart, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai"
-import { BsCart2 } from "react-icons/bs"
+import {
+  AiOutlineMenu,
+  AiOutlineSearch,
+  AiOutlineShoppingCart,
+  AiOutlineUser,
+} from "react-icons/ai"
+import { userSelector } from "store/reducers/user"
 import styled from "styled-components"
 import { colors } from "styles/theme"
 import ModalSearchProducts from "./ModalSearchProducts"
@@ -30,7 +36,9 @@ interface HeaderProps {
   path: string
 }
 function HeaderActions() {
+  const { signedIn } = useAppSelector(userSelector)
   const [openSearch, setOpenSearch] = useBoolean()
+
   return (
     <>
       <HStack spacing="3" justifyContent="flex-end">
@@ -39,23 +47,22 @@ function HeaderActions() {
             <AiOutlineSearch fontSize="24" />
           </Box>
         </Tooltip>
+
         <NextLink href="#">
-          <Badge value={1}>
-            <Tooltip label="Yêu thích">
+          <Badge value={100} max={9}>
+            <Tooltip label="Giỏ hàng">
               <Box>
-                <AiOutlineHeart fontSize="24" />
+                <AiOutlineShoppingCart fontSize="24" />
               </Box>
             </Tooltip>
           </Badge>
         </NextLink>
-        <NextLink href="#">
-          <Badge value={100} max={9}>
-            <Tooltip label="Giỏ hàng">
-              <Box transform="translateY(-1px)">
-                <BsCart2 fontSize="24" />
-              </Box>
-            </Tooltip>
-          </Badge>
+        <NextLink href={signedIn ? "/user" : "/auth/sign-in"}>
+          <Tooltip label="Tài khoản">
+            <Box cursor="pointer">
+              <AiOutlineUser fontSize="24" />
+            </Box>
+          </Tooltip>
         </NextLink>
       </HStack>
       <ModalSearchProducts isOpen={openSearch} onClose={setOpenSearch.off} />
@@ -81,11 +88,11 @@ function HeaderDesktop({ path }: HeaderProps) {
               key={idx}
             >
               <NextLink href={item.href}>
-                <CustomPopoverTrigger>
+                <PopoverTrigger>
                   <StyledHeaderItem $active={path === item.href}>
                     {item.name}
                   </StyledHeaderItem>
-                </CustomPopoverTrigger>
+                </PopoverTrigger>
               </NextLink>
               {item.childs?.length && (
                 <PopoverContent overflow="hidden">

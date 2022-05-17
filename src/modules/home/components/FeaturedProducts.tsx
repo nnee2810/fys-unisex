@@ -3,6 +3,7 @@ import {
   Button,
   Center,
   Grid,
+  Heading,
   Tab,
   TabList,
   TabPanel,
@@ -14,7 +15,6 @@ import { responsiveW, zIndex } from "configs/constants"
 import { IProduct } from "interfaces/IProduct"
 import ProductCard from "modules/products/components/ProductCard"
 import React from "react"
-import { SectionTitle } from "../../../components/SectionTitle"
 
 interface FeaturedProductsProps {
   products: IProduct[]
@@ -23,8 +23,8 @@ interface FeaturedProductsProps {
 export default function FeaturedProducts({ products }: FeaturedProductsProps) {
   return (
     <Box>
-      <SectionTitle textAlign="center">Sản phẩm nổi bật</SectionTitle>
-      <Box w={{ ...responsiveW }} mx="auto">
+      <Heading textAlign="center">Sản phẩm nổi bật</Heading>
+      <Box w={{ ...responsiveW }} mt="6" mx="auto">
         <Tabs align="center">
           <TabList
             position="sticky"

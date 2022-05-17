@@ -1,6 +1,6 @@
 import { Box, HStack, Stack, Text } from "@chakra-ui/react"
 import { yupResolver } from "@hookform/resolvers/yup"
-import StyledButton from "components/chakra/StyledButton"
+import Button from "components/Button"
 import Field, { FieldLabel } from "components/Field"
 import SelectField from "components/Field/SelectField"
 import TextField from "components/Field/TextField"
@@ -159,17 +159,13 @@ export default function SearchProducts({
             </Box>
           </Stack>
           <Stack mt="6">
-            <StyledButton
-              type="submit"
-              isLoading={isLoading}
-              isDisabled={isLoading}
-            >
+            <Button type="submit" isLoading={isLoading} isDisabled={isLoading}>
               Lọc
-            </StyledButton>
+            </Button>
             {Object.keys(query).length && (
-              <StyledButton colorScheme="red" onClick={handleReset}>
+              <Button colorScheme="red" onClick={handleReset}>
                 Đặt lại
-              </StyledButton>
+              </Button>
             )}
           </Stack>
         </Box>

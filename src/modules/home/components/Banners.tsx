@@ -4,14 +4,15 @@ import React from "react"
 import { Autoplay, Pagination } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import generateArrayNumber from "utils/generateArrayNumber"
-import { getFallbackImage } from "utils/getFallbackImage"
+import { generateFallbackImage } from "utils/generateFallbackImage"
 
-const bannerItems = generateArrayNumber(5).map(() => getFallbackImage(1000))
+const bannerItems = generateArrayNumber(5).map(() =>
+  generateFallbackImage(1000)
+)
 
 export default function Banner() {
   return (
     <Box>
-      {" "}
       <Swiper
         pagination={{
           dynamicBullets: true,

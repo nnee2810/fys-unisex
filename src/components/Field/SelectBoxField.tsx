@@ -1,5 +1,5 @@
 import { HStack } from "@chakra-ui/react"
-import StyledButton from "components/chakra/StyledButton"
+import Button from "components/Button"
 import { ISelectOption } from "interfaces/ISelectOption"
 import React, { useState } from "react"
 
@@ -28,14 +28,14 @@ export default function SelectBoxField({
   return (
     <HStack>
       {options.map((option, idx) => (
-        <StyledButton
+        <Button
           minW="60px"
           colorScheme={option.value === selected ? "primary" : "gray"}
           onClick={() => handleChangeSelect(option.value)}
           key={idx}
         >
           {option.label}
-        </StyledButton>
+        </Button>
       ))}
     </HStack>
   )

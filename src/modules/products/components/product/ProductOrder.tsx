@@ -1,5 +1,5 @@
 import { Box, HStack, Stack } from "@chakra-ui/react"
-import StyledButton from "components/chakra/StyledButton"
+import Button from "components/Button"
 import Field from "components/Field"
 import SelectBoxField from "components/Field/SelectBoxField"
 import TextField from "components/Field/TextField"
@@ -27,7 +27,7 @@ export default function ProductOrder({}: ProductOrderProps) {
   }
 
   return (
-    <Box mt="30px">
+    <Box>
       <FormProvider {...methods}>
         <Stack spacing="4">
           <Field
@@ -113,8 +113,8 @@ export default function ProductOrder({}: ProductOrderProps) {
                 />
               )}
             />
-            <StyledButton>Mua ngay</StyledButton>
-            <StyledButton colorScheme="red">Thêm vào giỏ hàng</StyledButton>
+            <Button>Mua ngay</Button>
+            <Button colorScheme="red">Thêm vào giỏ hàng</Button>
           </HStack>
         </Stack>
       </FormProvider>

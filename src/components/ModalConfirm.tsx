@@ -8,9 +8,9 @@ import {
 } from "@chakra-ui/react"
 import { IModalProps } from "interfaces/IModalProps"
 import React from "react"
-import StyledButton from "./chakra/StyledButton"
+import Button from "./Button"
 
-export default function CustomModal({
+export default function ModalConfirm({
   isOpen,
   children,
   title,
@@ -26,16 +26,10 @@ export default function CustomModal({
         <ModalHeader>{title}</ModalHeader>
         <ModalBody>{children}</ModalBody>
         <Grid p="6" templateColumns="1fr 1fr" gap="2">
-          <StyledButton
-            colorScheme="blackAlpha"
-            variant="outline"
-            onClick={onClose}
-          >
+          <Button colorScheme="blackAlpha" variant="outline" onClick={onClose}>
             {closeText || "Đóng"}
-          </StyledButton>
-          <StyledButton onClick={onConfirm}>
-            {confirmText || "Đồng ý"}
-          </StyledButton>
+          </Button>
+          <Button onClick={onConfirm}>{confirmText || "Đồng ý"}</Button>
         </Grid>
       </ModalContent>
     </Modal>

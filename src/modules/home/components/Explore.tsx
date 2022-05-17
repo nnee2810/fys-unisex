@@ -1,7 +1,6 @@
-import { Box, Center, Grid } from "@chakra-ui/react"
+import { Box, Center, Grid, Heading } from "@chakra-ui/react"
 import ImageBox from "components/ImageBox"
 import NextLink from "components/NextLink"
-import { SectionTitle } from "components/SectionTitle"
 import { responsiveW } from "configs/constants"
 import React from "react"
 import { exploreItems } from "../constants"
@@ -9,8 +8,8 @@ import { exploreItems } from "../constants"
 export default function Explore() {
   return (
     <Box>
-      <SectionTitle textAlign="center">Khám phá</SectionTitle>
-      <Box w={{ ...responsiveW }} mt="24px" mx="auto">
+      <Heading textAlign="center">Khám phá</Heading>
+      <Box w={{ ...responsiveW }} mt="6" mx="auto">
         <Grid
           templateColumns={{ base: "auto", md: "repeat(3, 1fr)" }}
           gap={{ base: "2", md: "4" }}

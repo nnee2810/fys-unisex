@@ -1,5 +1,4 @@
-import { Box, HStack, Text } from "@chakra-ui/react"
-import { SectionTitle } from "components/SectionTitle"
+import { Box, Heading, HStack, Text } from "@chakra-ui/react"
 import { responsiveW } from "configs/constants"
 import { IProduct } from "interfaces/IProduct"
 import ProductCard from "modules/products/components/ProductCard"
@@ -16,13 +15,13 @@ interface FlashSaleProps {
 export default function FlashSale({ products }: FlashSaleProps) {
   return (
     <Box>
-      <SectionTitle color={colors.red}>
+      <Heading color={colors.red}>
         <HStack justifyContent="center">
           <Text>Deal sốc</Text> <IoFlashOutline />
         </HStack>
-      </SectionTitle>
+      </Heading>
 
-      <Box w={{ ...responsiveW }} mx="auto">
+      <Box w={{ ...responsiveW }} mt="6" mx="auto">
         {products.length ? (
           <Swiper
             centeredSlides

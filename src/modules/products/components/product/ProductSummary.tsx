@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Tag, Text } from "@chakra-ui/react"
+import { Box, Flex, Heading, HStack, Tag, Text } from "@chakra-ui/react"
 import NextLink from "components/NextLink"
 import Rate from "components/Rate"
 import { IProduct } from "interfaces/IProduct"
@@ -13,7 +13,7 @@ interface ProductSummaryProps {
 export default function ProductSummary({ data }: ProductSummaryProps) {
   return (
     <Box>
-      <Text fontSize="20">{data.name}</Text>
+      <Heading as="h1">{data.name}</Heading>
       <HStack spacing="3" fontSize="26" fontWeight="500">
         <Text>{formatCurrency(data.isSale ? data.salePrice : data.price)}</Text>
 

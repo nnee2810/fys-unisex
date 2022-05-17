@@ -1,6 +1,6 @@
 import { Box, Grid } from "@chakra-ui/react"
-import CustomBreadcrumb from "components/CustomBreadcrumb"
-import CustomModal from "components/CustomModal"
+import Breadcrumb from "components/Breadcrumb"
+import ModalConfirm from "components/ModalConfirm"
 import { pagePadding, responsiveW } from "configs/constants"
 import ProductList from "modules/products/components/products/ProductList"
 import SearchProducts from "modules/products/components/products/SearchProducts"
@@ -48,7 +48,7 @@ export default function Products({ query }: ProductsProps) {
         <title>{generateTitle("Sản phẩm")}</title>
       </Head>
       <Box w={{ ...responsiveW }} mx="auto" py={pagePadding}>
-        <CustomBreadcrumb
+        <Breadcrumb
           data={[
             {
               name: "Trang chủ",
@@ -70,7 +70,7 @@ export default function Products({ query }: ProductsProps) {
           </Box>
         </Grid>
       </Box>
-      <CustomModal
+      <ModalConfirm
         isOpen={isError}
         title="Lỗi 😵"
         closeText="Thử lại"
@@ -79,7 +79,7 @@ export default function Products({ query }: ProductsProps) {
         onConfirm={() => router.back()}
       >
         <Box>Không tìm thấy sản phẩm hoặc lỗi trang</Box>
-      </CustomModal>
+      </ModalConfirm>
     </>
   )
 }

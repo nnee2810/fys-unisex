@@ -1,6 +1,6 @@
 import { Box, Divider, Grid, Skeleton, Stack } from "@chakra-ui/react"
-import CustomBreadcrumb from "components/CustomBreadcrumb"
-import CustomModal from "components/CustomModal"
+import Breadcrumb from "components/Breadcrumb"
+import Modal from "components/ModalConfirm"
 import { pagePadding, responsiveW } from "configs/constants"
 import ProductDescription from "modules/products/components/product/ProductDescription"
 import ProductImagesPreview from "modules/products/components/product/ProductImagesPreview"
@@ -40,7 +40,7 @@ export default function Product({ id }: ProductProps) {
         <title>{generateTitle(data?.name)}</title>
       </Head>
       <Box w={{ ...responsiveW }} mx="auto" py={pagePadding}>
-        <CustomBreadcrumb
+        <Breadcrumb
           data={[
             {
               name: "Trang chủ",
@@ -58,24 +58,24 @@ export default function Product({ id }: ProductProps) {
         />
         {isLoading && <LoadingSkeleton />}
         {data && (
-          <>
+          <Stack spacing="10">
             <Grid templateColumns="1fr 1fr" gap="40px">
               <ProductImagesPreview data={data} />
-              <Box>
+              <Stack spacing="10">
                 <ProductSummary data={data} />
                 <ProductOrder />
-                <Divider my="30px" />
+                <Divider />
                 <ProductPolicy />
-              </Box>
+              </Stack>
             </Grid>
-            <Divider my="30px" />
+            <Divider />
             <ProductDescription />
-            <Divider my="30px" />
+            <Divider />
             <ProductReviews />
-          </>
+          </Stack>
         )}
       </Box>
-      <CustomModal
+      <Modal
         isOpen={isError}
         title="Lỗi 😵"
         closeText="Thử lại"
@@ -84,7 +84,7 @@ export default function Product({ id }: ProductProps) {
         onConfirm={() => router.back()}
       >
         <Box>Không tìm thấy sản phẩm hoặc lỗi trang</Box>
-      </CustomModal>
+      </Modal>
     </>
   )
 }

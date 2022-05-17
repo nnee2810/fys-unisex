@@ -1,11 +1,12 @@
 import {
+  Input,
   InputGroup,
   InputLeftElement,
   InputProps,
   InputRightElement,
 } from "@chakra-ui/react"
-import StyledInput from "components/chakra/StyledInput"
 import React, { ReactElement } from "react"
+import { colors } from "styles/theme"
 
 interface TextFieldProps extends InputProps {
   icon?: {
@@ -20,7 +21,12 @@ export default function TextField({ icon, ...props }: TextFieldProps) {
       {icon?.before && (
         <InputLeftElement h="100%">{icon.before}</InputLeftElement>
       )}
-      <StyledInput {...props} />
+      <Input
+        h="40px"
+        focusBorderColor={colors.primary}
+        _hover={{ borderColor: colors.gray }}
+        {...props}
+      />
       {icon?.after && (
         <InputRightElement h="100%">{icon?.after}</InputRightElement>
       )}

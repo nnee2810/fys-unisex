@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { RootState } from "store"
 
 const initialState = {}
 
@@ -8,5 +9,5 @@ const cartSlice = createSlice({
   reducers: {},
 })
 
-export const cartSelector = (state: any) => state.cart
+export const cartSelector = (state: RootState) => state.cart
 export default cartSlice.reducer

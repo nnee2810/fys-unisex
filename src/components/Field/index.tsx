@@ -19,7 +19,7 @@ export default function Field({ name, render, label }: FieldProps) {
       {label && <FieldLabel>{label}</FieldLabel>}
       <Controller control={control} name={name} render={render} />
       {errors?.[name]?.message && (
-        <Text color="red" fontSize="12">
+        <Text mt="2px" color="red" fontSize="12">
           {errors[name].message}
         </Text>
       )}

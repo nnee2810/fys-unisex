@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { RootState } from "store"
 
 interface SliceState {}
 
@@ -10,5 +11,5 @@ const productSlice = createSlice({
   reducers: {},
 })
 
-export const productSelector = (state: any) => state.product
+export const productSelector = (state: RootState) => state.product
 export default productSlice.reducer

@@ -1,17 +1,16 @@
-import { Box, Grid } from "@chakra-ui/react"
+import { Box, Heading, Stack } from "@chakra-ui/react"
 import Rate from "components/Rate"
-import { SectionTitle } from "components/SectionTitle"
 import { IReview } from "interfaces/IReview"
 import { IUser } from "interfaces/IUser"
 import React from "react"
-import { getFallbackImage } from "utils/getFallbackImage"
+import { generateFallbackImage } from "utils/generateFallbackImage"
 import Review from "./Review"
 const user: IUser = {
   id: "1",
   userName: "blable",
   fullName: "Đào Nam",
   email: "a@gmail.com",
-  image: getFallbackImage(100),
+  image: generateFallbackImage(100),
   phone: "0123456789",
 }
 
@@ -51,18 +50,18 @@ const reviews: IReview[] = [
 export default function ProductReviews() {
   return (
     <Box id="reviews">
-      <SectionTitle>
+      <Heading size="lg">
         50 đánh giá (5/5{" "}
         <Box as="span">
           <Rate count={1} value={1} size={28} />
         </Box>
         )
-      </SectionTitle>
-      <Grid templateColumns="1fr 1fr" gap="6">
+      </Heading>
+      <Stack spacing="6" mt="6">
         {reviews.map((item) => (
           <Review data={item} key={item.id} />
         ))}
-      </Grid>
+      </Stack>
     </Box>
   )
 }
