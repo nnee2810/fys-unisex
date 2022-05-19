@@ -10,7 +10,7 @@ import Story from "modules/home/components/Story"
 import { getProducts } from "modules/products/services/getProducts"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import Head from "next/head"
-import { generateTitle } from "utils/generateTitle"
+import { getTitle } from "utils/getTitle"
 
 interface HomeProps {
   flashSaleProducts: IProduct[]
@@ -46,7 +46,7 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>{generateTitle("Trang chủ")}</title>
+        <title>{getTitle("Trang chủ")}</title>
       </Head>
       <Stack spacing="60px">
         <Banners />

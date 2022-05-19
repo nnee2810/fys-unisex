@@ -21,7 +21,7 @@ import React, { useCallback, useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { AiOutlineSearch } from "react-icons/ai"
 import { colors } from "styles/theme"
-import generateArrayNumber from "utils/generateArrayNumber"
+import generateArrayNumber from "utils/getArrayNumber"
 
 interface FormValues {
   name: string

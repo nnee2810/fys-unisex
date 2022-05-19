@@ -1,7 +1,7 @@
 import { Box, Divider, Grid, Skeleton, Stack } from "@chakra-ui/react"
 import Breadcrumb from "components/Breadcrumb"
 import Modal from "components/ModalConfirm"
-import { pagePadding, responsiveW } from "configs/constants"
+import { PAGE_PADDING, responsiveW } from "configs/constants"
 import ProductDescription from "modules/products/components/product/ProductDescription"
 import ProductImagesPreview from "modules/products/components/product/ProductImagesPreview"
 import ProductOrder from "modules/products/components/product/ProductOrder"
@@ -13,8 +13,8 @@ import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import React from "react"
-import generateArrayNumber from "utils/generateArrayNumber"
-import { generateTitle } from "utils/generateTitle"
+import generateArrayNumber from "utils/getArrayNumber"
+import { getTitle } from "utils/getTitle"
 
 interface ProductProps {
   id: string
@@ -37,9 +37,9 @@ export default function Product({ id }: ProductProps) {
   return (
     <>
       <Head>
-        <title>{generateTitle(data?.name)}</title>
+        <title>{getTitle(data?.name)}</title>
       </Head>
-      <Box w={{ ...responsiveW }} mx="auto" py={pagePadding}>
+      <Box w={{ ...responsiveW }} mx="auto" py={PAGE_PADDING}>
         <Breadcrumb
           data={[
             {

@@ -6,7 +6,7 @@ import ProductCard from "modules/products/components/ProductCard"
 import { GetProductsDto } from "modules/products/dto/get-products-dto"
 import { useRouter } from "next/router"
 import qs from "query-string"
-import generateArrayNumber from "utils/generateArrayNumber"
+import generateArrayNumber from "utils/getArrayNumber"
 
 interface ProductListProps {
   query: GetProductsDto

@@ -3,14 +3,14 @@ import Rate from "components/Rate"
 import { IReview } from "interfaces/IReview"
 import { IUser } from "interfaces/IUser"
 import React from "react"
-import { generateFallbackImage } from "utils/generateFallbackImage"
+import { getFallbackImage } from "utils/getFallbackImage"
 import Review from "./Review"
 const user: IUser = {
   id: "1",
   userName: "blable",
   fullName: "Đào Nam",
   email: "a@gmail.com",
-  image: generateFallbackImage(100),
+  image: getFallbackImage(100),
   phone: "0123456789",
 }
 

@@ -1,7 +1,7 @@
 import { Box, Grid } from "@chakra-ui/react"
 import Breadcrumb from "components/Breadcrumb"
 import ModalConfirm from "components/ModalConfirm"
-import { pagePadding, responsiveW } from "configs/constants"
+import { PAGE_PADDING, responsiveW } from "configs/constants"
 import ProductList from "modules/products/components/products/ProductList"
 import SearchProducts from "modules/products/components/products/SearchProducts"
 import SortProducts from "modules/products/components/products/SortProducts"
@@ -11,7 +11,7 @@ import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
-import { generateTitle } from "utils/generateTitle"
+import { getTitle } from "utils/getTitle"
 
 interface ProductsProps {
   query: GetProductsDto
@@ -45,9 +45,9 @@ export default function Products({ query }: ProductsProps) {
   return (
     <>
       <Head>
-        <title>{generateTitle("Sản phẩm")}</title>
+        <title>{getTitle("Sản phẩm")}</title>
       </Head>
-      <Box w={{ ...responsiveW }} mx="auto" py={pagePadding}>
+      <Box w={{ ...responsiveW }} mx="auto" py={PAGE_PADDING}>
         <Breadcrumb
           data={[
             {

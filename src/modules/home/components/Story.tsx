@@ -2,7 +2,7 @@ import { Box, Center, Flex } from "@chakra-ui/react"
 import NextLink from "components/NextLink"
 import { responsiveW } from "configs/constants"
 import React from "react"
-import { generateFallbackImage } from "utils/generateFallbackImage"
+import { getFallbackImage } from "utils/getFallbackImage"
 
 export default function Story() {
   return (
@@ -12,7 +12,7 @@ export default function Story() {
           w={{ ...responsiveW }}
           h="500px"
           borderRadius="16"
-          bgImg={generateFallbackImage(500)}
+          bgImg={getFallbackImage(500)}
           className="bg-fit"
         >
           <Box

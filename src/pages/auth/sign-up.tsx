@@ -1,5 +1,5 @@
 import { Box, Flex, Heading } from "@chakra-ui/react"
-import { pagePadding, responsiveW } from "configs/constants"
+import { PAGE_PADDING, responsiveW } from "configs/constants"
 import FormSignUp from "modules/auth/components/FormSignUp"
 import React from "react"
 
@@ -8,7 +8,7 @@ export default function SignUp() {
     <Flex
       w={{ ...responsiveW }}
       mx="auto"
-      py={pagePadding}
+      py={PAGE_PADDING}
       flexDir="column"
       alignItems="center"
     >

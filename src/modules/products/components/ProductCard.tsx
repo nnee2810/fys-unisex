@@ -13,7 +13,7 @@ import React from "react"
 import { AiFillHeart } from "react-icons/ai"
 import { colors } from "styles/theme"
 import { formatCurrency } from "utils/formatCurrency"
-import { generateFallbackImage } from "utils/generateFallbackImage"
+import { getFallbackImage } from "utils/getFallbackImage"
 import ImageBox from "../../../components/ImageBox"
 import NextLink from "../../../components/NextLink"
 
@@ -30,7 +30,7 @@ export default function ProductCard({ data, layout }: ProductCardProps) {
           <NextLink href={`/products/${data.id}`}>
             <AspectRatio ratio={3 / 4} borderRadius="8" overflow="hidden">
               <ImageBox
-                src={data.images[0] || generateFallbackImage(500)}
+                src={data.images[0] || getFallbackImage(500)}
                 alt={data.name}
               />
             </AspectRatio>
@@ -62,7 +62,7 @@ export default function ProductCard({ data, layout }: ProductCardProps) {
         <HStack>
           <Square size="40px" borderRadius="6" overflow="hidden">
             <Image
-              src={data.images[0] || generateFallbackImage(40)}
+              src={data.images[0] || getFallbackImage(40)}
               width="100%"
               height="100%"
             />

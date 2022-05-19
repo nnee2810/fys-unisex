@@ -4,7 +4,7 @@ import { AiOutlineGift } from "react-icons/ai"
 import { BsHeadset } from "react-icons/bs"
 import { GrDeliver } from "react-icons/gr"
 import { MdLoop } from "react-icons/md"
-import { generateFallbackImage } from "utils/generateFallbackImage"
+import { getFallbackImage } from "utils/getFallbackImage"
 
 interface HeaderNavItem extends ILinkItem {
   childs?: HeaderNavItem[]
@@ -73,17 +73,17 @@ export const exploreItems: ExploreItem[] = [
   {
     name: "Áo",
     href: "#",
-    src: generateFallbackImage(500),
+    src: getFallbackImage(500),
   },
   {
     name: "Quần",
     href: "#",
-    src: generateFallbackImage(500),
+    src: getFallbackImage(500),
   },
   {
     name: "Phụ kiện",
     href: "#",
-    src: generateFallbackImage(500),
+    src: getFallbackImage(500),
   },
 ]
 export const commitItems: CommitItem[] = [

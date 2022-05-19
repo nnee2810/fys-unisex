@@ -3,12 +3,10 @@ import ImageBox from "components/ImageBox"
 import React from "react"
 import { Autoplay, Pagination } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
-import generateArrayNumber from "utils/generateArrayNumber"
-import { generateFallbackImage } from "utils/generateFallbackImage"
+import generateArrayNumber from "utils/getArrayNumber"
+import { getFallbackImage } from "utils/getFallbackImage"
 
-const bannerItems = generateArrayNumber(5).map(() =>
-  generateFallbackImage(1000)
-)
+const bannerItems = generateArrayNumber(5).map(() => getFallbackImage(1000))
 
 export default function Banner() {
   return (

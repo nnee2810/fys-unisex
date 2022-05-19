@@ -1,10 +1,13 @@
 import { ChakraProvider } from "@chakra-ui/react"
+import { toastConfig } from "configs/constants"
 import Layout from "layout"
 import type { AppProps } from "next/app"
 import Head from "next/head"
 import "rc-rate/assets/index.css"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Provider as ReduxProvider } from "react-redux"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import store from "store"
 import "styles/globals.scss"
 import theme from "styles/theme"
@@ -33,6 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Layout>
               <Component {...pageProps} />
             </Layout>
+            <ToastContainer {...toastConfig} />
           </ChakraProvider>
         </ReduxProvider>
       </QueryClientProvider>

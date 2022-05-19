@@ -14,9 +14,14 @@ import TextField from "components/Field/TextField"
 import NextLink from "components/NextLink"
 import React from "react"
 import { FormProvider, useForm } from "react-hook-form"
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import {
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  AiOutlineLock,
+  AiOutlineUser,
+} from "react-icons/ai"
 import { colors } from "styles/theme"
-import { generateValidateError } from "utils/generateValidateError"
+import { getValidateError } from "utils/getValidateError"
 import * as yup from "yup"
 
 interface FormValues {
@@ -27,10 +32,8 @@ interface FormValues {
 const schema = yup.object().shape({
   signInKey: yup
     .string()
-    .required(generateValidateError("Email/Số điện thoại", "required")),
-  password: yup
-    .string()
-    .required(generateValidateError("Mật khẩu", "required")),
+    .required(getValidateError("Email/Số điện thoại", "required")),
+  password: yup.string().required(getValidateError("Mật khẩu", "required")),
 })
 
 export default function FormSignIn() {
@@ -57,6 +60,9 @@ export default function FormSignIn() {
                 value={value}
                 isInvalid={!!error}
                 placeholder="Email/Số điện thoại"
+                icon={{
+                  before: <AiOutlineUser fontSize="18" />,
+                }}
               />
             )}
           />
@@ -72,9 +78,10 @@ export default function FormSignIn() {
                   value={value}
                   isInvalid={!!error}
                   icon={{
+                    before: <AiOutlineLock fontSize="18" />,
                     after: (
                       <Box
-                        fontSize="20"
+                        fontSize="18"
                         cursor="pointer"
                         onClick={setPasswordVisible.toggle}
                       >
