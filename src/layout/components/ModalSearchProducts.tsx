@@ -67,19 +67,17 @@ export default function ModalSearchProducts({ isOpen, onClose }: IModalProps) {
             <form onSubmit={methods.handleSubmit(handleSubmit)}>
               <Field
                 name="name"
-                render={({ field: { onChange, value } }) => (
+                component={
                   <TextField
                     onChange={(e) => {
-                      onChange(e)
                       handleChangeDebounce(e.target.value)
                     }}
-                    value={value}
                     placeholder="Tìm kiếm sản phẩm"
                     icon={{ before: <AiOutlineSearch fontSize="20" /> }}
                     border="none"
                     focusBorderColor="none"
                   />
-                )}
+                }
               />
             </form>
           </FormProvider>

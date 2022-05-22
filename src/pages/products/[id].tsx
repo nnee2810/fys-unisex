@@ -2,6 +2,7 @@ import { Box, Divider, Grid, Skeleton, Stack } from "@chakra-ui/react"
 import Breadcrumb from "components/Breadcrumb"
 import Modal from "components/ModalConfirm"
 import { PAGE_PADDING, responsiveW } from "configs/constants"
+import { PageProps } from "layout"
 import ProductDescription from "modules/products/components/product/ProductDescription"
 import ProductImagesPreview from "modules/products/components/product/ProductImagesPreview"
 import ProductOrder from "modules/products/components/product/ProductOrder"
@@ -22,9 +23,13 @@ interface ProductProps {
 
 export function getServerSideProps({
   query,
-}: GetServerSidePropsContext): GetServerSidePropsResult<ProductProps> {
+}: GetServerSidePropsContext): GetServerSidePropsResult<
+  PageProps & ProductProps
+> {
   return {
     props: {
+      title: "Chi tiết sản phẩm",
+      protected: false,
       id: String(query.id),
     },
   }

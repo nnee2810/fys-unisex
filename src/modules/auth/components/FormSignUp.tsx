@@ -5,13 +5,8 @@ import Button from "components/Button"
 import Field from "components/Field"
 import TextField from "components/Field/TextField"
 import NextLink from "components/NextLink"
-import {
-  EMAIL_USED_MESSAGE,
-  ERROR_MESSAGE,
-  PASSWORD_REGEX,
-  PHONE_REGEX,
-  PHONE_USED_MESSAGE,
-} from "configs/constants"
+import { MESSAGE, REGEX } from "configs/constants"
+import useUser from "modules/users/hooks/useUser"
 import { useRouter } from "next/router"
 import React from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -25,9 +20,9 @@ import {
 import { IoPhonePortraitOutline } from "react-icons/io5"
 import { toast } from "react-toastify"
 import { colors } from "styles/theme"
+import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
 import { getValidateError } from "utils/getValidateError"
 import * as yup from "yup"
-import { useSignUp } from "../hooks/useSignUp"
 
 interface FormValues {
   fullName: string
@@ -42,17 +37,17 @@ const schema = yup.object().shape({
   phone: yup
     .string()
     .required(getValidateError("Số điện thoại", "required"))
-    .matches(PHONE_REGEX, getValidateError("Số điện thoại", "invalid")),
+    .matches(REGEX.PHONE, getValidateError("Số điện thoại", "invalid")),
   email: yup
     .string()
     .required(getValidateError("Email", "required"))
-    .email(getValidateError("Email", "invalid")),
+    .matches(REGEX.EMAIL, getValidateError("Email", "invalid")),
   password: yup
     .string()
     .required(getValidateError("Mật khẩu", "required"))
     .matches(
-      PASSWORD_REGEX,
-      "Mật khẩu chứa ít nhất 8 kí tự, chứa chữ in hoa/chữ thường/số/kí tự đặc biệt"
+      REGEX.PASSWORD,
+      "Mật khẩu chứa ít nhất 8 kí tự, chứa chữ in hoa, chữ thường và số"
     ),
   confirmPassword: yup
     .string()
@@ -75,35 +70,36 @@ export default function FormSignUp() {
     },
     resolver: yupResolver(schema),
   })
-  const { mutate, isLoading } = useSignUp()
+  const {
+    signUp: { mutate, isLoading },
+  } = useUser()
   const [passwordVisible, setPasswordVisible] = useBoolean(false)
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useBoolean(false)
 
-  const handleSubmit = ({ confirmPassword, ...data }: FormValues) => {
-    mutate(data, {
-      onSuccess() {
-        toast.success("Đăng ký tài khoản thành công, hãy đăng nhập")
-        router.push("/auth/sign-in")
+  const handleSubmit = ({
+    fullName,
+    phone,
+    confirmPassword,
+    ...data
+  }: FormValues) => {
+    mutate(
+      {
+        ...data,
+        fullName: deleteWhiteSpace(fullName),
+        phone: deleteWhiteSpace(phone),
       },
-      onError(error) {
-        console.log(error)
-
-        if (error instanceof AxiosError) {
-          if (error.response?.data?.error?.code === "23505") {
-            switch (error.response?.data?.error?.column) {
-              case "phone":
-                toast.error(PHONE_USED_MESSAGE)
-                break
-              case "email":
-                toast.error(EMAIL_USED_MESSAGE)
-                break
-              default:
-                toast.error(ERROR_MESSAGE)
-            }
-          } else toast.error(ERROR_MESSAGE)
-        } else toast.error(ERROR_MESSAGE)
-      },
-    })
+      {
+        onSuccess() {
+          toast.success(MESSAGE.SIGN_UP_SUCCESS)
+          router.push("/auth/sign-in")
+        },
+        onError(error) {
+          if (error instanceof AxiosError) {
+            toast.error(error.response?.data?.message || MESSAGE.ERROR)
+          } else toast.error(MESSAGE.ERROR)
+        },
+      }
+    )
   }
 
   return (
@@ -112,45 +108,37 @@ export default function FormSignUp() {
         <Stack spacing="4">
           <Field
             name="fullName"
-            render={({ field: { onChange, value } }) => (
+            component={
               <TextField
-                onChange={onChange}
-                value={value}
                 placeholder="Họ tên"
                 icon={{
                   before: <AiOutlineUser fontSize="18" />,
                 }}
               />
-            )}
+            }
           />
           <Field
             name="phone"
-            render={({ field: { onChange, value } }) => (
+            component={
               <TextField
-                onChange={onChange}
-                value={value}
                 placeholder="Số điện thoại"
                 icon={{ before: <IoPhonePortraitOutline fontSize="18" /> }}
               />
-            )}
+            }
           />
           <Field
             name="email"
-            render={({ field: { onChange, value } }) => (
+            component={
               <TextField
-                onChange={onChange}
-                value={value}
                 placeholder="Email"
                 icon={{ before: <AiOutlineMail fontSize="18" /> }}
               />
-            )}
+            }
           />
           <Field
             name="password"
-            render={({ field: { onChange, value } }) => (
+            component={
               <TextField
-                onChange={onChange}
-                value={value}
                 icon={{
                   before: <AiOutlineLock fontSize="18" />,
                   after: (
@@ -170,14 +158,12 @@ export default function FormSignUp() {
                 type={passwordVisible ? "text" : "password"}
                 placeholder="Mật khẩu"
               />
-            )}
+            }
           />
           <Field
             name="confirmPassword"
-            render={({ field: { onChange, value } }) => (
+            component={
               <TextField
-                onChange={onChange}
-                value={value}
                 icon={{
                   before: <AiOutlineLock fontSize="18" />,
                   after: (
@@ -197,7 +183,7 @@ export default function FormSignUp() {
                 type={confirmPasswordVisible ? "text" : "password"}
                 placeholder="Nhập lại mật khẩu"
               />
-            )}
+            }
           />
           <Button type="submit" isLoading={isLoading}>
             Đăng ký

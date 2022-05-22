@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import cartReducer from "./reducers/cart"
+import historyReducer from "./reducers/history"
 import productReducer from "./reducers/product"
 import userReducer from "./reducers/user"
 
@@ -8,6 +9,7 @@ const store = configureStore({
     cart: cartReducer,
     product: productReducer,
     user: userReducer,
+    history: historyReducer,
   }),
 })
 

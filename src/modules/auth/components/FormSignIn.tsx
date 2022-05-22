@@ -12,6 +12,8 @@ import Button from "components/Button"
 import Field from "components/Field"
 import TextField from "components/Field/TextField"
 import NextLink from "components/NextLink"
+import { REGEX } from "configs/constants"
+import useUser from "modules/users/hooks/useUser"
 import React from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import {
@@ -23,6 +25,7 @@ import {
 import { colors } from "styles/theme"
 import { getValidateError } from "utils/getValidateError"
 import * as yup from "yup"
+import { SignInByPasswordDto } from "../dto/sign-in-by-password.dto"
 
 interface FormValues {
   signInKey: string
@@ -32,8 +35,19 @@ interface FormValues {
 const schema = yup.object().shape({
   signInKey: yup
     .string()
-    .required(getValidateError("Email/Số điện thoại", "required")),
-  password: yup.string().required(getValidateError("Mật khẩu", "required")),
+    .required(getValidateError("Email/Số điện thoại", "required"))
+    .test({
+      test(value?: string) {
+        if (!value) return false
+        if (REGEX.EMAIL.test(value) || REGEX.PHONE.test(value)) return true
+        return false
+      },
+      message: getValidateError("Email/Số điện thoại", "invalid"),
+    }),
+  password: yup
+    .string()
+    .required(getValidateError("Mật khẩu", "required"))
+    .matches(REGEX.PASSWORD, getValidateError("Mật khẩu", "invalid")),
 })
 
 export default function FormSignIn() {
@@ -44,9 +58,20 @@ export default function FormSignIn() {
     },
     resolver: yupResolver(schema),
   })
+  const {
+    signInByPassword: { mutate, isLoading },
+  } = useUser()
   const [passwordVisible, setPasswordVisible] = useBoolean(false)
 
-  const handleSubmit = (data: FormValues) => {}
+  const handleSubmit = ({ signInKey, password }: FormValues) => {
+    const submitData: SignInByPasswordDto = {
+      password,
+    }
+    if (REGEX.EMAIL.test(signInKey)) submitData.email = signInKey
+    if (REGEX.PHONE.test(signInKey)) submitData.phone = signInKey
+
+    mutate(submitData)
+  }
 
   return (
     <FormProvider {...methods}>
@@ -54,29 +79,20 @@ export default function FormSignIn() {
         <Stack spacing="4">
           <Field
             name="signInKey"
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
+            component={
               <TextField
-                onChange={onChange}
-                value={value}
-                isInvalid={!!error}
                 placeholder="Email/Số điện thoại"
                 icon={{
                   before: <AiOutlineUser fontSize="18" />,
                 }}
               />
-            )}
+            }
           />
           <Stack>
             <Field
               name="password"
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => (
+              component={
                 <TextField
-                  onChange={onChange}
-                  value={value}
-                  isInvalid={!!error}
                   icon={{
                     before: <AiOutlineLock fontSize="18" />,
                     after: (
@@ -96,7 +112,7 @@ export default function FormSignIn() {
                   type={passwordVisible ? "text" : "password"}
                   placeholder="Mật khẩu"
                 />
-              )}
+              }
             />
             <Flex justifyContent="space-between">
               <NextLink href="/auth/forgot-password">
@@ -107,7 +123,9 @@ export default function FormSignIn() {
               </NextLink>
             </Flex>
           </Stack>
-          <Button type="submit">Đăng nhập</Button>
+          <Button type="submit" isLoading={isLoading}>
+            Đăng nhập
+          </Button>
           <HStack>
             <Divider />
             <Text color={colors.gray}>hoặc</Text>

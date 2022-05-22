@@ -1,14 +1,15 @@
 import { Box, Text } from "@chakra-ui/react"
 import styled from "@emotion/styled"
-import React from "react"
-import { Controller, ControllerProps, useFormContext } from "react-hook-form"
+import React, { cloneElement, ReactElement } from "react"
+import { Controller, useFormContext } from "react-hook-form"
 
-interface FieldProps extends ControllerProps {
+interface FieldProps {
   name: string
+  component: ReactElement
   label?: string
 }
 
-export default function Field({ name, render, label }: FieldProps) {
+export default function Field({ name, component, label }: FieldProps) {
   const {
     control,
     formState: { errors },
@@ -17,7 +18,21 @@ export default function Field({ name, render, label }: FieldProps) {
   return (
     <Box>
       {label && <FieldLabel>{label}</FieldLabel>}
-      <Controller control={control} name={name} render={render} />
+      <Controller
+        control={control}
+        name={name}
+        render={({ field: { onChange, value } }) =>
+          cloneElement(component, {
+            name,
+            value,
+            onChange(e: any) {
+              if (component.props?.onChange) component.props?.onChange(e)
+              onChange(e)
+            },
+            isInvalid: !!errors?.[name],
+          })
+        }
+      />
       {errors?.[name]?.message && (
         <Text mt="2px" color="red" fontSize="12">
           {errors[name].message}

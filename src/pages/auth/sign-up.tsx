@@ -1,8 +1,20 @@
 import { Box, Flex, Heading } from "@chakra-ui/react"
 import { PAGE_PADDING, responsiveW } from "configs/constants"
+import { PageProps } from "layout"
 import FormSignUp from "modules/auth/components/FormSignUp"
+import { GetStaticPropsContext, GetStaticPropsResult } from "next"
 import React from "react"
 
+export async function getStaticProps(
+  context: GetStaticPropsContext
+): Promise<GetStaticPropsResult<PageProps>> {
+  return {
+    props: {
+      title: "Đăng ký",
+      protected: false,
+    },
+  }
+}
 export default function SignUp() {
   return (
     <Flex

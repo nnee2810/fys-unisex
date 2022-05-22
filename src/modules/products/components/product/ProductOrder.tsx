@@ -33,7 +33,7 @@ export default function ProductOrder({}: ProductOrderProps) {
           <Field
             name="color"
             label="Màu sắc"
-            render={({ field: { onChange } }) => (
+            component={
               <SelectBoxField
                 options={[
                   {
@@ -49,14 +49,13 @@ export default function ProductOrder({}: ProductOrderProps) {
                     value: 3,
                   },
                 ]}
-                onChange={onChange}
               />
-            )}
+            }
           />
           <Field
             name="size"
             label="Kích thước"
-            render={({ field: { onChange } }) => (
+            component={
               <SelectBoxField
                 options={[
                   {
@@ -76,15 +75,14 @@ export default function ProductOrder({}: ProductOrderProps) {
                     value: 4,
                   },
                 ]}
-                onChange={onChange}
               />
-            )}
+            }
           />
           <HStack alignItems="flex-end">
             <Field
               name="quantity"
               label="Số lượng"
-              render={({ field: { onChange, value } }) => (
+              component={
                 <TextField
                   w="100px"
                   fontWeight="500"
@@ -108,10 +106,8 @@ export default function ProductOrder({}: ProductOrderProps) {
                       </ButtonQuantity>
                     ),
                   }}
-                  onChange={onChange}
-                  value={value}
                 />
-              )}
+              }
             />
             <Button>Mua ngay</Button>
             <Button colorScheme="red">Thêm vào giỏ hàng</Button>

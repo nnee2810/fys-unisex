@@ -2,16 +2,15 @@ import { Box, Grid } from "@chakra-ui/react"
 import Breadcrumb from "components/Breadcrumb"
 import ModalConfirm from "components/ModalConfirm"
 import { PAGE_PADDING, responsiveW } from "configs/constants"
+import { PageProps } from "layout"
 import ProductList from "modules/products/components/products/ProductList"
 import SearchProducts from "modules/products/components/products/SearchProducts"
 import SortProducts from "modules/products/components/products/SortProducts"
 import { GetProductsDto } from "modules/products/dto/get-products-dto"
 import { useGetProducts } from "modules/products/hooks/useGetProducts"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
-import Head from "next/head"
 import { useRouter } from "next/router"
 import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
-import { getTitle } from "utils/getTitle"
 
 interface ProductsProps {
   query: GetProductsDto
@@ -20,7 +19,7 @@ interface ProductsProps {
 export async function getServerSideProps({
   query,
 }: GetServerSidePropsContext): Promise<
-  GetServerSidePropsResult<ProductsProps>
+  GetServerSidePropsResult<PageProps & ProductsProps>
 > {
   const queryData: GetProductsDto = {}
   if (query.name) queryData.name = deleteWhiteSpace(String(query.name))
@@ -35,6 +34,8 @@ export async function getServerSideProps({
 
   return {
     props: {
+      title: "Sản phẩm",
+      protected: false,
       query: queryData,
     },
   }
@@ -44,9 +45,6 @@ export default function Products({ query }: ProductsProps) {
   const { data, isLoading, isError, refetch } = useGetProducts(query)
   return (
     <>
-      <Head>
-        <title>{getTitle("Sản phẩm")}</title>
-      </Head>
       <Box w={{ ...responsiveW }} mx="auto" py={PAGE_PADDING}>
         <Breadcrumb
           data={[

@@ -36,7 +36,7 @@ interface HeaderProps {
   path: string
 }
 function HeaderActions() {
-  const { signedIn } = useAppSelector(userSelector)
+  const { isAuth } = useAppSelector(userSelector)
   const [openSearch, setOpenSearch] = useBoolean()
 
   return (
@@ -57,7 +57,7 @@ function HeaderActions() {
             </Tooltip>
           </Badge>
         </NextLink>
-        <NextLink href={signedIn ? "/user" : "/auth/sign-in"}>
+        <NextLink href={isAuth ? "/user" : "/auth/sign-in"}>
           <Tooltip label="Tài khoản">
             <Box cursor="pointer">
               <AiOutlineUser fontSize="24" />

@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <ReduxProvider store={store}>
           <ChakraProvider theme={theme}>
-            <Layout>
+            <Layout pageProps={pageProps}>
               <Component {...pageProps} />
             </Layout>
             <ToastContainer {...toastConfig} />

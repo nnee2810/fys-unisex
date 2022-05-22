@@ -98,62 +98,30 @@ export default function SearchProducts({
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <Box position="sticky" top="60px">
           <Stack spacing="4">
-            <Field
-              name="name"
-              label="Tên sản phẩm"
-              render={({ field: { onChange, value } }) => (
-                <TextField onChange={onChange} value={value} />
-              )}
-            />
+            <Field name="name" label="Tên sản phẩm" component={<TextField />} />
             <Field
               name="size"
               label="Kích cỡ"
-              render={({ field: { onChange, value } }) => (
-                <SelectField
-                  onChange={onChange}
-                  value={value}
-                  options={sizeOptions}
-                />
-              )}
+              component={<SelectField options={sizeOptions} />}
             />
             <Field
               name="type"
               label="Loại sản phẩm"
-              render={({ field: { onChange, value } }) => (
-                <SelectField
-                  onChange={onChange}
-                  value={value}
-                  options={typeOptions}
-                />
-              )}
+              component={<SelectField options={typeOptions} />}
             />
             <Box>
               <FieldLabel>Khoảng giá</FieldLabel>
               <HStack alignItems="flex-start">
                 <Field
                   name="minPrice"
-                  render={({ field: { onChange, value } }) => (
-                    <TextField
-                      onChange={onChange}
-                      value={value}
-                      type="number"
-                      placeholder="Từ"
-                    />
-                  )}
+                  component={<TextField type="number" placeholder="Từ" />}
                 />
                 <Text transform="translateY(8px)" translateX="8px">
                   —
                 </Text>
                 <Field
                   name="maxPrice"
-                  render={({ field: { onChange, value } }) => (
-                    <TextField
-                      onChange={onChange}
-                      value={value}
-                      type="number"
-                      placeholder="Đến"
-                    />
-                  )}
+                  component={<TextField type="number" placeholder="Đến" />}
                 />
               </HStack>
             </Box>
