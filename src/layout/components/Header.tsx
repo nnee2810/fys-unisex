@@ -4,66 +4,88 @@ import {
   Drawer,
   DrawerContent,
   DrawerOverlay,
-  Flex,
   Grid,
   HStack,
+  Menu,
+  MenuButton,
+  MenuList,
   Popover,
   PopoverContent,
-  Tooltip,
   useBoolean,
 } from "@chakra-ui/react"
 import Badge from "components/Badge"
 import Logo from "components/Logo"
+import { MenuItem } from "components/Menu"
 import NextLink from "components/NextLink"
 import PopoverTrigger from "components/PopoverTrigger"
 import { responsiveW, zIndex } from "configs/constants"
-import { useAppSelector } from "hooks/useAppStore"
+import useAuth from "modules/auth/hooks/useAuth"
 import { headerNavItems } from "modules/home/constants"
 import { useRouter } from "next/router"
 import React, { useCallback, useEffect, useRef } from "react"
 import {
+  AiOutlineFileText,
   AiOutlineMenu,
+  AiOutlinePoweroff,
   AiOutlineSearch,
   AiOutlineShoppingCart,
+  AiOutlineSolution,
   AiOutlineUser,
 } from "react-icons/ai"
-import { userSelector } from "store/reducers/user"
+import { AuthStatus } from "store/reducers/auth"
 import styled from "styled-components"
-import { colors } from "styles/theme"
+import { Color } from "styles/theme"
 import ModalSearchProducts from "./ModalSearchProducts"
 
 interface HeaderProps {
   path: string
 }
 function HeaderActions() {
-  const { isAuth } = useAppSelector(userSelector)
+  const { status, signOut } = useAuth()
   const [openSearch, setOpenSearch] = useBoolean()
 
   return (
     <>
       <HStack spacing="3" justifyContent="flex-end">
-        <Tooltip label="Tìm kiếm">
-          <Box cursor="pointer" onClick={setOpenSearch.on}>
-            <AiOutlineSearch fontSize="24" />
-          </Box>
-        </Tooltip>
+        <Box cursor="pointer" onClick={setOpenSearch.on}>
+          <AiOutlineSearch fontSize="24" />
+        </Box>
 
-        <NextLink href="#">
+        <NextLink href="/cart">
           <Badge value={100} max={9}>
-            <Tooltip label="Giỏ hàng">
-              <Box>
-                <AiOutlineShoppingCart fontSize="24" />
-              </Box>
-            </Tooltip>
+            <AiOutlineShoppingCart fontSize="24" />
           </Badge>
         </NextLink>
-        <NextLink href={isAuth ? "/user" : "/auth/sign-in"}>
-          <Tooltip label="Tài khoản">
-            <Box cursor="pointer">
+
+        {status === AuthStatus.AUTHENTICATED ? (
+          <Menu placement="bottom-end">
+            <MenuButton>
               <AiOutlineUser fontSize="24" />
-            </Box>
-          </Tooltip>
-        </NextLink>
+            </MenuButton>
+            <MenuList>
+              <NextLink href="/user/profile">
+                <MenuItem icon={<AiOutlineSolution fontSize="20" />}>
+                  Tài khoản của tôi
+                </MenuItem>
+              </NextLink>
+              <NextLink href="/user/orders">
+                <MenuItem icon={<AiOutlineFileText fontSize="20" />}>
+                  Đơn mua
+                </MenuItem>
+              </NextLink>
+              <MenuItem
+                icon={<AiOutlinePoweroff fontSize="20" />}
+                onClick={signOut}
+              >
+                Đăng xuất
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        ) : (
+          <NextLink href="/auth/sign-in">
+            <AiOutlineUser fontSize="24" />
+          </NextLink>
+        )}
       </HStack>
       <ModalSearchProducts isOpen={openSearch} onClose={setOpenSearch.off} />
     </>
@@ -79,7 +101,7 @@ function HeaderDesktop({ path }: HeaderProps) {
         alignItems="center"
       >
         <Logo />
-        <Flex justifyContent="center">
+        <HStack spacing="4" justifyContent="center">
           {headerNavItems.map((item, idx) => (
             <Popover
               trigger="hover"
@@ -105,7 +127,7 @@ function HeaderDesktop({ path }: HeaderProps) {
               )}
             </Popover>
           ))}
-        </Flex>
+        </HStack>
         <HeaderActions />
       </Grid>
     </Box>
@@ -119,7 +141,6 @@ function HeaderMobile({ path }: HeaderProps) {
         templateColumns="repeat(3, 1fr)"
         w={{ ...responsiveW }}
         mx="auto"
-        py="2"
         alignItems="center"
       >
         <Box>
@@ -184,11 +205,12 @@ export default function Header() {
       pos="fixed"
       top="0"
       w="100%"
+      py="2"
       bg="white"
       boxShadow="md"
-      transform={`translateY(${visible ? 0 : -125}px)`}
+      transform={`translateY(${visible ? 0 : -80}px)`}
       transition="all .4s"
-      zIndex={zIndex.header}
+      zIndex={zIndex.HEADER}
     >
       <HeaderDesktop path={router.pathname} />
       <HeaderMobile path={router.pathname} />
@@ -197,15 +219,22 @@ export default function Header() {
 }
 
 const StyledHeaderItem = styled(Box)`
-  padding: 16px;
+  position: relative;
   font-weight: 500;
   transition: all 0.2s;
 
-  background: ${({ $active }) => ($active ? colors.primary : "#fff")};
-  color: ${({ $active }) => ($active ? "#fff" : colors.primary)};
-
-  &:hover {
-    background: ${colors.primary};
-    color: white;
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: ${({ $active }) => ($active ? "100%" : 0)};
+    height: 2px;
+    background-color: ${Color.PRIMARY};
+    transition: all 0.2s;
+  }
+  &:hover::before {
+    width: 100%;
   }
 `

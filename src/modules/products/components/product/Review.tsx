@@ -4,7 +4,7 @@ import Rate from "components/Rate"
 import { IReview } from "interfaces/IReview"
 import moment from "moment"
 import React from "react"
-import { colors } from "styles/theme"
+import { Color } from "styles/theme"
 
 interface ReviewProps {
   data: IReview
@@ -24,7 +24,7 @@ export default function Review({ data }: ReviewProps) {
         <Text fontSize="12" fontWeight="700">
           {data.user.fullName}
         </Text>
-        <HStack color={colors.gray} fontSize="12">
+        <HStack color={Color.GRAY} fontSize="12">
           <Rate allowHalf disabled value={data.rate} />
           <Text>|</Text>
           <Text>{moment(data.createdAt).format("DD/MM/YYYY HH:mm")}</Text>

@@ -5,8 +5,8 @@ import Button from "components/Button"
 import Field from "components/Field"
 import TextField from "components/Field/TextField"
 import NextLink from "components/NextLink"
-import { MESSAGE, REGEX } from "configs/constants"
-import useUser from "modules/users/hooks/useUser"
+import { Message } from "configs/constants"
+import { formSchema } from "configs/formSchema"
 import { useRouter } from "next/router"
 import React from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -19,42 +19,30 @@ import {
 } from "react-icons/ai"
 import { IoPhonePortraitOutline } from "react-icons/io5"
 import { toast } from "react-toastify"
-import { colors } from "styles/theme"
+import { Color } from "styles/theme"
 import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
-import { getValidateError } from "utils/getValidateError"
+import { getValidateNotMatchMessage } from "utils/getValidateMessage"
 import * as yup from "yup"
+import useAuth from "../hooks/useAuth"
 
 interface FormValues {
   fullName: string
   phone: string
   email: string
   password: string
-  confirmPassword: string
+  repeatPassword: string
 }
 
 const schema = yup.object().shape({
-  fullName: yup.string().required(getValidateError("Họ tên", "required")),
-  phone: yup
+  fullName: formSchema.fullName,
+  phone: formSchema.phone,
+  email: formSchema.email,
+  password: formSchema.password,
+  repeatPassword: yup
     .string()
-    .required(getValidateError("Số điện thoại", "required"))
-    .matches(REGEX.PHONE, getValidateError("Số điện thoại", "invalid")),
-  email: yup
-    .string()
-    .required(getValidateError("Email", "required"))
-    .matches(REGEX.EMAIL, getValidateError("Email", "invalid")),
-  password: yup
-    .string()
-    .required(getValidateError("Mật khẩu", "required"))
-    .matches(
-      REGEX.PASSWORD,
-      "Mật khẩu chứa ít nhất 8 kí tự, chứa chữ in hoa, chữ thường và số"
-    ),
-  confirmPassword: yup
-    .string()
-    .required(getValidateError("Nhập lại mật khẩu", "required"))
-    .oneOf(
-      [yup.ref("password")],
-      getValidateError("Mật khẩu nhập lại", "notMatch")
+    .label("Nhập lại mật khẩu")
+    .oneOf([yup.ref("password")], ({ label }) =>
+      getValidateNotMatchMessage(label)
     ),
 })
 
@@ -66,20 +54,20 @@ export default function FormSignUp() {
       phone: "",
       email: "",
       password: "",
-      confirmPassword: "",
+      repeatPassword: "",
     },
     resolver: yupResolver(schema),
   })
   const {
     signUp: { mutate, isLoading },
-  } = useUser()
+  } = useAuth()
   const [passwordVisible, setPasswordVisible] = useBoolean(false)
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useBoolean(false)
+  const [repeatPasswordVisible, setRepeatPasswordVisible] = useBoolean(false)
 
   const handleSubmit = ({
     fullName,
     phone,
-    confirmPassword,
+    repeatPassword,
     ...data
   }: FormValues) => {
     mutate(
@@ -90,13 +78,13 @@ export default function FormSignUp() {
       },
       {
         onSuccess() {
-          toast.success(MESSAGE.SIGN_UP_SUCCESS)
+          toast.success(Message.SIGN_UP_SUCCESS)
           router.push("/auth/sign-in")
         },
         onError(error) {
           if (error instanceof AxiosError) {
-            toast.error(error.response?.data?.message || MESSAGE.ERROR)
-          } else toast.error(MESSAGE.ERROR)
+            toast.error(error.response?.data?.message || Message.ERROR)
+          } else toast.error(Message.ERROR)
         },
       }
     )
@@ -161,7 +149,7 @@ export default function FormSignUp() {
             }
           />
           <Field
-            name="confirmPassword"
+            name="repeatPassword"
             component={
               <TextField
                 icon={{
@@ -170,9 +158,9 @@ export default function FormSignUp() {
                     <Box
                       fontSize="20"
                       cursor="pointer"
-                      onClick={setConfirmPasswordVisible.toggle}
+                      onClick={setRepeatPasswordVisible.toggle}
                     >
-                      {confirmPasswordVisible ? (
+                      {repeatPasswordVisible ? (
                         <AiOutlineEye />
                       ) : (
                         <AiOutlineEyeInvisible />
@@ -180,7 +168,7 @@ export default function FormSignUp() {
                     </Box>
                   ),
                 }}
-                type={confirmPasswordVisible ? "text" : "password"}
+                type={repeatPasswordVisible ? "text" : "password"}
                 placeholder="Nhập lại mật khẩu"
               />
             }
@@ -190,7 +178,7 @@ export default function FormSignUp() {
           </Button>
           <HStack>
             <Divider />
-            <Text color={colors.gray}>hoặc</Text>
+            <Text color={Color.GRAY}>hoặc</Text>
             <Divider />
           </HStack>
           <NextLink href="/auth/sign-in">

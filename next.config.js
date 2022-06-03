@@ -4,9 +4,9 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ["picsum.photos"],
+    domains: ["picsum.photos", "ui-avatars.com"],
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
 }
 
 module.exports = nextConfig

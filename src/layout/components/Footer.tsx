@@ -3,12 +3,7 @@ import NextLink from "components/NextLink"
 import { responsiveW } from "configs/constants"
 import { ILinkItem } from "interfaces/ILinkItem"
 import React, { ReactNode } from "react"
-import { colors } from "styles/theme"
-
-interface Item {
-  title: string
-  content: ReactNode
-}
+import { Color } from "styles/theme"
 
 const exploreItems: ILinkItem[] = [
   {
@@ -47,7 +42,7 @@ const serviceItems: ILinkItem[] = [
   },
 ]
 
-const footerItems: Item[] = [
+const footerItems: { title: string; content: ReactNode }[] = [
   {
     title: "Khám phá DDStore",
     content: (
@@ -121,7 +116,7 @@ const footerItems: Item[] = [
 
 export default function Footer() {
   return (
-    <Box bg={colors.primary} py="60px">
+    <Box bg={Color.PRIMARY} py="60px">
       <Grid
         templateColumns={{
           md: "repeat(2, 1fr)",
@@ -131,7 +126,7 @@ export default function Footer() {
         gap="40px"
         w={{ ...responsiveW }}
         mx="auto"
-        bg={colors.primary}
+        bg={Color.PRIMARY}
         color="white"
       >
         {footerItems.map((item, idx) => (

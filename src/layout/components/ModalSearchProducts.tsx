@@ -20,8 +20,8 @@ import { useRouter } from "next/router"
 import React, { useCallback, useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { AiOutlineSearch } from "react-icons/ai"
-import { colors } from "styles/theme"
-import generateArrayNumber from "utils/getArrayNumber"
+import { Color } from "styles/theme"
+import getArrayNumber from "utils/getArrayNumber"
 
 interface FormValues {
   name: string
@@ -88,7 +88,7 @@ export default function ModalSearchProducts({ isOpen, onClose }: IModalProps) {
             <Box p="2">
               {isLoading ? (
                 <Stack>
-                  {generateArrayNumber(5).map((item) => (
+                  {getArrayNumber(5).map((item) => (
                     <Skeleton h="45px" borderRadius="6" key={item} />
                   ))}
                 </Stack>
@@ -99,7 +99,7 @@ export default function ModalSearchProducts({ isOpen, onClose }: IModalProps) {
                       <Box
                         p="2"
                         borderRadius="6"
-                        _hover={{ backgroundColor: colors.lightGray }}
+                        _hover={{ backgroundColor: Color.LIGHT_GRAY }}
                         key={product.id}
                       >
                         <ProductCard data={product} layout="horizontal" />

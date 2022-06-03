@@ -4,83 +4,72 @@ import Button from "components/Button"
 import Field, { FieldLabel } from "components/Field"
 import SelectField from "components/Field/SelectField"
 import TextField from "components/Field/TextField"
-import { ISelectOption } from "interfaces/ISelectOption"
+import { ProductClassify, ProductSize } from "interfaces/IProduct"
 import { useRouter } from "next/router"
 import qs from "query-string"
 import { FormProvider, useForm } from "react-hook-form"
 import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
+import { getValidateInvalidMessage } from "utils/getValidateMessage"
 import * as yup from "yup"
-import { sizeOptions, sortOptions, typeOptions } from "../../constants"
+import { sizeOptions, typeOptions } from "../../constants"
 import { GetProductsDto } from "../../dto/get-products-dto"
-
-interface SearchProductsProps {
-  query: GetProductsDto
-  isLoading?: boolean
-}
 
 interface FormValues {
   name?: string
-  size?: ISelectOption<string>
-  type?: ISelectOption<string>
-  sort?: ISelectOption<string>
+  size?: ProductSize
+  classify?: ProductClassify
   minPrice?: number
   maxPrice?: number
+}
+interface FormSearchProductsProps {
+  query: FormValues
+  isLoading?: boolean
 }
 
 const schema = yup.object().shape({
   name: yup.string(),
-  size: yup.object().nullable(),
+  size: yup
+    .string()
+    .label("Kích cỡ")
+    .test({
+      test: (value) =>
+        value ? Object.keys(ProductSize).includes(value) : false,
+      message: ({ label }) => getValidateInvalidMessage(label),
+    }),
   type: yup.object().nullable(),
-  sort: yup.object().nullable(),
   minPrice: yup
     .number()
-    .min(0, "Giá trị không hợp lệ")
-    .transform((value) => (isNaN(value) ? undefined : value))
+    .label("Giá tối thiểu")
+    .min(0, ({ label }) => getValidateInvalidMessage(label))
     .when("maxPrice", (maxPrice: number, schema) => {
       return schema.test({
         test: (minPrice: number) =>
           minPrice >= 0 && maxPrice >= 0 ? minPrice < maxPrice : true,
-        message: "Giá trị không hợp lệ",
+        message: "Giá tối thiểu không hợp lệ",
       })
     }),
+
   maxPrice: yup
     .number()
-    .min(0, "Giá trị không hợp lệ")
-    .transform((value) => (isNaN(value) ? undefined : value)),
+    .label("Giá tối đa")
+    .min(0, ({ label }) => getValidateInvalidMessage(label)),
 })
 
-export default function SearchProducts({
+export default function FormSearchProducts({
   query,
   isLoading,
-}: SearchProductsProps) {
+}: FormSearchProductsProps) {
   const router = useRouter()
   const methods = useForm<FormValues>({
-    defaultValues: {
-      name: deleteWhiteSpace(query.name),
-      size: sizeOptions.find((option) => option.value === query.size),
-      type: typeOptions.find((option) => option.value === query.type),
-      sort: sortOptions.find((option) => option.value === query.sort),
-      minPrice: query.minPrice,
-      maxPrice: query.maxPrice,
-    },
+    defaultValues: {},
     resolver: yupResolver(schema),
   })
 
-  const handleSubmit = ({
-    name,
-    size,
-    sort,
-    type,
-    minPrice,
-    maxPrice,
-  }: FormValues) => {
-    let submitData: GetProductsDto = {}
-    if (name) submitData.name = deleteWhiteSpace(name)
-    if (size) submitData.size = size.value
-    if (sort) submitData.sort = sort.value
-    if (type) submitData.type = type.value
-    if (minPrice) submitData.minPrice = minPrice
-    if (maxPrice) submitData.maxPrice = maxPrice
+  const handleSubmit = (data: FormValues) => {
+    let submitData: GetProductsDto = {
+      ...data,
+      name: deleteWhiteSpace(data.name),
+    }
 
     const queryString = qs.stringify(submitData, {
       skipEmptyString: true,

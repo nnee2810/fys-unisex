@@ -1,19 +1,20 @@
 import { extendTheme, withDefaultColorScheme } from "@chakra-ui/react"
 
-export const colors = {
-  primary: "#000000",
-  lightGray: "#ebebeb",
-  gray: "#c4c4c4",
-  green: "#38A169",
-  red: "#ff3102",
+export enum Color {
+  PRIMARY = "#000000",
+  LIGHT_GRAY = "#ebebeb",
+  GRAY = "#d9d9d9",
+  DARK_GRAY = "#b3b3b3",
+  GREEN = "#38A169",
+  RED = "#ff3102",
 }
 
 export default extendTheme(
   {
     colors: {
       primary: {
-        500: colors.primary + "cc",
-        600: colors.primary,
+        500: Color.PRIMARY + "cc",
+        600: Color.PRIMARY,
       },
     },
   },

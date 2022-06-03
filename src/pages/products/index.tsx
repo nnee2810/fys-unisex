@@ -1,10 +1,12 @@
 import { Box, Grid } from "@chakra-ui/react"
+import { isNumber, isString } from "class-validator"
 import Breadcrumb from "components/Breadcrumb"
 import ModalConfirm from "components/ModalConfirm"
-import { PAGE_PADDING, responsiveW } from "configs/constants"
+import PageContainer from "components/PageContainer"
+import { ProductClassify, ProductSize } from "interfaces/IProduct"
 import { PageProps } from "layout"
+import FormSearchProducts from "modules/products/components/products/FormSearchProducts"
 import ProductList from "modules/products/components/products/ProductList"
-import SearchProducts from "modules/products/components/products/SearchProducts"
 import SortProducts from "modules/products/components/products/SortProducts"
 import { GetProductsDto } from "modules/products/dto/get-products-dto"
 import { useGetProducts } from "modules/products/hooks/useGetProducts"
@@ -22,20 +24,23 @@ export async function getServerSideProps({
   GetServerSidePropsResult<PageProps & ProductsProps>
 > {
   const queryData: GetProductsDto = {}
-  if (query.name) queryData.name = deleteWhiteSpace(String(query.name))
-  if (query.size) queryData.size = String(query.size)
-  if (query.sort) queryData.sort = String(query.sort)
-  if (query.type) queryData.type = String(query.type)
-  if (!isNaN(Number(query.page))) queryData.page = Number(query.page)
-  if (!isNaN(Number(query.minPrice)))
-    queryData.minPrice = Number(query.minPrice)
-  if (!isNaN(Number(query.maxPrice)))
-    queryData.maxPrice = Number(query.maxPrice)
+  if (isString(query.name)) queryData.name = deleteWhiteSpace(query.name)
+  if (isString(query.size) && Object.keys(ProductSize).includes(query.size))
+    queryData.size = query.size as ProductSize
+  if (isString(query.sort)) queryData.sort = query.sort
+  if (
+    isString(query.classify) &&
+    Object.keys(ProductClassify).includes(query.classify)
+  )
+    queryData.classify = query.classify as ProductClassify
+  if (isNumber(query.page)) queryData.page = Number(query.page)
+  if (isNumber(query.minPrice)) queryData.minPrice = Number(query.minPrice)
+  if (isNumber(query.maxPrice)) queryData.maxPrice = Number(query.maxPrice)
 
   return {
     props: {
       title: "Sản phẩm",
-      protected: false,
+      roles: [],
       query: queryData,
     },
   }
@@ -45,7 +50,7 @@ export default function Products({ query }: ProductsProps) {
   const { data, isLoading, isError, refetch } = useGetProducts(query)
   return (
     <>
-      <Box w={{ ...responsiveW }} mx="auto" py={PAGE_PADDING}>
+      <PageContainer>
         <Breadcrumb
           data={[
             {
@@ -59,7 +64,16 @@ export default function Products({ query }: ProductsProps) {
           ]}
         />
         <Grid templateColumns="300px 1fr" gap="40px">
-          <SearchProducts query={query} isLoading={isLoading} />
+          <FormSearchProducts
+            query={{
+              name: query.name,
+              size: query.size,
+              classify: query.classify,
+              minPrice: query.minPrice,
+              maxPrice: query.maxPrice,
+            }}
+            isLoading={isLoading}
+          />
           <Box>
             <SortProducts query={query} />
             <Box mt="6">
@@ -67,7 +81,7 @@ export default function Products({ query }: ProductsProps) {
             </Box>
           </Box>
         </Grid>
-      </Box>
+      </PageContainer>
       <ModalConfirm
         isOpen={isError}
         title="Lỗi 😵"

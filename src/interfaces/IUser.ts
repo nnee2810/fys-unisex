@@ -1,12 +1,25 @@
 export interface IUser {
   id: string
   fullName: string
-  image: string
+  gender?: UserGender
+  avatar?: string
   email: string
   phone: string
-  address: string
-  role: RoleType
+  address?: string
+  province?: string
+  district?: string
+  ward?: string
+  role: UserRole
   createdAt: string
   updatedAt: string
 }
-export type RoleType = "customer" | "mod" | "admin"
+export enum UserRole {
+  GUEST = "GUEST",
+  CUSTOMER = "CUSTOMER",
+  MOD = "MOD",
+  ADMIN = "ADMIN",
+}
+export enum UserGender {
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+}

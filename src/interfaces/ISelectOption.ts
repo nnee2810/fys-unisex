@@ -1,5 +1,5 @@
-export interface ISelectOption<T> {
+export interface ISelectOption {
   label: string
-  value: T
+  value: string
   disabled?: boolean
 }

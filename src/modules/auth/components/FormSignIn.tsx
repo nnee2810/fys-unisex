@@ -8,12 +8,12 @@ import {
   useBoolean,
 } from "@chakra-ui/react"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { isEmail, isPhoneNumber } from "class-validator"
 import Button from "components/Button"
 import Field from "components/Field"
 import TextField from "components/Field/TextField"
 import NextLink from "components/NextLink"
-import { REGEX } from "configs/constants"
-import useUser from "modules/users/hooks/useUser"
+import { formSchema } from "configs/formSchema"
 import React from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import {
@@ -22,10 +22,14 @@ import {
   AiOutlineLock,
   AiOutlineUser,
 } from "react-icons/ai"
-import { colors } from "styles/theme"
-import { getValidateError } from "utils/getValidateError"
+import { Color } from "styles/theme"
+import {
+  getValidateInvalidMessage,
+  getValidateRequiredMessage,
+} from "utils/getValidateMessage"
 import * as yup from "yup"
 import { SignInByPasswordDto } from "../dto/sign-in-by-password.dto"
+import useAuth from "../hooks/useAuth"
 
 interface FormValues {
   signInKey: string
@@ -35,19 +39,14 @@ interface FormValues {
 const schema = yup.object().shape({
   signInKey: yup
     .string()
-    .required(getValidateError("Email/Số điện thoại", "required"))
+    .label("Email/Số điện thoại")
+    .required(({ label }) => getValidateRequiredMessage(label))
     .test({
-      test(value?: string) {
-        if (!value) return false
-        if (REGEX.EMAIL.test(value) || REGEX.PHONE.test(value)) return true
-        return false
-      },
-      message: getValidateError("Email/Số điện thoại", "invalid"),
+      test: (value) =>
+        value ? isEmail(value) || isPhoneNumber(value, "VN") : false,
+      message: ({ label }) => getValidateInvalidMessage(label),
     }),
-  password: yup
-    .string()
-    .required(getValidateError("Mật khẩu", "required"))
-    .matches(REGEX.PASSWORD, getValidateError("Mật khẩu", "invalid")),
+  password: formSchema.password,
 })
 
 export default function FormSignIn() {
@@ -60,15 +59,15 @@ export default function FormSignIn() {
   })
   const {
     signInByPassword: { mutate, isLoading },
-  } = useUser()
+  } = useAuth()
   const [passwordVisible, setPasswordVisible] = useBoolean(false)
 
   const handleSubmit = ({ signInKey, password }: FormValues) => {
     const submitData: SignInByPasswordDto = {
       password,
     }
-    if (REGEX.EMAIL.test(signInKey)) submitData.email = signInKey
-    if (REGEX.PHONE.test(signInKey)) submitData.phone = signInKey
+    if (isEmail(signInKey)) submitData.email = signInKey
+    if (isPhoneNumber(signInKey, "VN")) submitData.phone = signInKey
 
     mutate(submitData)
   }
@@ -128,7 +127,7 @@ export default function FormSignIn() {
           </Button>
           <HStack>
             <Divider />
-            <Text color={colors.gray}>hoặc</Text>
+            <Text color={Color.GRAY}>hoặc</Text>
             <Divider />
           </HStack>
           <NextLink href="/auth/sign-up">

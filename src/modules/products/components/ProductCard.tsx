@@ -1,19 +1,10 @@
-import {
-  AspectRatio,
-  Box,
-  Flex,
-  HStack,
-  Square,
-  Tag,
-  Text,
-} from "@chakra-ui/react"
+import { Box, Flex, HStack, Tag, Text } from "@chakra-ui/react"
 import { IProduct } from "interfaces/IProduct"
-import Image from "next/image"
 import React from "react"
 import { AiFillHeart } from "react-icons/ai"
-import { colors } from "styles/theme"
+import { Color } from "styles/theme"
 import { formatCurrency } from "utils/formatCurrency"
-import { getFallbackImage } from "utils/getFallbackImage"
+import { getImageFallback } from "utils/getImageFallback"
 import ImageBox from "../../../components/ImageBox"
 import NextLink from "../../../components/NextLink"
 
@@ -28,12 +19,12 @@ export default function ProductCard({ data, layout }: ProductCardProps) {
       <Box>
         <Box pos="relative">
           <NextLink href={`/products/${data.id}`}>
-            <AspectRatio ratio={3 / 4} borderRadius="8" overflow="hidden">
-              <ImageBox
-                src={data.images[0] || getFallbackImage(500)}
-                alt={data.name}
-              />
-            </AspectRatio>
+            <ImageBox
+              src={data.images[0] || getImageFallback(500)}
+              alt={data.name}
+              borderRadius="8"
+              ratio={3 / 4}
+            />
           </NextLink>
           <Flex
             pos="absolute"
@@ -43,8 +34,8 @@ export default function ProductCard({ data, layout }: ProductCardProps) {
             justify="space-between"
             alignItems="center"
           >
-            {data.isSale ? (
-              <Tag fontWeight="500" color="#fff" backgroundColor={colors.red}>
+            {data.inSale ? (
+              <Tag fontWeight="500" color="#fff" backgroundColor={Color.RED}>
                 SALE
               </Tag>
             ) : (
@@ -60,13 +51,13 @@ export default function ProductCard({ data, layout }: ProductCardProps) {
     return (
       <NextLink href={`/products/${data.id}`}>
         <HStack>
-          <Square size="40px" borderRadius="6" overflow="hidden">
-            <Image
-              src={data.images[0] || getFallbackImage(40)}
-              width="100%"
-              height="100%"
-            />
-          </Square>
+          <ImageBox
+            src={data.images[0] || getImageFallback(40)}
+            alt="product"
+            w="40px"
+            borderRadius="6"
+            ratio={1}
+          />
           <Box>{renderProductInfo({ data, layout })}</Box>
         </HStack>
       </NextLink>
@@ -89,14 +80,14 @@ function renderProductInfo({ data, layout }: ProductCardProps) {
       )}
 
       <HStack fontSize="12" fontWeight="500">
-        <Text>{formatCurrency(data.isSale ? data.salePrice : data.price)}</Text>
+        <Text>{formatCurrency(data.inSale ? data.salePrice : data.price)}</Text>
 
-        {data.isSale && (
+        {data.inSale && (
           <>
-            <Text color={colors.gray} textDecor="line-through">
+            <Text color={Color.GRAY} textDecor="line-through">
               {formatCurrency(data.price)}
             </Text>
-            <Tag size="sm" bg={colors.red} color="#fff">
+            <Tag size="sm" bg={Color.RED} color="#fff">
               -{Math.round(100 - (data.salePrice / data.price) * 100)}%
             </Tag>
           </>

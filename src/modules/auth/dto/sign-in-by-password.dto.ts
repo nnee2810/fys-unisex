@@ -3,6 +3,3 @@ export interface SignInByPasswordDto {
   phone?: string
   password: string
 }
-export interface SignInByPasswordResponseDto {
-  accessToken: string
-}

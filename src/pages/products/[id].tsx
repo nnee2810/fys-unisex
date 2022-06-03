@@ -1,7 +1,7 @@
 import { Box, Divider, Grid, Skeleton, Stack } from "@chakra-ui/react"
 import Breadcrumb from "components/Breadcrumb"
 import Modal from "components/ModalConfirm"
-import { PAGE_PADDING, responsiveW } from "configs/constants"
+import PageContainer from "components/PageContainer"
 import { PageProps } from "layout"
 import ProductDescription from "modules/products/components/product/ProductDescription"
 import ProductImagesPreview from "modules/products/components/product/ProductImagesPreview"
@@ -14,7 +14,7 @@ import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import React from "react"
-import generateArrayNumber from "utils/getArrayNumber"
+import getArrayNumber from "utils/getArrayNumber"
 import { getTitle } from "utils/getTitle"
 
 interface ProductProps {
@@ -29,7 +29,7 @@ export function getServerSideProps({
   return {
     props: {
       title: "Chi tiết sản phẩm",
-      protected: false,
+      roles: [],
       id: String(query.id),
     },
   }
@@ -44,7 +44,7 @@ export default function Product({ id }: ProductProps) {
       <Head>
         <title>{getTitle(data?.name)}</title>
       </Head>
-      <Box w={{ ...responsiveW }} mx="auto" py={PAGE_PADDING}>
+      <PageContainer>
         <Breadcrumb
           data={[
             {
@@ -79,7 +79,7 @@ export default function Product({ id }: ProductProps) {
             <ProductReviews />
           </Stack>
         )}
-      </Box>
+      </PageContainer>
       <Modal
         isOpen={isError}
         title="Lỗi 😵"
@@ -98,7 +98,7 @@ function LoadingSkeleton() {
     <Grid templateColumns="1fr 1fr" gap="40px">
       <Skeleton h="600px" borderRadius="16" />
       <Stack spacing="4">
-        {generateArrayNumber(6).map((item) => (
+        {getArrayNumber(6).map((item) => (
           <Skeleton h="40px" borderRadius="8" key={item} />
         ))}
         <Skeleton h="274px" borderRadius="8" />

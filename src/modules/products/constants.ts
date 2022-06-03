@@ -1,13 +1,13 @@
 import { ISelectOption } from "interfaces/ISelectOption"
 
-export const sizeOptions: ISelectOption<string>[] = [
+export const sizeOptions: ISelectOption[] = [
   { label: "S", value: "S" },
   { label: "M", value: "M" },
   { label: "L", value: "L" },
   { label: "XL", value: "XL" },
   { label: "2XL", value: "2XL" },
 ]
-export const typeOptions: ISelectOption<string>[] = [
+export const typeOptions: ISelectOption[] = [
   {
     label: "Áo",
     value: "shirt",
@@ -25,7 +25,7 @@ export const typeOptions: ISelectOption<string>[] = [
     value: "set",
   },
 ]
-export const sortOptions: ISelectOption<string>[] = [
+export const sortOptions: ISelectOption[] = [
   {
     label: "Mới nhất",
     value: "time",

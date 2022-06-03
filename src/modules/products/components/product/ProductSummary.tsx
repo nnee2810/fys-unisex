@@ -3,7 +3,7 @@ import NextLink from "components/NextLink"
 import Rate from "components/Rate"
 import { IProduct } from "interfaces/IProduct"
 import React from "react"
-import { colors } from "styles/theme"
+import { Color } from "styles/theme"
 import { formatCurrency } from "utils/formatCurrency"
 
 interface ProductSummaryProps {
@@ -15,14 +15,14 @@ export default function ProductSummary({ data }: ProductSummaryProps) {
     <Box>
       <Heading as="h1">{data.name}</Heading>
       <HStack spacing="3" fontSize="26" fontWeight="500">
-        <Text>{formatCurrency(data.isSale ? data.salePrice : data.price)}</Text>
+        <Text>{formatCurrency(data.inSale ? data.salePrice : data.price)}</Text>
 
-        {data.isSale && (
+        {data.inSale && (
           <>
-            <Text color={colors.gray} textDecor="line-through">
+            <Text color={Color.GRAY} textDecor="line-through">
               {formatCurrency(data.price)}
             </Text>
-            <Tag bg={colors.red} color="#fff">
+            <Tag bg={Color.RED} color="#fff">
               -{Math.round(100 - (data.salePrice / data.price) * 100)}%
             </Tag>
           </>

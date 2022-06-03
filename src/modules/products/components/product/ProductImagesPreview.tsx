@@ -4,7 +4,7 @@ import { IProduct } from "interfaces/IProduct"
 import React, { useCallback, useState } from "react"
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import styled from "styled-components"
-import { colors } from "styles/theme"
+import { Color } from "styles/theme"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 interface ProductImagesPreviewProps {
@@ -12,7 +12,7 @@ interface ProductImagesPreviewProps {
 }
 
 export default function ProductImagesPreview({
-  data: { images, isSale },
+  data: { images, inSale },
 }: ProductImagesPreviewProps) {
   const [selectedImage, setSelectedImage] = useState(0)
 
@@ -41,7 +41,7 @@ export default function ProductImagesPreview({
               <ImageBox
                 w="50px"
                 h="50px"
-                border={`1px solid ${colors.primary}`}
+                border={`1px solid ${Color.PRIMARY}`}
                 borderRadius="8"
                 opacity={idx === selectedImage ? 1 : 0.5}
                 transition="all .2s"
@@ -54,9 +54,9 @@ export default function ProductImagesPreview({
           ))}
         </Swiper>
       </Box>
-      {isSale && (
+      {inSale && (
         <Box position="absolute" top="4" left="4">
-          <Tag fontWeight="500" color="#fff" backgroundColor={colors.red}>
+          <Tag fontWeight="500" color="#fff" backgroundColor={Color.RED}>
             SALE
           </Tag>
         </Box>

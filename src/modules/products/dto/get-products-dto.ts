@@ -1,14 +1,15 @@
-export interface GetProductsDto {
+import { PaginationDto } from "dto/pagination-dto"
+import { ProductClassify, ProductSize } from "interfaces/IProduct"
+
+export interface GetProductsDto extends PaginationDto {
   name?: string
-  type?: string
-  gender?: string
-  inStock?: string
-  size?: string
+  classify?: ProductClassify
+  gender?: String
+  size?: ProductSize
   minPrice?: number
   maxPrice?: number
+  inStock?: string
+  inSale?: boolean
   isFeatured?: boolean
-  isSale?: boolean
   sort?: string
-  page?: number
-  limit?: number
 }

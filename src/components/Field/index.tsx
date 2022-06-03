@@ -17,19 +17,19 @@ export default function Field({ name, component, label }: FieldProps) {
 
   return (
     <Box>
-      {label && <FieldLabel>{label}</FieldLabel>}
+      {label && <FieldLabel htmlFor={name}>{label}</FieldLabel>}
       <Controller
         control={control}
         name={name}
         render={({ field: { onChange, value } }) =>
           cloneElement(component, {
+            id: name,
             name,
             value,
             onChange(e: any) {
               if (component.props?.onChange) component.props?.onChange(e)
               onChange(e)
             },
-            isInvalid: !!errors?.[name],
           })
         }
       />
@@ -41,8 +41,7 @@ export default function Field({ name, component, label }: FieldProps) {
     </Box>
   )
 }
-export const FieldLabel = styled(Text)`
-  margin-bottom: 2px;
+export const FieldLabel = styled.label`
   font-size: 12px;
   font-weight: 700;
 `

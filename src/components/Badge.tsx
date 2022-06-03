@@ -1,6 +1,6 @@
 import { Box, Center } from "@chakra-ui/react"
 import React, { ReactNode } from "react"
-import { colors } from "styles/theme"
+import { Color } from "styles/theme"
 
 interface BadgeProps {
   children: ReactNode
@@ -21,7 +21,7 @@ export default function Badge({ children, value, max }: BadgeProps) {
         px="1"
         border="2px solid white"
         borderRadius="10"
-        bg={colors.red}
+        bg={Color.RED}
         color="white"
         fontSize="11"
         fontWeight="500"

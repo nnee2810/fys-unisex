@@ -5,17 +5,15 @@ import { IProduct } from "interfaces/IProduct"
 import { GetProductsDto } from "../dto/get-products-dto"
 
 export async function getProducts({
-  page = 0,
+  page = 1,
   limit = LIMIT_PER_PAGE,
-  ...params
+  ...data
 }: GetProductsDto) {
   return (
-    await API.get<IPaginationResponse<IProduct[]>>("/products", {
-      params: {
-        page,
-        limit,
-        ...params,
-      },
+    await API.post<IPaginationResponse<IProduct[]>>("/products", {
+      page,
+      limit,
+      ...data,
     })
   ).data
 }

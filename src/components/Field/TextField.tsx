@@ -6,7 +6,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react"
 import React, { ReactElement } from "react"
-import { colors } from "styles/theme"
+import { Color } from "styles/theme"
 
 interface TextFieldProps extends InputProps {
   icon?: {
@@ -23,8 +23,12 @@ export default function TextField({ icon, ...props }: TextFieldProps) {
       )}
       <Input
         h="40px"
-        focusBorderColor={colors.primary}
-        _hover={{ borderColor: colors.gray }}
+        borderColor={Color.GRAY}
+        focusBorderColor={Color.PRIMARY}
+        _disabled={{
+          opacity: 0.6,
+        }}
+        _hover={{ borderColor: Color.DARK_GRAY }}
         {...props}
       />
       {icon?.after && (

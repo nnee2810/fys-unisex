@@ -1,28 +1,22 @@
 import { HStack } from "@chakra-ui/react"
 import Button from "components/Button"
 import { ISelectOption } from "interfaces/ISelectOption"
-import React, { useState } from "react"
-
-type OptionValueType = number | string
+import React from "react"
 
 interface SelectBoxFieldProps {
-  options: ISelectOption<OptionValueType>[]
-  onChange?: (value: OptionValueType) => void
-  defaultValue?: string | null
+  options: ISelectOption[]
+  onChange?: (value: string) => void
+  value?: string
 }
 
 export default function SelectBoxField({
   options,
   onChange,
-  defaultValue,
+  value,
 }: SelectBoxFieldProps) {
-  const [selected, setSelected] = useState<OptionValueType | null | undefined>(
-    defaultValue
-  )
-
-  const handleChangeSelect = (value: OptionValueType) => {
-    if (onChange) onChange(value)
-    setSelected(value)
+  const handleChangeSelect = (newValue: string) => {
+    newValue = newValue === value ? "" : newValue
+    if (onChange) onChange(newValue)
   }
 
   return (
@@ -30,7 +24,7 @@ export default function SelectBoxField({
       {options.map((option, idx) => (
         <Button
           minW="60px"
-          colorScheme={option.value === selected ? "primary" : "gray"}
+          colorScheme={option.value === value ? "primary" : "gray"}
           onClick={() => handleChangeSelect(option.value)}
           key={idx}
         >

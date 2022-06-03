@@ -6,7 +6,7 @@ import ProductCard from "modules/products/components/ProductCard"
 import { GetProductsDto } from "modules/products/dto/get-products-dto"
 import { useRouter } from "next/router"
 import qs from "query-string"
-import generateArrayNumber from "utils/getArrayNumber"
+import getArrayNumber from "utils/getArrayNumber"
 
 interface ProductListProps {
   query: GetProductsDto
@@ -23,7 +23,7 @@ export default function ProductList({
   const handleChange = (selectedItem: { selected: number }) => {
     const queryString = qs.stringify({
       ...query,
-      page: selectedItem.selected,
+      page: selectedItem.selected + 1,
     })
     router.push(`?${queryString}`)
   }
@@ -31,7 +31,7 @@ export default function ProductList({
     <Box>
       {isLoading ? (
         <Grid gridTemplateColumns="repeat(4, 1fr)" gap="5">
-          {generateArrayNumber(8).map((item) => (
+          {getArrayNumber(8).map((item) => (
             <Skeleton h="300px" borderRadius="8" key={item} />
           ))}
         </Grid>
@@ -43,7 +43,7 @@ export default function ProductList({
             ))}
           </Grid>
           <Pagination
-            forcePage={data.page || 0}
+            forcePage={data.page - 1 || 0}
             pageCount={Math.ceil(data.total / data.limit)}
             onPageChange={handleChange}
           />

@@ -2,7 +2,7 @@ import { Box, Fade, useBoolean } from "@chakra-ui/react"
 import { zIndex } from "configs/constants"
 import React, { useCallback, useEffect } from "react"
 import { BsArrowUp } from "react-icons/bs"
-import { colors } from "styles/theme"
+import { Color } from "styles/theme"
 
 export default function BackToTop() {
   const [visible, setVisible] = useBoolean()
@@ -32,13 +32,13 @@ export default function BackToTop() {
         bottom="4"
         right="4"
         p="2"
-        bg={colors.lightGray}
+        bg={Color.LIGHT_GRAY}
         borderRadius="8"
         cursor="pointer"
-        zIndex={zIndex.backToTop}
+        zIndex={zIndex.BACK_TO_TOP}
         transition="all .2s"
         _hover={{
-          bg: colors.primary,
+          bg: Color.PRIMARY,
           color: "white",
         }}
         onClick={scrollToTop}

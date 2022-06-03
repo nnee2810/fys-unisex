@@ -4,7 +4,7 @@ import { AiOutlineGift } from "react-icons/ai"
 import { BsHeadset } from "react-icons/bs"
 import { GrDeliver } from "react-icons/gr"
 import { MdLoop } from "react-icons/md"
-import { getFallbackImage } from "utils/getFallbackImage"
+import { getImageFallback } from "utils/getImageFallback"
 
 interface HeaderNavItem extends ILinkItem {
   childs?: HeaderNavItem[]
@@ -28,42 +28,6 @@ export const headerNavItems: HeaderNavItem[] = [
     href: "/products",
   },
   {
-    name: "ÁO",
-    href: "/products?gender=male",
-    childs: [
-      {
-        name: "ÁO 1ÁO 1ÁO 1ÁO 1ÁO 1",
-        href: "#",
-      },
-      {
-        name: "ÁO 2",
-        href: "#",
-      },
-    ],
-  },
-  {
-    name: "QUẦN",
-    href: "/products?gender=female",
-    childs: [
-      {
-        name: "QUẦN 1",
-        href: "#",
-      },
-      {
-        name: "QUẦN 2",
-        href: "#",
-      },
-    ],
-  },
-  {
-    name: "PHỤ KIỆN",
-    href: "/products?type=accessory",
-  },
-  {
-    name: "SET ĐỒ",
-    href: "/products?type=set",
-  },
-  {
     name: "LIÊN HỆ",
     href: "/contact",
   },
@@ -73,17 +37,17 @@ export const exploreItems: ExploreItem[] = [
   {
     name: "Áo",
     href: "#",
-    src: getFallbackImage(500),
+    src: getImageFallback(500),
   },
   {
     name: "Quần",
     href: "#",
-    src: getFallbackImage(500),
+    src: getImageFallback(500),
   },
   {
     name: "Phụ kiện",
     href: "#",
-    src: getFallbackImage(500),
+    src: getImageFallback(500),
   },
 ]
 export const commitItems: CommitItem[] = [
