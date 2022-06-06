@@ -11,19 +11,19 @@ import { FormProvider, useForm } from "react-hook-form"
 import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
 import { getValidateInvalidMessage } from "utils/getValidateMessage"
 import * as yup from "yup"
-import { sizeOptions, typeOptions } from "../../constants"
+import { productClassifyOptions, productSizeOptions } from "../../constants"
 import { GetProductsDto } from "../../dto/get-products-dto"
 
+interface FormSearchProductsProps {
+  query: GetProductsDto
+  isLoading?: boolean
+}
 interface FormValues {
   name?: string
   size?: ProductSize
   classify?: ProductClassify
   minPrice?: number
   maxPrice?: number
-}
-interface FormSearchProductsProps {
-  query: FormValues
-  isLoading?: boolean
 }
 
 const schema = yup.object().shape({
@@ -33,10 +33,17 @@ const schema = yup.object().shape({
     .label("Kích cỡ")
     .test({
       test: (value) =>
-        value ? Object.keys(ProductSize).includes(value) : false,
+        value ? Object.keys(ProductSize).includes(value) : true,
       message: ({ label }) => getValidateInvalidMessage(label),
     }),
-  type: yup.object().nullable(),
+  classify: yup
+    .string()
+    .label("Loại sản phẩm")
+    .test({
+      test: (value) =>
+        value ? Object.keys(ProductClassify).includes(value) : true,
+      message: ({ label }) => getValidateInvalidMessage(label),
+    }),
   minPrice: yup
     .number()
     .label("Giá tối thiểu")
@@ -45,14 +52,16 @@ const schema = yup.object().shape({
       return schema.test({
         test: (minPrice: number) =>
           minPrice >= 0 && maxPrice >= 0 ? minPrice < maxPrice : true,
-        message: "Giá tối thiểu không hợp lệ",
+        message: ({ label }: { label: string }) =>
+          getValidateInvalidMessage(label),
       })
-    }),
-
+    })
+    .transform((value) => (isNaN(value) ? undefined : value)),
   maxPrice: yup
     .number()
     .label("Giá tối đa")
-    .min(0, ({ label }) => getValidateInvalidMessage(label)),
+    .min(0, ({ label }) => getValidateInvalidMessage(label))
+    .transform((value) => (isNaN(value) ? undefined : value)),
 })
 
 export default function FormSearchProducts({
@@ -61,12 +70,19 @@ export default function FormSearchProducts({
 }: FormSearchProductsProps) {
   const router = useRouter()
   const methods = useForm<FormValues>({
-    defaultValues: {},
+    defaultValues: {
+      name: query.name || "",
+      size: query.size,
+      classify: query.classify,
+      minPrice: query.minPrice,
+      maxPrice: query.maxPrice,
+    },
     resolver: yupResolver(schema),
   })
 
   const handleSubmit = (data: FormValues) => {
     let submitData: GetProductsDto = {
+      ...query,
       ...data,
       name: deleteWhiteSpace(data.name),
     }
@@ -91,12 +107,12 @@ export default function FormSearchProducts({
             <Field
               name="size"
               label="Kích cỡ"
-              component={<SelectField options={sizeOptions} />}
+              component={<SelectField options={productSizeOptions} />}
             />
             <Field
-              name="type"
+              name="classify"
               label="Loại sản phẩm"
-              component={<SelectField options={typeOptions} />}
+              component={<SelectField options={productClassifyOptions} />}
             />
             <Box>
               <FieldLabel>Khoảng giá</FieldLabel>

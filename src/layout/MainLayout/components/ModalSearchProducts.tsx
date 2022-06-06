@@ -36,7 +36,7 @@ export default function ModalSearchProducts({ isOpen, onClose }: IModalProps) {
   })
   const [queryName, setQueryName] = useState("")
   const { data, isLoading, refetch } = useGetProducts(
-    { name: queryName, limit: 10 },
+    { name: queryName, take: 10 },
     { enabled: false }
   )
 

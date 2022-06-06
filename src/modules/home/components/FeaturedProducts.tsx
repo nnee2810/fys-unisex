@@ -13,20 +13,18 @@ import {
 } from "@chakra-ui/react"
 import NextLink from "components/NextLink"
 import { responsiveW, zIndex } from "configs/constants"
-import { IProduct } from "interfaces/IProduct"
+import { ProductClassify } from "interfaces/IProduct"
 import ProductCard from "modules/products/components/ProductCard"
+import { useGetProducts } from "modules/products/hooks/useGetProducts"
 import React from "react"
 import getArrayNumber from "utils/getArrayNumber"
 
-interface FeaturedProductsProps {
-  products?: IProduct[]
-  isLoading?: boolean
-}
+export default function FeaturedProducts() {
+  const { data, isLoading } = useGetProducts({
+    isFeatured: true,
+    take: 30,
+  })
 
-export default function FeaturedProducts({
-  products,
-  isLoading,
-}: FeaturedProductsProps) {
   return (
     <Box>
       <Heading textAlign="center">Sản phẩm nổi bật</Heading>
@@ -38,7 +36,7 @@ export default function FeaturedProducts({
             ))}
           </Grid>
         ) : (
-          products && (
+          data?.data?.length && (
             <Tabs align="center">
               <TabList
                 position="sticky"
@@ -51,7 +49,7 @@ export default function FeaturedProducts({
                 <Tab>Phụ kiện</Tab>
               </TabList>
               <TabPanels>
-                {["shirt", "pant", "accessory"].map((type, idx) => (
+                {Object.keys(ProductClassify).map((classify, idx) => (
                   <TabPanel key={idx} px="0">
                     <Grid
                       templateColumns={{
@@ -62,8 +60,8 @@ export default function FeaturedProducts({
                       }}
                       gap="5"
                     >
-                      {products
-                        .filter((product) => product.type === type)
+                      {data.data
+                        .filter((product) => product.classify === classify)
                         .map((product) => (
                           <ProductCard
                             data={product}

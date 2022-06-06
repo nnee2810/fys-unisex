@@ -1,3 +1,3 @@
-export function getTitle(name: string = "") {
-  return `DD Store${name && " | " + name}`
+export function getTitle(title: string = "") {
+  return `DD Store ${title && "| " + title}`
 }

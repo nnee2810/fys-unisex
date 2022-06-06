@@ -1,8 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react"
 import { toastConfig } from "configs/constants"
-import Layout from "layout"
+import MainLayout from "layout/MainLayout"
 import type { AppProps } from "next/app"
-import Head from "next/head"
 import "rc-rate/assets/index.css"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Provider as ReduxProvider } from "react-redux"
@@ -24,24 +23,17 @@ const queryClient = new QueryClient({
   },
 })
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Head>
-        <title>DD Store</title>
-      </Head>
-      <QueryClientProvider client={queryClient}>
-        <ReduxProvider store={store}>
-          <ChakraProvider theme={theme}>
-            <Layout pageProps={pageProps}>
-              <Component {...pageProps} />
-            </Layout>
-            <ToastContainer {...toastConfig} />
-          </ChakraProvider>
-        </ReduxProvider>
-      </QueryClientProvider>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <ReduxProvider store={store}>
+        <ChakraProvider theme={theme}>
+          <MainLayout pageProps={pageProps}>
+            <Component {...pageProps} />
+          </MainLayout>
+          <ToastContainer {...toastConfig} />
+        </ChakraProvider>
+      </ReduxProvider>
+    </QueryClientProvider>
   )
 }
-
-export default MyApp

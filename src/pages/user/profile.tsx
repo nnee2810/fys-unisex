@@ -1,7 +1,7 @@
 import { Grid, Heading } from "@chakra-ui/react"
 import PageContainer from "components/PageContainer"
-import { Role } from "interfaces/IUser"
-import { PageProps } from "layout"
+import { IPageProps } from "interfaces/IPageProps"
+import { UserRole } from "interfaces/IUser"
 import UserLayout from "layout/UserLayout"
 import FormUpdateAvatar from "modules/users/components/profile/FormUpdateAvatar"
 import FormUpdateProfile from "modules/users/components/profile/FormUpdateProfile"
@@ -10,11 +10,11 @@ import React from "react"
 
 export async function getStaticProps(
   context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<PageProps>> {
+): Promise<GetStaticPropsResult<IPageProps>> {
   return {
     props: {
       title: "Tài khoản của tôi",
-      roles: [Role.Customer, Role.Mod, Role.Admin],
+      roles: [UserRole.CUSTOMER, UserRole.MOD, UserRole.ADMIN],
     },
   }
 }

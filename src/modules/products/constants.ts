@@ -1,45 +1,24 @@
+import { ProductClassify, ProductSize } from "interfaces/IProduct"
 import { ISelectOption } from "interfaces/ISelectOption"
+import { ProductSort } from "./dto/get-products-dto"
 
-export const sizeOptions: ISelectOption[] = [
-  { label: "S", value: "S" },
-  { label: "M", value: "M" },
-  { label: "L", value: "L" },
-  { label: "XL", value: "XL" },
-  { label: "2XL", value: "2XL" },
-]
-export const typeOptions: ISelectOption[] = [
-  {
-    label: "Áo",
-    value: "shirt",
-  },
-  {
-    label: "Quần",
-    value: "pant",
-  },
-  {
-    label: "Phụ kiện",
-    value: "accessory",
-  },
-  {
-    label: "Set đồ",
-    value: "set",
-  },
-]
-export const sortOptions: ISelectOption[] = [
-  {
-    label: "Mới nhất",
-    value: "time",
-  },
-  {
-    label: "Giá thấp đến cao",
-    value: "price-asc",
-  },
-  {
-    label: "Giá cao đến thấp",
-    value: "price-desc",
-  },
-  {
-    label: "% giảm giá nhiều",
-    value: "percent",
-  },
-]
+export const productSizeOptions: ISelectOption[] = Object.keys(ProductSize).map(
+  (key) => ({
+    label: key,
+    value: key,
+  })
+)
+
+export const productClassifyOptions: ISelectOption[] = Object.keys(
+  ProductClassify
+).map((key) => ({
+  label: key,
+  value: key,
+}))
+
+export const sortOptions: ISelectOption[] = Object.keys(ProductSort).map(
+  (key) => ({
+    label: key,
+    value: key,
+  })
+)

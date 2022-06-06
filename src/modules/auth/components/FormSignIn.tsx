@@ -13,7 +13,7 @@ import Button from "components/Button"
 import Field from "components/Field"
 import TextField from "components/Field/TextField"
 import NextLink from "components/NextLink"
-import { formSchema } from "configs/formSchema"
+import { formSchema } from "helpers/formSchema"
 import React from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import {
@@ -29,7 +29,7 @@ import {
 } from "utils/getValidateMessage"
 import * as yup from "yup"
 import { SignInByPasswordDto } from "../dto/sign-in-by-password.dto"
-import useAuth from "../hooks/useAuth"
+import { useAuth } from "../hooks/useAuth"
 
 interface FormValues {
   signInKey: string

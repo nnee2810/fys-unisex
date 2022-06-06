@@ -1,6 +1,13 @@
 import { PaginationDto } from "dto/pagination-dto"
 import { ProductClassify, ProductSize } from "interfaces/IProduct"
 
+export enum ProductSort {
+  TIME = "TIME",
+  PRICE_ASC = "PRICE_ASC",
+  PRICE_DESC = "PRICE_DESC",
+  PERCENT = "PERCENT",
+}
+
 export interface GetProductsDto extends PaginationDto {
   name?: string
   classify?: ProductClassify
@@ -11,5 +18,5 @@ export interface GetProductsDto extends PaginationDto {
   inStock?: string
   inSale?: boolean
   isFeatured?: boolean
-  sort?: string
+  sort?: ProductSort
 }

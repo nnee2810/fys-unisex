@@ -2,7 +2,7 @@ import { Box, Divider, Grid, Skeleton, Stack } from "@chakra-ui/react"
 import Breadcrumb from "components/Breadcrumb"
 import Modal from "components/ModalConfirm"
 import PageContainer from "components/PageContainer"
-import { PageProps } from "layout"
+import { IPageProps } from "interfaces/IPageProps"
 import ProductDescription from "modules/products/components/product/ProductDescription"
 import ProductImagesPreview from "modules/products/components/product/ProductImagesPreview"
 import ProductOrder from "modules/products/components/product/ProductOrder"
@@ -24,7 +24,7 @@ interface ProductProps {
 export function getServerSideProps({
   query,
 }: GetServerSidePropsContext): GetServerSidePropsResult<
-  PageProps & ProductProps
+  IPageProps & ProductProps
 > {
   return {
     props: {
@@ -38,6 +38,7 @@ export function getServerSideProps({
 export default function Product({ id }: ProductProps) {
   const router = useRouter()
   const { data, isLoading, isError, refetch } = useGetProduct(id)
+  console.log(data)
 
   return (
     <>

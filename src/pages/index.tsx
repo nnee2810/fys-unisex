@@ -1,17 +1,16 @@
 import { Stack } from "@chakra-ui/react"
-import { PageProps } from "layout"
+import { IPageProps } from "interfaces/IPageProps"
 import Banners from "modules/home/components/Banners"
 import Commit from "modules/home/components/Commit"
 import Explore from "modules/home/components/Explore"
 import FeaturedProducts from "modules/home/components/FeaturedProducts"
 import FlashSale from "modules/home/components/FlashSale"
 import Story from "modules/home/components/Story"
-import { useGetProducts } from "modules/products/hooks/useGetProducts"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
 
 export async function getStaticProps(
   context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<PageProps>> {
+): Promise<GetStaticPropsResult<IPageProps>> {
   return {
     props: {
       title: "Trang chủ",
@@ -20,29 +19,12 @@ export async function getStaticProps(
   }
 }
 export default function Home() {
-  const { data: flashSaleProducts, isLoading: isLoadingFlashSaleProducts } =
-    useGetProducts({
-      inSale: true,
-      limit: 10,
-    })
-  const { data: featuredProducts, isLoading: isLoadingFeaturedProducts } =
-    useGetProducts({
-      isFeatured: true,
-      limit: 30,
-    })
-
   return (
     <Stack spacing="60px">
       <Banners />
       <Explore />
-      <FlashSale
-        products={flashSaleProducts?.data}
-        isLoading={isLoadingFlashSaleProducts}
-      />
-      <FeaturedProducts
-        products={featuredProducts?.data}
-        isLoading={isLoadingFeaturedProducts}
-      />
+      <FlashSale />
+      <FeaturedProducts />
       <Story />
       <Commit />
     </Stack>

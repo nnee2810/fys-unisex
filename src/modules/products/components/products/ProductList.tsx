@@ -44,7 +44,7 @@ export default function ProductList({
           </Grid>
           <Pagination
             forcePage={data.page - 1 || 0}
-            pageCount={Math.ceil(data.total / data.limit)}
+            pageCount={Math.ceil(data.total / data.take)}
             onPageChange={handleChange}
           />
         </>

@@ -6,6 +6,7 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import styled from "styled-components"
 import { Color } from "styles/theme"
 import { Swiper, SwiperSlide } from "swiper/react"
+import { getImageFallback } from "utils/getImageFallback"
 
 interface ProductImagesPreviewProps {
   data: IProduct
@@ -27,7 +28,7 @@ export default function ProductImagesPreview({
       <ImageBox
         h="650px"
         borderRadius="16"
-        src={images[selectedImage]}
+        src={images[selectedImage] || getImageFallback(500)}
         alt={"productImage" + selectedImage}
       />
       <Box pos="absolute" bottom="4" w="100%" px="4">

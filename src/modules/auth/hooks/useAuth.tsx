@@ -19,7 +19,7 @@ import { SignUpDto } from "../dto/sign-up.dto"
 import { signInByPassword as signInByPasswordService } from "../services/signInByPassword"
 import { signUp as signUpService } from "../services/signUp"
 
-export default function useAuth() {
+export function useAuth() {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const { from } = useAppSelector(historySelector)
@@ -37,7 +37,24 @@ export default function useAuth() {
         Cookies.remove(Key.ACCESS_TOKEN)
     }
   }
-  const signUp = useMutation("signUp", (data: SignUpDto) => signUpService(data))
+  const signUp = useMutation(
+    "signUp",
+    (data: SignUpDto) => signUpService(data),
+    {
+      onSuccess() {
+        toast.success(Message.SIGN_UP_SUCCESS)
+        router.push("/auth/sign-in")
+      },
+      onError(error) {
+        if (error instanceof AxiosError) {
+          toast.error(
+            Message[error.response?.data?.message as keyof typeof Message] ||
+              Message.SERVER_ERROR
+          )
+        } else toast.error(Message.SERVER_ERROR)
+      },
+    }
+  )
   const signInByPassword = useMutation(
     "signInByPassword",
     (data: SignInByPasswordDto) => signInByPasswordService(data),
@@ -49,14 +66,17 @@ export default function useAuth() {
       },
       onError(error) {
         if (error instanceof AxiosError) {
-          toast.error(error.response?.data?.message || Message.ERROR)
-        } else toast.error(Message.ERROR)
+          toast.error(
+            Message[error.response?.data?.message as keyof typeof Message] ||
+              Message.SERVER_ERROR
+          )
+        } else toast.error(Message.SERVER_ERROR)
       },
     }
   )
   const signOut = () => {
     dispatch(SIGN_OUT())
-    toast.success("Đăng xuất thành công")
+    toast.success(Message.SIGN_OUT_SUCCESS)
   }
   return { ...auth, fetchProfile, signUp, signInByPassword, signOut }
 }

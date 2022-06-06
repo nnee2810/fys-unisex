@@ -1,7 +1,7 @@
 import { Box, Grid, Heading, HStack, Skeleton, Text } from "@chakra-ui/react"
 import { responsiveW } from "configs/constants"
-import { IProduct } from "interfaces/IProduct"
 import ProductCard from "modules/products/components/ProductCard"
+import { useGetProducts } from "modules/products/hooks/useGetProducts"
 import React from "react"
 import { IoFlashOutline } from "react-icons/io5"
 import { Color } from "styles/theme"
@@ -9,12 +9,12 @@ import { Autoplay } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import getArrayNumber from "utils/getArrayNumber"
 
-interface FlashSaleProps {
-  products?: IProduct[]
-  isLoading?: boolean
-}
+export default function FlashSale() {
+  const { data, isLoading } = useGetProducts({
+    inSale: true,
+    take: 10,
+  })
 
-export default function FlashSale({ products, isLoading }: FlashSaleProps) {
   return (
     <Box>
       <Heading color={Color.RED}>
@@ -31,7 +31,7 @@ export default function FlashSale({ products, isLoading }: FlashSaleProps) {
             ))}
           </Grid>
         ) : (
-          products?.length && (
+          data?.data?.length && (
             <Swiper
               centeredSlides
               slidesPerView="auto"
@@ -45,7 +45,7 @@ export default function FlashSale({ products, isLoading }: FlashSaleProps) {
               loop
               className="swiper-slide-fit"
             >
-              {products.map((product) => (
+              {data?.data?.map((product) => (
                 <SwiperSlide key={product.id}>
                   <Box w="270px">
                     <ProductCard data={product} layout="vertical" />

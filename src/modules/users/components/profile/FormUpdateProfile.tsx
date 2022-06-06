@@ -1,27 +1,21 @@
-import { Box, Grid, HStack, Stack } from "@chakra-ui/react"
+import { Box, HStack, Stack } from "@chakra-ui/react"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Button from "components/Button"
 import Field from "components/Field"
 import SelectBoxField from "components/Field/SelectBoxField"
-import SelectField from "components/Field/SelectField"
 import TextField from "components/Field/TextField"
-import { formSchema } from "configs/formSchema"
+import { formSchema } from "helpers/formSchema"
 import { ISelectOption } from "interfaces/ISelectOption"
 import { UserGender } from "interfaces/IUser"
-import useAuth from "modules/auth/hooks/useAuth"
+import { useAuth } from "modules/auth/hooks/useAuth"
+import { useUpdateUserProfile } from "modules/users/hooks/useUpdateUserProfile"
 import React from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import {
   getValidateInvalidMessage,
   getValidateRequiredMessage,
 } from "utils/getValidateMessage"
-import {
-  getDistrictOptions,
-  getWardOptions,
-  provinceOptions,
-} from "utils/local"
 import * as yup from "yup"
-import useUser from "../../hooks/useUser"
 
 const genderOptions: ISelectOption[] = [
   {
@@ -41,44 +35,28 @@ const schema = yup.object().shape({
     .string()
     .label("Giới tính")
     .required(({ label }) => getValidateRequiredMessage(label))
-    .test({
-      test: (value) =>
-        value ? Object.keys(UserGender).includes(value) : false,
-      message: ({ label }) => getValidateInvalidMessage(label),
-    }),
+    .oneOf(Object.keys(UserGender), ({ label }) =>
+      getValidateInvalidMessage(label)
+    ),
 })
 
 interface FormValues {
   fullName: string
   phone: string
   email: string
-  address: string
-  gender: UserGender
-  province: string
-  district: string
-  ward: string
 }
 
 export default function FormUpdateProfile() {
   const { profile } = useAuth()
-  const {
-    updateUserProfile: { mutate, isLoading },
-  } = useUser()
+  const { mutate, isLoading } = useUpdateUserProfile()
   const methods = useForm<FormValues>({
     defaultValues: {
       fullName: profile?.fullName,
       phone: profile?.phone,
       email: profile?.email,
-      address: profile?.address,
-      province: profile?.province,
-      district: profile?.district,
-      ward: profile?.ward,
-      gender: profile?.gender,
     },
     resolver: yupResolver(schema),
   })
-  const watchProvince = methods.watch("province")
-  const watchDistrict = methods.watch("district")
 
   const handleSubmit = ({ phone, email, ...data }: FormValues) => {
     if (!profile) return
@@ -110,7 +88,7 @@ export default function FormUpdateProfile() {
             </Box>
             <Button>Thay đổi</Button>
           </HStack>
-          <Field
+          {/* <Field
             name="address"
             label="Địa chỉ"
             component={<TextField placeholder="Địa chỉ cụ thể ..." />}
@@ -137,7 +115,7 @@ export default function FormUpdateProfile() {
                 />
               }
             />
-          </Grid>
+          </Grid> */}
           <Field
             name="gender"
             label="Giới tính"

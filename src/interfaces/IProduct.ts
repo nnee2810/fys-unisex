@@ -23,13 +23,17 @@ export enum ProductSize {
 export interface IProduct {
   id: string
   name: string
+  slug: string
   images: string[]
   classify: ProductClassify
   gender: ProductGender
-  size: ProductSize
+  sizes: ProductSize[]
   price: number
   salePrice: number
-  inStock: boolean
+  onSale: boolean
   inSale: boolean
+  inStock: boolean
   isFeatured: boolean
+  createdAt: string
+  updatedAt: string
 }

@@ -1,10 +1,10 @@
 import { isEmail, isPhoneNumber } from "class-validator"
+import { Regex } from "configs/constants"
 import {
   getValidateInvalidMessage,
   getValidateRequiredMessage,
 } from "utils/getValidateMessage"
 import * as yup from "yup"
-import { Regex } from "./constants"
 
 export const formSchema = {
   fullName: yup

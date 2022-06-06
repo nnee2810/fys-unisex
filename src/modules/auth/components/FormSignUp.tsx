@@ -1,13 +1,10 @@
 import { Box, Divider, HStack, Stack, Text, useBoolean } from "@chakra-ui/react"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { AxiosError } from "axios"
 import Button from "components/Button"
 import Field from "components/Field"
 import TextField from "components/Field/TextField"
 import NextLink from "components/NextLink"
-import { Message } from "configs/constants"
-import { formSchema } from "configs/formSchema"
-import { useRouter } from "next/router"
+import { formSchema } from "helpers/formSchema"
 import React from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import {
@@ -18,12 +15,11 @@ import {
   AiOutlineUser,
 } from "react-icons/ai"
 import { IoPhonePortraitOutline } from "react-icons/io5"
-import { toast } from "react-toastify"
 import { Color } from "styles/theme"
 import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
 import { getValidateNotMatchMessage } from "utils/getValidateMessage"
 import * as yup from "yup"
-import useAuth from "../hooks/useAuth"
+import { useAuth } from "../hooks/useAuth"
 
 interface FormValues {
   fullName: string
@@ -35,8 +31,8 @@ interface FormValues {
 
 const schema = yup.object().shape({
   fullName: formSchema.fullName,
-  phone: formSchema.phone,
   email: formSchema.email,
+  phone: formSchema.phone,
   password: formSchema.password,
   repeatPassword: yup
     .string()
@@ -47,12 +43,11 @@ const schema = yup.object().shape({
 })
 
 export default function FormSignUp() {
-  const router = useRouter()
   const methods = useForm<FormValues>({
     defaultValues: {
       fullName: "",
-      phone: "",
       email: "",
+      phone: "",
       password: "",
       repeatPassword: "",
     },
@@ -70,24 +65,11 @@ export default function FormSignUp() {
     repeatPassword,
     ...data
   }: FormValues) => {
-    mutate(
-      {
-        ...data,
-        fullName: deleteWhiteSpace(fullName),
-        phone: deleteWhiteSpace(phone),
-      },
-      {
-        onSuccess() {
-          toast.success(Message.SIGN_UP_SUCCESS)
-          router.push("/auth/sign-in")
-        },
-        onError(error) {
-          if (error instanceof AxiosError) {
-            toast.error(error.response?.data?.message || Message.ERROR)
-          } else toast.error(Message.ERROR)
-        },
-      }
-    )
+    mutate({
+      ...data,
+      fullName: deleteWhiteSpace(fullName),
+      phone: deleteWhiteSpace(phone),
+    })
   }
 
   return (
@@ -106,20 +88,20 @@ export default function FormSignUp() {
             }
           />
           <Field
-            name="phone"
-            component={
-              <TextField
-                placeholder="Số điện thoại"
-                icon={{ before: <IoPhonePortraitOutline fontSize="18" /> }}
-              />
-            }
-          />
-          <Field
             name="email"
             component={
               <TextField
                 placeholder="Email"
                 icon={{ before: <AiOutlineMail fontSize="18" /> }}
+              />
+            }
+          />
+          <Field
+            name="phone"
+            component={
+              <TextField
+                placeholder="Số điện thoại"
+                icon={{ before: <IoPhonePortraitOutline fontSize="18" /> }}
               />
             }
           />

@@ -3,12 +3,15 @@ import { isNumber, isString } from "class-validator"
 import Breadcrumb from "components/Breadcrumb"
 import ModalConfirm from "components/ModalConfirm"
 import PageContainer from "components/PageContainer"
+import { IPageProps } from "interfaces/IPageProps"
 import { ProductClassify, ProductSize } from "interfaces/IProduct"
-import { PageProps } from "layout"
 import FormSearchProducts from "modules/products/components/products/FormSearchProducts"
 import ProductList from "modules/products/components/products/ProductList"
 import SortProducts from "modules/products/components/products/SortProducts"
-import { GetProductsDto } from "modules/products/dto/get-products-dto"
+import {
+  GetProductsDto,
+  ProductSort,
+} from "modules/products/dto/get-products-dto"
 import { useGetProducts } from "modules/products/hooks/useGetProducts"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import { useRouter } from "next/router"
@@ -21,13 +24,14 @@ interface ProductsProps {
 export async function getServerSideProps({
   query,
 }: GetServerSidePropsContext): Promise<
-  GetServerSidePropsResult<PageProps & ProductsProps>
+  GetServerSidePropsResult<IPageProps & ProductsProps>
 > {
   const queryData: GetProductsDto = {}
   if (isString(query.name)) queryData.name = deleteWhiteSpace(query.name)
   if (isString(query.size) && Object.keys(ProductSize).includes(query.size))
     queryData.size = query.size as ProductSize
-  if (isString(query.sort)) queryData.sort = query.sort
+  if (isString(query.sort) && Object.keys(ProductSort).includes(query.sort))
+    queryData.sort = query.sort as ProductSort
   if (
     isString(query.classify) &&
     Object.keys(ProductClassify).includes(query.classify)
@@ -64,16 +68,7 @@ export default function Products({ query }: ProductsProps) {
           ]}
         />
         <Grid templateColumns="300px 1fr" gap="40px">
-          <FormSearchProducts
-            query={{
-              name: query.name,
-              size: query.size,
-              classify: query.classify,
-              minPrice: query.minPrice,
-              maxPrice: query.maxPrice,
-            }}
-            isLoading={isLoading}
-          />
+          <FormSearchProducts query={query} isLoading={isLoading} />
           <Box>
             <SortProducts query={query} />
             <Box mt="6">
