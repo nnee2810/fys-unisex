@@ -8,7 +8,6 @@ import { FileRejection, useDropzone } from "react-dropzone"
 import { AiOutlineCamera } from "react-icons/ai"
 import { toast } from "react-toastify"
 import { Color } from "styles/theme"
-import { getAvatarFallback } from "utils/getAvatarFallback"
 
 export default function FormUpdateAvatar() {
   const { profile } = useAuth()
@@ -26,8 +25,8 @@ export default function FormUpdateAvatar() {
     }
     if (acceptedFiles.length) {
       const formData = new FormData()
-      formData.append("avatar", acceptedFiles[0])
-      mutate(formData as any)
+      formData.append("file", acceptedFiles[0])
+      mutate(formData)
     }
   }
   const { getRootProps, getInputProps } = useDropzone({
@@ -45,7 +44,7 @@ export default function FormUpdateAvatar() {
     <Box>
       <Box pos="relative">
         <ImageBox
-          src={profile?.avatar || getAvatarFallback(profile?.fullName)}
+          src={profile?.avatar?.src}
           alt="avatar"
           borderRadius="50%"
           ratio={1}

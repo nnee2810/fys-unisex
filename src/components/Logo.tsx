@@ -1,7 +1,6 @@
 import { Flex } from "@chakra-ui/react"
-import Image from "next/image"
 import React from "react"
-import { getImageFallback } from "utils/getImageFallback"
+import ImageBox from "./ImageBox"
 import NextLink from "./NextLink"
 
 export default function Logo() {
@@ -9,7 +8,7 @@ export default function Logo() {
     <Flex>
       <NextLink href="/">
         <Flex alignItems="center">
-          <Image src={getImageFallback(40)} width="40" height="40" alt="logo" />
+          <ImageBox width="40px" ratio={1} alt="logo" />
         </Flex>
       </NextLink>
     </Flex>

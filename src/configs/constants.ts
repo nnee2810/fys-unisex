@@ -26,8 +26,8 @@ export enum zIndex {
   HEADER = 4,
 }
 export enum ImageSource {
-  DEFAULT = "https://picsum.photos",
-  AVATAR = "https://ui-avatars.com/api",
+  DEFAULT = "https://dummyimage.com/",
+  AVATAR = "https://ui-avatars.com/api/",
 }
 
 export const toastConfig: ToastContainerProps = {

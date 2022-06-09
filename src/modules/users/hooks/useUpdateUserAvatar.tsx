@@ -1,16 +1,20 @@
 import { Message } from "configs/constants"
+import { useAppDispatch } from "hooks/useAppStore"
 import { useMutation } from "react-query"
 import { toast } from "react-toastify"
-import { UpdateUserAvatarDto } from "../dto/update-user-avatar.dto"
+import { SET_PROFILE_AVATAR_SRC } from "store/reducers/auth"
 import { updateUserAvatar } from "../services/updateUserAvatar"
 
 export function useUpdateUserAvatar() {
+  const dispatch = useAppDispatch()
+
   return useMutation(
     "updateUserAvatar",
-    (data: UpdateUserAvatarDto) => updateUserAvatar(data),
+    (data: FormData) => updateUserAvatar(data),
     {
-      onSuccess() {
+      onSuccess(data) {
         toast.success("Cập nhật ảnh đại điện thành công")
+        dispatch(SET_PROFILE_AVATAR_SRC(data))
       },
       onError() {
         toast.error(Message.SERVER_ERROR)

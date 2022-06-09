@@ -11,6 +11,7 @@ import { useAuth } from "modules/auth/hooks/useAuth"
 import { useUpdateUserProfile } from "modules/users/hooks/useUpdateUserProfile"
 import React from "react"
 import { FormProvider, useForm } from "react-hook-form"
+import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
 import {
   getValidateInvalidMessage,
   getValidateRequiredMessage,
@@ -44,6 +45,7 @@ interface FormValues {
   fullName: string
   phone: string
   email: string
+  gender: UserGender
 }
 
 export default function FormUpdateProfile() {
@@ -54,13 +56,17 @@ export default function FormUpdateProfile() {
       fullName: profile?.fullName,
       phone: profile?.phone,
       email: profile?.email,
+      gender: profile?.gender,
     },
     resolver: yupResolver(schema),
   })
 
   const handleSubmit = ({ phone, email, ...data }: FormValues) => {
     if (!profile) return
-    mutate(data)
+    mutate({
+      ...data,
+      fullName: deleteWhiteSpace(data.fullName),
+    })
   }
 
   return (

@@ -13,10 +13,12 @@ export enum UserGender {
 export interface IUser {
   id: string
   fullName: string
-  avatar?: string
+  gender: UserGender
+  avatar?: {
+    src?: string
+  }
   email: string
   phone: string
-
   role: UserRole
   createdAt: string
   updatedAt: string
