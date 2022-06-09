@@ -1,6 +1,6 @@
 import { Box, Grid, HStack, Stack, Text } from "@chakra-ui/react"
 import NextLink from "components/NextLink"
-import { ILinkItemWithIcon } from "interfaces/ILinkItem"
+import { ILinkWithIcon } from "interfaces/ILink"
 import { useRouter } from "next/router"
 import React, { ReactNode } from "react"
 import {
@@ -17,7 +17,7 @@ interface ProfileLayoutProps {
   children: ReactNode
 }
 
-const items: ILinkItemWithIcon[] = [
+const items: ILinkWithIcon[] = [
   {
     name: "Tài khoản của tôi",
     href: "/user/profile",

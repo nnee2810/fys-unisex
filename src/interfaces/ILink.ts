@@ -1,9 +1,9 @@
 import { ReactNode } from "react"
 
-export interface ILinkItem {
+export interface ILink {
   name: string
   href: string
 }
-export interface ILinkItemWithIcon extends ILinkItem {
+export interface ILinkWithIcon extends ILink {
   icon: ReactNode
 }

@@ -1,4 +1,4 @@
-import { ILinkItem } from "interfaces/ILinkItem"
+import { ILink } from "interfaces/ILink"
 import { ReactNode } from "react"
 import { AiOutlineGift } from "react-icons/ai"
 import { BsHeadset } from "react-icons/bs"
@@ -6,10 +6,10 @@ import { GrDeliver } from "react-icons/gr"
 import { MdLoop } from "react-icons/md"
 import { getImageFallback } from "utils/getImageFallback"
 
-interface HeaderNavItem extends ILinkItem {
-  childs?: HeaderNavItem[]
+interface NavItem extends ILink {
+  childs?: NavItem[]
 }
-interface ExploreItem extends ILinkItem {
+interface ExploreItem extends ILink {
   src: string
 }
 interface CommitItem {
@@ -18,17 +18,93 @@ interface CommitItem {
   content: string
 }
 
-export const headerNavItems: HeaderNavItem[] = [
+export const navItems: NavItem[] = [
   {
-    name: "TRANG CHỦ",
+    name: "Trang chủ",
     href: "/",
   },
   {
-    name: "SẢN PHẨM",
+    name: "Sản phẩm",
     href: "/products",
+    childs: [
+      {
+        name: "Đồ nam",
+        href: "#",
+        childs: [
+          {
+            name: "Áo T-Shirt",
+            href: "#",
+          },
+          {
+            name: "Áo polo",
+            href: "#",
+          },
+          {
+            name: "Áo sơ mi",
+            href: "#",
+          },
+          {
+            name: "Quần âu",
+            href: "#",
+          },
+        ],
+      },
+      {
+        name: "Đồ nữ",
+        href: "#",
+        childs: [
+          {
+            name: "Áo T-Shirt",
+            href: "#",
+          },
+          {
+            name: "Áo T-Shirt",
+            href: "#",
+          },
+          {
+            name: "Áo T-Shirt",
+            href: "#",
+          },
+          {
+            name: "Áo T-Shirt",
+            href: "#",
+          },
+          {
+            name: "Áo T-Shirt",
+            href: "#",
+          },
+        ],
+      },
+      {
+        name: "Phụ kiện",
+        href: "#",
+        childs: [
+          {
+            name: "Áo T-Shirt",
+            href: "#",
+          },
+          {
+            name: "Áo T-Shirt",
+            href: "#",
+          },
+          {
+            name: "Áo T-Shirt",
+            href: "#",
+          },
+          {
+            name: "Áo T-Shirt",
+            href: "#",
+          },
+          {
+            name: "Áo T-Shirt",
+            href: "#",
+          },
+        ],
+      },
+    ],
   },
   {
-    name: "LIÊN HỆ",
+    name: "Liên hệ",
     href: "/contact",
   },
 ]

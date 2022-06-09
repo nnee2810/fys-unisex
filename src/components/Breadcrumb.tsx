@@ -3,13 +3,13 @@ import {
   BreadcrumbItem as BItem,
   Text,
 } from "@chakra-ui/react"
-import { ILinkItem } from "interfaces/ILinkItem"
+import { ILink } from "interfaces/ILink"
 import React from "react"
 import { BiChevronRight } from "react-icons/bi"
 import NextLink from "./NextLink"
 
 interface BreadcrumbProps {
-  data: ILinkItem[]
+  data: ILink[]
 }
 
 export default function Breadcrumb({ data }: BreadcrumbProps) {

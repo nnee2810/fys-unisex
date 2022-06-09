@@ -38,7 +38,8 @@ const schema = yup.object().shape({
     .required(({ label }) => getValidateRequiredMessage(label))
     .oneOf(Object.keys(UserGender), ({ label }) =>
       getValidateInvalidMessage(label)
-    ),
+    )
+    .nullable(),
 })
 
 interface FormValues {
