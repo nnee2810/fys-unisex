@@ -1,12 +1,9 @@
 import { Grid, Heading } from "@chakra-ui/react"
-import PageContainer from "components/PageContainer"
-import { IPageProps } from "interfaces/IPageProps"
-import { UserRole } from "interfaces/IUser"
+import { PageContainer } from "components"
+import { IPageProps, UserRole } from "interfaces"
 import UserLayout from "layout/UserLayout"
-import FormUpdateAvatar from "modules/users/components/profile/FormUpdateAvatar"
-import FormUpdateProfile from "modules/users/components/profile/FormUpdateProfile"
+import { FormUpdateAvatar, FormUpdateProfile } from "modules/users/components"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
-import React from "react"
 
 export async function getStaticProps(
   context: GetStaticPropsContext
@@ -19,7 +16,7 @@ export async function getStaticProps(
   }
 }
 
-export default function Profile() {
+export default function UserProfile() {
   return (
     <PageContainer>
       <UserLayout>

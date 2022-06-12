@@ -1,13 +1,10 @@
 import { isEmail, isPhoneNumber } from "class-validator"
 import { Regex } from "configs/constants"
-import {
-  getValidateInvalidMessage,
-  getValidateRequiredMessage,
-} from "utils/getValidateMessage"
+import { getValidateInvalidMessage, getValidateRequiredMessage } from "utils"
 import * as yup from "yup"
 
 export const formSchema = {
-  fullName: yup
+  name: yup
     .string()
     .label("Họ tên")
     .required(({ label }) => getValidateRequiredMessage(label)),

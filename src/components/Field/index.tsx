@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/react"
 import styled from "@emotion/styled"
-import React, { cloneElement, ReactElement } from "react"
+import { cloneElement, ReactElement } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 
 interface FieldProps {
@@ -9,7 +9,7 @@ interface FieldProps {
   label?: string
 }
 
-export default function Field({ name, component, label }: FieldProps) {
+export function Field({ name, component, label }: FieldProps) {
   const {
     control,
     formState: { errors },
@@ -45,3 +45,9 @@ export const FieldLabel = styled.label`
   font-size: 12px;
   font-weight: 700;
 `
+export * from "./CheckboxField"
+export * from "./LongTextField"
+export * from "./RangeSliderField"
+export * from "./SelectBoxField"
+export * from "./SelectField"
+export * from "./TextField"

@@ -1,8 +1,8 @@
 import { Box, Grid, HStack, Stack, Text } from "@chakra-ui/react"
-import NextLink from "components/NextLink"
-import { ILinkWithIcon } from "interfaces/ILink"
+import { NextLink } from "components"
+import { ILinkWithIcon } from "interfaces"
 import { useRouter } from "next/router"
-import React, { ReactNode } from "react"
+import { ReactNode } from "react"
 import {
   AiOutlineBell,
   AiOutlineFileText,
@@ -54,7 +54,7 @@ export default function UserLayout({ children }: ProfileLayoutProps) {
   const router = useRouter()
 
   return (
-    <Grid templateColumns="200px auto" gap="50px">
+    <Grid templateColumns="300px auto" gap="50px">
       <Box>
         <Stack spacing="1" position="sticky" top="60px">
           {items.map((item, idx) => (

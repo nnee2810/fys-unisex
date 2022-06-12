@@ -13,8 +13,7 @@ import {
   Grid,
   useBoolean,
 } from "@chakra-ui/react"
-import Logo from "components/Logo"
-import NextLink from "components/NextLink"
+import { Logo, NextLink } from "components"
 import { responsiveW } from "configs/constants"
 import { navItems } from "modules/home/constants"
 import { useRouter } from "next/router"
@@ -54,11 +53,11 @@ export default function HeaderMobile({ path }: HeaderProps) {
           <Accordion allowToggle>
             {navItems.map((item, idx) =>
               item.childs ? (
-                <AccordionItem>
+                <AccordionItem key={idx}>
                   <Flex>
                     <Box flex="1">
                       <NextLink href={item.href}>
-                        <NavItemLink active={path === item.href}>
+                        <NavItemLink $active={path === item.href}>
                           {item.name}
                         </NavItemLink>
                       </NextLink>
@@ -77,7 +76,7 @@ export default function HeaderMobile({ path }: HeaderProps) {
                 </AccordionItem>
               ) : (
                 <NextLink href={item.href} key={idx}>
-                  <NavItemLink active={path === item.href}>
+                  <NavItemLink $active={path === item.href}>
                     {item.name}
                   </NavItemLink>
                 </NextLink>
@@ -90,17 +89,17 @@ export default function HeaderMobile({ path }: HeaderProps) {
   )
 }
 
-const NavItemLink = styled(Box)<{ active: boolean }>`
+const NavItemLink = styled(Box)<{ $active: boolean }>`
   display: flex;
   align-items: center;
   height: 54px;
   padding: 0 16px;
   font-weight: 700;
-  color: ${({ active }) => active && "#fff"};
-  background-color: ${({ active }) => active && "#000"};
+  color: ${({ $active }) => $active && "#fff"};
+  background-color: ${({ $active }) => $active && "#000"};
   transition: all 0.2s;
 
   &:hover {
-    background-color: ${({ active }) => (active ? "#000" : Color.LIGHT_GRAY)};
+    background-color: ${({ $active }) => ($active ? "#000" : Color.LIGHT_GRAY)};
   }
 `

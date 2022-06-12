@@ -1,15 +1,14 @@
 import { Box, Grid, Heading, HStack, Skeleton, Text } from "@chakra-ui/react"
 import { responsiveW } from "configs/constants"
-import ProductCard from "modules/products/components/ProductCard"
-import { useGetProducts } from "modules/products/hooks/useGetProducts"
-import React from "react"
+import { ProductCard } from "modules/products/components"
+import { useGetProducts } from "modules/products/hooks"
 import { IoFlashOutline } from "react-icons/io5"
 import { Color } from "styles/theme"
 import { Autoplay } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
-import getArrayNumber from "utils/getArrayNumber"
+import { getArrayNumber } from "utils"
 
-export default function FlashSale() {
+export function FlashSale() {
   const { data, isLoading } = useGetProducts({
     inSale: true,
     take: 10,

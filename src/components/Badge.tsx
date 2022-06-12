@@ -1,5 +1,5 @@
 import { Box, Center } from "@chakra-ui/react"
-import React, { ReactNode } from "react"
+import { ReactNode } from "react"
 import { Color } from "styles/theme"
 
 interface BadgeProps {
@@ -8,7 +8,7 @@ interface BadgeProps {
   max?: number
 }
 
-export default function Badge({ children, value, max }: BadgeProps) {
+export function Badge({ children, value, max }: BadgeProps) {
   return (
     <Box pos="relative">
       {children}

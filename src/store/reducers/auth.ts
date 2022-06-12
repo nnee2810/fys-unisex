@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Key } from "configs/constants"
-import { IUser } from "interfaces/IUser"
+import { IUser } from "interfaces"
 import Cookies from "js-cookie"
 import { RootState } from "store"
 

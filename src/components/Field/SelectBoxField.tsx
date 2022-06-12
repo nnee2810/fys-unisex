@@ -1,7 +1,6 @@
 import { HStack } from "@chakra-ui/react"
-import Button from "components/Button"
-import { ISelectOption } from "interfaces/ISelectOption"
-import React from "react"
+import { Button } from "components"
+import { ISelectOption } from "interfaces"
 
 interface SelectBoxFieldProps {
   options: ISelectOption[]
@@ -9,7 +8,7 @@ interface SelectBoxFieldProps {
   value?: string
 }
 
-export default function SelectBoxField({
+export function SelectBoxField({
   options,
   onChange,
   value,

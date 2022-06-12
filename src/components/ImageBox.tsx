@@ -1,7 +1,6 @@
 import { AspectRatio, Box, BoxProps } from "@chakra-ui/react"
 import Image from "next/image"
-import React from "react"
-import { getImageFallback } from "utils/getImageFallback"
+import { getImageFallback } from "utils"
 
 interface ImageBoxProps extends BoxProps {
   src?: string
@@ -9,7 +8,7 @@ interface ImageBoxProps extends BoxProps {
   ratio?: number
 }
 
-export default function ImageBox({ src, alt, ratio, ...props }: ImageBoxProps) {
+export function ImageBox({ src, alt, ratio, ...props }: ImageBoxProps) {
   return (
     <Box position="relative" overflow="hidden" {...props}>
       {ratio ? (

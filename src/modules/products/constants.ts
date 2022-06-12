@@ -1,5 +1,4 @@
-import { ProductClassify, ProductSize } from "interfaces/IProduct"
-import { ISelectOption } from "interfaces/ISelectOption"
+import { ISelectOption, ProductClassify, ProductSize } from "interfaces"
 import { ProductSort } from "./dto/get-products-dto"
 
 export const productSizeOptions: ISelectOption[] = Object.keys(ProductSize).map(

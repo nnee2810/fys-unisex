@@ -1,11 +1,13 @@
 import { Stack } from "@chakra-ui/react"
-import { IPageProps } from "interfaces/IPageProps"
-import Banners from "modules/home/components/Banners"
-import Commit from "modules/home/components/Commit"
-import Explore from "modules/home/components/Explore"
-import FeaturedProducts from "modules/home/components/FeaturedProducts"
-import FlashSale from "modules/home/components/FlashSale"
-import Story from "modules/home/components/Story"
+import { IPageProps } from "interfaces"
+import {
+  Banners,
+  Commit,
+  Explore,
+  FeaturedProducts,
+  FlashSale,
+  Story,
+} from "modules/home/components"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
 
 export async function getStaticProps(

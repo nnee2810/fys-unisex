@@ -1,9 +1,5 @@
 import { Box, HStack, Stack } from "@chakra-ui/react"
-import Button from "components/Button"
-import Field from "components/Field"
-import SelectBoxField from "components/Field/SelectBoxField"
-import TextField from "components/Field/TextField"
-import React from "react"
+import { Button, Field, SelectBoxField, TextField } from "components"
 import { FormProvider, useForm } from "react-hook-form"
 import styled from "styled-components"
 
@@ -12,7 +8,7 @@ interface FormValues {
   quantity: number
 }
 
-export default function ProductOrder({}: ProductOrderProps) {
+export function ProductOrder({}: ProductOrderProps) {
   const methods = useForm<FormValues>({
     defaultValues: {
       quantity: 1,

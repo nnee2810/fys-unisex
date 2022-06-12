@@ -12,7 +12,7 @@ export enum UserGender {
 
 export interface IUser {
   id: string
-  fullName: string
+  name: string
   gender: UserGender
   avatar?: {
     src?: string

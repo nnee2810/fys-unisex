@@ -1,36 +1,48 @@
 import {
-  Grid,
+  HStack,
   Modal,
   ModalBody,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react"
-import { IModalProps } from "interfaces/IModalProps"
-import React from "react"
-import Button from "./Button"
+import { IModalProps } from "interfaces"
+import { Button } from "."
 
-export default function ModalConfirm({
+export function ModalConfirm({
   isOpen,
   children,
   title,
+  size,
   closeText,
   confirmText,
   onClose,
   onConfirm,
 }: IModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay backdropFilter="blur(1px)" />
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size={size}
+      closeOnOverlayClick={false}
+    >
+      <ModalOverlay />
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>
         <ModalBody>{children}</ModalBody>
-        <Grid p="6" templateColumns="1fr 1fr" gap="2">
-          <Button colorScheme="blackAlpha" variant="outline" onClick={onClose}>
-            {closeText || "Đóng"}
-          </Button>
-          <Button onClick={onConfirm}>{confirmText || "Đồng ý"}</Button>
-        </Grid>
+        <ModalFooter>
+          <HStack>
+            <Button
+              colorScheme="blackAlpha"
+              variant="outline"
+              onClick={onClose}
+            >
+              {closeText || "Đóng"}
+            </Button>
+            <Button onClick={onConfirm}>{confirmText || "Đồng ý"}</Button>
+          </HStack>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   )

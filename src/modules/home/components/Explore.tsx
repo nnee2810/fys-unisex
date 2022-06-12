@@ -1,11 +1,9 @@
 import { Box, Center, Grid, Heading } from "@chakra-ui/react"
-import ImageBox from "components/ImageBox"
-import NextLink from "components/NextLink"
+import { ImageBox, NextLink } from "components"
 import { responsiveW } from "configs/constants"
-import React from "react"
 import { exploreItems } from "../constants"
 
-export default function Explore() {
+export function Explore() {
   return (
     <Box>
       <Heading textAlign="center">Khám phá</Heading>

@@ -1,18 +1,18 @@
 import { Box, BoxProps, Tag } from "@chakra-ui/react"
-import ImageBox from "components/ImageBox"
-import { IProduct } from "interfaces/IProduct"
-import React, { useCallback, useState } from "react"
+import { ImageBox } from "components"
+import { IProduct } from "interfaces"
+import { useCallback, useState } from "react"
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import styled from "styled-components"
 import { Color } from "styles/theme"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { getImageFallback } from "utils/getImageFallback"
+import { getImageFallback } from "utils"
 
 interface ProductImagesPreviewProps {
   data: IProduct
 }
 
-export default function ProductImagesPreview({
+export function ProductImagesPreview({
   data: { images, inSale },
 }: ProductImagesPreviewProps) {
   const [selectedImage, setSelectedImage] = useState(0)

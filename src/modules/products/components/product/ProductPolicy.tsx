@@ -1,5 +1,5 @@
 import { Box, Grid, Stack, Text } from "@chakra-ui/react"
-import React, { ReactNode } from "react"
+import { ReactNode } from "react"
 import { AiOutlineClockCircle } from "react-icons/ai"
 import { BsHeadset } from "react-icons/bs"
 import { GrDeliver } from "react-icons/gr"
@@ -29,7 +29,7 @@ const policies: PolicyItem[] = [
   },
 ]
 
-export default function ProductPolicy() {
+export function ProductPolicy() {
   return (
     <Grid templateColumns="repeat(3, 1fr)" gap="5">
       {policies.map((item, idx) => (

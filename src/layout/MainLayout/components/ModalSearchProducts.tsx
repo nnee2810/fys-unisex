@@ -9,19 +9,17 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react"
-import Field from "components/Field"
-import TextField from "components/Field/TextField"
-import NextLink from "components/NextLink"
-import { IModalProps } from "interfaces/IModalProps"
+import { Field, NextLink, TextField } from "components"
+import { IModalProps } from "interfaces"
 import debounce from "lodash.debounce"
-import ProductCard from "modules/products/components/ProductCard"
-import { useGetProducts } from "modules/products/hooks/useGetProducts"
+import { ProductCard } from "modules/products/components"
+import { useGetProducts } from "modules/products/hooks"
 import { useRouter } from "next/router"
-import React, { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { AiOutlineSearch } from "react-icons/ai"
 import { Color } from "styles/theme"
-import getArrayNumber from "utils/getArrayNumber"
+import { getArrayNumber } from "utils"
 
 interface FormValues {
   name: string

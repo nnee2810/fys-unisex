@@ -1,7 +1,6 @@
 import { TAKE_PER_PAGE } from "configs/constants"
 import API from "configs/service"
-import { IPaginationResponse } from "interfaces/IPaginationResponse"
-import { IProduct } from "interfaces/IProduct"
+import { IPaginationResponse, IProduct } from "interfaces"
 import { GetProductsDto } from "../dto/get-products-dto"
 
 export async function getProducts({

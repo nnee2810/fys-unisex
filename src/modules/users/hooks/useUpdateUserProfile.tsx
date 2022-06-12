@@ -1,8 +1,8 @@
 import { Message } from "configs/constants"
 import { useMutation } from "react-query"
 import { toast } from "react-toastify"
-import { UpdateUserProfileDto } from "../dto/update-user-profile.dto"
-import { updateUserProfile } from "../services/updateUserProfile"
+import { UpdateUserProfileDto } from "../dto"
+import { updateUserProfile } from "../services"
 
 export function useUpdateUserProfile() {
   return useMutation(

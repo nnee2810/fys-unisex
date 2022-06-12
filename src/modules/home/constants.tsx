@@ -1,10 +1,10 @@
-import { ILink } from "interfaces/ILink"
+import { ILink } from "interfaces"
 import { ReactNode } from "react"
 import { AiOutlineGift } from "react-icons/ai"
 import { BsHeadset } from "react-icons/bs"
 import { GrDeliver } from "react-icons/gr"
 import { MdLoop } from "react-icons/md"
-import { getImageFallback } from "utils/getImageFallback"
+import { getImageFallback } from "utils"
 
 interface NavItem extends ILink {
   childs?: NavItem[]

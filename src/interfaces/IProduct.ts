@@ -1,3 +1,5 @@
+import { IUser } from "./IUser"
+
 export enum ProductClassify {
   SHIRT = "SHIRT",
   PANT = "PANT",
@@ -30,10 +32,19 @@ export interface IProduct {
   sizes: ProductSize[]
   price: number
   salePrice: number
+  salePercent: number
   onSale: boolean
   inSale: boolean
   inStock: boolean
   isFeatured: boolean
   createdAt: string
   updatedAt: string
+}
+
+export interface IProductReview {
+  id: string
+  user: IUser
+  content: string
+  rate: number
+  createdAt: string
 }

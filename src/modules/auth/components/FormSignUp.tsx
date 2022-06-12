@@ -1,11 +1,7 @@
 import { Box, Divider, HStack, Stack, Text, useBoolean } from "@chakra-ui/react"
 import { yupResolver } from "@hookform/resolvers/yup"
-import Button from "components/Button"
-import Field from "components/Field"
-import TextField from "components/Field/TextField"
-import NextLink from "components/NextLink"
-import { formSchema } from "helpers/formSchema"
-import React from "react"
+import { Button, Field, NextLink, TextField } from "components"
+import { formSchema } from "helpers"
 import { FormProvider, useForm } from "react-hook-form"
 import {
   AiOutlineEye,
@@ -16,13 +12,12 @@ import {
 } from "react-icons/ai"
 import { IoPhonePortraitOutline } from "react-icons/io5"
 import { Color } from "styles/theme"
-import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
-import { getValidateNotMatchMessage } from "utils/getValidateMessage"
+import { deleteWhiteSpace, getValidateNotMatchMessage } from "utils"
 import * as yup from "yup"
 import { useAuth } from "../hooks/useAuth"
 
 interface FormValues {
-  fullName: string
+  name: string
   phone: string
   email: string
   password: string
@@ -30,7 +25,7 @@ interface FormValues {
 }
 
 const schema = yup.object().shape({
-  fullName: formSchema.fullName,
+  name: formSchema.name,
   email: formSchema.email,
   phone: formSchema.phone,
   password: formSchema.password,
@@ -42,10 +37,10 @@ const schema = yup.object().shape({
     ),
 })
 
-export default function FormSignUp() {
+export function FormSignUp() {
   const methods = useForm<FormValues>({
     defaultValues: {
-      fullName: "",
+      name: "",
       email: "",
       phone: "",
       password: "",
@@ -60,14 +55,14 @@ export default function FormSignUp() {
   const [repeatPasswordVisible, setRepeatPasswordVisible] = useBoolean(false)
 
   const handleSubmit = ({
-    fullName,
+    name,
     phone,
     repeatPassword,
     ...data
   }: FormValues) => {
     mutate({
       ...data,
-      fullName: deleteWhiteSpace(fullName),
+      name: deleteWhiteSpace(name),
       phone: deleteWhiteSpace(phone),
     })
   }
@@ -77,7 +72,7 @@ export default function FormSignUp() {
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <Stack spacing="4">
           <Field
-            name="fullName"
+            name="name"
             component={
               <TextField
                 placeholder="Họ tên"

@@ -8,7 +8,7 @@ import {
   RangeSliderTrack,
   Text,
 } from "@chakra-ui/react"
-import React, { useState } from "react"
+import { useState } from "react"
 import { ControllerRenderProps } from "react-hook-form"
 
 interface RangeSliderFieldProps extends RangeSliderProps {
@@ -18,7 +18,7 @@ interface RangeSliderFieldProps extends RangeSliderProps {
   formatValue?: (value: number) => string
 }
 
-export default function RangeSliderField({
+export function RangeSliderField({
   field,
   min,
   max,

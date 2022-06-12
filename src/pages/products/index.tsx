@@ -1,21 +1,17 @@
 import { Box, Grid } from "@chakra-ui/react"
 import { isNumber, isString } from "class-validator"
-import Breadcrumb from "components/Breadcrumb"
-import ModalConfirm from "components/ModalConfirm"
-import PageContainer from "components/PageContainer"
-import { IPageProps } from "interfaces/IPageProps"
-import { ProductClassify, ProductSize } from "interfaces/IProduct"
-import FormSearchProducts from "modules/products/components/products/FormSearchProducts"
-import ProductList from "modules/products/components/products/ProductList"
-import SortProducts from "modules/products/components/products/SortProducts"
+import { Breadcrumb, ModalConfirm, PageContainer } from "components"
+import { IPageProps, ProductClassify, ProductSize } from "interfaces"
 import {
-  GetProductsDto,
-  ProductSort,
-} from "modules/products/dto/get-products-dto"
-import { useGetProducts } from "modules/products/hooks/useGetProducts"
+  FormSearchProducts,
+  ProductList,
+  SortProducts,
+} from "modules/products/components"
+import { GetProductsDto, ProductSort } from "modules/products/dto"
+import { useGetProducts } from "modules/products/hooks"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import { useRouter } from "next/router"
-import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
+import { deleteWhiteSpace } from "utils"
 
 interface ProductsProps {
   query: GetProductsDto

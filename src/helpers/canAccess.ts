@@ -1,4 +1,4 @@
-import { UserRole } from "interfaces/IUser"
+import { UserRole } from "interfaces"
 
 interface CanAccessParams {
   userRole?: UserRole

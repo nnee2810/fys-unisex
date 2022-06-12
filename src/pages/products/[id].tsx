@@ -1,21 +1,19 @@
 import { Box, Divider, Grid, Skeleton, Stack } from "@chakra-ui/react"
-import Breadcrumb from "components/Breadcrumb"
-import Modal from "components/ModalConfirm"
-import PageContainer from "components/PageContainer"
-import { IPageProps } from "interfaces/IPageProps"
-import ProductDescription from "modules/products/components/product/ProductDescription"
-import ProductImagesPreview from "modules/products/components/product/ProductImagesPreview"
-import ProductOrder from "modules/products/components/product/ProductOrder"
-import ProductPolicy from "modules/products/components/product/ProductPolicy"
-import ProductReviews from "modules/products/components/product/ProductReviews"
-import ProductSummary from "modules/products/components/product/ProductSummary"
-import { useGetProduct } from "modules/products/hooks/useGetProduct"
+import { Breadcrumb, ModalConfirm, PageContainer } from "components"
+import { IPageProps } from "interfaces"
+import {
+  ProductDescription,
+  ProductImagesPreview,
+  ProductOrder,
+  ProductPolicy,
+  ProductReviews,
+  ProductSummary,
+} from "modules/products/components"
+import { useGetProduct } from "modules/products/hooks"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import React from "react"
-import getArrayNumber from "utils/getArrayNumber"
-import { getTitle } from "utils/getTitle"
+import { getArrayNumber, getTitle } from "utils"
 
 interface ProductProps {
   id: string
@@ -81,7 +79,7 @@ export default function Product({ id }: ProductProps) {
           </Stack>
         )}
       </PageContainer>
-      <Modal
+      <ModalConfirm
         isOpen={isError}
         title="Lỗi 😵"
         closeText="Thử lại"
@@ -90,7 +88,7 @@ export default function Product({ id }: ProductProps) {
         onConfirm={() => router.back()}
       >
         <Box>Không tìm thấy sản phẩm hoặc lỗi trang</Box>
-      </Modal>
+      </ModalConfirm>
     </>
   )
 }

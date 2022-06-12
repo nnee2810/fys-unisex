@@ -1,5 +1,5 @@
 import Link, { LinkProps } from "next/link"
-import React, { ReactNode } from "react"
+import { ReactNode } from "react"
 import styled from "styled-components"
 
 interface NextLinkProps extends LinkProps {
@@ -7,12 +7,7 @@ interface NextLinkProps extends LinkProps {
   styleOnHover?: boolean
 }
 
-export default function NextLink({
-  as,
-  href,
-  children,
-  styleOnHover,
-}: NextLinkProps) {
+export function NextLink({ as, href, children, styleOnHover }: NextLinkProps) {
   return (
     <Link as={as} href={href} passHref>
       <StyledLink styleOnHover={styleOnHover}>{children}</StyledLink>

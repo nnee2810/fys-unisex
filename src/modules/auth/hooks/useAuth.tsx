@@ -2,7 +2,7 @@ import { AxiosError } from "axios"
 import { Key, Message } from "configs/constants"
 import { useAppDispatch, useAppSelector } from "hooks/useAppStore"
 import Cookies from "js-cookie"
-import { getUserProfile as getUserProfileService } from "modules/users/services/getUserProfile"
+import { getUserProfile as getUserProfileService } from "modules/users/services"
 import { useRouter } from "next/router"
 import { useMutation } from "react-query"
 import { toast } from "react-toastify"
@@ -14,10 +14,11 @@ import {
   SIGN_OUT,
 } from "store/reducers/auth"
 import { historySelector } from "store/reducers/history"
-import { SignInByPasswordDto } from "../dto/sign-in-by-password.dto"
-import { SignUpDto } from "../dto/sign-up.dto"
-import { signInByPassword as signInByPasswordService } from "../services/signInByPassword"
-import { signUp as signUpService } from "../services/signUp"
+import { SignInByPasswordDto, SignUpDto } from "../dto"
+import {
+  signInByPassword as signInByPasswordService,
+  signUp as signUpService,
+} from "../services"
 
 export function useAuth() {
   const router = useRouter()

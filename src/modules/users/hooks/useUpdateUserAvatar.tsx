@@ -3,7 +3,7 @@ import { useAppDispatch } from "hooks/useAppStore"
 import { useMutation } from "react-query"
 import { toast } from "react-toastify"
 import { SET_PROFILE_AVATAR_SRC } from "store/reducers/auth"
-import { updateUserAvatar } from "../services/updateUserAvatar"
+import { updateUserAvatar } from "../services"
 
 export function useUpdateUserAvatar() {
   const dispatch = useAppDispatch()

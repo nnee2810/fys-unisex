@@ -1,18 +1,16 @@
 import { Box, Flex, HStack, Tag, Text } from "@chakra-ui/react"
-import { IProduct } from "interfaces/IProduct"
-import React from "react"
+import { ImageBox, NextLink } from "components"
+import { IProduct } from "interfaces"
 import { AiFillHeart } from "react-icons/ai"
 import { Color } from "styles/theme"
-import { formatCurrency } from "utils/formatCurrency"
-import ImageBox from "../../../components/ImageBox"
-import NextLink from "../../../components/NextLink"
+import { formatCurrency } from "utils"
 
 interface ProductCardProps {
   data: IProduct
   layout: "vertical" | "horizontal"
 }
 
-export default function ProductCard({ data, layout }: ProductCardProps) {
+export function ProductCard({ data, layout }: ProductCardProps) {
   if (layout === "vertical")
     return (
       <Box>
@@ -87,7 +85,7 @@ function renderProductInfo({ data, layout }: ProductCardProps) {
               {formatCurrency(data.price)}
             </Text>
             <Tag size="sm" bg={Color.RED} color="#fff">
-              -{Math.round(100 - (data.salePrice / data.price) * 100)}%
+              -{data.salePercent}%
             </Tag>
           </>
         )}

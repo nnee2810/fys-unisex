@@ -1,8 +1,7 @@
 import { AspectRatio, Box, Grid, Stack, Text } from "@chakra-ui/react"
-import NextLink from "components/NextLink"
+import { NextLink } from "components"
 import { responsiveW } from "configs/constants"
-import { ILink } from "interfaces/ILink"
-import React from "react"
+import { ILink } from "interfaces"
 import styled from "styled-components"
 import { Color } from "styles/theme"
 

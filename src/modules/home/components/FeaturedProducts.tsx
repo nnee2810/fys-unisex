@@ -11,15 +11,14 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react"
-import NextLink from "components/NextLink"
+import { NextLink } from "components"
 import { responsiveW, zIndex } from "configs/constants"
-import { ProductClassify } from "interfaces/IProduct"
-import ProductCard from "modules/products/components/ProductCard"
-import { useGetProducts } from "modules/products/hooks/useGetProducts"
-import React from "react"
-import getArrayNumber from "utils/getArrayNumber"
+import { ProductClassify } from "interfaces"
+import { ProductCard } from "modules/products/components"
+import { useGetProducts } from "modules/products/hooks"
+import { getArrayNumber } from "utils"
 
-export default function FeaturedProducts() {
+export function FeaturedProducts() {
   const { data, isLoading } = useGetProducts({
     isFeatured: true,
     take: 30,

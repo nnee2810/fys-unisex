@@ -7,9 +7,8 @@ import {
   MenuList,
   useBoolean,
 } from "@chakra-ui/react"
-import Badge from "components/Badge"
-import NextLink from "components/NextLink"
-import { useAuth } from "modules/auth/hooks/useAuth"
+import { Badge, NextLink } from "components"
+import { useAuth } from "modules/auth/hooks"
 import {
   AiOutlineFileText,
   AiOutlinePoweroff,

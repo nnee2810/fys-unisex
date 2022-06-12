@@ -1,7 +1,7 @@
-import { UserGender } from "interfaces/IUser"
+import { UserGender } from "interfaces"
 
 export interface UpdateUserProfileDto {
   id?: string
-  fullName?: string
+  name?: string
   gender?: UserGender
 }

@@ -1,17 +1,15 @@
 import { Box, Center, Spinner, Text } from "@chakra-ui/react"
-import ImageBox from "components/ImageBox"
+import { ImageBox } from "components"
 import { Message } from "configs/constants"
-import { useAuth } from "modules/auth/hooks/useAuth"
-import { useUpdateUserAvatar } from "modules/users/hooks/useUpdateUserAvatar"
-import React from "react"
+import { useAuth } from "modules/auth/hooks"
+import { useUpdateUserAvatar } from "modules/users/hooks"
 import { FileRejection, useDropzone } from "react-dropzone"
 import { AiOutlineCamera } from "react-icons/ai"
 import { toast } from "react-toastify"
 import { Color } from "styles/theme"
 
-export default function FormUpdateAvatar() {
+export function FormUpdateAvatar() {
   const { profile } = useAuth()
-
   const { mutate, isLoading } = useUpdateUserAvatar()
 
   const onDrop = (acceptedFiles: File[], fileRejections: FileRejection[]) => {

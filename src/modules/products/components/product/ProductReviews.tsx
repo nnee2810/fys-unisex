@@ -1,20 +1,19 @@
 import { Box, Heading, Stack } from "@chakra-ui/react"
-import Rate from "components/Rate"
-import { IReview } from "interfaces/IReview"
-import { IUser } from "interfaces/IUser"
-import React from "react"
-import { getImageFallback } from "utils/getImageFallback"
-import Review from "./Review"
+import { Rate } from "components"
+import { IProductReview, IUser } from "interfaces"
+import { getImageFallback } from "utils"
+import { ProductReview } from "./ProductReview"
+
 const user: IUser = {
   id: "1",
   userName: "blable",
-  fullName: "Đào Nam",
+  name: "Đào Nam",
   email: "a@gmail.com",
   image: getImageFallback(100),
   phone: "0123456789",
 }
 
-const reviews: IReview[] = [
+const reviews: IProductReview[] = [
   {
     id: "1",
     content: "vải hơi xấu hơn so với mọi khi, có vết xước nhỏ ở bên hông",
@@ -47,7 +46,7 @@ const reviews: IReview[] = [
   },
 ]
 
-export default function ProductReviews() {
+export function ProductReviews() {
   return (
     <Box id="reviews">
       <Heading size="lg">
@@ -59,7 +58,7 @@ export default function ProductReviews() {
       </Heading>
       <Stack spacing="6" mt="6">
         {reviews.map((item) => (
-          <Review data={item} key={item.id} />
+          <ProductReview data={item} key={item.id} />
         ))}
       </Stack>
     </Box>

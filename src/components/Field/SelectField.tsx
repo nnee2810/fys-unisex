@@ -1,6 +1,6 @@
 import { usePrevious } from "@chakra-ui/react"
-import { ISelectOption } from "interfaces/ISelectOption"
-import React, { useEffect } from "react"
+import { ISelectOption } from "interfaces"
+import { useEffect } from "react"
 import Select, { Props as SelectProps, Theme } from "react-select"
 import styled from "styled-components"
 import { Color } from "styles/theme"
@@ -13,7 +13,7 @@ interface SelectFieldProps {
   onChange?: (value: string | string[] | undefined) => void
 }
 
-export default function SelectField({
+export function SelectField({
   options,
   value,
   placeholder,

@@ -2,7 +2,7 @@ import { Box, Grid, Stack, Text } from "@chakra-ui/react"
 import { responsiveW } from "configs/constants"
 import { commitItems } from "../constants"
 
-export default function Commit() {
+export function Commit() {
   return (
     <Box>
       <Grid

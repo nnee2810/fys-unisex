@@ -1,81 +1,79 @@
 import local from "configs/local.json"
-import { ISelectOption } from "interfaces/ISelectOption"
-
-interface Ward {
-  id: string
-  name: string
-  prefix: string
-}
-interface District {
-  id: string
-  name: string
-  wards: Ward[]
-}
+import { ISelectOption } from "interfaces"
 interface Province {
-  id: string
-  code: string
   name: string
+  code: number
   districts: District[]
 }
-
-export function getProvince(provinceId: string = ""): Province | undefined {
-  if (!provinceId) return
-  return local.find((province: Province) => province.id === provinceId)
+interface District {
+  name: string
+  code: number
+  wards: Ward[]
 }
-export function getDistricts(provinceId: string = ""): District[] | undefined {
-  if (!provinceId) return
-  return getProvince(provinceId)?.districts
+
+interface Ward {
+  name: string
+  code: number
+}
+
+export function getProvince(provinceCode: number): Province | undefined {
+  if (!provinceCode) return
+  return local.find((province: Province) => province.code === provinceCode)
+}
+export function getDistricts(provinceCode: number): District[] | undefined {
+  if (!provinceCode) return
+  return getProvince(provinceCode)?.districts
 }
 export function getDistrict(
-  provinceId: string = "",
-  districtId: string = ""
+  provinceCode: number,
+  districtCode: number
 ): District | undefined {
-  if (!provinceId || !districtId) return
+  if (!provinceCode || !districtCode) return
 
-  return getDistricts(provinceId)?.find(
-    (district: District) => district.id === districtId
+  return getDistricts(provinceCode)?.find(
+    (district: District) => district.code === districtCode
   )
 }
 export function getWards(
-  provinceId: string = "",
-  districtId: string = ""
+  provinceCode: number,
+  districtCode: number
 ): Ward[] | undefined {
-  if (!provinceId || !districtId) return
-  return getDistrict(provinceId, districtId)?.wards
+  if (!provinceCode || !districtCode) return
+  return getDistrict(provinceCode, districtCode)?.wards
 }
 export function getWard(
-  provinceId: string = "",
-  districtId: string = "",
-  wardId: string = ""
+  provinceCode: number,
+  districtCode: number,
+  wardCode: number
 ): Ward | undefined {
-  if (!provinceId || !districtId || !wardId) return
-  return getWards(provinceId, districtId)?.find(
-    (ward: Ward) => ward.id === wardId
+  if (!provinceCode || !districtCode || !wardCode) return
+  return getWards(provinceCode, districtCode)?.find(
+    (ward: Ward) => ward.code === wardCode
   )
 }
 
 export const provinceOptions: ISelectOption[] = local.map((province) => ({
   label: province.name,
-  value: province.id,
+  value: province.code,
 }))
-export function getDistrictOptions(provinceId: string = ""): ISelectOption[] {
-  if (!provinceId) return []
+export function getDistrictOptions(provinceCode: number): ISelectOption[] {
+  if (!provinceCode) return []
   return (
-    getDistricts(provinceId)?.map((district) => ({
+    getDistricts(provinceCode)?.map((district) => ({
       label: district.name,
-      value: district.id,
+      value: district.code,
     })) || []
   )
 }
 export function getWardOptions(
-  provinceId?: string,
-  districtId?: string
+  provinceCode?: number,
+  districtCode?: number
 ): ISelectOption[] {
-  if (!provinceId || !districtId) return []
+  if (!provinceCode || !districtCode) return []
   return (
-    getWards(provinceId, districtId)?.map((ward: Ward) => ({
-      label: ward.prefix + " " + ward.name,
-      value: ward.id,
+    getWards(provinceCode, districtCode)?.map((ward: Ward) => ({
+      label: ward.name,
+      value: ward.code,
     })) || []
   )
 }

@@ -1,16 +1,14 @@
 import { Box, Flex, Heading, HStack, Tag, Text } from "@chakra-ui/react"
-import NextLink from "components/NextLink"
-import Rate from "components/Rate"
-import { IProduct } from "interfaces/IProduct"
-import React from "react"
+import { NextLink, Rate } from "components"
+import { IProduct } from "interfaces"
 import { Color } from "styles/theme"
-import { formatCurrency } from "utils/formatCurrency"
+import { formatCurrency } from "utils"
 
 interface ProductSummaryProps {
   data: IProduct
 }
 
-export default function ProductSummary({ data }: ProductSummaryProps) {
+export function ProductSummary({ data }: ProductSummaryProps) {
   return (
     <Box>
       <Heading as="h1">{data.name}</Heading>
@@ -23,7 +21,7 @@ export default function ProductSummary({ data }: ProductSummaryProps) {
               {formatCurrency(data.price)}
             </Text>
             <Tag bg={Color.RED} color="#fff">
-              -{Math.round(100 - (data.salePrice / data.price) * 100)}%
+              -{data.salePercent}%
             </Tag>
           </>
         )}

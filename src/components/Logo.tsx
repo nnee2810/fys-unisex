@@ -1,9 +1,7 @@
 import { Flex } from "@chakra-ui/react"
-import React from "react"
-import ImageBox from "./ImageBox"
-import NextLink from "./NextLink"
+import { ImageBox, NextLink } from "."
 
-export default function Logo() {
+export function Logo() {
   return (
     <Flex>
       <NextLink href="/">

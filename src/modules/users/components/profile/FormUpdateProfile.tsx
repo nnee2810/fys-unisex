@@ -1,21 +1,16 @@
 import { Box, HStack, Stack } from "@chakra-ui/react"
 import { yupResolver } from "@hookform/resolvers/yup"
-import Button from "components/Button"
-import Field from "components/Field"
-import SelectBoxField from "components/Field/SelectBoxField"
-import TextField from "components/Field/TextField"
-import { formSchema } from "helpers/formSchema"
-import { ISelectOption } from "interfaces/ISelectOption"
-import { UserGender } from "interfaces/IUser"
-import { useAuth } from "modules/auth/hooks/useAuth"
-import { useUpdateUserProfile } from "modules/users/hooks/useUpdateUserProfile"
-import React from "react"
+import { Button, Field, SelectBoxField, TextField } from "components"
+import { formSchema } from "helpers"
+import { ISelectOption, UserGender } from "interfaces"
+import { useAuth } from "modules/auth/hooks"
+import { useUpdateUserProfile } from "modules/users/hooks"
 import { FormProvider, useForm } from "react-hook-form"
-import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
 import {
+  deleteWhiteSpace,
   getValidateInvalidMessage,
   getValidateRequiredMessage,
-} from "utils/getValidateMessage"
+} from "utils"
 import * as yup from "yup"
 
 const genderOptions: ISelectOption[] = [
@@ -30,7 +25,7 @@ const genderOptions: ISelectOption[] = [
 ]
 
 const schema = yup.object().shape({
-  fullName: formSchema.fullName,
+  name: formSchema.name,
   phone: formSchema.phone,
   gender: yup
     .string()
@@ -43,18 +38,18 @@ const schema = yup.object().shape({
 })
 
 interface FormValues {
-  fullName: string
+  name: string
   phone: string
   email: string
   gender: UserGender
 }
 
-export default function FormUpdateProfile() {
+export function FormUpdateProfile() {
   const { profile } = useAuth()
   const { mutate, isLoading } = useUpdateUserProfile()
   const methods = useForm<FormValues>({
     defaultValues: {
-      fullName: profile?.fullName,
+      name: profile?.name,
       phone: profile?.phone,
       email: profile?.email,
       gender: profile?.gender,
@@ -66,7 +61,7 @@ export default function FormUpdateProfile() {
     if (!profile) return
     mutate({
       ...data,
-      fullName: deleteWhiteSpace(data.fullName),
+      name: deleteWhiteSpace(data.name),
     })
   }
 
@@ -74,7 +69,7 @@ export default function FormUpdateProfile() {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <Stack spacing="4">
-          <Field name="fullName" label="Họ tên" component={<TextField />} />
+          <Field name="name" label="Họ tên" component={<TextField />} />
           <HStack alignItems="flex-end">
             <Box flex="1">
               <Field

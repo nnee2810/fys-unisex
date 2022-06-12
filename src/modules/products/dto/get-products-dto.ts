@@ -1,5 +1,5 @@
 import { PaginationDto } from "dto/pagination-dto"
-import { ProductClassify, ProductSize } from "interfaces/IProduct"
+import { ProductClassify, ProductSize } from "interfaces"
 
 export enum ProductSort {
   TIME = "TIME",

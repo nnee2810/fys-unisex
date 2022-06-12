@@ -1,10 +1,9 @@
 import { Box, Center, Flex } from "@chakra-ui/react"
-import NextLink from "components/NextLink"
+import { NextLink } from "components"
 import { responsiveW } from "configs/constants"
-import React from "react"
-import { getImageFallback } from "utils/getImageFallback"
+import { getImageFallback } from "utils"
 
-export default function Story() {
+export function Story() {
   return (
     <Flex justifyContent="center" my="60px">
       <NextLink href="#">

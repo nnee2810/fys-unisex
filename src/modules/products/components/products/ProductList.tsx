@@ -1,12 +1,11 @@
 import { Box, Grid, Skeleton, Text } from "@chakra-ui/react"
-import Pagination from "components/Pagination"
-import { IPaginationResponse } from "interfaces/IPaginationResponse"
-import { IProduct } from "interfaces/IProduct"
-import ProductCard from "modules/products/components/ProductCard"
-import { GetProductsDto } from "modules/products/dto/get-products-dto"
+import { Pagination } from "components"
+import { IPaginationResponse, IProduct } from "interfaces"
+import { ProductCard } from "modules/products/components"
+import { GetProductsDto } from "modules/products/dto"
 import { useRouter } from "next/router"
 import qs from "query-string"
-import getArrayNumber from "utils/getArrayNumber"
+import { getArrayNumber } from "utils"
 
 interface ProductListProps {
   query: GetProductsDto
@@ -14,11 +13,7 @@ interface ProductListProps {
   isLoading?: boolean
 }
 
-export default function ProductList({
-  query,
-  data,
-  isLoading,
-}: ProductListProps) {
+export function ProductList({ query, data, isLoading }: ProductListProps) {
   const router = useRouter()
   const handleChange = (selectedItem: { selected: number }) => {
     const queryString = qs.stringify({

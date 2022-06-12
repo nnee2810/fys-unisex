@@ -5,7 +5,7 @@ import {
   InputProps,
   InputRightElement,
 } from "@chakra-ui/react"
-import React, { ReactElement } from "react"
+import { ReactElement } from "react"
 import { Color } from "styles/theme"
 
 interface TextFieldProps extends InputProps {
@@ -15,7 +15,7 @@ interface TextFieldProps extends InputProps {
   }
 }
 
-export default function TextField({ icon, ...props }: TextFieldProps) {
+export function TextField({ icon, ...props }: TextFieldProps) {
   return (
     <InputGroup>
       {icon?.before && (

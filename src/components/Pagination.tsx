@@ -1,12 +1,11 @@
 import styled from "@emotion/styled"
-import React from "react"
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import ReactPaginate, { ReactPaginateProps } from "react-paginate"
 import { Color } from "styles/theme"
 
 interface PaginationProps extends ReactPaginateProps {}
 
-export default function Pagination({ forcePage, ...props }: PaginationProps) {
+export function Pagination({ forcePage, ...props }: PaginationProps) {
   return (
     <Container>
       <ReactPaginate

@@ -1,6 +1,5 @@
 import { Box, Grid, HStack, Stack, Text } from "@chakra-ui/react"
-import Logo from "components/Logo"
-import NextLink from "components/NextLink"
+import { Logo, NextLink } from "components"
 import { responsiveW } from "configs/constants"
 import { navItems } from "modules/home/constants"
 import styled from "styled-components"
@@ -20,9 +19,9 @@ export default function HeaderDesktop({ path }: HeaderProps) {
         <Logo />
         <HStack spacing="4" justifyContent="center">
           {navItems.map((item, idx) => (
-            <NavItemContainer>
-              <NextLink href={item.href} key={idx}>
-                <NavItemLink active={path === item.href}>
+            <NavItemContainer key={idx}>
+              <NextLink href={item.href}>
+                <NavItemLink $active={path === item.href}>
                   {item.name}
                 </NavItemLink>
               </NextLink>
@@ -37,10 +36,8 @@ export default function HeaderDesktop({ path }: HeaderProps) {
                     spacing="60px"
                   >
                     {item.childs.map((category, idx) => (
-                      <Stack alignItems="flex-start">
-                        <Text fontWeight="700" key={idx}>
-                          {category.name}
-                        </Text>
+                      <Stack alignItems="flex-start" key={idx}>
+                        <Text fontWeight="700">{category.name}</Text>
                         {category?.childs?.map((child, idx) => (
                           <NextLink href={child.href} styleOnHover key={idx}>
                             <Text color="#7a7a7a" fontSize="14">
@@ -69,7 +66,7 @@ const NavItemContainer = styled(Box)`
     }
   }
 `
-const NavItemLink = styled(Box)<{ active: boolean }>`
+const NavItemLink = styled(Box)<{ $active: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
@@ -83,7 +80,7 @@ const NavItemLink = styled(Box)<{ active: boolean }>`
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: ${({ active }) => (active ? "100%" : 0)};
+    width: ${({ $active }) => ($active ? "100%" : 0)};
     height: 2px;
     background-color: ${Color.PRIMARY};
     transition: all 0.2s;

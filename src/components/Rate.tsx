@@ -6,7 +6,7 @@ interface StyledRateProps extends RateProps {
   size?: number
 }
 
-const Rate = styled(R)<StyledRateProps>`
+export const Rate = styled(R)<StyledRateProps>`
   font-size: ${({ size }) => size || 18}px;
   line-height: 1;
   vertical-align: unset;
@@ -15,5 +15,3 @@ const Rate = styled(R)<StyledRateProps>`
     line-height: 1;
   }
 `
-
-export default Rate

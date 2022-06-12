@@ -1,15 +1,11 @@
 import { Box, HStack, Stack, Text } from "@chakra-ui/react"
 import { yupResolver } from "@hookform/resolvers/yup"
-import Button from "components/Button"
-import Field, { FieldLabel } from "components/Field"
-import SelectField from "components/Field/SelectField"
-import TextField from "components/Field/TextField"
-import { ProductClassify, ProductSize } from "interfaces/IProduct"
+import { Button, Field, FieldLabel, SelectField, TextField } from "components"
+import { ProductClassify, ProductSize } from "interfaces"
 import { useRouter } from "next/router"
 import qs from "query-string"
 import { FormProvider, useForm } from "react-hook-form"
-import { deleteWhiteSpace } from "utils/deleteWhiteSpace"
-import { getValidateInvalidMessage } from "utils/getValidateMessage"
+import { deleteWhiteSpace, getValidateInvalidMessage } from "utils"
 import * as yup from "yup"
 import { productClassifyOptions, productSizeOptions } from "../../constants"
 import { GetProductsDto } from "../../dto/get-products-dto"
@@ -31,19 +27,15 @@ const schema = yup.object().shape({
   size: yup
     .string()
     .label("Kích cỡ")
-    .test({
-      test: (value) =>
-        value ? Object.keys(ProductSize).includes(value) : true,
-      message: ({ label }) => getValidateInvalidMessage(label),
-    }),
+    .oneOf(Object.keys(ProductSize), ({ label }) =>
+      getValidateInvalidMessage(label)
+    ),
   classify: yup
     .string()
     .label("Loại sản phẩm")
-    .test({
-      test: (value) =>
-        value ? Object.keys(ProductClassify).includes(value) : true,
-      message: ({ label }) => getValidateInvalidMessage(label),
-    }),
+    .oneOf(Object.keys(ProductClassify), ({ label }) =>
+      getValidateInvalidMessage(label)
+    ),
   minPrice: yup
     .number()
     .label("Giá tối thiểu")
@@ -52,8 +44,7 @@ const schema = yup.object().shape({
       return schema.test({
         test: (minPrice: number) =>
           minPrice >= 0 && maxPrice >= 0 ? minPrice < maxPrice : true,
-        message: ({ label }: { label: string }) =>
-          getValidateInvalidMessage(label),
+        message: ({ label }: any) => getValidateInvalidMessage(label),
       })
     })
     .transform((value) => (isNaN(value) ? undefined : value)),
@@ -64,7 +55,7 @@ const schema = yup.object().shape({
     .transform((value) => (isNaN(value) ? undefined : value)),
 })
 
-export default function FormSearchProducts({
+export function FormSearchProducts({
   query,
   isLoading,
 }: FormSearchProductsProps) {

@@ -6,11 +6,7 @@ interface CheckboxFieldProps extends CheckboxProps {
   label: string
 }
 
-export default function CheckboxField({
-  field,
-  label,
-  ...props
-}: CheckboxFieldProps) {
+export function CheckboxField({ field, label, ...props }: CheckboxFieldProps) {
   return (
     <Checkbox {...field} {...props} size="lg">
       <Text fontSize="14" fontWeight="500">
