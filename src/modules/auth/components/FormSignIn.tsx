@@ -7,11 +7,8 @@ import {
   Text,
   useBoolean,
 } from "@chakra-ui/react"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { isEmail, isPhoneNumber } from "class-validator"
 import { Button, Field, NextLink, TextField } from "components"
-import { formSchema } from "helpers"
-import { FormProvider, useForm } from "react-hook-form"
+import { FormProvider } from "react-hook-form"
 import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
@@ -19,51 +16,11 @@ import {
   AiOutlineUser,
 } from "react-icons/ai"
 import { Color } from "styles/theme"
-import { getValidateInvalidMessage, getValidateRequiredMessage } from "utils"
-import * as yup from "yup"
-import { SignInByPasswordDto } from "../dto"
-import { useAuth } from "../hooks/useAuth"
-
-interface FormValues {
-  signInKey: string
-  password: string
-}
-
-const schema = yup.object().shape({
-  signInKey: yup
-    .string()
-    .label("Email/Số điện thoại")
-    .required(({ label }) => getValidateRequiredMessage(label))
-    .test({
-      test: (value) =>
-        value ? isEmail(value) || isPhoneNumber(value, "VN") : false,
-      message: ({ label }) => getValidateInvalidMessage(label),
-    }),
-  password: formSchema.password,
-})
+import { useFormSignIn } from "../hooks"
 
 export function FormSignIn() {
-  const methods = useForm<FormValues>({
-    defaultValues: {
-      signInKey: "",
-      password: "",
-    },
-    resolver: yupResolver(schema),
-  })
-  const {
-    signInByPassword: { mutate, isLoading },
-  } = useAuth()
+  const { methods, handleSubmit, isLoading } = useFormSignIn()
   const [passwordVisible, setPasswordVisible] = useBoolean(false)
-
-  const handleSubmit = ({ signInKey, password }: FormValues) => {
-    const submitData: SignInByPasswordDto = {
-      password,
-    }
-    if (isEmail(signInKey)) submitData.email = signInKey
-    if (isPhoneNumber(signInKey, "VN")) submitData.phone = signInKey
-
-    mutate(submitData)
-  }
 
   return (
     <FormProvider {...methods}>

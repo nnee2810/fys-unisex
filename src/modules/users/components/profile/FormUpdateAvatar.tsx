@@ -1,42 +1,13 @@
 import { Box, Center, Spinner, Text } from "@chakra-ui/react"
 import { ImageBox } from "components"
-import { Message } from "configs/constants"
 import { useAuth } from "modules/auth/hooks"
-import { useUpdateUserAvatar } from "modules/users/hooks"
-import { FileRejection, useDropzone } from "react-dropzone"
+import { useFormUpdateAvatar } from "modules/users/hooks"
 import { AiOutlineCamera } from "react-icons/ai"
-import { toast } from "react-toastify"
 import { Color } from "styles/theme"
 
 export function FormUpdateAvatar() {
   const { profile } = useAuth()
-  const { mutate, isLoading } = useUpdateUserAvatar()
-
-  const onDrop = (acceptedFiles: File[], fileRejections: FileRejection[]) => {
-    if (fileRejections.length) {
-      fileRejections[0].errors.forEach((err) => {
-        if (err.code === "file-invalid-type")
-          toast.error(Message.FILE_INVALID_TYPE + " (.jpg, .jpeg, .png)")
-        if (err.code === "file-too-large")
-          toast.error(Message.FILE_TOO_LARGE + " (<1MB)")
-      })
-    }
-    if (acceptedFiles.length) {
-      const formData = new FormData()
-      formData.append("file", acceptedFiles[0])
-      mutate(formData)
-    }
-  }
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    accept: {
-      "image/jpg": [],
-      "image/jpeg": [],
-      "image/png": [],
-    },
-    multiple: false,
-    maxSize: 1024 * 1024,
-  })
+  const { isLoading, getInputProps, getRootProps } = useFormUpdateAvatar()
 
   return (
     <Box>

@@ -1,14 +1,14 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
+import axios, { AxiosRequestConfig } from "axios"
 import Cookies from "js-cookie"
 import { Key } from "./constants"
 
-const API = axios.create({
+export const API = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 })
 
-API.interceptors.response.use((response: AxiosResponse) => {
-  return response.data
-})
+// API.interceptors.response.use((response: AxiosResponse) => {
+//   return response.data
+// })
 API.interceptors.request.use((config: AxiosRequestConfig) => {
   const accessToken = Cookies.get(Key.ACCESS_TOKEN)
 
@@ -19,4 +19,6 @@ API.interceptors.request.use((config: AxiosRequestConfig) => {
   return config
 })
 
-export default API
+export const LocationAPI = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_LOCATION_API_URL,
+})

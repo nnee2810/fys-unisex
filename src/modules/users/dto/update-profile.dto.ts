@@ -1,7 +1,6 @@
 import { UserGender } from "interfaces"
 
-export interface UpdateUserProfileDto {
-  id?: string
+export interface UpdateProfileDto {
   name?: string
   gender?: UserGender
 }

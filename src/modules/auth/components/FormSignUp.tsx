@@ -1,8 +1,6 @@
 import { Box, Divider, HStack, Stack, Text, useBoolean } from "@chakra-ui/react"
-import { yupResolver } from "@hookform/resolvers/yup"
 import { Button, Field, NextLink, TextField } from "components"
-import { formSchema } from "helpers"
-import { FormProvider, useForm } from "react-hook-form"
+import { FormProvider } from "react-hook-form"
 import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
@@ -12,60 +10,13 @@ import {
 } from "react-icons/ai"
 import { IoPhonePortraitOutline } from "react-icons/io5"
 import { Color } from "styles/theme"
-import { deleteWhiteSpace, getValidateNotMatchMessage } from "utils"
-import * as yup from "yup"
-import { useAuth } from "../hooks/useAuth"
 
-interface FormValues {
-  name: string
-  phone: string
-  email: string
-  password: string
-  repeatPassword: string
-}
-
-const schema = yup.object().shape({
-  name: formSchema.name,
-  email: formSchema.email,
-  phone: formSchema.phone,
-  password: formSchema.password,
-  repeatPassword: yup
-    .string()
-    .label("Nhập lại mật khẩu")
-    .oneOf([yup.ref("password")], ({ label }) =>
-      getValidateNotMatchMessage(label)
-    ),
-})
+import { useFormSignUp } from "../hooks"
 
 export function FormSignUp() {
-  const methods = useForm<FormValues>({
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      password: "",
-      repeatPassword: "",
-    },
-    resolver: yupResolver(schema),
-  })
-  const {
-    signUp: { mutate, isLoading },
-  } = useAuth()
+  const { methods, handleSubmit, isLoading } = useFormSignUp()
   const [passwordVisible, setPasswordVisible] = useBoolean(false)
   const [repeatPasswordVisible, setRepeatPasswordVisible] = useBoolean(false)
-
-  const handleSubmit = ({
-    name,
-    phone,
-    repeatPassword,
-    ...data
-  }: FormValues) => {
-    mutate({
-      ...data,
-      name: deleteWhiteSpace(name),
-      phone: deleteWhiteSpace(phone),
-    })
-  }
 
   return (
     <FormProvider {...methods}>

@@ -1,3 +1,3 @@
-export * from "./getUserProfile"
-export * from "./updateUserAvatar"
-export * from "./updateUserProfile"
+export * from "./getProfile"
+export * from "./updateAvatar"
+export * from "./updateProfile"

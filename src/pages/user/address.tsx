@@ -2,7 +2,7 @@ import { Flex, Heading, useBoolean } from "@chakra-ui/react"
 import { Button, PageContainer } from "components"
 import { IPageProps, UserRole } from "interfaces"
 import UserLayout from "layout/UserLayout"
-import { ModalCreateUserAddress } from "modules/users/components"
+import { ModalCreateAddress } from "modules/users/components"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
 
 export async function getStaticProps(
@@ -17,20 +17,18 @@ export async function getStaticProps(
 }
 
 export default function UserAddress() {
-  const [openCreateUserAddress, setOpenCreateUserAddress] = useBoolean()
+  const [openCreateAddress, setOpenCreateAddress] = useBoolean()
   return (
     <PageContainer>
       <UserLayout>
         <Flex justifyContent="space-between">
           <Heading size="lg">Địa chỉ</Heading>
-          <Button onClick={setOpenCreateUserAddress.on}>
-            Thêm địa chỉ mới
-          </Button>
+          <Button onClick={setOpenCreateAddress.on}>Thêm địa chỉ</Button>
         </Flex>
       </UserLayout>
-      <ModalCreateUserAddress
-        isOpen={openCreateUserAddress}
-        onClose={setOpenCreateUserAddress.off}
+      <ModalCreateAddress
+        isOpen={openCreateAddress}
+        onClose={setOpenCreateAddress.off}
       />
     </PageContainer>
   )

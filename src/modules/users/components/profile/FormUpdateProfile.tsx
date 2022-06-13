@@ -1,17 +1,8 @@
 import { Box, HStack, Stack } from "@chakra-ui/react"
-import { yupResolver } from "@hookform/resolvers/yup"
 import { Button, Field, SelectBoxField, TextField } from "components"
-import { formSchema } from "helpers"
-import { ISelectOption, UserGender } from "interfaces"
-import { useAuth } from "modules/auth/hooks"
-import { useUpdateUserProfile } from "modules/users/hooks"
-import { FormProvider, useForm } from "react-hook-form"
-import {
-  deleteWhiteSpace,
-  getValidateInvalidMessage,
-  getValidateRequiredMessage,
-} from "utils"
-import * as yup from "yup"
+import { ISelectOption } from "interfaces"
+import { useFormUpdateProfile } from "modules/users/hooks"
+import { FormProvider } from "react-hook-form"
 
 const genderOptions: ISelectOption[] = [
   {
@@ -24,46 +15,8 @@ const genderOptions: ISelectOption[] = [
   },
 ]
 
-const schema = yup.object().shape({
-  name: formSchema.name,
-  phone: formSchema.phone,
-  gender: yup
-    .string()
-    .label("Giới tính")
-    .required(({ label }) => getValidateRequiredMessage(label))
-    .oneOf(Object.keys(UserGender), ({ label }) =>
-      getValidateInvalidMessage(label)
-    )
-    .nullable(),
-})
-
-interface FormValues {
-  name: string
-  phone: string
-  email: string
-  gender: UserGender
-}
-
 export function FormUpdateProfile() {
-  const { profile } = useAuth()
-  const { mutate, isLoading } = useUpdateUserProfile()
-  const methods = useForm<FormValues>({
-    defaultValues: {
-      name: profile?.name,
-      phone: profile?.phone,
-      email: profile?.email,
-      gender: profile?.gender,
-    },
-    resolver: yupResolver(schema),
-  })
-
-  const handleSubmit = ({ phone, email, ...data }: FormValues) => {
-    if (!profile) return
-    mutate({
-      ...data,
-      name: deleteWhiteSpace(data.name),
-    })
-  }
+  const { methods, handleSubmit, isLoading } = useFormUpdateProfile()
 
   return (
     <FormProvider {...methods}>

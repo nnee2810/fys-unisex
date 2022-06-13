@@ -33,7 +33,7 @@ const authSlice = createSlice({
           src: payload,
         }
     },
-    SIGN_IN(state, { payload }: PayloadAction<IUser>) {
+    SET_PROFILE(state, { payload }: PayloadAction<IUser>) {
       state.status = AuthStatus.AUTHENTICATED
       state.profile = payload
     },
@@ -46,6 +46,10 @@ const authSlice = createSlice({
 })
 
 export const authSelector = (state: RootState) => state.auth
-export const { SET_AUTH_STATUS, SET_PROFILE_AVATAR_SRC, SIGN_IN, SIGN_OUT } =
-  authSlice.actions
+export const {
+  SET_AUTH_STATUS,
+  SET_PROFILE_AVATAR_SRC,
+  SET_PROFILE,
+  SIGN_OUT,
+} = authSlice.actions
 export default authSlice.reducer

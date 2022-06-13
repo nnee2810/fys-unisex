@@ -1,8 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react"
 import { toastConfig } from "configs/constants"
 import MainLayout from "layout/MainLayout"
-import "leaflet-geosearch/dist/geosearch.css"
-import "leaflet/dist/leaflet.css"
 import type { AppProps } from "next/app"
 import "rc-rate/assets/index.css"
 import { QueryClient, QueryClientProvider } from "react-query"
