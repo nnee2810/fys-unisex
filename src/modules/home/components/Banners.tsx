@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react"
-import { ImageBox } from "components"
+import { NextImage } from "components"
 import { Autoplay, Pagination } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { getArrayNumber, getImageFallback } from "utils"
@@ -23,7 +23,7 @@ export function Banners() {
       >
         {bannerItems.map((item, idx) => (
           <SwiperSlide key={idx}>
-            <ImageBox
+            <NextImage
               h={{ base: "calc(100vh - 56px)", lg: "calc(100vh - 53px)" }}
               src={item}
               alt={"banner" + idx}

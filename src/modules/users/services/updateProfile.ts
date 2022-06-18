@@ -1,6 +1,9 @@
-import { API } from "configs/service"
+import { API } from "configs/services"
+import { IResponse } from "interfaces"
 import { UpdateProfileDto } from "../dto"
+import { IUserEntity } from "../interfaces"
 
-export function updateProfile(data: UpdateProfileDto) {
-  return API.patch(`/users/profile`, data)
+export async function updateProfile(data: UpdateProfileDto) {
+  return (await API.patch<IResponse<IUserEntity>>(`user/update-profile`, data))
+    .data.data
 }

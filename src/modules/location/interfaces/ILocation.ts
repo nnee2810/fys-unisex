@@ -6,13 +6,11 @@ export interface IProvince {
 
 export interface IDistrict {
   code: number
-  province_code: number
   name: string
   wards: IWard[]
 }
 
 export interface IWard {
   code: number
-  province_code: number
   name: string
 }

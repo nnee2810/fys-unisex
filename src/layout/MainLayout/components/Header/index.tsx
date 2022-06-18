@@ -1,7 +1,7 @@
 import { Box, useBoolean } from "@chakra-ui/react"
 import { zIndex } from "configs/constants"
 import { useRouter } from "next/router"
-import React, { useCallback, useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import HeaderDesktop from "./HeaderDesktop"
 import HeaderMobile from "./HeaderMobile"
 
@@ -31,7 +31,7 @@ export default function Header() {
   }, [handleScroll])
   useEffect(() => {
     if (!visible) setVisible.on()
-  }, [router.asPath])
+  }, [router.pathname])
 
   return (
     <Box

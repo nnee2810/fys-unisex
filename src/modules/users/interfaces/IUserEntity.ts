@@ -1,3 +1,5 @@
+import { IBaseEntity } from "interfaces"
+
 export enum UserRole {
   GUEST = "GUEST",
   CUSTOMER = "CUSTOMER",
@@ -10,8 +12,7 @@ export enum UserGender {
   FEMALE = "FEMALE",
 }
 
-export interface IUser {
-  id: string
+export interface IUserEntity extends IBaseEntity {
   name: string
   gender: UserGender
   avatar?: {
@@ -20,6 +21,4 @@ export interface IUser {
   email: string
   phone: string
   role: UserRole
-  createdAt: string
-  updatedAt: string
 }

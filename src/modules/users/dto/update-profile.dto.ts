@@ -1,4 +1,4 @@
-import { UserGender } from "interfaces"
+import { UserGender } from "../interfaces"
 
 export interface UpdateProfileDto {
   name?: string

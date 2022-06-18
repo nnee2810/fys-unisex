@@ -5,7 +5,7 @@ import { Color } from "styles/theme"
 
 interface PaginationProps extends ReactPaginateProps {}
 
-export function Pagination({ forcePage, ...props }: PaginationProps) {
+export function NextPagination({ forcePage, ...props }: PaginationProps) {
   return (
     <Container>
       <ReactPaginate

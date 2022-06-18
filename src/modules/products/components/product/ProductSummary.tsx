@@ -1,11 +1,11 @@
 import { Box, Flex, Heading, HStack, Tag, Text } from "@chakra-ui/react"
-import { NextLink, Rate } from "components"
-import { IProduct } from "interfaces"
+import { NextLink, NextRate } from "components"
+import { IProductEntity } from "modules/products/interfaces"
 import { Color } from "styles/theme"
 import { formatCurrency } from "utils"
 
 interface ProductSummaryProps {
-  data: IProduct
+  data: IProductEntity
 }
 
 export function ProductSummary({ data }: ProductSummaryProps) {
@@ -13,15 +13,17 @@ export function ProductSummary({ data }: ProductSummaryProps) {
     <Box>
       <Heading as="h1">{data.name}</Heading>
       <HStack spacing="3" fontSize="26" fontWeight="500">
-        <Text>{formatCurrency(data.inSale ? data.salePrice : data.price)}</Text>
+        <Text>
+          {formatCurrency(data.in_sale ? data.sale_price : data.price)}
+        </Text>
 
-        {data.inSale && (
+        {data.in_sale && (
           <>
             <Text color={Color.GRAY} textDecor="line-through">
               {formatCurrency(data.price)}
             </Text>
             <Tag bg={Color.RED} color="#fff">
-              -{data.salePercent}%
+              -{data.sale_percent}%
             </Tag>
           </>
         )}
@@ -29,7 +31,7 @@ export function ProductSummary({ data }: ProductSummaryProps) {
       <Flex>
         <NextLink href="#reviews">
           <HStack>
-            <Rate disabled size={24} value={4} />
+            <NextRate disabled size={24} value={4} />
             <Box>|</Box>
             <Text>
               <u>Đánh giá:</u> 1000

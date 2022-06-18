@@ -1,5 +1,5 @@
 import { PaginationDto } from "dto/pagination-dto"
-import { ProductClassify, ProductSize } from "interfaces"
+import { ProductClassify, ProductGender, ProductSize } from "../interfaces"
 
 export enum ProductSort {
   TIME = "TIME",
@@ -11,12 +11,12 @@ export enum ProductSort {
 export interface GetProductsDto extends PaginationDto {
   name?: string
   classify?: ProductClassify
-  gender?: String
+  gender?: ProductGender
   size?: ProductSize
-  minPrice?: number
-  maxPrice?: number
-  inStock?: string
-  inSale?: boolean
-  isFeatured?: boolean
+  min_price?: number
+  max_price?: number
+  in_stock?: string
+  in_sale?: boolean
+  is_featured?: boolean
   sort?: ProductSort
 }

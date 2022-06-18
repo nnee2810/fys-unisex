@@ -1,15 +1,17 @@
 import { Box, Flex, Heading } from "@chakra-ui/react"
 import { PageContainer } from "components"
-import { IPageProps, UserRole } from "interfaces"
+import { PageTitle } from "configs/constants"
+import { PageProps } from "layout/MainLayout"
 import { FormSignIn } from "modules/auth/components"
+import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
 
 export async function getStaticProps(
   context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<IPageProps>> {
+): Promise<GetStaticPropsResult<PageProps>> {
   return {
     props: {
-      title: "Đăng nhập",
+      title: PageTitle.SIGN_IN,
       roles: [UserRole.GUEST],
     },
   }

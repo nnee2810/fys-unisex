@@ -1,12 +1,12 @@
 import { Box, Flex, HStack, Tag, Text } from "@chakra-ui/react"
-import { ImageBox, NextLink } from "components"
-import { IProduct } from "interfaces"
+import { NextImage, NextLink } from "components"
 import { AiFillHeart } from "react-icons/ai"
 import { Color } from "styles/theme"
 import { formatCurrency } from "utils"
+import { IProductEntity } from "../interfaces"
 
 interface ProductCardProps {
-  data: IProduct
+  data: IProductEntity
   layout: "vertical" | "horizontal"
 }
 
@@ -16,7 +16,7 @@ export function ProductCard({ data, layout }: ProductCardProps) {
       <Box>
         <Box pos="relative">
           <NextLink href={`/products/${data.id}`}>
-            <ImageBox
+            <NextImage
               src={data.images[0]}
               alt={data.name}
               borderRadius="8"
@@ -31,7 +31,7 @@ export function ProductCard({ data, layout }: ProductCardProps) {
             justify="space-between"
             alignItems="center"
           >
-            {data.inSale ? (
+            {data.in_sale ? (
               <Tag fontWeight="500" color="#fff" backgroundColor={Color.RED}>
                 SALE
               </Tag>
@@ -48,7 +48,7 @@ export function ProductCard({ data, layout }: ProductCardProps) {
     return (
       <NextLink href={`/products/${data.id}`}>
         <HStack>
-          <ImageBox
+          <NextImage
             src={data.images[0]}
             alt="product"
             w="40px"
@@ -77,15 +77,17 @@ function renderProductInfo({ data, layout }: ProductCardProps) {
       )}
 
       <HStack fontSize="12" fontWeight="500">
-        <Text>{formatCurrency(data.inSale ? data.salePrice : data.price)}</Text>
+        <Text>
+          {formatCurrency(data.in_sale ? data.sale_price : data.price)}
+        </Text>
 
-        {data.inSale && (
+        {data.in_sale && (
           <>
             <Text color={Color.GRAY} textDecor="line-through">
               {formatCurrency(data.price)}
             </Text>
             <Tag size="sm" bg={Color.RED} color="#fff">
-              -{data.salePercent}%
+              -{data.sale_percent}%
             </Tag>
           </>
         )}

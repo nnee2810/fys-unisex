@@ -9,8 +9,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react"
-import { Field, NextLink, TextField } from "components"
-import { IModalProps } from "interfaces"
+import { Field, ModalBaseProps, NextLink, TextField } from "components"
 import debounce from "lodash.debounce"
 import { ProductCard } from "modules/products/components"
 import { useGetProducts } from "modules/products/hooks"
@@ -25,7 +24,10 @@ interface FormValues {
   name: string
 }
 
-export default function ModalSearchProducts({ isOpen, onClose }: IModalProps) {
+export default function ModalSearchProducts({
+  isOpen,
+  onClose,
+}: ModalBaseProps) {
   const router = useRouter()
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -54,7 +56,7 @@ export default function ModalSearchProducts({ isOpen, onClose }: IModalProps) {
   }, [queryName, refetch])
   useEffect(() => {
     onClose()
-  }, [router.asPath])
+  }, [router.pathname])
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

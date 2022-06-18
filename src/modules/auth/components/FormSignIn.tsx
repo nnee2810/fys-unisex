@@ -7,7 +7,7 @@ import {
   Text,
   useBoolean,
 } from "@chakra-ui/react"
-import { Button, Field, NextLink, TextField } from "components"
+import { Field, NextButton, NextLink, TextField } from "components"
 import { FormProvider } from "react-hook-form"
 import {
   AiOutlineEye,
@@ -27,7 +27,7 @@ export function FormSignIn() {
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <Stack spacing="4">
           <Field
-            name="signInKey"
+            name="key"
             component={
               <TextField
                 placeholder="Email/Số điện thoại"
@@ -72,18 +72,18 @@ export function FormSignIn() {
               </NextLink>
             </Flex>
           </Stack>
-          <Button type="submit" isLoading={isLoading}>
+          <NextButton type="submit" isLoading={isLoading}>
             Đăng nhập
-          </Button>
+          </NextButton>
           <HStack>
             <Divider />
             <Text color={Color.GRAY}>hoặc</Text>
             <Divider />
           </HStack>
           <NextLink href="/auth/sign-up">
-            <Button w="100%" colorScheme="gray">
+            <NextButton w="100%" colorScheme="gray">
               Chưa có tài khoản, đăng ký ngay!
-            </Button>
+            </NextButton>
           </NextLink>
         </Stack>
       </form>

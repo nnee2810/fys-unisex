@@ -1,3 +1,5 @@
+export * from "./createAddress"
+export * from "./getAddressList"
 export * from "./getProfile"
 export * from "./updateAvatar"
 export * from "./updateProfile"

@@ -13,14 +13,14 @@ import {
 } from "@chakra-ui/react"
 import { NextLink } from "components"
 import { responsiveW, zIndex } from "configs/constants"
-import { ProductClassify } from "interfaces"
 import { ProductCard } from "modules/products/components"
 import { useGetProducts } from "modules/products/hooks"
+import { ProductClassify } from "modules/products/interfaces"
 import { getArrayNumber } from "utils"
 
 export function FeaturedProducts() {
   const { data, isLoading } = useGetProducts({
-    isFeatured: true,
+    is_featured: true,
     take: 30,
   })
 

@@ -10,7 +10,7 @@ import { getArrayNumber } from "utils"
 
 export function FlashSale() {
   const { data, isLoading } = useGetProducts({
-    inSale: true,
+    in_sale: true,
     take: 10,
   })
 

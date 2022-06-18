@@ -1,5 +1,5 @@
 import { Box, HStack, Stack } from "@chakra-ui/react"
-import { Button, Field, SelectBoxField, TextField } from "components"
+import { Field, NextButton, SelectBoxField, TextField } from "components"
 import { ISelectOption } from "interfaces"
 import { useFormUpdateProfile } from "modules/users/hooks"
 import { FormProvider } from "react-hook-form"
@@ -31,7 +31,7 @@ export function FormUpdateProfile() {
                 component={<TextField isDisabled />}
               />
             </Box>
-            <Button>Thay đổi</Button>
+            <NextButton>Thay đổi</NextButton>
           </HStack>
           <HStack alignItems="flex-end">
             <Box flex="1">
@@ -41,7 +41,7 @@ export function FormUpdateProfile() {
                 component={<TextField isDisabled />}
               />
             </Box>
-            <Button>Thay đổi</Button>
+            <NextButton>Thay đổi</NextButton>
           </HStack>
           {/* <Field
             name="address"
@@ -76,9 +76,9 @@ export function FormUpdateProfile() {
             label="Giới tính"
             component={<SelectBoxField options={genderOptions} />}
           />
-          <Button type="submit" isLoading={isLoading}>
+          <NextButton type="submit" isLoading={isLoading}>
             Cập nhật
-          </Button>
+          </NextButton>
         </Stack>
       </form>
     </FormProvider>

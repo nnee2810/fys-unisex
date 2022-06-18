@@ -1,5 +1,6 @@
 import { Stack } from "@chakra-ui/react"
-import { IPageProps } from "interfaces"
+import { PageTitle } from "configs/constants"
+import { PageProps } from "layout/MainLayout"
 import {
   Banners,
   Commit,
@@ -12,10 +13,10 @@ import { GetStaticPropsContext, GetStaticPropsResult } from "next"
 
 export async function getStaticProps(
   context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<IPageProps>> {
+): Promise<GetStaticPropsResult<PageProps>> {
   return {
     props: {
-      title: "Trang chủ",
+      title: PageTitle.HOME,
       roles: [],
     },
   }

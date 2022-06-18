@@ -4,15 +4,27 @@ export const TAKE_PER_PAGE = 20
 export const Regex = {
   PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
 }
-
-export enum Message {
-  SUCCESS = "Success",
+export enum PageTitle {
+  HOME = "Trang chủ",
+  SIGN_IN = "Đăng nhập",
+  SIGN_UP = "Đăng kí",
+  PRODUCT_LIST = "Sản phẩm",
+  PRODUCT_DETAIL = "Chi tiết sản phẩm",
+  USER_PROFILE = "Tài khoản của tôi",
+  USER_ADDRESS = "Địa chỉ",
+}
+export enum SuccessMessage {
+  SIGN_UP_SUCCESS = "Đăng ký tài khoản thành công, hãy đăng nhập",
+  SIGN_OUT_SUCCESS = "Đăng xuất thành công",
+  UPDATE_PROFILE_SUCCESS = "Cập nhật tài khoản thành công",
+  UPDATE_AVATAR_SUCCESS = "Cập nhật ảnh đại điện thành công",
+  CREATE_ADDRESS_SUCCESS = "Thêm địa chỉ thành công",
+}
+export enum ErrorMessage {
   SERVER_ERROR = "Lỗi máy chủ, vui lòng thử lại sau",
   EMAIL_ALREADY_EXIST = "Email đã được sử dụng",
   PHONE_ALREADY_EXIST = "Số điện thoại đã được sử dụng",
-  SIGN_UP_SUCCESS = "Đăng ký tài khoản thành công, hãy đăng nhập",
   SIGN_IN_FAIL = "Thông tin đăng nhập không chính xác",
-  SIGN_OUT_SUCCESS = "Đăng xuất thành công",
   FILE_INVALID_TYPE = "Tệp không hợp lệ",
   FILE_TOO_LARGE = "Dung lượng tệp quá lớn",
 }

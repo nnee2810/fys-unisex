@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { AxiosError } from "axios"
-import { Message } from "configs/constants"
-import { formSchema } from "helpers"
+import { ErrorMessage, SuccessMessage } from "configs/constants"
+import { formSchemas } from "helpers"
 import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
 import { useMutation } from "react-query"
@@ -16,20 +16,18 @@ interface FormValues {
   phone: string
   email: string
   password: string
-  repeatPassword: string
+  repeat_password: string
 }
 
-const schema = yup.object().shape({
-  name: formSchema.name,
-  email: formSchema.email,
-  phone: formSchema.phone,
-  password: formSchema.password,
-  repeatPassword: yup
+const schema = yup.object({
+  name: formSchemas.name,
+  email: formSchemas.email,
+  phone: formSchemas.phone,
+  password: formSchemas.password,
+  repeat_password: yup
     .string()
     .label("Nhập lại mật khẩu")
-    .oneOf([yup.ref("password")], ({ label }) =>
-      getValidateNotMatchMessage(label)
-    ),
+    .oneOf([yup.ref("password")], getValidateNotMatchMessage),
 })
 
 export function useFormSignUp() {
@@ -41,7 +39,7 @@ export function useFormSignUp() {
       email: "",
       phone: "",
       password: "",
-      repeatPassword: "",
+      repeat_password: "",
     },
     resolver: yupResolver(schema),
   })
@@ -51,16 +49,17 @@ export function useFormSignUp() {
     (data: SignUpDto) => signUp(data),
     {
       onSuccess() {
-        toast.success(Message.SIGN_UP_SUCCESS)
+        toast.success(SuccessMessage.SIGN_UP_SUCCESS)
         router.push("/auth/sign-in")
       },
       onError(error) {
         if (error instanceof AxiosError) {
           toast.error(
-            Message[error.response?.data?.message as keyof typeof Message] ||
-              Message.SERVER_ERROR
+            ErrorMessage[
+              error.response?.data?.message as keyof typeof ErrorMessage
+            ] || ErrorMessage.SERVER_ERROR
           )
-        } else toast.error(Message.SERVER_ERROR)
+        } else toast.error(ErrorMessage.SERVER_ERROR)
       },
     }
   )
@@ -68,7 +67,7 @@ export function useFormSignUp() {
   const handleSubmit = ({
     name,
     phone,
-    repeatPassword,
+    repeat_password,
     ...data
   }: FormValues) => {
     mutate({

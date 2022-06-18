@@ -1,5 +1,5 @@
 import { Box, HStack, Stack } from "@chakra-ui/react"
-import { Button, Field, SelectBoxField, TextField } from "components"
+import { Field, NextButton, SelectBoxField, TextField } from "components"
 import { FormProvider, useForm } from "react-hook-form"
 import styled from "styled-components"
 
@@ -86,34 +86,34 @@ export function ProductOrder({}: ProductOrderProps) {
                   type="number"
                   icon={{
                     before: (
-                      <ButtonQuantity
+                      <QuantityButton
                         as="button"
                         onClick={() => handleChangeQuantity("sub")}
                       >
                         -
-                      </ButtonQuantity>
+                      </QuantityButton>
                     ),
                     after: (
-                      <ButtonQuantity
+                      <QuantityButton
                         as="button"
                         onClick={() => handleChangeQuantity("add")}
                       >
                         +
-                      </ButtonQuantity>
+                      </QuantityButton>
                     ),
                   }}
                 />
               }
             />
-            <Button>Mua ngay</Button>
-            <Button colorScheme="red">Thêm vào giỏ hàng</Button>
+            <NextButton>Mua ngay</NextButton>
+            <NextButton colorScheme="red">Thêm vào giỏ hàng</NextButton>
           </HStack>
         </Stack>
       </FormProvider>
     </Box>
   )
 }
-const ButtonQuantity = styled(Box)`
+const QuantityButton = styled(Box)`
   padding: 0 8px;
   font-weight: 500;
 `

@@ -1,4 +1,4 @@
-import { UserRole } from "interfaces"
+import { UserRole } from "modules/users/interfaces"
 
 interface CanAccessParams {
   userRole?: UserRole

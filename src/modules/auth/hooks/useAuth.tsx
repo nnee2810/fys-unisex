@@ -1,5 +1,5 @@
 import { AxiosError } from "axios"
-import { Key, Message } from "configs/constants"
+import { Key, SuccessMessage } from "configs/constants"
 import { useAppDispatch, useAppSelector } from "hooks"
 import Cookies from "js-cookie"
 import { getProfile } from "modules/users/services"
@@ -32,7 +32,7 @@ export function useAuth() {
 
   const signOut = () => {
     dispatch(SIGN_OUT())
-    toast.success(Message.SIGN_OUT_SUCCESS)
+    toast.success(SuccessMessage.SIGN_OUT_SUCCESS)
   }
 
   return { ...auth, fetchProfile, signOut }

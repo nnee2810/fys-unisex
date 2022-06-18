@@ -3,31 +3,28 @@ import { Regex } from "configs/constants"
 import { getValidateInvalidMessage, getValidateRequiredMessage } from "utils"
 import * as yup from "yup"
 
-export const formSchema = {
-  name: yup
-    .string()
-    .label("Họ tên")
-    .required(({ label }) => getValidateRequiredMessage(label)),
+export const formSchemas = {
+  name: yup.string().label("Họ tên").required(getValidateRequiredMessage),
   phone: yup
     .string()
     .label("Số điện thoại")
-    .required(({ label }) => getValidateRequiredMessage(label))
+    .required(getValidateRequiredMessage)
     .test({
       test: (value) => (value ? isPhoneNumber(value, "VN") : false),
-      message: ({ label }) => getValidateInvalidMessage(label),
+      message: getValidateInvalidMessage,
     }),
   email: yup
     .string()
     .label("Email")
-    .required(({ label }) => getValidateRequiredMessage(label))
+    .required(getValidateRequiredMessage)
     .test({
       test: (value) => (value ? isEmail(value) : false),
-      message: ({ label }) => getValidateInvalidMessage(label),
+      message: getValidateInvalidMessage,
     }),
   password: yup
     .string()
     .label("Mật khẩu")
-    .required(({ label }) => getValidateRequiredMessage(label))
+    .required(getValidateRequiredMessage)
     .matches(
       Regex.PASSWORD,
       ({ label }) =>

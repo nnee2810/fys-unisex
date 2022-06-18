@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Key } from "configs/constants"
-import { IUser } from "interfaces"
 import Cookies from "js-cookie"
+import { IUserEntity } from "modules/users/interfaces"
 import { RootState } from "store"
 
 export enum AuthStatus {
@@ -12,7 +12,7 @@ export enum AuthStatus {
 
 interface SliceState {
   status: AuthStatus
-  profile: IUser | null
+  profile: IUserEntity | null
 }
 
 const initialState: SliceState = {
@@ -33,7 +33,7 @@ const authSlice = createSlice({
           src: payload,
         }
     },
-    SET_PROFILE(state, { payload }: PayloadAction<IUser>) {
+    SET_PROFILE(state, { payload }: PayloadAction<IUserEntity>) {
       state.status = AuthStatus.AUTHENTICATED
       state.profile = payload
     },

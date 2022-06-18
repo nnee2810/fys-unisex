@@ -1,5 +1,5 @@
 import { Box, Center, Grid, Heading } from "@chakra-ui/react"
-import { ImageBox, NextLink } from "components"
+import { NextImage, NextLink } from "components"
 import { responsiveW } from "configs/constants"
 import { exploreItems } from "../constants"
 
@@ -25,7 +25,7 @@ export function Explore() {
                   filter: "grayscale(0%)",
                 }}
               >
-                <ImageBox h="100%" src={item.src} alt={"explore" + idx} />
+                <NextImage h="100%" src={item.src} alt={"explore" + idx} />
                 <Center position="absolute" bottom="50%" w="100%">
                   <Box
                     w="80%"

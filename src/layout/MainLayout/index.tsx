@@ -1,8 +1,8 @@
 import { Box } from "@chakra-ui/react"
 import { LoadingPage } from "components"
 import { canAccess } from "helpers"
-import { IPageProps } from "interfaces"
 import { useAuth } from "modules/auth/hooks"
+import { UserRole } from "modules/users/interfaces"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { ReactNode, useEffect } from "react"
@@ -12,9 +12,14 @@ import BackToTop from "./components/BackToTop"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 
+export interface PageProps {
+  title: string
+  roles: UserRole[]
+}
+
 interface MainLayoutProps {
   children: ReactNode
-  pageProps: IPageProps
+  pageProps: PageProps
 }
 
 export default function MainLayout({ children, pageProps }: MainLayoutProps) {

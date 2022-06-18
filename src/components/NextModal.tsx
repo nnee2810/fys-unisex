@@ -6,41 +6,50 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  ModalProps,
 } from "@chakra-ui/react"
-import { IModalProps } from "interfaces"
-import { Button } from "."
+import { NextButton } from "."
 
-export function ModalConfirm({
-  isOpen,
-  children,
+export interface ModalBaseProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export interface NextModalProps extends ModalBaseProps, ModalProps {
+  title?: string
+  closeText?: string
+  confirmText?: string
+  onConfirm?: () => void
+}
+
+export function NextModal({
   title,
-  size,
   closeText,
   confirmText,
+
   onClose,
   onConfirm,
-}: IModalProps) {
+  children,
+  ...props
+}: NextModalProps) {
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      size={size}
-      closeOnOverlayClick={false}
-    >
+    <Modal onClose={onClose} {...props}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>
         <ModalBody>{children}</ModalBody>
         <ModalFooter>
           <HStack>
-            <Button
+            <NextButton
               colorScheme="blackAlpha"
               variant="outline"
               onClick={onClose}
             >
               {closeText || "Đóng"}
-            </Button>
-            <Button onClick={onConfirm}>{confirmText || "Đồng ý"}</Button>
+            </NextButton>
+            <NextButton type="submit" onClick={onConfirm}>
+              {confirmText || "Đồng ý"}
+            </NextButton>
           </HStack>
         </ModalFooter>
       </ModalContent>

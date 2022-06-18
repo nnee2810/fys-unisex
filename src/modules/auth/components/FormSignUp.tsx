@@ -1,5 +1,5 @@
 import { Box, Divider, HStack, Stack, Text, useBoolean } from "@chakra-ui/react"
-import { Button, Field, NextLink, TextField } from "components"
+import { Field, NextButton, NextLink, TextField } from "components"
 import { FormProvider } from "react-hook-form"
 import {
   AiOutlineEye,
@@ -101,18 +101,18 @@ export function FormSignUp() {
               />
             }
           />
-          <Button type="submit" isLoading={isLoading}>
+          <NextButton type="submit" isLoading={isLoading}>
             Đăng ký
-          </Button>
+          </NextButton>
           <HStack>
             <Divider />
             <Text color={Color.GRAY}>hoặc</Text>
             <Divider />
           </HStack>
           <NextLink href="/auth/sign-in">
-            <Button w="100%" colorScheme="gray">
+            <NextButton w="100%" colorScheme="gray">
               Đã có tài khoản, đăng nhập ngay!
-            </Button>
+            </NextButton>
           </NextLink>
         </Stack>
       </form>

@@ -1,4 +1,4 @@
-import { Message } from "configs/constants"
+import { ErrorMessage, SuccessMessage } from "configs/constants"
 import { useAppDispatch } from "hooks"
 import { FileRejection, useDropzone } from "react-dropzone"
 import { useMutation } from "react-query"
@@ -11,11 +11,11 @@ export function useFormUpdateAvatar() {
 
   const { mutate, isLoading } = useMutation("updateAvatar", updateAvatar, {
     onSuccess(data) {
-      toast.success("Cập nhật ảnh đại điện thành công")
+      toast.success(SuccessMessage.UPDATE_AVATAR_SUCCESS)
       dispatch(SET_PROFILE_AVATAR_SRC(data))
     },
     onError() {
-      toast.error(Message.SERVER_ERROR)
+      toast.error(ErrorMessage.SERVER_ERROR)
     },
   })
 
@@ -23,9 +23,9 @@ export function useFormUpdateAvatar() {
     if (fileRejections.length) {
       fileRejections[0].errors.forEach((err) => {
         if (err.code === "file-invalid-type")
-          toast.error(Message.FILE_INVALID_TYPE + " (.jpg, .jpeg, .png)")
+          toast.error(ErrorMessage.FILE_INVALID_TYPE + " (.jpg, .jpeg, .png)")
         if (err.code === "file-too-large")
-          toast.error(Message.FILE_TOO_LARGE + " (<1MB)")
+          toast.error(ErrorMessage.FILE_TOO_LARGE + " (<1MB)")
       })
     }
     if (acceptedFiles.length) {

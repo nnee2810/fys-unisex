@@ -1,17 +1,17 @@
 import { Box, Grid, HStack, Text } from "@chakra-ui/react"
-import { ImageBox, Rate } from "components"
-import { IReview } from "interfaces"
+import { NextImage, NextRate } from "components"
+import { IProductReview } from "modules/products/interfaces"
 import moment from "moment"
 import { Color } from "styles/theme"
 
 interface ProductReviewProps {
-  data: IReview
+  data: IProductReview
 }
 
 export function ProductReview({ data }: ProductReviewProps) {
   return (
     <Grid templateColumns="40px auto" gap="2">
-      <ImageBox
+      <NextImage
         src={data.user.image}
         alt="avatar"
         w="40px"
@@ -23,9 +23,9 @@ export function ProductReview({ data }: ProductReviewProps) {
           {data.user.name}
         </Text>
         <HStack color={Color.GRAY} fontSize="12">
-          <Rate allowHalf disabled value={data.rate} />
+          <NextRate allowHalf disabled value={data.rate} />
           <Text>|</Text>
-          <Text>{moment(data.createdAt).format("DD/MM/YYYY HH:mm")}</Text>
+          <Text>{moment(data.created_at).format("DD/MM/YYYY HH:mm")}</Text>
         </HStack>
         <Text mt="2">{data.content}</Text>
       </Box>

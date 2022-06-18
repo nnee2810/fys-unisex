@@ -1,16 +1,19 @@
-import { Grid, Heading } from "@chakra-ui/react"
-import { PageContainer } from "components"
-import { IPageProps, UserRole } from "interfaces"
+import { Grid } from "@chakra-ui/react"
+import { NextBreadcrumb, PageContainer } from "components"
+import { PageHeader } from "components/PageHeader"
+import { PageTitle } from "configs/constants"
+import { PageProps } from "layout/MainLayout"
 import UserLayout from "layout/UserLayout"
 import { FormUpdateAvatar, FormUpdateProfile } from "modules/users/components"
+import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
 
 export async function getStaticProps(
   context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<IPageProps>> {
+): Promise<GetStaticPropsResult<PageProps>> {
   return {
     props: {
-      title: "Tài khoản của tôi",
+      title: PageTitle.USER_PROFILE,
       roles: [UserRole.CUSTOMER, UserRole.MOD, UserRole.ADMIN],
     },
   }
@@ -19,9 +22,17 @@ export async function getStaticProps(
 export default function UserProfile() {
   return (
     <PageContainer>
+      <NextBreadcrumb
+        data={[
+          {
+            href: `/user/profile`,
+            name: PageTitle.USER_PROFILE,
+          },
+        ]}
+      />
       <UserLayout>
-        <Heading size="lg">Tài khoản của tôi</Heading>
-        <Grid mt="5" templateColumns="auto 200px" gap="10">
+        <PageHeader title="Tài khoản của tôi" />
+        <Grid templateColumns="auto 200px" gap="10">
           <FormUpdateProfile />
           <FormUpdateAvatar />
         </Grid>

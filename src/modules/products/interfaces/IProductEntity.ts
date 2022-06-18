@@ -1,4 +1,5 @@
-import { IUser } from "./IUser"
+import { IBaseEntity } from "interfaces"
+import { IUserEntity } from "modules/users/interfaces"
 
 export enum ProductClassify {
   SHIRT = "SHIRT",
@@ -22,8 +23,7 @@ export enum ProductSize {
   XXXL = "XXXL",
 }
 
-export interface IProduct {
-  id: string
+export interface IProductEntity extends IBaseEntity {
   name: string
   slug: string
   images: string[]
@@ -31,20 +31,18 @@ export interface IProduct {
   gender: ProductGender
   sizes: ProductSize[]
   price: number
-  salePrice: number
-  salePercent: number
-  onSale: boolean
-  inSale: boolean
-  inStock: boolean
-  isFeatured: boolean
-  createdAt: string
-  updatedAt: string
+  sale_price: number
+  sale_percent: number
+  on_sale: boolean
+  in_sale: boolean
+  in_stock: boolean
+  is_featured: boolean
 }
 
 export interface IProductReview {
   id: string
-  user: IUser
+  user: IUserEntity
   content: string
   rate: number
-  createdAt: string
+  created_at: string
 }

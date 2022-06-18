@@ -1,4 +1,3 @@
-import { UserGender } from "interfaces"
 import { useAuth } from "modules/auth/hooks"
 import {
   deleteWhiteSpace,
@@ -7,12 +6,15 @@ import {
 } from "utils"
 
 import { yupResolver } from "@hookform/resolvers/yup"
-import { Message } from "configs/constants"
-import { formSchema } from "helpers"
+import { ErrorMessage, SuccessMessage } from "configs/constants"
+import { formSchemas } from "helpers"
+import { useAppDispatch } from "hooks"
 import { useForm } from "react-hook-form"
 import { useMutation } from "react-query"
 import { toast } from "react-toastify"
+import { SET_PROFILE } from "store/reducers/auth"
 import * as yup from "yup"
+import { UserGender } from "../interfaces"
 import { updateProfile } from "../services"
 
 interface FormValues {
@@ -22,29 +24,28 @@ interface FormValues {
   gender: UserGender
 }
 
-const schema = yup.object().shape({
-  name: formSchema.name,
-  phone: formSchema.phone,
+const schema = yup.object({
+  name: formSchemas.name,
+  phone: formSchemas.phone,
   gender: yup
     .string()
     .label("Giới tính")
-    .required(({ label }) => getValidateRequiredMessage(label))
-    .oneOf(Object.keys(UserGender), ({ label }) =>
-      getValidateInvalidMessage(label)
-    )
+    .required(getValidateRequiredMessage)
+    .oneOf(Object.keys(UserGender), getValidateInvalidMessage)
     .nullable(),
 })
 
 export function useFormUpdateProfile() {
-  const { fetchProfile, profile } = useAuth()
+  const dispatch = useAppDispatch()
+  const { profile } = useAuth()
 
   const { mutate, isLoading } = useMutation("updateProfile", updateProfile, {
-    onSuccess() {
-      toast.success("Cập nhật tài khoản thành công")
-      fetchProfile()
+    onSuccess(data) {
+      toast.success(SuccessMessage.UPDATE_PROFILE_SUCCESS)
+      dispatch(SET_PROFILE(data))
     },
     onError() {
-      toast.error(Message.SERVER_ERROR)
+      toast.error(ErrorMessage.SERVER_ERROR)
     },
   })
   const methods = useForm<FormValues>({

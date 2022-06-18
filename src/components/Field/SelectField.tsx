@@ -5,20 +5,22 @@ import { Color } from "styles/theme"
 
 interface SelectFieldProps {
   options: ISelectOption[]
-  value?: number | string
+  value?: number | string | null
   placeholder?: string
-  onChange?: (value: number | string | undefined) => void
+  isClearable?: boolean
+  onChange?: (value?: number | string) => void
 }
 
 export function SelectField({
   options,
   value,
   placeholder,
+  isClearable,
   onChange,
 }: SelectFieldProps) {
   const handleChange = (newValue: unknown) => {
     if (!onChange) return
-    if (!newValue) return onChange("")
+    if (!newValue) return onChange(undefined)
     if ((newValue as ISelectOption).value !== value)
       onChange((newValue as ISelectOption).value)
   }
@@ -26,8 +28,11 @@ export function SelectField({
   return (
     <StyledSelect
       options={options}
-      value={options.find((option) => option.value === value) || null}
+      value={
+        value ? options.find((option) => option.value === value) || null : null
+      }
       placeholder={placeholder || "Chọn..."}
+      isClearable={isClearable}
       onChange={handleChange}
       classNamePrefix="react-select"
       theme={(theme: Theme) => ({

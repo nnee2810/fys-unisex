@@ -1,6 +1,6 @@
 import { Box, BoxProps, Tag } from "@chakra-ui/react"
-import { ImageBox } from "components"
-import { IProduct } from "interfaces"
+import { NextImage } from "components"
+import { IProductEntity } from "modules/products/interfaces"
 import { useCallback, useState } from "react"
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import styled from "styled-components"
@@ -9,11 +9,11 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import { getImageFallback } from "utils"
 
 interface ProductImagesPreviewProps {
-  data: IProduct
+  data: IProductEntity
 }
 
 export function ProductImagesPreview({
-  data: { images, inSale },
+  data: { images, in_sale },
 }: ProductImagesPreviewProps) {
   const [selectedImage, setSelectedImage] = useState(0)
 
@@ -25,7 +25,7 @@ export function ProductImagesPreview({
 
   return (
     <Box pos="relative">
-      <ImageBox
+      <NextImage
         h="650px"
         borderRadius="16"
         src={images[selectedImage] || getImageFallback(500)}
@@ -39,7 +39,7 @@ export function ProductImagesPreview({
         >
           {images.map((image, idx) => (
             <SwiperSlide key={idx}>
-              <ImageBox
+              <NextImage
                 w="50px"
                 h="50px"
                 border={`1px solid ${Color.PRIMARY}`}
@@ -55,7 +55,7 @@ export function ProductImagesPreview({
           ))}
         </Swiper>
       </Box>
-      {inSale && (
+      {in_sale && (
         <Box position="absolute" top="4" left="4">
           <Tag fontWeight="500" color="#fff" backgroundColor={Color.RED}>
             SALE

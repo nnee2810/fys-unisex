@@ -1,7 +1,13 @@
 import { Box, HStack, Stack, Text } from "@chakra-ui/react"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { Button, Field, FieldLabel, SelectField, TextField } from "components"
-import { ProductClassify, ProductSize } from "interfaces"
+import {
+  Field,
+  FieldLabel,
+  NextButton,
+  SelectField,
+  TextField,
+} from "components"
+import { ProductClassify, ProductSize } from "modules/products/interfaces"
 import { useRouter } from "next/router"
 import qs from "query-string"
 import { FormProvider, useForm } from "react-hook-form"
@@ -18,40 +24,36 @@ interface FormValues {
   name?: string
   size?: ProductSize
   classify?: ProductClassify
-  minPrice?: number
-  maxPrice?: number
+  min_price?: number
+  max_price?: number
 }
 
-const schema = yup.object().shape({
+const schema = yup.object({
   name: yup.string(),
   size: yup
     .string()
     .label("Kích cỡ")
-    .oneOf(Object.keys(ProductSize), ({ label }) =>
-      getValidateInvalidMessage(label)
-    ),
+    .oneOf(Object.keys(ProductSize), getValidateInvalidMessage),
   classify: yup
     .string()
     .label("Loại sản phẩm")
-    .oneOf(Object.keys(ProductClassify), ({ label }) =>
-      getValidateInvalidMessage(label)
-    ),
-  minPrice: yup
+    .oneOf(Object.keys(ProductClassify), getValidateInvalidMessage),
+  min_price: yup
     .number()
     .label("Giá tối thiểu")
-    .min(0, ({ label }) => getValidateInvalidMessage(label))
-    .when("maxPrice", (maxPrice: number, schema) => {
+    .min(0, getValidateInvalidMessage)
+    .when("max_price", (max_price: number, schema) => {
       return schema.test({
-        test: (minPrice: number) =>
-          minPrice >= 0 && maxPrice >= 0 ? minPrice < maxPrice : true,
-        message: ({ label }: any) => getValidateInvalidMessage(label),
+        test: (min_price: number) =>
+          min_price >= 0 && max_price >= 0 ? min_price < max_price : true,
+        message: getValidateInvalidMessage,
       })
     })
     .transform((value) => (isNaN(value) ? undefined : value)),
-  maxPrice: yup
+  max_price: yup
     .number()
     .label("Giá tối đa")
-    .min(0, ({ label }) => getValidateInvalidMessage(label))
+    .min(0, getValidateInvalidMessage)
     .transform((value) => (isNaN(value) ? undefined : value)),
 })
 
@@ -65,8 +67,8 @@ export function FormSearchProducts({
       name: query.name || "",
       size: query.size,
       classify: query.classify,
-      minPrice: query.minPrice,
-      maxPrice: query.maxPrice,
+      min_price: query.min_price,
+      max_price: query.max_price,
     },
     resolver: yupResolver(schema),
   })
@@ -98,38 +100,46 @@ export function FormSearchProducts({
             <Field
               name="size"
               label="Kích cỡ"
-              component={<SelectField options={productSizeOptions} />}
+              component={
+                <SelectField options={productSizeOptions} isClearable />
+              }
             />
             <Field
               name="classify"
               label="Loại sản phẩm"
-              component={<SelectField options={productClassifyOptions} />}
+              component={
+                <SelectField options={productClassifyOptions} isClearable />
+              }
             />
             <Box>
               <FieldLabel>Khoảng giá</FieldLabel>
               <HStack alignItems="flex-start">
                 <Field
-                  name="minPrice"
+                  name="min_price"
                   component={<TextField type="number" placeholder="Từ" />}
                 />
                 <Text transform="translateY(8px)" translateX="8px">
                   —
                 </Text>
                 <Field
-                  name="maxPrice"
+                  name="max_price"
                   component={<TextField type="number" placeholder="Đến" />}
                 />
               </HStack>
             </Box>
           </Stack>
           <Stack mt="6">
-            <Button type="submit" isLoading={isLoading} isDisabled={isLoading}>
+            <NextButton
+              type="submit"
+              isLoading={isLoading}
+              isDisabled={isLoading}
+            >
               Lọc
-            </Button>
+            </NextButton>
             {Object.keys(query).length && (
-              <Button colorScheme="red" onClick={handleReset}>
+              <NextButton colorScheme="red" onClick={handleReset}>
                 Đặt lại
-              </Button>
+              </NextButton>
             )}
           </Stack>
         </Box>

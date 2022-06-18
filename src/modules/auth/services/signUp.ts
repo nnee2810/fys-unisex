@@ -1,4 +1,4 @@
-import { API } from "configs/service"
+import { API } from "configs/services"
 import { SignUpDto } from "../dto/sign-up.dto"
 
 export function signUp(data: SignUpDto) {

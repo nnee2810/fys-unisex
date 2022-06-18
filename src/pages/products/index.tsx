@@ -1,7 +1,8 @@
 import { Box, Grid } from "@chakra-ui/react"
 import { isNumber, isString } from "class-validator"
-import { Breadcrumb, ModalConfirm, PageContainer } from "components"
-import { IPageProps, ProductClassify, ProductSize } from "interfaces"
+import { NextBreadcrumb, NextModal, PageContainer } from "components"
+import { PageTitle } from "configs/constants"
+import { PageProps } from "layout/MainLayout"
 import {
   FormSearchProducts,
   ProductList,
@@ -9,6 +10,7 @@ import {
 } from "modules/products/components"
 import { GetProductsDto, ProductSort } from "modules/products/dto"
 import { useGetProducts } from "modules/products/hooks"
+import { ProductClassify, ProductSize } from "modules/products/interfaces"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import { useRouter } from "next/router"
 import { deleteWhiteSpace } from "utils"
@@ -20,7 +22,7 @@ interface ProductsProps {
 export async function getServerSideProps({
   query,
 }: GetServerSidePropsContext): Promise<
-  GetServerSidePropsResult<IPageProps & ProductsProps>
+  GetServerSidePropsResult<PageProps & ProductsProps>
 > {
   const queryData: GetProductsDto = {}
   if (isString(query.name)) queryData.name = deleteWhiteSpace(query.name)
@@ -34,12 +36,12 @@ export async function getServerSideProps({
   )
     queryData.classify = query.classify as ProductClassify
   if (isNumber(query.page)) queryData.page = Number(query.page)
-  if (isNumber(query.minPrice)) queryData.minPrice = Number(query.minPrice)
-  if (isNumber(query.maxPrice)) queryData.maxPrice = Number(query.maxPrice)
+  if (isNumber(query.min_price)) queryData.min_price = Number(query.min_price)
+  if (isNumber(query.max_price)) queryData.max_price = Number(query.max_price)
 
   return {
     props: {
-      title: "Sản phẩm",
+      title: PageTitle.PRODUCT_LIST,
       roles: [],
       query: queryData,
     },
@@ -51,15 +53,11 @@ export default function Products({ query }: ProductsProps) {
   return (
     <>
       <PageContainer>
-        <Breadcrumb
+        <NextBreadcrumb
           data={[
             {
-              name: "Trang chủ",
-              href: "/",
-            },
-            {
-              name: "Sản phẩm",
-              href: "#",
+              href: "/products",
+              name: PageTitle.PRODUCT_LIST,
             },
           ]}
         />
@@ -73,7 +71,7 @@ export default function Products({ query }: ProductsProps) {
           </Box>
         </Grid>
       </PageContainer>
-      <ModalConfirm
+      <NextModal
         isOpen={isError}
         title="Lỗi 😵"
         closeText="Thử lại"
@@ -82,7 +80,7 @@ export default function Products({ query }: ProductsProps) {
         onConfirm={() => router.back()}
       >
         <Box>Không tìm thấy sản phẩm hoặc lỗi trang</Box>
-      </ModalConfirm>
+      </NextModal>
     </>
   )
 }

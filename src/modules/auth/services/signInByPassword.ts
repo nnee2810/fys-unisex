@@ -1,4 +1,4 @@
-import { API } from "configs/service"
+import { API } from "configs/services"
 import { IResponse } from "interfaces"
 import { SignInByPasswordDto } from "../dto"
 

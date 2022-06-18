@@ -1,6 +1,7 @@
 import { Box, Divider, Grid, Skeleton, Stack } from "@chakra-ui/react"
-import { Breadcrumb, ModalConfirm, PageContainer } from "components"
-import { IPageProps } from "interfaces"
+import { NextBreadcrumb, NextModal, PageContainer } from "components"
+import { PageTitle } from "configs/constants"
+import { PageProps } from "layout/MainLayout"
 import {
   ProductDescription,
   ProductImagesPreview,
@@ -11,9 +12,8 @@ import {
 } from "modules/products/components"
 import { useGetProduct } from "modules/products/hooks"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
-import Head from "next/head"
 import { useRouter } from "next/router"
-import { getArrayNumber, getTitle } from "utils"
+import { getArrayNumber } from "utils"
 
 interface ProductProps {
   id: string
@@ -22,11 +22,11 @@ interface ProductProps {
 export function getServerSideProps({
   query,
 }: GetServerSidePropsContext): GetServerSidePropsResult<
-  IPageProps & ProductProps
+  PageProps & ProductProps
 > {
   return {
     props: {
-      title: "Chi tiết sản phẩm",
+      title: PageTitle.PRODUCT_DETAIL,
       roles: [],
       id: String(query.id),
     },
@@ -36,27 +36,19 @@ export function getServerSideProps({
 export default function Product({ id }: ProductProps) {
   const router = useRouter()
   const { data, isLoading, isError, refetch } = useGetProduct(id)
-  console.log(data)
 
   return (
     <>
-      <Head>
-        <title>{getTitle(data?.name)}</title>
-      </Head>
       <PageContainer>
-        <Breadcrumb
+        <NextBreadcrumb
           data={[
             {
-              name: "Trang chủ",
-              href: "/",
-            },
-            {
-              name: "Sản phẩm",
               href: "/products",
+              name: PageTitle.PRODUCT_LIST,
             },
             {
-              name: "Chi tiết sản phẩm",
-              href: "#",
+              href: `/products/${id}`,
+              name: PageTitle.PRODUCT_DETAIL,
             },
           ]}
         />
@@ -79,7 +71,7 @@ export default function Product({ id }: ProductProps) {
           </Stack>
         )}
       </PageContainer>
-      <ModalConfirm
+      <NextModal
         isOpen={isError}
         title="Lỗi 😵"
         closeText="Thử lại"
@@ -88,7 +80,7 @@ export default function Product({ id }: ProductProps) {
         onConfirm={() => router.back()}
       >
         <Box>Không tìm thấy sản phẩm hoặc lỗi trang</Box>
-      </ModalConfirm>
+      </NextModal>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { Box, Center, Spinner, Text } from "@chakra-ui/react"
-import { ImageBox } from "components"
+import { NextImage } from "components"
 import { useAuth } from "modules/auth/hooks"
 import { useFormUpdateAvatar } from "modules/users/hooks"
 import { AiOutlineCamera } from "react-icons/ai"
@@ -12,7 +12,7 @@ export function FormUpdateAvatar() {
   return (
     <Box>
       <Box pos="relative">
-        <ImageBox
+        <NextImage
           src={profile?.avatar?.src}
           alt="avatar"
           borderRadius="50%"

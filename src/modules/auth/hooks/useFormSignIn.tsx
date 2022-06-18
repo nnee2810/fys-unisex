@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { AxiosError } from "axios"
 import { isEmail, isPhoneNumber } from "class-validator"
-import { Key, Message } from "configs/constants"
-import { formSchema } from "helpers"
+import { ErrorMessage, Key } from "configs/constants"
+import { formSchemas } from "helpers"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
 import { useMutation } from "react-query"
@@ -14,21 +14,21 @@ import { signInByPassword } from "../services"
 import { useAuth } from "./useAuth"
 
 interface FormValues {
-  signInKey: string
+  key: string
   password: string
 }
 
-const schema = yup.object().shape({
-  signInKey: yup
+const schema = yup.object({
+  key: yup
     .string()
     .label("Email/Số điện thoại")
-    .required(({ label }) => getValidateRequiredMessage(label))
+    .required(getValidateRequiredMessage)
     .test({
       test: (value) =>
         value ? isEmail(value) || isPhoneNumber(value, "VN") : false,
-      message: ({ label }) => getValidateInvalidMessage(label),
+      message: getValidateInvalidMessage,
     }),
-  password: formSchema.password,
+  password: formSchemas.password,
 })
 
 export function useFormSignIn() {
@@ -36,7 +36,7 @@ export function useFormSignIn() {
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      signInKey: "",
+      key: "",
       password: "",
     },
     resolver: yupResolver(schema),
@@ -53,20 +53,21 @@ export function useFormSignIn() {
       onError(error) {
         if (error instanceof AxiosError) {
           toast.error(
-            Message[error.response?.data?.message as keyof typeof Message] ||
-              Message.SERVER_ERROR
+            ErrorMessage[
+              error.response?.data?.message as keyof typeof ErrorMessage
+            ] || ErrorMessage.SERVER_ERROR
           )
-        } else toast.error(Message.SERVER_ERROR)
+        } else toast.error(ErrorMessage.SERVER_ERROR)
       },
     }
   )
 
-  const handleSubmit = ({ signInKey, password }: FormValues) => {
+  const handleSubmit = ({ key, password }: FormValues) => {
     const submitData: SignInByPasswordDto = {
       password,
     }
-    if (isEmail(signInKey)) submitData.email = signInKey
-    if (isPhoneNumber(signInKey, "VN")) submitData.phone = signInKey
+    if (isEmail(key)) submitData.email = key
+    if (isPhoneNumber(key, "VN")) submitData.phone = key
     mutate(submitData)
   }
 
