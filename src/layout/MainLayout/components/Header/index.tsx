@@ -31,7 +31,7 @@ export default function Header() {
   }, [handleScroll])
   useEffect(() => {
     if (!visible) setVisible.on()
-  }, [router.pathname])
+  }, [router.asPath])
 
   return (
     <Box

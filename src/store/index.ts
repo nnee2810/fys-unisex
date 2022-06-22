@@ -1,15 +1,17 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
-import authReducer from "./reducers/auth"
-import cartReducer from "./reducers/cart"
-import historyReducer from "./reducers/history"
-import productReducer from "./reducers/product"
+import {
+  authReducer,
+  cartReducer,
+  historyReducer,
+  productReducer,
+} from "./reducers"
 
 const store = configureStore({
   reducer: combineReducers({
-    cart: cartReducer,
-    product: productReducer,
     auth: authReducer,
+    cart: cartReducer,
     history: historyReducer,
+    product: productReducer,
   }),
 })
 

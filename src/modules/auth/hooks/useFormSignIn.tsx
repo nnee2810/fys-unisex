@@ -42,25 +42,21 @@ export function useFormSignIn() {
     resolver: yupResolver(schema),
   })
 
-  const { mutate, isLoading } = useMutation(
-    "signInByPassword",
-    signInByPassword,
-    {
-      onSuccess: (data) => {
-        Cookies.set(Key.ACCESS_TOKEN, data)
-        fetchProfile()
-      },
-      onError(error) {
-        if (error instanceof AxiosError) {
-          toast.error(
-            ErrorMessage[
-              error.response?.data?.message as keyof typeof ErrorMessage
-            ] || ErrorMessage.SERVER_ERROR
-          )
-        } else toast.error(ErrorMessage.SERVER_ERROR)
-      },
-    }
-  )
+  const { mutate, isLoading } = useMutation("sign-in", signInByPassword, {
+    onSuccess: (data) => {
+      Cookies.set(Key.ACCESS_TOKEN, data)
+      fetchProfile()
+    },
+    onError(error) {
+      if (error instanceof AxiosError) {
+        toast.error(
+          ErrorMessage[
+            error.response?.data?.message as keyof typeof ErrorMessage
+          ] || ErrorMessage.INTERNAL_SERVER_ERROR
+        )
+      } else toast.error(ErrorMessage.INTERNAL_SERVER_ERROR)
+    },
+  })
 
   const handleSubmit = ({ key, password }: FormValues) => {
     const submitData: SignInByPasswordDto = {

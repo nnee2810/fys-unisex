@@ -21,12 +21,12 @@ const historySlice = createSlice({
     SET_TO(state, { payload }: PayloadAction<string>) {
       state.to = payload
     },
-    CLEAR_HISTORY(state) {
-      state = initialState
+    CLEAR_HISTORY() {
+      return initialState
     },
   },
 })
 
 export const historySelector = (state: RootState) => state.history
 export const { SET_FROM, SET_TO, CLEAR_HISTORY } = historySlice.actions
-export default historySlice.reducer
+export const historyReducer = historySlice.reducer

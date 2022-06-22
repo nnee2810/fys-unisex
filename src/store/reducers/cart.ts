@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "store"
 
-const initialState = {}
+interface SliceState {}
+
+const initialState: SliceState = {}
 
 const cartSlice = createSlice({
   name: "cart",
@@ -10,4 +12,4 @@ const cartSlice = createSlice({
 })
 
 export const cartSelector = (state: RootState) => state.cart
-export default cartSlice.reducer
+export const cartReducer = cartSlice.reducer

@@ -18,12 +18,24 @@ import {
 } from "components"
 import { ISelectOption, ModalBaseProps } from "interfaces"
 import { getDistricts, getProvinces, getWards } from "modules/location/services"
-import { useFormCreateAddress } from "modules/users/hooks"
+import { useFormUpdateAddress } from "modules/users/hooks"
+import { IAddressEntity } from "modules/users/interfaces"
 import { useEffect, useState } from "react"
 import { FormProvider } from "react-hook-form"
 
-export function ModalCreateAddress({ isOpen, onClose }: ModalBaseProps) {
-  const { methods, handleSubmit, isLoading } = useFormCreateAddress(onClose)
+interface ModalUpdateAddressProps extends ModalBaseProps {
+  data: IAddressEntity
+}
+
+export default function ModalUpdateAddress({
+  isOpen,
+  data,
+  onClose,
+}: ModalUpdateAddressProps) {
+  const { methods, handleSubmit, isLoading } = useFormUpdateAddress({
+    data,
+    onClose,
+  })
   const [provinceOptions, setProvinceOptions] = useState<ISelectOption[]>([])
   const [districtOptions, setDistrictOptions] = useState<ISelectOption[]>([])
   const [wardOptions, setWardOptions] = useState<ISelectOption[]>([])
@@ -85,7 +97,7 @@ export function ModalCreateAddress({ isOpen, onClose }: ModalBaseProps) {
       <ModalContent>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleSubmit)}>
-            <ModalHeader>Thêm địa chỉ</ModalHeader>
+            <ModalHeader>Sửa địa chỉ</ModalHeader>
             <ModalBody>
               <Stack spacing="4">
                 <Grid templateColumns="1fr 1fr" gap="2">
@@ -136,7 +148,7 @@ export function ModalCreateAddress({ isOpen, onClose }: ModalBaseProps) {
                   Đóng
                 </NextButton>
                 <NextButton type="submit" isLoading={isLoading}>
-                  Thêm
+                  Xong
                 </NextButton>
               </HStack>
             </ModalFooter>

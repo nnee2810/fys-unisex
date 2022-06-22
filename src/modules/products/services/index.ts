@@ -1,2 +1,2 @@
 export * from "./getProduct"
-export * from "./getProducts"
+export * from "./getProductList"

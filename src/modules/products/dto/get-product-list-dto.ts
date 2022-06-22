@@ -8,7 +8,7 @@ export enum ProductSort {
   PERCENT = "PERCENT",
 }
 
-export interface GetProductsDto extends PaginationDto {
+export interface GetProductListDto extends PaginationDto {
   name?: string
   classify?: ProductClassify
   gender?: ProductGender

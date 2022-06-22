@@ -30,7 +30,7 @@ export default function HeaderMobile({ path }: HeaderProps) {
 
   useEffect(() => {
     setNavOpen.off()
-  }, [router.pathname])
+  }, [router.asPath])
 
   return (
     <Box display={{ base: "block", lg: "none" }}>

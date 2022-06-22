@@ -9,13 +9,13 @@ import { updateAvatar } from "../services"
 export function useFormUpdateAvatar() {
   const dispatch = useAppDispatch()
 
-  const { mutate, isLoading } = useMutation("updateAvatar", updateAvatar, {
+  const { mutate, isLoading } = useMutation("update-avatar", updateAvatar, {
     onSuccess(data) {
       toast.success(SuccessMessage.UPDATE_AVATAR_SUCCESS)
       dispatch(SET_PROFILE_AVATAR_SRC(data))
     },
     onError() {
-      toast.error(ErrorMessage.SERVER_ERROR)
+      toast.error(ErrorMessage.INTERNAL_SERVER_ERROR)
     },
   })
 

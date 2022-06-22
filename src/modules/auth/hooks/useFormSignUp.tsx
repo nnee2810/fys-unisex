@@ -45,21 +45,21 @@ export function useFormSignUp() {
   })
 
   const { mutate, isLoading } = useMutation(
-    "signUp",
+    "sign-up",
     (data: SignUpDto) => signUp(data),
     {
       onSuccess() {
-        toast.success(SuccessMessage.SIGN_UP_SUCCESS)
         router.push("/auth/sign-in")
+        toast.success(SuccessMessage.SIGN_UP_SUCCESS)
       },
       onError(error) {
         if (error instanceof AxiosError) {
           toast.error(
             ErrorMessage[
               error.response?.data?.message as keyof typeof ErrorMessage
-            ] || ErrorMessage.SERVER_ERROR
+            ] || ErrorMessage.INTERNAL_SERVER_ERROR
           )
-        } else toast.error(ErrorMessage.SERVER_ERROR)
+        } else toast.error(ErrorMessage.INTERNAL_SERVER_ERROR)
       },
     }
   )

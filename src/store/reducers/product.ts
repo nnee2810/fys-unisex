@@ -12,4 +12,4 @@ const productSlice = createSlice({
 })
 
 export const productSelector = (state: RootState) => state.product
-export default productSlice.reducer
+export const productReducer = productSlice.reducer

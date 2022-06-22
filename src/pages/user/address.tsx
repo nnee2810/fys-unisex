@@ -4,7 +4,7 @@ import { PageHeader } from "components/PageHeader"
 import { PageTitle } from "configs/constants"
 import { PageProps } from "layout/MainLayout"
 import UserLayout from "layout/UserLayout"
-import { ModalCreateAddress } from "modules/users/components"
+import { AddressList, ModalCreateAddress } from "modules/users/components"
 import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
 
@@ -41,6 +41,7 @@ export default function UserAddress() {
             </NextButton>
           }
         />
+        <AddressList />
       </UserLayout>
       <ModalCreateAddress
         isOpen={openCreateAddress}

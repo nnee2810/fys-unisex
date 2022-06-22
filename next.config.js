@@ -5,11 +5,7 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: [
-      "dummyimage.com",
-      "ui-avatars.com",
-      "d3k53xq1i8mhfl.cloudfront.net",
-    ],
+    domains: ["dummyimage.com", "do2g7bfc9eoz9.cloudfront.net"],
   },
   reactStrictMode: false,
 }

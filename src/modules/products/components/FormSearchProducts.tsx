@@ -13,11 +13,11 @@ import qs from "query-string"
 import { FormProvider, useForm } from "react-hook-form"
 import { deleteWhiteSpace, getValidateInvalidMessage } from "utils"
 import * as yup from "yup"
-import { productClassifyOptions, productSizeOptions } from "../../constants"
-import { GetProductsDto } from "../../dto/get-products-dto"
+import { productClassifyOptions, productSizeOptions } from "../constants"
+import { GetProductListDto } from "../dto"
 
 interface FormSearchProductsProps {
-  query: GetProductsDto
+  query: GetProductListDto
   isLoading?: boolean
 }
 interface FormValues {
@@ -74,7 +74,7 @@ export function FormSearchProducts({
   })
 
   const handleSubmit = (data: FormValues) => {
-    let submitData: GetProductsDto = {
+    let submitData: GetProductListDto = {
       ...query,
       ...data,
       name: deleteWhiteSpace(data.name),

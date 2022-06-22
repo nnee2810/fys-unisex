@@ -1,13 +1,19 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { SuccessMessage } from "configs/constants"
 import { formSchemas } from "helpers"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
-import { useMutation, useQueryClient } from "react-query"
+import { useQueryClient } from "react-query"
 import { toast } from "react-toastify"
 import { deleteWhiteSpace } from "utils"
 import * as yup from "yup"
-import { createAddress } from "../services"
+import { IAddressEntity } from "../interfaces"
+import { useUpdateAddress } from "./useUpdateAddress"
 
+interface UseFormUpdateAddressProps {
+  data: IAddressEntity
+  onClose(): void
+}
 interface FormValues {
   name: string
   phone: string
@@ -17,7 +23,6 @@ interface FormValues {
   address_detail: string
   is_default: boolean
 }
-
 const schema = yup.object({
   name: formSchemas.name,
   phone: formSchemas.phone,
@@ -27,47 +32,56 @@ const schema = yup.object({
   address_detail: formSchemas.address_detail,
 })
 
-export function useFormCreateAddress(onClose: () => void) {
+export function useFormUpdateAddress({
+  data,
+  onClose,
+}: UseFormUpdateAddressProps) {
   const queryClient = useQueryClient()
   const methods = useForm<FormValues>({
     defaultValues: {
-      name: "",
-      phone: "",
-      address_detail: "",
-      is_default: false,
+      name: data.name,
+      phone: data.phone,
+      province_code: data.province_code,
+      district_code: data.district_code,
+      ward_code: data.ward_code,
+      address_detail: data.address_detail,
+      is_default: data.is_default,
     },
     resolver: yupResolver(schema),
   })
-
-  const { mutate, isLoading } = useMutation("create-address", createAddress)
+  const { mutate, isLoading } = useUpdateAddress()
 
   const handleSubmit = ({
     name,
     address_detail,
-    province_code,
-    district_code,
-    ward_code,
-    ...data
+    ...submitData
   }: FormValues) => {
-    if (!province_code || !district_code || !ward_code) return
+    if (
+      !submitData.province_code ||
+      !submitData.district_code ||
+      !submitData.ward_code
+    )
+      return
     mutate(
       {
-        ...data,
+        id: data.id,
         name: deleteWhiteSpace(name),
-        province_code,
-        district_code,
-        ward_code,
         address_detail: deleteWhiteSpace(address_detail),
+        ...submitData,
       },
       {
         onSuccess() {
           onClose()
-          toast.success(SuccessMessage.CREATE_ADDRESS_SUCCESS)
+          toast.success(SuccessMessage.UPDATE_ADDRESS_SUCCESS)
           queryClient.invalidateQueries("get-address-list")
         },
       }
     )
   }
+
+  useEffect(() => {
+    methods.reset(data)
+  }, [data])
 
   return { methods, handleSubmit, isLoading }
 }

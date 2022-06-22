@@ -5,29 +5,31 @@ import {
   Modal,
   ModalContent,
   ModalOverlay,
-  Skeleton,
-  Stack,
   Text,
 } from "@chakra-ui/react"
-import { Field, ModalBaseProps, NextLink, TextField } from "components"
-import debounce from "lodash.debounce"
+import { Field, NextLink, StackSkeleton, TextField } from "components"
+import { debounce } from "lodash"
 import { ProductCard } from "modules/products/components"
-import { useGetProducts } from "modules/products/hooks"
+import { useGetProductList } from "modules/products/hooks"
 import { useRouter } from "next/router"
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { AiOutlineSearch } from "react-icons/ai"
 import { Color } from "styles/theme"
-import { getArrayNumber } from "utils"
 
 interface FormValues {
   name: string
 }
 
+interface ModalSearchProductsProps {
+  isOpen: boolean
+  onClose(): void
+}
+
 export default function ModalSearchProducts({
   isOpen,
   onClose,
-}: ModalBaseProps) {
+}: ModalSearchProductsProps) {
   const router = useRouter()
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -35,7 +37,7 @@ export default function ModalSearchProducts({
     },
   })
   const [queryName, setQueryName] = useState("")
-  const { data, isLoading, refetch } = useGetProducts(
+  const { data, isLoading, refetch } = useGetProductList(
     { name: queryName, take: 10 },
     { enabled: false }
   )
@@ -44,23 +46,21 @@ export default function ModalSearchProducts({
     router.push(`products?name=${name}`)
     onClose()
   }
-  const handleChangeDebounce = useCallback(
-    debounce((value: string) => {
-      setQueryName(value)
-    }, 200),
-    []
-  )
+  const handleChangeDebounce = debounce((value: string) => {
+    setQueryName(value)
+  }, 300)
 
   useEffect(() => {
     if (queryName) refetch()
   }, [queryName, refetch])
+
   useEffect(() => {
     onClose()
-  }, [router.pathname])
+  }, [router.asPath])
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay backdropFilter="blur(1px)" />
+      <ModalOverlay />
       <ModalContent minW={{ base: "90vw", md: "600px" }}>
         <Box p="2">
           <FormProvider {...methods}>
@@ -83,49 +83,43 @@ export default function ModalSearchProducts({
           </FormProvider>
         </Box>
         {queryName && (
-          <>
-            <Divider />
-            <Box p="2">
-              {isLoading ? (
-                <Stack>
-                  {getArrayNumber(5).map((item) => (
-                    <Skeleton h="45px" borderRadius="6" key={item} />
+          <Box p="2" pt="0">
+            <Divider mb="2" />
+            {isLoading ? (
+              <StackSkeleton value={5} h="45px" />
+            ) : data?.data?.length ? (
+              <>
+                <Box minH="56px" maxH="324px" overflow="auto">
+                  {data.data.map((product) => (
+                    <Box
+                      p="2"
+                      borderRadius="6"
+                      _hover={{ backgroundColor: Color.LIGHT_GRAY }}
+                      key={product.id}
+                    >
+                      <ProductCard data={product} layout="horizontal" />
+                    </Box>
                   ))}
-                </Stack>
-              ) : data?.data?.length ? (
-                <>
-                  <Box minH="56px" maxH="324px" overflow="auto">
-                    {data.data.map((product) => (
-                      <Box
-                        p="2"
-                        borderRadius="6"
-                        _hover={{ backgroundColor: Color.LIGHT_GRAY }}
-                        key={product.id}
-                      >
-                        <ProductCard data={product} layout="horizontal" />
-                      </Box>
-                    ))}
-                  </Box>
-                  {data.total > 10 && (
-                    <>
-                      <Divider my="2" />
-                      <Center py="2">
-                        <NextLink href={`products?name=${queryName}`}>
-                          <Text textDecoration="underline">
-                            Xem thêm {data.total - 10} sản phẩm khác
-                          </Text>
-                        </NextLink>
-                      </Center>
-                    </>
-                  )}
-                </>
-              ) : (
-                <Center h="56px" fontWeight="500">
-                  Không tìm thấy sản phẩm nào
-                </Center>
-              )}
-            </Box>
-          </>
+                </Box>
+                {data.total > 10 && (
+                  <>
+                    <Divider my="2" />
+                    <Center py="2">
+                      <NextLink href={`products?name=${queryName}`}>
+                        <Text textDecoration="underline">
+                          Xem thêm {data.total - 10} sản phẩm khác
+                        </Text>
+                      </NextLink>
+                    </Center>
+                  </>
+                )}
+              </>
+            ) : (
+              <Center h="56px" fontWeight="500">
+                Không tìm thấy sản phẩm nào
+              </Center>
+            )}
+          </Box>
         )}
       </ModalContent>
     </Modal>

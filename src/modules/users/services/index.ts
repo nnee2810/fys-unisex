@@ -1,5 +1,7 @@
 export * from "./createAddress"
+export * from "./deleteAddress"
 export * from "./getAddressList"
 export * from "./getProfile"
+export * from "./updateAddress"
 export * from "./updateAvatar"
 export * from "./updateProfile"

@@ -77,7 +77,7 @@ export function FormSignUp() {
             }
           />
           <Field
-            name="repeatPassword"
+            name="repeat_password"
             component={
               <TextField
                 icon={{

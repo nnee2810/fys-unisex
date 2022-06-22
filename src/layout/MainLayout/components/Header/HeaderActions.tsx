@@ -25,7 +25,7 @@ export default function HeaderActions() {
   const [openSearch, setOpenSearch] = useBoolean()
 
   return (
-    <>
+    <Box>
       <HStack spacing="3" justifyContent="flex-end">
         <Box cursor="pointer" onClick={setOpenSearch.on}>
           <AiOutlineSearch fontSize="24" />
@@ -68,6 +68,6 @@ export default function HeaderActions() {
         )}
       </HStack>
       <ModalSearchProducts isOpen={openSearch} onClose={setOpenSearch.off} />
-    </>
+    </Box>
   )
 }

@@ -10,7 +10,7 @@ import {
   AiOutlineStar,
 } from "react-icons/ai"
 import { IoTicketOutline } from "react-icons/io5"
-import { TbLocation } from "react-icons/tb"
+import { MdOutlineLocationOn } from "react-icons/md"
 import { Color } from "styles/theme"
 
 interface ProfileLayoutProps {
@@ -26,7 +26,7 @@ const items: ILinkWithIcon[] = [
   {
     name: "Địa chỉ",
     href: "/user/address",
-    icon: <TbLocation fontSize="20" />,
+    icon: <MdOutlineLocationOn fontSize="20" />,
   },
   {
     name: "Đơn mua",

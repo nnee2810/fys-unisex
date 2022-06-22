@@ -19,9 +19,11 @@ export enum SuccessMessage {
   UPDATE_PROFILE_SUCCESS = "Cập nhật tài khoản thành công",
   UPDATE_AVATAR_SUCCESS = "Cập nhật ảnh đại điện thành công",
   CREATE_ADDRESS_SUCCESS = "Thêm địa chỉ thành công",
+  UPDATE_ADDRESS_SUCCESS = "Cập nhật địa chỉ thành công",
+  DELETE_ADDRESS_SUCCESS = "Xóa chị chỉ thành công",
 }
 export enum ErrorMessage {
-  SERVER_ERROR = "Lỗi máy chủ, vui lòng thử lại sau",
+  INTERNAL_SERVER_ERROR = "Lỗi máy chủ, vui lòng thử lại sau",
   EMAIL_ALREADY_EXIST = "Email đã được sử dụng",
   PHONE_ALREADY_EXIST = "Số điện thoại đã được sử dụng",
   SIGN_IN_FAIL = "Thông tin đăng nhập không chính xác",

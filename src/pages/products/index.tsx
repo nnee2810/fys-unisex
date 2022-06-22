@@ -1,6 +1,6 @@
 import { Box, Grid } from "@chakra-ui/react"
 import { isNumber, isString } from "class-validator"
-import { NextBreadcrumb, NextModal, PageContainer } from "components"
+import { NextAlertModal, NextBreadcrumb, PageContainer } from "components"
 import { PageTitle } from "configs/constants"
 import { PageProps } from "layout/MainLayout"
 import {
@@ -8,15 +8,15 @@ import {
   ProductList,
   SortProducts,
 } from "modules/products/components"
-import { GetProductsDto, ProductSort } from "modules/products/dto"
-import { useGetProducts } from "modules/products/hooks"
+import { GetProductListDto, ProductSort } from "modules/products/dto"
+import { useGetProductList } from "modules/products/hooks"
 import { ProductClassify, ProductSize } from "modules/products/interfaces"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import { useRouter } from "next/router"
 import { deleteWhiteSpace } from "utils"
 
 interface ProductsProps {
-  query: GetProductsDto
+  query: GetProductListDto
 }
 
 export async function getServerSideProps({
@@ -24,7 +24,7 @@ export async function getServerSideProps({
 }: GetServerSidePropsContext): Promise<
   GetServerSidePropsResult<PageProps & ProductsProps>
 > {
-  const queryData: GetProductsDto = {}
+  const queryData: GetProductListDto = {}
   if (isString(query.name)) queryData.name = deleteWhiteSpace(query.name)
   if (isString(query.size) && Object.keys(ProductSize).includes(query.size))
     queryData.size = query.size as ProductSize
@@ -49,9 +49,10 @@ export async function getServerSideProps({
 }
 export default function Products({ query }: ProductsProps) {
   const router = useRouter()
-  const { data, isLoading, isError, refetch } = useGetProducts(query)
+  const { data, isLoading, isError, refetch } = useGetProductList(query)
+
   return (
-    <>
+    <Box>
       <PageContainer>
         <NextBreadcrumb
           data={[
@@ -71,16 +72,14 @@ export default function Products({ query }: ProductsProps) {
           </Box>
         </Grid>
       </PageContainer>
-      <NextModal
+      <NextAlertModal
         isOpen={isError}
-        title="Lỗi 😵"
-        closeText="Thử lại"
-        confirmText="Quay lại trang trước"
+        title="Ôi không 😵"
         onClose={refetch}
-        onConfirm={() => router.back()}
+        onConfirm={() => router.push("/")}
       >
         <Box>Không tìm thấy sản phẩm hoặc lỗi trang</Box>
-      </NextModal>
-    </>
+      </NextAlertModal>
+    </Box>
   )
 }

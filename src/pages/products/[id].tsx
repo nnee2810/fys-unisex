@@ -1,5 +1,5 @@
 import { Box, Divider, Grid, Skeleton, Stack } from "@chakra-ui/react"
-import { NextBreadcrumb, NextModal, PageContainer } from "components"
+import { NextAlertModal, NextBreadcrumb, PageContainer } from "components"
 import { PageTitle } from "configs/constants"
 import { PageProps } from "layout/MainLayout"
 import {
@@ -8,7 +8,7 @@ import {
   ProductOrder,
   ProductPolicy,
   ProductReviews,
-  ProductSummary,
+  ProductSummary
 } from "modules/products/components"
 import { useGetProduct } from "modules/products/hooks"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
@@ -38,7 +38,7 @@ export default function Product({ id }: ProductProps) {
   const { data, isLoading, isError, refetch } = useGetProduct(id)
 
   return (
-    <>
+    <Box>
       <PageContainer>
         <NextBreadcrumb
           data={[
@@ -52,36 +52,37 @@ export default function Product({ id }: ProductProps) {
             },
           ]}
         />
-        {isLoading && <LoadingSkeleton />}
-        {data && (
-          <Stack spacing="10">
-            <Grid templateColumns="1fr 1fr" gap="40px">
-              <ProductImagesPreview data={data} />
-              <Stack spacing="10">
-                <ProductSummary data={data} />
-                <ProductOrder />
-                <Divider />
-                <ProductPolicy />
-              </Stack>
-            </Grid>
-            <Divider />
-            <ProductDescription />
-            <Divider />
-            <ProductReviews />
-          </Stack>
+        {isLoading ? (
+          <LoadingSkeleton />
+        ) : (
+          data && (
+            <Stack spacing="10">
+              <Grid templateColumns="1fr 1fr" gap="40px">
+                <ProductImagesPreview data={data} />
+                <Stack spacing="10">
+                  <ProductSummary data={data} />
+                  <ProductOrder />
+                  <Divider />
+                  <ProductPolicy />
+                </Stack>
+              </Grid>
+              <Divider />
+              <ProductDescription />
+              <Divider />
+              <ProductReviews />
+            </Stack>
+          )
         )}
       </PageContainer>
-      <NextModal
+      <NextAlertModal
         isOpen={isError}
-        title="Lỗi 😵"
-        closeText="Thử lại"
-        confirmText="Quay lại trang trước"
+        title="Ôi không 😵"
         onClose={refetch}
-        onConfirm={() => router.back()}
+        onConfirm={() => router.push("/")}
       >
         <Box>Không tìm thấy sản phẩm hoặc lỗi trang</Box>
-      </NextModal>
-    </>
+      </NextAlertModal>
+    </Box>
   )
 }
 function LoadingSkeleton() {
@@ -90,9 +91,9 @@ function LoadingSkeleton() {
       <Skeleton h="600px" borderRadius="16" />
       <Stack spacing="4">
         {getArrayNumber(6).map((item) => (
-          <Skeleton h="40px" borderRadius="8" key={item} />
+          <Skeleton h="40px" borderRadius="6" key={item} />
         ))}
-        <Skeleton h="274px" borderRadius="8" />
+        <Skeleton h="274px" borderRadius="6" />
       </Stack>
     </Grid>
   )

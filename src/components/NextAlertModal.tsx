@@ -6,34 +6,33 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  ModalProps,
 } from "@chakra-ui/react"
-import { NextButton } from "."
+import { ReactNode } from "react"
+import { NextButton } from "./NextButton"
 
-export interface ModalBaseProps {
+interface NextAlertModalProps {
   isOpen: boolean
-  onClose: () => void
-}
-
-export interface NextModalProps extends ModalBaseProps, ModalProps {
-  title?: string
+  title: string
+  children: ReactNode
   closeText?: string
   confirmText?: string
-  onConfirm?: () => void
+  onClose(): void
+  onConfirm(): void
+  isLoading?: boolean
 }
 
-export function NextModal({
+export function NextAlertModal({
+  isOpen,
   title,
+  children,
   closeText,
   confirmText,
-
   onClose,
   onConfirm,
-  children,
-  ...props
-}: NextModalProps) {
+  isLoading,
+}: NextAlertModalProps) {
   return (
-    <Modal onClose={onClose} {...props}>
+    <Modal isOpen={isOpen} closeOnOverlayClick={false} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>
@@ -45,9 +44,13 @@ export function NextModal({
               variant="outline"
               onClick={onClose}
             >
-              {closeText || "Đóng"}
+              {closeText || "Hủy"}
             </NextButton>
-            <NextButton type="submit" onClick={onConfirm}>
+            <NextButton
+              colorScheme="red"
+              isLoading={isLoading}
+              onClick={onConfirm}
+            >
               {confirmText || "Đồng ý"}
             </NextButton>
           </HStack>

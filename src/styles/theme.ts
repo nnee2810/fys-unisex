@@ -13,6 +13,7 @@ export default extendTheme(
   {
     colors: {
       primary: {
+        100: "#EDF2F7",
         500: Color.PRIMARY + "cc",
         600: Color.PRIMARY,
       },

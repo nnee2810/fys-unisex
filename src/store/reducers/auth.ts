@@ -33,14 +33,18 @@ const authSlice = createSlice({
           src: payload,
         }
     },
-    SET_PROFILE(state, { payload }: PayloadAction<IUserEntity>) {
-      state.status = AuthStatus.AUTHENTICATED
-      state.profile = payload
+    SET_PROFILE(_, { payload }: PayloadAction<IUserEntity>) {
+      return {
+        status: AuthStatus.AUTHENTICATED,
+        profile: payload,
+      }
     },
     SIGN_OUT(state) {
-      state.status = AuthStatus.UNAUTHENTICATED
-      state.profile = null
       Cookies.remove(Key.ACCESS_TOKEN)
+      return {
+        status: AuthStatus.UNAUTHENTICATED,
+        profile: null,
+      }
     },
   },
 })
@@ -52,4 +56,4 @@ export const {
   SET_PROFILE,
   SIGN_OUT,
 } = authSlice.actions
-export default authSlice.reducer
+export const authReducer = authSlice.reducer
