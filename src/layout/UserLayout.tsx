@@ -50,7 +50,7 @@ const items: ILinkWithIcon[] = [
   },
 ]
 
-export default function UserLayout({ children }: ProfileLayoutProps) {
+export function UserLayout({ children }: ProfileLayoutProps) {
   const router = useRouter()
 
   return (

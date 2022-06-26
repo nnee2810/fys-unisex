@@ -6,11 +6,11 @@ import styled from "styled-components"
 import { Color } from "styles/theme"
 
 const footerItems: {
-  title: string
+  label: string
   childs: ILink[]
 }[] = [
   {
-    title: "Khám phá",
+    label: "Khám phá",
     childs: [
       {
         name: "Đồ nam",
@@ -31,7 +31,7 @@ const footerItems: {
     ],
   },
   {
-    title: "Dịch vụ",
+    label: "Dịch vụ",
     childs: [
       {
         name: "Hỏi đáp - FAQs",
@@ -70,7 +70,7 @@ export default function Footer() {
       >
         {footerItems.map((item, idx) => (
           <Box key={idx}>
-            <SectionTitle>{item.title}</SectionTitle>
+            <SectionTitle>{item.label}</SectionTitle>
             <Stack alignItems="flex-start">
               {item.childs.map((child, idx) => (
                 <NextLink href={child.href} styleOnHover key={idx}>

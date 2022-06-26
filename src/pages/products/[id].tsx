@@ -1,14 +1,14 @@
 import { Box, Divider, Grid, Skeleton, Stack } from "@chakra-ui/react"
 import { NextAlertModal, NextBreadcrumb, PageContainer } from "components"
 import { PageTitle } from "configs/constants"
-import { PageProps } from "layout/MainLayout"
+import { PageProps } from "layout"
 import {
   ProductDescription,
   ProductImagesPreview,
   ProductOrder,
   ProductPolicy,
   ProductReviews,
-  ProductSummary
+  ProductSummary,
 } from "modules/products/components"
 import { useGetProduct } from "modules/products/hooks"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"

@@ -7,20 +7,20 @@ export const Regex = {
 export enum PageTitle {
   HOME = "Trang chủ",
   SIGN_IN = "Đăng nhập",
-  SIGN_UP = "Đăng kí",
+  SIGN_UP = "Tạo tài khoản",
   PRODUCT_LIST = "Sản phẩm",
   PRODUCT_DETAIL = "Chi tiết sản phẩm",
   USER_PROFILE = "Tài khoản của tôi",
   USER_ADDRESS = "Địa chỉ",
 }
 export enum SuccessMessage {
-  SIGN_UP_SUCCESS = "Đăng ký tài khoản thành công, hãy đăng nhập",
+  SIGN_UP_SUCCESS = "Tạo tài khoản thành công, hãy đăng nhập",
   SIGN_OUT_SUCCESS = "Đăng xuất thành công",
   UPDATE_PROFILE_SUCCESS = "Cập nhật tài khoản thành công",
   UPDATE_AVATAR_SUCCESS = "Cập nhật ảnh đại điện thành công",
   CREATE_ADDRESS_SUCCESS = "Thêm địa chỉ thành công",
   UPDATE_ADDRESS_SUCCESS = "Cập nhật địa chỉ thành công",
-  DELETE_ADDRESS_SUCCESS = "Xóa chị chỉ thành công",
+  DELETE_ADDRESS_SUCCESS = "Xóa địa chị chỉ thành công",
 }
 export enum ErrorMessage {
   INTERNAL_SERVER_ERROR = "Lỗi máy chủ, vui lòng thử lại sau",

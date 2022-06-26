@@ -1,9 +1,12 @@
 import { useBoolean } from "@chakra-ui/react"
-import { NextBreadcrumb, NextButton, PageContainer } from "components"
-import { PageHeader } from "components/PageHeader"
+import {
+  NextBreadcrumb,
+  NextButton,
+  PageContainer,
+  PageHeader,
+} from "components"
 import { PageTitle } from "configs/constants"
-import { PageProps } from "layout/MainLayout"
-import UserLayout from "layout/UserLayout"
+import { PageProps, UserLayout } from "layout"
 import { AddressList, ModalCreateAddress } from "modules/users/components"
 import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
@@ -34,7 +37,7 @@ export default function UserAddress() {
       />
       <UserLayout>
         <PageHeader
-          title="Địa chỉ"
+          label="Địa chỉ"
           actions={
             <NextButton onClick={setOpenCreateAddress.on}>
               Thêm địa chỉ

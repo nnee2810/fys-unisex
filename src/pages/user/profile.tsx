@@ -1,9 +1,7 @@
 import { Grid } from "@chakra-ui/react"
-import { NextBreadcrumb, PageContainer } from "components"
-import { PageHeader } from "components/PageHeader"
+import { NextBreadcrumb, PageContainer, PageHeader } from "components"
 import { PageTitle } from "configs/constants"
-import { PageProps } from "layout/MainLayout"
-import UserLayout from "layout/UserLayout"
+import { PageProps, UserLayout } from "layout"
 import { FormUpdateAvatar, FormUpdateProfile } from "modules/users/components"
 import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
@@ -31,7 +29,7 @@ export default function UserProfile() {
         ]}
       />
       <UserLayout>
-        <PageHeader title="Tài khoản của tôi" />
+        <PageHeader label="Tài khoản của tôi" />
         <Grid templateColumns="auto 200px" gap="10">
           <FormUpdateProfile />
           <FormUpdateAvatar />

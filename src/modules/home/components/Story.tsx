@@ -21,7 +21,7 @@ export function Story() {
             color="white"
             fontSize="20"
           >
-            Câu chuyện về DD Store
+            Câu chuyện về FYS Unisex
           </Box>
         </Center>
       </NextLink>

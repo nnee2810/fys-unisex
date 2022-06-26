@@ -32,7 +32,7 @@ export function ProductSummary({ data }: ProductSummaryProps) {
         <NextLink href="#reviews">
           <HStack>
             <NextRate disabled size={24} value={4} />
-            <Box>|</Box>
+            <Text>|</Text>
             <Text>
               <u>Đánh giá:</u> 1000
             </Text>

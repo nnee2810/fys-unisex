@@ -23,7 +23,7 @@ export function Commit() {
                 fontWeight="700"
                 textTransform="uppercase"
               >
-                {item.title}
+                {item.label}
               </Text>
               <Text align="center">{item.content}</Text>
             </Stack>

@@ -95,7 +95,7 @@ export function FormSearchProducts({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <Box position="sticky" top="60px">
-          <Stack spacing="4">
+          <Stack>
             <Field name="name" label="Tên sản phẩm" component={<TextField />} />
             <Field
               name="size"

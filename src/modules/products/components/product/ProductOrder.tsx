@@ -1,5 +1,5 @@
 import { Box, HStack, Stack } from "@chakra-ui/react"
-import { Field, NextButton, SelectBoxField, TextField } from "components"
+import { Field, NextButton, SelectTextField } from "components"
 import { FormProvider, useForm } from "react-hook-form"
 import styled from "styled-components"
 
@@ -30,7 +30,7 @@ export function ProductOrder({}: ProductOrderProps) {
             name="color"
             label="Màu sắc"
             component={
-              <SelectBoxField
+              <SelectTextField
                 options={[
                   {
                     label: "Vàng",
@@ -52,7 +52,7 @@ export function ProductOrder({}: ProductOrderProps) {
             name="size"
             label="Kích thước"
             component={
-              <SelectBoxField
+              <SelectTextField
                 options={[
                   {
                     label: "M",
@@ -84,24 +84,22 @@ export function ProductOrder({}: ProductOrderProps) {
                   fontWeight="500"
                   textAlign="center"
                   type="number"
-                  icon={{
-                    before: (
-                      <QuantityButton
-                        as="button"
-                        onClick={() => handleChangeQuantity("sub")}
-                      >
-                        -
-                      </QuantityButton>
-                    ),
-                    after: (
-                      <QuantityButton
-                        as="button"
-                        onClick={() => handleChangeQuantity("add")}
-                      >
-                        +
-                      </QuantityButton>
-                    ),
-                  }}
+                  before={
+                    <QuantityButton
+                      as="button"
+                      onClick={() => handleChangeQuantity("sub")}
+                    >
+                      -
+                    </QuantityButton>
+                  }
+                  after={
+                    <QuantityButton
+                      as="button"
+                      onClick={() => handleChangeQuantity("add")}
+                    >
+                      +
+                    </QuantityButton>
+                  }
                 />
               }
             />

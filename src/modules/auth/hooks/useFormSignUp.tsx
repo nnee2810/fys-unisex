@@ -1,49 +1,98 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { AxiosError } from "axios"
-import { ErrorMessage, SuccessMessage } from "configs/constants"
-import { formSchemas } from "helpers"
+import { isMobilePhone } from "class-validator"
+import { ErrorMessage, Regex, SuccessMessage } from "configs/constants"
 import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
 import { useMutation } from "react-query"
 import { toast } from "react-toastify"
-import { deleteWhiteSpace, getValidateNotMatchMessage } from "utils"
+import {
+  getValidateInvalidMessage,
+  getValidateNotMatchMessage,
+  getValidateRequiredMessage,
+} from "utils"
 import * as yup from "yup"
 import { SignUpDto } from "../dto"
 import { signUp } from "../services"
 
-interface FormValues {
-  name: string
+export interface FormSignUpValues {
+  step: number
   phone: string
-  email: string
+  otp: string
   password: string
   repeat_password: string
+  name: string
+  email: string
+  province_code: number
+  district_code: number
+  ward_code: number
+  address_detail: string
 }
 
 const schema = yup.object({
-  name: formSchemas.name,
-  email: formSchemas.email,
-  phone: formSchemas.phone,
-  password: formSchemas.password,
+  step: yup.number(),
+  phone: yup
+    .string()
+    .label("Số điện thoại")
+    .when("step", {
+      is: 1,
+      then: yup
+        .string()
+        .required(getValidateRequiredMessage)
+        .test({
+          test: (value) => (value ? isMobilePhone(value, "vi-VN") : false),
+          message: getValidateInvalidMessage,
+        }),
+    }),
+  otp: yup
+    .string()
+    .label("Mã xác minh")
+    .when("step", {
+      is: 2,
+      then: yup
+        .string()
+        .required(getValidateRequiredMessage)
+        .length(6, getValidateInvalidMessage),
+    }),
+  password: yup
+    .string()
+    .label("Mật khẩu")
+    .when("step", {
+      is: 3,
+      then: yup
+        .string()
+        .required(getValidateRequiredMessage)
+        .matches(
+          Regex.PASSWORD,
+          ({ label }) =>
+            `${label} chứa ít nhất 8 kí tự bao gồm chữ hoa, chữ thường và số`
+        ),
+    }),
   repeat_password: yup
     .string()
     .label("Nhập lại mật khẩu")
-    .oneOf([yup.ref("password")], getValidateNotMatchMessage),
+    .when("step", {
+      is: 3,
+      then: yup
+        .string()
+        .required(getValidateRequiredMessage)
+        .oneOf([yup.ref("password")], getValidateNotMatchMessage),
+    }),
+  name: yup.string().label("Họ và tên"),
 })
 
 export function useFormSignUp() {
   const router = useRouter()
-
-  const methods = useForm<FormValues>({
+  const methods = useForm<FormSignUpValues>({
     defaultValues: {
-      name: "",
-      email: "",
+      step: 2,
       phone: "",
+      otp: "",
       password: "",
       repeat_password: "",
     },
     resolver: yupResolver(schema),
   })
-
   const { mutate, isLoading } = useMutation(
     "sign-up",
     (data: SignUpDto) => signUp(data),
@@ -64,17 +113,35 @@ export function useFormSignUp() {
     }
   )
 
+  const watchStep = methods.watch("step")
+
+  const nextStep = () => {
+    methods.setValue("step", watchStep + 1)
+  }
   const handleSubmit = ({
-    name,
+    step,
     phone,
+    otp,
+    password,
     repeat_password,
-    ...data
-  }: FormValues) => {
-    mutate({
-      ...data,
-      name: deleteWhiteSpace(name),
-      phone: deleteWhiteSpace(phone),
-    })
+  }: FormSignUpValues) => {
+    switch (step) {
+      case 1: {
+        console.log(phone)
+        nextStep()
+        break
+      }
+      case 2: {
+        console.log(otp)
+        nextStep()
+        break
+      }
+      case 3: {
+        console.log(password, repeat_password)
+        nextStep()
+        break
+      }
+    }
   }
 
   return {

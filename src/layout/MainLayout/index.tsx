@@ -22,7 +22,7 @@ interface MainLayoutProps {
   pageProps: PageProps
 }
 
-export default function MainLayout({ children, pageProps }: MainLayoutProps) {
+export function MainLayout({ children, pageProps }: MainLayoutProps) {
   const router = useRouter()
   const { status, profile, fetchProfile } = useAuth()
 
@@ -53,7 +53,9 @@ export default function MainLayout({ children, pageProps }: MainLayoutProps) {
       </Head>
       <Box mt="54px">
         <Header />
-        <Box minH="calc(100vh - 54px)">{children}</Box>
+        <Box pos="relative" minH="calc(100vh - 54px)">
+          {children}
+        </Box>
         <Footer />
         <BackToTop />
       </Box>

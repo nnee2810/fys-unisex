@@ -73,7 +73,7 @@ export default function ModalSearchProducts({
                       handleChangeDebounce(e.target.value)
                     }}
                     placeholder="Tìm kiếm sản phẩm"
-                    icon={{ before: <AiOutlineSearch fontSize="20" /> }}
+                    before={<AiOutlineSearch fontSize="20" />}
                     border="none"
                     focusBorderColor="none"
                   />

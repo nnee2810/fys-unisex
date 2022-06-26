@@ -9,7 +9,7 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-  Tabs,
+  Tabs
 } from "@chakra-ui/react"
 import { NextLink } from "components"
 import { responsiveW, zIndex } from "configs/constants"
@@ -78,7 +78,7 @@ export function FeaturedProducts() {
 
         <Center my="6">
           <NextLink href="/products">
-            <Button>Khám phá gian hàng của DD Store</Button>
+            <Button>Khám phá gian hàng của FYS Unisex</Button>
           </NextLink>
         </Center>
       </Box>

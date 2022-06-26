@@ -14,7 +14,7 @@ interface ExploreItem extends ILink {
 }
 interface CommitItem {
   icon: ReactNode
-  title: string
+  label: string
   content: string
 }
 
@@ -129,22 +129,22 @@ export const exploreItems: ExploreItem[] = [
 export const commitItems: CommitItem[] = [
   {
     icon: <BsHeadset />,
-    title: "Hỗ trợ 24/7",
+    label: "Hỗ trợ 24/7",
     content: "Đội ngũ tư vấn viên nhiệt tình, giàu kinh nghiệm",
   },
   {
     icon: <GrDeliver />,
-    title: "Giao hàng",
+    label: "Giao hàng",
     content: "Thời gian giao hàng nhanh chóng",
   },
   {
     icon: <MdLoop />,
-    title: "Đổi trả - hoàn tiền",
+    label: "Đổi trả - hoàn tiền",
     content: "Đổi trả sản phẩm trong 7 ngày kể từ lúc đơn hàng giao tới bạn",
   },
   {
     icon: <AiOutlineGift />,
-    title: "Ưu đãi",
+    label: "Ưu đãi",
     content: "Rất nhiều ưu đãi dành cho khách hàng thân thiết",
   },
 ]

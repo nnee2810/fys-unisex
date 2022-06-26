@@ -1,7 +1,8 @@
-import { Box, Text } from "@chakra-ui/react"
+import { Box } from "@chakra-ui/react"
 import styled from "@emotion/styled"
 import { cloneElement, ReactElement } from "react"
 import { Controller, useFormContext } from "react-hook-form"
+import { Color } from "styles/theme"
 
 interface FieldProps {
   name: string
@@ -34,9 +35,7 @@ export function Field({ name, component, label }: FieldProps) {
         }
       />
       {errors?.[name]?.message && (
-        <Text mt="2px" color="red" fontSize="12">
-          {errors[name].message}
-        </Text>
+        <FieldError>{errors[name].message}</FieldError>
       )}
     </Box>
   )
@@ -45,6 +44,12 @@ export const FieldLabel = styled.label`
   font-size: 12px;
   font-weight: 700;
 `
+export const FieldError = styled.div`
+  margin-top: 2px;
+  color: ${Color.RED};
+  font-size: 12px;
+`
+
 export * from "./CheckboxField"
 export * from "./LongTextField"
 export * from "./RangeSliderField"

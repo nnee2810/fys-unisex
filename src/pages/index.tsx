@@ -1,6 +1,6 @@
 import { Stack } from "@chakra-ui/react"
 import { PageTitle } from "configs/constants"
-import { PageProps } from "layout/MainLayout"
+import { PageProps } from "layout"
 import {
   Banners,
   Commit,

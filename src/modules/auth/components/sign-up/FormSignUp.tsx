@@ -11,7 +11,7 @@ import {
 import { IoPhonePortraitOutline } from "react-icons/io5"
 import { Color } from "styles/theme"
 
-import { useFormSignUp } from "../hooks"
+import { useFormSignUp } from "../../hooks"
 
 export function FormSignUp() {
   const { methods, handleSubmit, isLoading } = useFormSignUp()
@@ -21,15 +21,13 @@ export function FormSignUp() {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        <Stack spacing="4">
+        <Stack>
           <Field
             name="name"
             component={
               <TextField
                 placeholder="Họ tên"
-                icon={{
-                  before: <AiOutlineUser fontSize="18" />,
-                }}
+                before={<AiOutlineUser fontSize="18" />}
               />
             }
           />
@@ -38,7 +36,7 @@ export function FormSignUp() {
             component={
               <TextField
                 placeholder="Email"
-                icon={{ before: <AiOutlineMail fontSize="18" /> }}
+                before={<AiOutlineMail fontSize="18" />}
               />
             }
           />
@@ -47,7 +45,7 @@ export function FormSignUp() {
             component={
               <TextField
                 placeholder="Số điện thoại"
-                icon={{ before: <IoPhonePortraitOutline fontSize="18" /> }}
+                before={<IoPhonePortraitOutline fontSize="18" />}
               />
             }
           />
@@ -102,7 +100,7 @@ export function FormSignUp() {
             }
           />
           <NextButton type="submit" isLoading={isLoading}>
-            Đăng ký
+            Tạo tài khoản
           </NextButton>
           <HStack>
             <Divider />

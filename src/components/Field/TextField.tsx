@@ -9,18 +9,14 @@ import { ReactElement } from "react"
 import { Color } from "styles/theme"
 
 interface TextFieldProps extends InputProps {
-  icon?: {
-    before?: ReactElement
-    after?: ReactElement
-  }
+  before?: ReactElement
+  after?: ReactElement
 }
 
-export function TextField({ icon, ...props }: TextFieldProps) {
+export function TextField({ before, after, ...props }: TextFieldProps) {
   return (
     <InputGroup>
-      {icon?.before && (
-        <InputLeftElement h="100%">{icon.before}</InputLeftElement>
-      )}
+      {before && <InputLeftElement h="100%">{before}</InputLeftElement>}
       <Input
         h="40px"
         borderColor={Color.GRAY}
@@ -31,9 +27,7 @@ export function TextField({ icon, ...props }: TextFieldProps) {
         _hover={{ borderColor: Color.DARK_GRAY }}
         {...props}
       />
-      {icon?.after && (
-        <InputRightElement h="100%">{icon?.after}</InputRightElement>
-      )}
+      {after && <InputRightElement h="100%">{after}</InputRightElement>}
     </InputGroup>
   )
 }
