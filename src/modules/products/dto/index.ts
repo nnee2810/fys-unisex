@@ -1,1 +1,1 @@
-export * from "./get-product-list-dto"
+export * from "./get-product-list.dto"

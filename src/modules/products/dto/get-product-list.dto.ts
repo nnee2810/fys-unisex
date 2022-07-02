@@ -1,4 +1,4 @@
-import { PaginationDto } from "dto/pagination-dto"
+import { PaginationDto } from "dto/pagination.dto"
 import { ProductClassify, ProductGender, ProductSize } from "../interfaces"
 
 export enum ProductSort {
