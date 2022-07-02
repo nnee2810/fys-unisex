@@ -91,7 +91,7 @@ export default function Footer() {
               Đông, TP. Hà Nội
             </Text>
             <Text>Hotline: 034.567.7890</Text>
-            <Text>Email: ddstore@gmail.com</Text>
+            <Text>Email: fys@gmail.com</Text>
             <AspectRatio ratio={4 / 3}>
               <iframe
                 title="maps"

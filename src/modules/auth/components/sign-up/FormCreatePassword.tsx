@@ -1,10 +1,7 @@
 import { Box, Stack, useBoolean } from "@chakra-ui/react"
-import { Field, NextButton, TextField } from "components"
-import {
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-  AiOutlineLock,
-} from "react-icons/ai"
+import { Field, TextField } from "components"
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import { BsShieldLock } from "react-icons/bs"
 
 export function FormCreatePassword() {
   const [passwordVisible, setPasswordVisible] = useBoolean()
@@ -18,7 +15,7 @@ export function FormCreatePassword() {
           <TextField
             type={passwordVisible ? "text" : "password"}
             placeholder="Mật khẩu"
-            before={<AiOutlineLock fontSize="18" />}
+            before={<BsShieldLock fontSize="18" />}
             after={
               <Box
                 fontSize="18"
@@ -37,7 +34,7 @@ export function FormCreatePassword() {
           <TextField
             type={repeatPasswordVisible ? "text" : "password"}
             placeholder="Nhập lại mật khẩu"
-            before={<AiOutlineLock fontSize="18" />}
+            before={<BsShieldLock fontSize="18" />}
             after={
               <Box
                 fontSize="18"
@@ -54,7 +51,6 @@ export function FormCreatePassword() {
           />
         }
       />
-      <NextButton type="submit">Tiếp theo</NextButton>
     </Stack>
   )
 }

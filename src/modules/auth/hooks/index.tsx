@@ -1,3 +1,7 @@
 export * from "./useAuth"
 export * from "./useFormSignIn"
 export * from "./useFormSignUp"
+export * from "./useSendOTP"
+export * from "./useSignInByPassword"
+export * from "./useSignUp"
+export * from "./useVerifyOTP"

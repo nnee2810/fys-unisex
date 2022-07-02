@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react"
+import { Box, Collapse } from "@chakra-ui/react"
 import styled from "@emotion/styled"
 import { cloneElement, ReactElement } from "react"
 import { Controller, useFormContext } from "react-hook-form"
@@ -34,9 +34,9 @@ export function Field({ name, component, label }: FieldProps) {
           })
         }
       />
-      {errors?.[name]?.message && (
-        <FieldError>{errors[name].message}</FieldError>
-      )}
+      <Collapse in={!!errors?.[name]} unmountOnExit>
+        <FieldError>{errors?.[name]?.message}</FieldError>
+      </Collapse>
     </Box>
   )
 }

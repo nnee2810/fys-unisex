@@ -4,6 +4,7 @@ import {
   AlertIcon,
   Box,
   Divider,
+  Text,
 } from "@chakra-ui/react"
 import { NextAlertModal, StackSkeleton } from "components"
 import { useGetAddressList } from "modules/users/hooks"
@@ -44,7 +45,7 @@ export function AddressList() {
         onClose={refetchGetAddressList}
         onConfirm={() => router.push("/")}
       >
-        <Box>Không tìm thấy địa chỉ hoặc lỗi trang</Box>
+        <Text>Không tìm thấy địa chỉ hoặc lỗi trang</Text>
       </NextAlertModal>
     </Box>
   )

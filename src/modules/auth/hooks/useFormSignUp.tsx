@@ -1,19 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { AxiosError } from "axios"
-import { isMobilePhone } from "class-validator"
-import { ErrorMessage, Regex, SuccessMessage } from "configs/constants"
-import { useRouter } from "next/router"
+import { isPhoneNumber } from "class-validator"
+import { Regex } from "configs/constants"
 import { useForm } from "react-hook-form"
-import { useMutation } from "react-query"
-import { toast } from "react-toastify"
 import {
   getValidateInvalidMessage,
   getValidateNotMatchMessage,
   getValidateRequiredMessage,
 } from "utils"
 import * as yup from "yup"
-import { SignUpDto } from "../dto"
-import { signUp } from "../services"
+import { useSendOTP, useSignUp, useVerifyOTP } from "."
+import { ActionOTP } from "../dto"
 
 export interface FormSignUpValues {
   step: number
@@ -22,10 +18,9 @@ export interface FormSignUpValues {
   password: string
   repeat_password: string
   name: string
-  email: string
-  province_code: number
-  district_code: number
-  ward_code: number
+  province_code?: number
+  district_code?: number
+  ward_code?: number
   address_detail: string
 }
 
@@ -39,8 +34,9 @@ const schema = yup.object({
       then: yup
         .string()
         .required(getValidateRequiredMessage)
+        .max(10, getValidateInvalidMessage)
         .test({
-          test: (value) => (value ? isMobilePhone(value, "vi-VN") : false),
+          test: (value) => (value ? isPhoneNumber(value, "VN") : false),
           message: getValidateInvalidMessage,
         }),
     }),
@@ -78,67 +74,120 @@ const schema = yup.object({
         .required(getValidateRequiredMessage)
         .oneOf([yup.ref("password")], getValidateNotMatchMessage),
     }),
-  name: yup.string().label("Họ và tên"),
+  name: yup
+    .string()
+    .label("Họ và tên")
+    .when("step", {
+      is: 4,
+      then: yup.string().required(getValidateRequiredMessage),
+    }),
+  province_code: yup
+    .number()
+    .label("Tỉnh/Thành phố")
+    .when("step", {
+      is: 4,
+      then: yup.number().required(getValidateRequiredMessage),
+    }),
+  district_code: yup
+    .number()
+    .label("Quận/Huyện")
+    .when("step", {
+      is: 4,
+      then: yup.number().required(getValidateRequiredMessage),
+    }),
+  ward_code: yup
+    .number()
+    .label("Phường/Xã")
+    .when("step", {
+      is: 4,
+      then: yup.number().required(getValidateRequiredMessage),
+    }),
+  address_detail: yup.string(),
 })
 
 export function useFormSignUp() {
-  const router = useRouter()
   const methods = useForm<FormSignUpValues>({
     defaultValues: {
-      step: 2,
+      step: 1,
       phone: "",
       otp: "",
       password: "",
       repeat_password: "",
+      name: "",
+      address_detail: "",
     },
     resolver: yupResolver(schema),
   })
-  const { mutate, isLoading } = useMutation(
-    "sign-up",
-    (data: SignUpDto) => signUp(data),
-    {
-      onSuccess() {
-        router.push("/auth/sign-in")
-        toast.success(SuccessMessage.SIGN_UP_SUCCESS)
-      },
-      onError(error) {
-        if (error instanceof AxiosError) {
-          toast.error(
-            ErrorMessage[
-              error.response?.data?.message as keyof typeof ErrorMessage
-            ] || ErrorMessage.INTERNAL_SERVER_ERROR
-          )
-        } else toast.error(ErrorMessage.INTERNAL_SERVER_ERROR)
-      },
-    }
-  )
+  const { mutate: mutateSignUp, isLoading: isLoadingSignUp } = useSignUp()
+  const { mutate: mutateSendOTP, isLoading: isLoadingSendOTP } = useSendOTP()
+  const { mutate: mutateVerifyOTP, isLoading: isLoadingVerifyOTP } =
+    useVerifyOTP()
 
   const watchStep = methods.watch("step")
-
   const nextStep = () => {
     methods.setValue("step", watchStep + 1)
   }
-  const handleSubmit = ({
+  const handleSubmit = async ({
     step,
     phone,
     otp,
     password,
-    repeat_password,
+    name,
+    province_code,
+    district_code,
+    ward_code,
+    address_detail,
   }: FormSignUpValues) => {
     switch (step) {
       case 1: {
-        console.log(phone)
-        nextStep()
+        mutateSendOTP(
+          {
+            phone,
+            action: ActionOTP.SIGN_UP,
+          },
+          {
+            onSuccess(data) {
+              //@ts-ignore
+              window.session_info = data
+              nextStep()
+            },
+          }
+        )
         break
       }
       case 2: {
-        console.log(otp)
-        nextStep()
+        mutateVerifyOTP(otp, {
+          onSuccess() {
+            nextStep()
+          },
+        })
+
         break
       }
       case 3: {
-        console.log(password, repeat_password)
         nextStep()
+        break
+      }
+      case 4: {
+        if (!province_code || !district_code || !ward_code) {
+          break
+        }
+        mutateSignUp(
+          {
+            phone,
+            password,
+            name,
+            province_code,
+            district_code,
+            ward_code,
+            address_detail,
+          },
+          {
+            onSuccess() {
+              nextStep()
+            },
+          }
+        )
         break
       }
     }
@@ -147,6 +196,6 @@ export function useFormSignUp() {
   return {
     methods,
     handleSubmit,
-    isLoading,
+    isLoading: isLoadingSendOTP || isLoadingVerifyOTP || isLoadingSignUp,
   }
 }

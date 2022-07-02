@@ -1,4 +1,4 @@
-import { Box, Grid } from "@chakra-ui/react"
+import { Box, Grid, Text } from "@chakra-ui/react"
 import { isNumber, isString } from "class-validator"
 import { NextAlertModal, NextBreadcrumb, PageContainer } from "components"
 import { PageTitle } from "configs/constants"
@@ -78,7 +78,7 @@ export default function Products({ query }: ProductsProps) {
         onClose={refetch}
         onConfirm={() => router.push("/")}
       >
-        <Box>Không tìm thấy sản phẩm hoặc lỗi trang</Box>
+        <Text>Không tìm thấy sản phẩm hoặc lỗi trang</Text>
       </NextAlertModal>
     </Box>
   )

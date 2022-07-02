@@ -29,7 +29,6 @@ export function useAuth() {
         Cookies.remove(Key.ACCESS_TOKEN)
     }
   }
-
   const signOut = () => {
     dispatch(SIGN_OUT())
     toast.success(SuccessMessage.SIGN_OUT_SUCCESS)

@@ -39,7 +39,7 @@ const authSlice = createSlice({
         profile: payload,
       }
     },
-    SIGN_OUT(state) {
+    SIGN_OUT() {
       Cookies.remove(Key.ACCESS_TOKEN)
       return {
         status: AuthStatus.UNAUTHENTICATED,

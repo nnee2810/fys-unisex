@@ -7,22 +7,34 @@ import {
   Stack,
 } from "@chakra-ui/react"
 import { Field, NextButton, TextField } from "components"
-import { FormSignUpValues } from "modules/auth/hooks"
+import { ActionOTP } from "modules/auth/dto"
+import { FormSignUpValues, useSendOTP } from "modules/auth/hooks"
 import moment from "moment"
 import { useFormContext } from "react-hook-form"
 import { AiOutlineScan } from "react-icons/ai"
 import { useTimer } from "react-timer-hook"
 
-export function FormCheckOtp() {
+export function FormVerifyOTP() {
   const { seconds, isRunning, restart } = useTimer({
     expiryTimestamp: moment().add(59, "s").toDate(),
   })
   const { watch } = useFormContext<FormSignUpValues>()
+  const { mutate, isLoading } = useSendOTP()
 
   const watchPhone = watch("phone")
 
-  const resendOtp = () => {
-    restart(moment().add(59, "s").toDate())
+  const resendOTP = async () => {
+    mutate(
+      {
+        phone: watchPhone,
+        action: ActionOTP.SIGN_UP,
+      },
+      {
+        onSuccess() {
+          restart(moment().add(59, "s").toDate())
+        },
+      }
+    )
   }
 
   return (
@@ -46,11 +58,14 @@ export function FormCheckOtp() {
             }
           />
         </Box>
-        <NextButton isDisabled={isRunning} onClick={resendOtp}>
+        <NextButton
+          isLoading={isLoading}
+          isDisabled={isRunning}
+          onClick={resendOTP}
+        >
           Gửi mã {isRunning && `(${seconds} giây)`}
         </NextButton>
       </HStack>
-      <NextButton type="submit">Xác minh</NextButton>
     </Stack>
   )
 }

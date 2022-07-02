@@ -1,12 +1,9 @@
 import { Box, Flex, Stack, useBoolean } from "@chakra-ui/react"
 import { Field, NextButton, NextLink, TextField } from "components"
 import { FormProvider } from "react-hook-form"
-import {
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-  AiOutlineLock,
-  AiOutlineUser,
-} from "react-icons/ai"
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import { BsShieldLock } from "react-icons/bs"
+import { IoPhonePortraitOutline } from "react-icons/io5"
 import { useFormSignIn } from "../../hooks"
 
 export function FormSignIn() {
@@ -18,11 +15,11 @@ export function FormSignIn() {
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <Stack>
           <Field
-            name="key"
+            name="phone"
             component={
               <TextField
-                placeholder="Email/Số điện thoại"
-                before={<AiOutlineUser fontSize="18" />}
+                placeholder="Số điện thoại"
+                before={<IoPhonePortraitOutline fontSize="18" />}
               />
             }
           />
@@ -31,7 +28,7 @@ export function FormSignIn() {
               name="password"
               component={
                 <TextField
-                  before={<AiOutlineLock fontSize="18" />}
+                  before={<BsShieldLock fontSize="18" />}
                   after={
                     <Box
                       fontSize="18"

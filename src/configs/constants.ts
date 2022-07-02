@@ -24,7 +24,7 @@ export enum SuccessMessage {
 }
 export enum ErrorMessage {
   INTERNAL_SERVER_ERROR = "Lỗi máy chủ, vui lòng thử lại sau",
-  EMAIL_ALREADY_EXIST = "Email đã được sử dụng",
+
   PHONE_ALREADY_EXIST = "Số điện thoại đã được sử dụng",
   SIGN_IN_FAIL = "Thông tin đăng nhập không chính xác",
   FILE_INVALID_TYPE = "Tệp không hợp lệ",
@@ -32,7 +32,7 @@ export enum ErrorMessage {
 }
 
 export enum Key {
-  ACCESS_TOKEN = "accessToken",
+  ACCESS_TOKEN = "access_token",
 }
 export enum zIndex {
   FEATURED_TABS = 2,

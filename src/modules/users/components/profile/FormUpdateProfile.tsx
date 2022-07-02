@@ -21,7 +21,7 @@ export function FormUpdateProfile() {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        <Stack spacing="4">
+        <Stack>
           <Field name="name" label="Họ tên" component={<TextField />} />
           <HStack alignItems="flex-end">
             <Box flex="1">
@@ -33,16 +33,7 @@ export function FormUpdateProfile() {
             </Box>
             <NextButton>Thay đổi</NextButton>
           </HStack>
-          <HStack alignItems="flex-end">
-            <Box flex="1">
-              <Field
-                name="email"
-                label="Email"
-                component={<TextField isDisabled />}
-              />
-            </Box>
-            <NextButton>Thay đổi</NextButton>
-          </HStack>
+
           {/* <Field
             name="address"
             label="Địa chỉ"

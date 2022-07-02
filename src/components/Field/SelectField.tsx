@@ -55,4 +55,7 @@ const StyledSelect = styled(Select)<SelectProps>`
       min-height: 40px;
     }
   }
+  .react-select__menu {
+    z-index: 999;
+  }
 `

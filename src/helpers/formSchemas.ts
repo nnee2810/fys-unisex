@@ -1,4 +1,4 @@
-import { isEmail, isMobilePhone } from "class-validator"
+import { isPhoneNumber } from "class-validator"
 import { Regex } from "configs/constants"
 import { getValidateInvalidMessage, getValidateRequiredMessage } from "utils"
 import * as yup from "yup"
@@ -9,18 +9,12 @@ export const formSchemas = {
     .string()
     .label("Số điện thoại")
     .required(getValidateRequiredMessage)
+    .max(10, getValidateInvalidMessage)
     .test({
-      test: (value) => (value ? isMobilePhone(value, "vi-VN") : false),
+      test: (value) => (value ? isPhoneNumber(value, "VN") : false),
       message: getValidateInvalidMessage,
     }),
-  email: yup
-    .string()
-    .label("Email")
-    .required(getValidateRequiredMessage)
-    .test({
-      test: (value) => (value ? isEmail(value) : false),
-      message: getValidateInvalidMessage,
-    }),
+
   password: yup
     .string()
     .label("Mật khẩu")

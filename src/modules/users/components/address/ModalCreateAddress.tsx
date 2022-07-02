@@ -87,13 +87,13 @@ export function ModalCreateAddress({ isOpen, onClose }: ModalBaseProps) {
           <form onSubmit={methods.handleSubmit(handleSubmit)}>
             <ModalHeader>Thêm địa chỉ</ModalHeader>
             <ModalBody>
-              <Stack spacing="4">
+              <Stack>
                 <Grid templateColumns="1fr 1fr" gap="2">
                   <Field name="name" label="Họ tên" component={<TextField />} />
                   <Field
                     name="phone"
                     label="Số điện thoại"
-                    component={<TextField />}
+                    component={<TextField type="number" />}
                   />
                 </Grid>
                 <Grid templateColumns="repeat(3, 1fr)" gap="2">

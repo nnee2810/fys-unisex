@@ -20,7 +20,6 @@ import { updateProfile } from "../services"
 interface FormValues {
   name: string
   phone: string
-  email: string
   gender: UserGender
 }
 
@@ -52,13 +51,12 @@ export function useFormUpdateProfile() {
     defaultValues: {
       name: profile?.name,
       phone: profile?.phone,
-      email: profile?.email,
       gender: profile?.gender,
     },
     resolver: yupResolver(schema),
   })
 
-  const handleSubmit = ({ phone, email, ...data }: FormValues) => {
+  const handleSubmit = ({ phone, ...data }: FormValues) => {
     if (!profile) return
     mutate({
       ...data,

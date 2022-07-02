@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Skeleton, Stack } from "@chakra-ui/react"
+import { Box, Divider, Grid, Skeleton, Stack, Text } from "@chakra-ui/react"
 import { NextAlertModal, NextBreadcrumb, PageContainer } from "components"
 import { PageTitle } from "configs/constants"
 import { PageProps } from "layout"
@@ -80,7 +80,7 @@ export default function Product({ id }: ProductProps) {
         onClose={refetch}
         onConfirm={() => router.push("/")}
       >
-        <Box>Không tìm thấy sản phẩm hoặc lỗi trang</Box>
+        <Text>Không tìm thấy sản phẩm hoặc lỗi trang</Text>
       </NextAlertModal>
     </Box>
   )

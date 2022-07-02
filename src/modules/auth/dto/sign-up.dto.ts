@@ -1,6 +1,9 @@
 export interface SignUpDto {
-  name: string
   phone: string
-  email: string
   password: string
+  name: string
+  province_code: number
+  district_code: number
+  ward_code: number
+  address_detail: string
 }

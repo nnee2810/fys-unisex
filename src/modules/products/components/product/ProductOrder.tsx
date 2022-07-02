@@ -1,5 +1,5 @@
 import { Box, HStack, Stack } from "@chakra-ui/react"
-import { Field, NextButton, SelectTextField } from "components"
+import { Field, NextButton, SelectBoxField, TextField } from "components"
 import { FormProvider, useForm } from "react-hook-form"
 import styled from "styled-components"
 
@@ -25,12 +25,12 @@ export function ProductOrder({}: ProductOrderProps) {
   return (
     <Box>
       <FormProvider {...methods}>
-        <Stack spacing="4">
+        <Stack>
           <Field
             name="color"
             label="Màu sắc"
             component={
-              <SelectTextField
+              <SelectBoxField
                 options={[
                   {
                     label: "Vàng",
@@ -52,7 +52,7 @@ export function ProductOrder({}: ProductOrderProps) {
             name="size"
             label="Kích thước"
             component={
-              <SelectTextField
+              <SelectBoxField
                 options={[
                   {
                     label: "M",

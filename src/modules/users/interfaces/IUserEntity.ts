@@ -18,7 +18,6 @@ export interface IUserEntity extends IBaseEntity {
   avatar?: {
     src?: string
   }
-  email: string
   phone: string
   role: UserRole
 }

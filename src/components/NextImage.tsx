@@ -17,6 +17,7 @@ export function NextImage({ src, alt, ratio, ...props }: NextImageProps) {
             src={src || getImageFallback(300)}
             layout="fill"
             objectFit="cover"
+            alt={alt || "image"}
           />
         </AspectRatio>
       ) : (
@@ -24,6 +25,7 @@ export function NextImage({ src, alt, ratio, ...props }: NextImageProps) {
           src={src || getImageFallback(300)}
           layout="fill"
           objectFit="cover"
+          alt={alt || "image"}
         />
       )}
     </Box>
