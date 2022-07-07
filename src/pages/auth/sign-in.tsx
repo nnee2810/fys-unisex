@@ -26,6 +26,7 @@ export async function getStaticProps(
     },
   }
 }
+
 export default function SignIn() {
   return (
     <Center
@@ -45,7 +46,7 @@ export default function SignIn() {
         borderRadius="16"
         boxShadow="2xl"
       >
-        <Heading>Đăng nhập</Heading>
+        <Heading>{PageTitle.SIGN_IN}</Heading>
         <Stack mt="10">
           <FormSignIn />
           <HStack>

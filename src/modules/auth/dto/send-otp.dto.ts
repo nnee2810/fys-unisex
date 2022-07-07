@@ -1,7 +1,7 @@
 export enum ActionOTP {
   SIGN_IN,
   SIGN_UP,
-  FORGOT_PASSWORD,
+  RESET_PASSWORD,
 }
 
 export interface SendOTPDto {

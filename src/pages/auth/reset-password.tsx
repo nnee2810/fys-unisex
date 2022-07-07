@@ -5,12 +5,10 @@ import { firebaseAuth } from "configs/firebase"
 import { RecaptchaVerifier } from "firebase/auth"
 import { PageProps } from "layout"
 import {
-  FormCreatePassword,
-  FormCreateProfile,
-  FormVerifyOTP,
-  SignUpSuccess,
-} from "modules/auth/components"
-import { useFormSignUp } from "modules/auth/hooks"
+  FormResetPassword,
+  ResetPasswordSuccess,
+} from "modules/auth/components/reset-password"
+import { useFormResetPassword } from "modules/auth/hooks"
 import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
 import { useEffect } from "react"
@@ -24,14 +22,14 @@ export async function getStaticProps(
 ): Promise<GetStaticPropsResult<PageProps>> {
   return {
     props: {
-      title: PageTitle.SIGN_UP,
+      title: PageTitle.SIGN_IN,
       roles: [UserRole.GUEST],
     },
   }
 }
 
-export default function SignUp() {
-  const { methods, handleSubmit, isLoading } = useFormSignUp()
+export default function ResetPassword() {
+  const { methods, handleSubmit, isLoading } = useFormResetPassword()
 
   const watchStep = methods.watch("step")
 
@@ -57,7 +55,7 @@ export default function SignUp() {
       w="100%"
       h="100%"
       p="4"
-      bgImg={getAwsCloudFrontUrl("static/sign-up-bg.jpg")}
+      bgImg={getAwsCloudFrontUrl("static/reset-password-bg.jpg")}
       bgSize="cover"
       bgPos="center"
     >
@@ -69,27 +67,15 @@ export default function SignUp() {
         borderRadius="16"
         boxShadow="2xl"
       >
-        <Heading size="lg">{PageTitle.SIGN_UP}</Heading>
+        <Heading>{PageTitle.RESET_PASSWORD}</Heading>
         <Box mt="10">
           <StepBar
-            steps={[
-              "Nhập thông tin tài khoản",
-              "Tạo mật khẩu",
-              "Nhập số điện thoại",
-              "Xác minh số điện thoại",
-              "Hoàn thành",
-            ]}
+            steps={["Nhập số điện thoại", "Tạo mật khẩu mới", "Hoàn thành"]}
             activeStep={watchStep}
           />
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleSubmit)}>
               <Collapse in={watchStep === 1} unmountOnExit>
-                <FormCreateProfile />
-              </Collapse>
-              <Collapse in={watchStep === 2} unmountOnExit>
-                <FormCreatePassword />
-              </Collapse>
-              <Collapse in={watchStep === 3} unmountOnExit>
                 <Field
                   name="phone"
                   component={
@@ -101,26 +87,21 @@ export default function SignUp() {
                   }
                 />
               </Collapse>
-              <Collapse in={watchStep === 4} unmountOnExit>
-                <FormVerifyOTP />
+              <Collapse in={watchStep === 2} unmountOnExit>
+                <FormResetPassword />
               </Collapse>
-              <Collapse in={watchStep === 5} unmountOnExit>
-                <SignUpSuccess />
+              <Collapse in={watchStep === 3} unmountOnExit>
+                <ResetPasswordSuccess />
               </Collapse>
-              {watchStep < 5 && (
+
+              {watchStep < 3 && (
                 <NextButton w="100%" mt="2" type="submit" isLoading={isLoading}>
-                  {watchStep < 4 ? "Tiếp theo" : "Xong"}
+                  {watchStep < 2 ? "Tiếp theo" : "Xong"}
                 </NextButton>
               )}
               <div id="recaptcha" />
             </form>
           </FormProvider>
-          {/* <NextButton onClick={() => methods.setValue("step", watchStep - 1)}>
-            -
-          </NextButton>
-          <NextButton onClick={() => methods.setValue("step", watchStep + 1)}>
-            +
-          </NextButton> */}
         </Box>
       </Box>
     </Center>

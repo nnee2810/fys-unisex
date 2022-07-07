@@ -108,18 +108,9 @@ export default function Footer() {
 }
 
 const SectionTitle = styled.p`
-  position: relative;
   margin-bottom: 16px;
-  font-size: 18;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 700;
   text-transform: uppercase;
-
-  &::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    width: 40px;
-    height: 2px;
-    background-color: #fff;
-  }
+  letter-spacing: 4px;
 `

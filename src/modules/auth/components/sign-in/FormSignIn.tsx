@@ -47,9 +47,8 @@ export function FormSignIn() {
                 />
               }
             />
-            <Flex justifyContent="space-between">
-              <NextLink href="/auth/forgot-password">Quên mật khẩu</NextLink>
-              <NextLink href="/auth/sms">Đăng nhập với SMS</NextLink>
+            <Flex justifyContent="flex-end">
+              <NextLink href="/auth/reset-password">Quên mật khẩu</NextLink>
             </Flex>
           </Stack>
           <NextButton type="submit" isLoading={isLoading}>

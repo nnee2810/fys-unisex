@@ -4,7 +4,6 @@ import { PageProps } from "layout"
 import {
   Banners,
   Commit,
-  Explore,
   FeaturedProducts,
   FlashSale,
   Story,
@@ -25,7 +24,7 @@ export default function Home() {
   return (
     <Stack spacing="60px">
       <Banners />
-      <Explore />
+      {/* <Explore /> */}
       <FlashSale />
       <FeaturedProducts />
       <Story />

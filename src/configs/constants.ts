@@ -8,6 +8,7 @@ export enum PageTitle {
   HOME = "Trang chủ",
   SIGN_IN = "Đăng nhập",
   SIGN_UP = "Tạo tài khoản",
+  RESET_PASSWORD = "Quên mật khẩu",
   PRODUCT_LIST = "Sản phẩm",
   PRODUCT_DETAIL = "Chi tiết sản phẩm",
   USER_PROFILE = "Tài khoản của tôi",
@@ -23,10 +24,7 @@ export enum SuccessMessage {
   DELETE_ADDRESS_SUCCESS = "Xóa địa chị chỉ thành công",
 }
 export enum ErrorMessage {
-  INTERNAL_SERVER_ERROR = "Lỗi máy chủ, vui lòng thử lại sau",
-
-  PHONE_ALREADY_EXIST = "Số điện thoại đã được sử dụng",
-  SIGN_IN_FAIL = "Thông tin đăng nhập không chính xác",
+  INTERNAL_SERVER_ERROR = "Không thể xử lý yêu cầu, vui lòng thử lại sau",
   FILE_INVALID_TYPE = "Tệp không hợp lệ",
   FILE_TOO_LARGE = "Dung lượng tệp quá lớn",
 }

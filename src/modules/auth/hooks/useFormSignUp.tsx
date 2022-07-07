@@ -8,7 +8,7 @@ import {
   getValidateRequiredMessage,
 } from "utils"
 import * as yup from "yup"
-import { useSendOTP, useSignUp, useVerifyOTP } from "."
+import { useSendOTP, useSignUp } from "."
 import { ActionOTP } from "../dto"
 
 export interface FormSignUpValues {
@@ -26,35 +26,40 @@ export interface FormSignUpValues {
 
 const schema = yup.object({
   step: yup.number(),
-  phone: yup
+  name: yup
     .string()
-    .label("Số điện thoại")
+    .label("Họ và tên")
     .when("step", {
       is: 1,
-      then: yup
-        .string()
-        .required(getValidateRequiredMessage)
-        .max(10, getValidateInvalidMessage)
-        .test({
-          test: (value) => (value ? isPhoneNumber(value, "VN") : false),
-          message: getValidateInvalidMessage,
-        }),
+      then: yup.string().required(getValidateRequiredMessage),
     }),
-  otp: yup
-    .string()
-    .label("Mã xác minh")
+  province_code: yup
+    .number()
+    .label("Tỉnh/Thành phố")
     .when("step", {
-      is: 2,
-      then: yup
-        .string()
-        .required(getValidateRequiredMessage)
-        .length(6, getValidateInvalidMessage),
+      is: 1,
+      then: yup.number().required(getValidateRequiredMessage),
     }),
+  district_code: yup
+    .number()
+    .label("Quận/Huyện")
+    .when("step", {
+      is: 1,
+      then: yup.number().required(getValidateRequiredMessage),
+    }),
+  ward_code: yup
+    .number()
+    .label("Phường/Xã")
+    .when("step", {
+      is: 1,
+      then: yup.number().required(getValidateRequiredMessage),
+    }),
+  address_detail: yup.string(),
   password: yup
     .string()
     .label("Mật khẩu")
     .when("step", {
-      is: 3,
+      is: 2,
       then: yup
         .string()
         .required(getValidateRequiredMessage)
@@ -68,41 +73,36 @@ const schema = yup.object({
     .string()
     .label("Nhập lại mật khẩu")
     .when("step", {
-      is: 3,
+      is: 2,
       then: yup
         .string()
         .required(getValidateRequiredMessage)
         .oneOf([yup.ref("password")], getValidateNotMatchMessage),
     }),
-  name: yup
+  phone: yup
     .string()
-    .label("Họ và tên")
+    .label("Số điện thoại")
+    .when("step", {
+      is: 3,
+      then: yup
+        .string()
+        .required(getValidateRequiredMessage)
+        .max(10, getValidateInvalidMessage)
+        .test({
+          test: (value) => (value ? isPhoneNumber(value, "VN") : false),
+          message: getValidateInvalidMessage,
+        }),
+    }),
+  otp: yup
+    .string()
+    .label("Mã xác minh")
     .when("step", {
       is: 4,
-      then: yup.string().required(getValidateRequiredMessage),
+      then: yup
+        .string()
+        .required(getValidateRequiredMessage)
+        .length(6, getValidateInvalidMessage),
     }),
-  province_code: yup
-    .number()
-    .label("Tỉnh/Thành phố")
-    .when("step", {
-      is: 4,
-      then: yup.number().required(getValidateRequiredMessage),
-    }),
-  district_code: yup
-    .number()
-    .label("Quận/Huyện")
-    .when("step", {
-      is: 4,
-      then: yup.number().required(getValidateRequiredMessage),
-    }),
-  ward_code: yup
-    .number()
-    .label("Phường/Xã")
-    .when("step", {
-      is: 4,
-      then: yup.number().required(getValidateRequiredMessage),
-    }),
-  address_detail: yup.string(),
 })
 
 export function useFormSignUp() {
@@ -120,8 +120,6 @@ export function useFormSignUp() {
   })
   const { mutate: mutateSignUp, isLoading: isLoadingSignUp } = useSignUp()
   const { mutate: mutateSendOTP, isLoading: isLoadingSendOTP } = useSendOTP()
-  const { mutate: mutateVerifyOTP, isLoading: isLoadingVerifyOTP } =
-    useVerifyOTP()
 
   const watchStep = methods.watch("step")
   const nextStep = () => {
@@ -140,6 +138,14 @@ export function useFormSignUp() {
   }: FormSignUpValues) => {
     switch (step) {
       case 1: {
+        nextStep()
+        break
+      }
+      case 2: {
+        nextStep()
+        break
+      }
+      case 3: {
         mutateSendOTP(
           {
             phone,
@@ -155,32 +161,17 @@ export function useFormSignUp() {
         )
         break
       }
-      case 2: {
-        mutateVerifyOTP(otp, {
-          onSuccess() {
-            nextStep()
-          },
-        })
-
-        break
-      }
-      case 3: {
-        nextStep()
-        break
-      }
       case 4: {
-        if (!province_code || !district_code || !ward_code) {
-          break
-        }
         mutateSignUp(
           {
-            phone,
-            password,
             name,
-            province_code,
-            district_code,
-            ward_code,
+            province_code: province_code!,
+            district_code: district_code!,
+            ward_code: ward_code!,
             address_detail,
+            password,
+            phone,
+            otp,
           },
           {
             onSuccess() {
@@ -188,6 +179,7 @@ export function useFormSignUp() {
             },
           }
         )
+
         break
       }
     }
@@ -196,6 +188,6 @@ export function useFormSignUp() {
   return {
     methods,
     handleSubmit,
-    isLoading: isLoadingSendOTP || isLoadingVerifyOTP || isLoadingSignUp,
+    isLoading: isLoadingSendOTP || isLoadingSignUp,
   }
 }

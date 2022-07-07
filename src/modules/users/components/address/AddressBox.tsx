@@ -115,12 +115,14 @@ export function AddressBox({ data }: AddressBoxProps) {
             >
               Sửa
             </MenuItem>
-            <MenuItem
-              icon={<AiOutlineDelete fontSize="20" />}
-              onClick={setOpenDelete.on}
-            >
-              Xóa
-            </MenuItem>
+            {!data.is_default && (
+              <MenuItem
+                icon={<AiOutlineDelete fontSize="20" />}
+                onClick={setOpenDelete.on}
+              >
+                Xóa
+              </MenuItem>
+            )}
           </MenuList>
         </Menu>
       </Flex>

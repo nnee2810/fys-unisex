@@ -43,13 +43,13 @@ img {
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(160, 160, 160);
   }
+
+  ::selection {
+    background-color: #000;
+    color: #fff;
+  }
 }
 
-.img-fit {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 .bg-fit {
   background-size: cover;
   background-position: center;
