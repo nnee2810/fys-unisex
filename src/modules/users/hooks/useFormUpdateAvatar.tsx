@@ -14,9 +14,6 @@ export function useFormUpdateAvatar() {
       toast.success(SuccessMessage.UPDATE_AVATAR_SUCCESS)
       dispatch(SET_PROFILE_AVATAR_SRC(data))
     },
-    onError() {
-      toast.error(ErrorMessage.INTERNAL_SERVER_ERROR)
-    },
   })
 
   const onDrop = (acceptedFiles: File[], fileRejections: FileRejection[]) => {

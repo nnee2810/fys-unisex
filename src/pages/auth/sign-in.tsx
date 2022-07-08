@@ -10,7 +10,7 @@ import {
 import { NextButton, NextLink } from "components"
 import { PageTitle } from "configs/constants"
 import { PageProps } from "layout"
-import { FormSignIn } from "modules/auth/components"
+import { FormSignIn } from "modules/auth/components/sign-in"
 import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
 import { Color } from "styles/theme"

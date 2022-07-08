@@ -4,30 +4,34 @@ import {
   AlertIcon,
   Box,
   HStack,
-  Stack,
 } from "@chakra-ui/react"
-import { Field, NextButton, TextField } from "components"
 import { ActionOTP } from "modules/auth/dto"
-import { FormSignUpValues, useSendOTP } from "modules/auth/hooks"
+import { useSendOTP } from "modules/auth/hooks"
 import moment from "moment"
 import { useFormContext } from "react-hook-form"
 import { AiOutlineScan } from "react-icons/ai"
 import { useTimer } from "react-timer-hook"
+import { Field, TextField } from "./Field"
+import { NextButton } from "./NextButton"
 
-export function FormVerifyOTP() {
+interface FieldEnterOTPProps {
+  field_phone: string
+  action: ActionOTP
+}
+
+export function FieldEnterOTP({ field_phone, action }: FieldEnterOTPProps) {
   const { seconds, isRunning, restart } = useTimer({
     expiryTimestamp: moment().add(59, "s").toDate(),
   })
-  const { watch } = useFormContext<FormSignUpValues>()
+  const { watch } = useFormContext()
   const { mutate, isLoading } = useSendOTP()
-
-  const watchPhone = watch("phone")
+  const watchPhone = watch(field_phone)
 
   const resendOTP = async () => {
     mutate(
       {
         phone: watchPhone,
-        action: ActionOTP.SIGN_UP,
+        action,
       },
       {
         onSuccess() {
@@ -38,7 +42,7 @@ export function FormVerifyOTP() {
   }
 
   return (
-    <Stack>
+    <>
       <Alert status="success" variant="left-accent" borderRadius="6">
         <AlertIcon />
         <AlertDescription>
@@ -66,6 +70,6 @@ export function FormVerifyOTP() {
           Gửi mã {isRunning && `(${seconds} giây)`}
         </NextButton>
       </HStack>
-    </Stack>
+    </>
   )
 }

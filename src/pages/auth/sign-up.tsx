@@ -1,5 +1,6 @@
 import { Box, Center, Collapse, Heading } from "@chakra-ui/react"
 import { Field, NextButton, StepBar, TextField } from "components"
+import { FieldEnterOTP } from "components/FieldEnterOTP"
 import { PageTitle } from "configs/constants"
 import { firebaseAuth } from "configs/firebase"
 import { RecaptchaVerifier } from "firebase/auth"
@@ -7,9 +8,9 @@ import { PageProps } from "layout"
 import {
   FormCreatePassword,
   FormCreateProfile,
-  FormVerifyOTP,
   SignUpSuccess,
-} from "modules/auth/components"
+} from "modules/auth/components/sign-up"
+import { ActionOTP } from "modules/auth/dto"
 import { useFormSignUp } from "modules/auth/hooks"
 import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
@@ -102,7 +103,7 @@ export default function SignUp() {
                 />
               </Collapse>
               <Collapse in={watchStep === 4} unmountOnExit>
-                <FormVerifyOTP />
+                <FieldEnterOTP field_phone="phone" action={ActionOTP.SIGN_UP} />
               </Collapse>
               <Collapse in={watchStep === 5} unmountOnExit>
                 <SignUpSuccess />

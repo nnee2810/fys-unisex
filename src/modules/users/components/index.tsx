@@ -1,5 +1,0 @@
-export * from "./address/AddressBox"
-export * from "./address/AddressList"
-export * from "./address/ModalCreateAddress"
-export * from "./profile/FormUpdateAvatar"
-export * from "./profile/FormUpdateProfile"

@@ -1,10 +1,16 @@
 import { Grid } from "@chakra-ui/react"
 import { NextBreadcrumb, PageContainer, PageHeader } from "components"
 import { PageTitle } from "configs/constants"
+import { firebaseAuth } from "configs/firebase"
+import { RecaptchaVerifier } from "firebase/auth"
 import { PageProps, UserLayout } from "layout"
-import { FormUpdateAvatar, FormUpdateProfile } from "modules/users/components"
+import {
+  FormUpdateAvatar,
+  FormUpdateProfile,
+} from "modules/users/components/profile"
 import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
+import { useEffect } from "react"
 
 export async function getStaticProps(
   context: GetStaticPropsContext
@@ -18,6 +24,22 @@ export async function getStaticProps(
 }
 
 export default function UserProfile() {
+  useEffect(() => {
+    //@ts-ignore
+    window.recaptchaVerifier = new RecaptchaVerifier(
+      "recaptcha",
+      {
+        size: "invisible",
+      },
+      firebaseAuth
+    )
+
+    return () => {
+      //@ts-ignore
+      ;(window.recaptchaVerifier as RecaptchaVerifier).clear()
+    }
+  }, [])
+
   return (
     <PageContainer>
       <NextBreadcrumb
@@ -35,6 +57,7 @@ export default function UserProfile() {
           <FormUpdateAvatar />
         </Grid>
       </UserLayout>
+      <div id="recaptcha" />
     </PageContainer>
   )
 }

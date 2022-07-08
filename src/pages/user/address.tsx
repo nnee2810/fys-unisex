@@ -7,7 +7,10 @@ import {
 } from "components"
 import { PageTitle } from "configs/constants"
 import { PageProps, UserLayout } from "layout"
-import { AddressList, ModalCreateAddress } from "modules/users/components"
+import {
+  AddressList,
+  ModalCreateAddress,
+} from "modules/users/components/address"
 import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsContext, GetStaticPropsResult } from "next"
 

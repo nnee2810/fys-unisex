@@ -1,21 +1,15 @@
 import {
   Grid,
-  HStack,
   Modal,
   ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
   ModalOverlay,
   Stack,
 } from "@chakra-ui/react"
-import {
-  CheckboxField,
-  Field,
-  NextButton,
-  SelectField,
-  TextField,
-} from "components"
+import { Field, NextButton, SelectField, TextField } from "components"
 import { ISelectOption, ModalBaseProps } from "interfaces"
 import { getDistricts, getProvinces, getWards } from "modules/location/services"
 import { useFormUpdateAddress } from "modules/users/hooks"
@@ -95,6 +89,7 @@ export default function ModalUpdateAddress({
     >
       <ModalOverlay />
       <ModalContent>
+        <ModalCloseButton />
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleSubmit)}>
             <ModalHeader>Sửa địa chỉ</ModalHeader>
@@ -132,25 +127,12 @@ export default function ModalUpdateAddress({
                     <TextField placeholder="Số nhà, đường, ... (nếu có)" />
                   }
                 />
-                <Field
-                  name="is_default"
-                  component={<CheckboxField label="Đặt làm địa chỉ mặc định" />}
-                />
               </Stack>
             </ModalBody>
             <ModalFooter>
-              <HStack>
-                <NextButton
-                  colorScheme="blackAlpha"
-                  variant="outline"
-                  onClick={onClose}
-                >
-                  Đóng
-                </NextButton>
-                <NextButton type="submit" isLoading={isLoading}>
-                  Xong
-                </NextButton>
-              </HStack>
+              <NextButton w="100%" type="submit" isLoading={isLoading}>
+                Xong
+              </NextButton>
             </ModalFooter>
           </form>
         </FormProvider>

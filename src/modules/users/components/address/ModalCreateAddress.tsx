@@ -1,8 +1,8 @@
 import {
   Grid,
-  HStack,
   Modal,
   ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -83,9 +83,10 @@ export function ModalCreateAddress({ isOpen, onClose }: ModalBaseProps) {
     >
       <ModalOverlay />
       <ModalContent>
+        <ModalCloseButton />
+        <ModalHeader>Thêm địa chỉ</ModalHeader>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleSubmit)}>
-            <ModalHeader>Thêm địa chỉ</ModalHeader>
             <ModalBody>
               <Stack>
                 <Grid templateColumns="1fr 1fr" gap="2">
@@ -127,18 +128,9 @@ export function ModalCreateAddress({ isOpen, onClose }: ModalBaseProps) {
               </Stack>
             </ModalBody>
             <ModalFooter>
-              <HStack>
-                <NextButton
-                  colorScheme="blackAlpha"
-                  variant="outline"
-                  onClick={onClose}
-                >
-                  Đóng
-                </NextButton>
-                <NextButton type="submit" isLoading={isLoading}>
-                  Thêm
-                </NextButton>
-              </HStack>
+              <NextButton w="100%" type="submit" isLoading={isLoading}>
+                Thêm
+              </NextButton>
             </ModalFooter>
           </form>
         </FormProvider>

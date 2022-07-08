@@ -30,7 +30,6 @@ export async function getStaticProps(
 
 export default function ResetPassword() {
   const { methods, handleSubmit, isLoading } = useFormResetPassword()
-
   const watchStep = methods.watch("step")
 
   useEffect(() => {

@@ -12,7 +12,7 @@ import {
   useBoolean,
 } from "@chakra-ui/react"
 import { NextAlertModal } from "components"
-import { ErrorMessage, SuccessMessage } from "configs/constants"
+import { SuccessMessage } from "configs/constants"
 import { useDeleteAddress, useUpdateAddress } from "modules/users/hooks"
 import { IAddressEntity } from "modules/users/interfaces"
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai"
@@ -48,9 +48,6 @@ export function AddressBox({ data }: AddressBoxProps) {
           toast.success(SuccessMessage.UPDATE_ADDRESS_SUCCESS)
           queryClient.invalidateQueries("get-address-list")
         },
-        onError() {
-          toast.error(ErrorMessage.INTERNAL_SERVER_ERROR)
-        },
       }
     )
   }
@@ -60,9 +57,6 @@ export function AddressBox({ data }: AddressBoxProps) {
         setOpenDelete.off()
         toast.success(SuccessMessage.DELETE_ADDRESS_SUCCESS)
         queryClient.invalidateQueries("get-address-list")
-      },
-      onError() {
-        toast.error(ErrorMessage.INTERNAL_SERVER_ERROR)
       },
     })
   }

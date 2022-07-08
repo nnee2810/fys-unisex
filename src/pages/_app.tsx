@@ -1,11 +1,12 @@
 import { ChakraProvider } from "@chakra-ui/react"
-import { toastConfig } from "configs/constants"
+import { AxiosError } from "axios"
+import { ErrorMessage, toastConfig } from "configs/constants"
 import { MainLayout } from "layout"
 import type { AppProps } from "next/app"
 import "rc-rate/assets/index.css"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Provider as ReduxProvider } from "react-redux"
-import { ToastContainer } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import store from "store"
 import "styles/globals.scss"
@@ -19,6 +20,16 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       retry: 1,
+    },
+    mutations: {
+      onError(error) {
+        if (error instanceof AxiosError) {
+          error.response?.data?.message
+          toast.error(
+            error.response?.data?.message || ErrorMessage.INTERNAL_SERVER_ERROR
+          )
+        } else toast.error(ErrorMessage.INTERNAL_SERVER_ERROR)
+      },
     },
   },
 })

@@ -18,6 +18,7 @@ export enum SuccessMessage {
   SIGN_UP_SUCCESS = "Tạo tài khoản thành công, hãy đăng nhập",
   SIGN_OUT_SUCCESS = "Đăng xuất thành công",
   UPDATE_PROFILE_SUCCESS = "Cập nhật tài khoản thành công",
+  UPDATE_PHONE_SUCCESS = "Cập nhật số điện thoại thành công",
   UPDATE_AVATAR_SUCCESS = "Cập nhật ảnh đại điện thành công",
   CREATE_ADDRESS_SUCCESS = "Thêm địa chỉ thành công",
   UPDATE_ADDRESS_SUCCESS = "Cập nhật địa chỉ thành công",

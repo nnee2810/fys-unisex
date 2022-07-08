@@ -1,5 +1,6 @@
 export * from "./Badge"
 export * from "./Field"
+export * from "./FieldEnterOTP"
 export * from "./LoadingPage"
 export * from "./Logo"
 export * from "./NextAlertModal"
