@@ -16,7 +16,7 @@ export function CustomerHeaderDesktop({ path }: CustomerHeaderProps) {
         alignItems="center"
       >
         <Logo />
-        <HStack spacing="4" justifyContent="center">
+        <HStack spacing="4">
           {navItems.map((item, idx) => (
             <NavItemContainer key={idx}>
               <NextLink href={item.href}>
