@@ -56,12 +56,6 @@ export function useFormUpdateAddress({
     address_detail,
     ...submitData
   }: FormValues) => {
-    if (
-      !submitData.province_code ||
-      !submitData.district_code ||
-      !submitData.ward_code
-    )
-      return
     mutate(
       {
         id: data.id,

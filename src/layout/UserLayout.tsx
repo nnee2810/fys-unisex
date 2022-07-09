@@ -55,33 +55,40 @@ export function UserLayout({ children }: ProfileLayoutProps) {
 
   return (
     <Grid templateColumns="300px auto" gap="50px">
-      <Box>
-        <Stack spacing="1" position="sticky" top="60px">
-          {items.map((item, idx) => (
-            <NextLink href={item.href} key={idx}>
+      <Stack spacing="1">
+        {items.map((item, idx) => (
+          <Box pos="relative" key={idx}>
+            <NextLink href={item.href}>
               <HStack
                 px="3"
                 py="2"
                 backgroundColor={
-                  item.href === router.pathname ? Color.PRIMARY : "#fff"
+                  item.href === router.pathname ? Color.LIGHT_GRAY : "#fff"
                 }
-                color={item.href === router.pathname ? "#fff" : "#000"}
                 borderRadius="6"
                 transition="all .2s"
                 _hover={{
-                  backgroundColor:
-                    item.href === router.pathname
-                      ? Color.PRIMARY
-                      : Color.LIGHT_GRAY,
+                  backgroundColor: Color.LIGHT_GRAY,
                 }}
               >
                 {item.icon}
                 <Text>{item.name}</Text>
               </HStack>
             </NextLink>
-          ))}
-        </Stack>
-      </Box>
+            {item.href === router.pathname && (
+              <Box
+                pos="absolute"
+                top="3px"
+                left="-8px"
+                w="4px"
+                h="29px"
+                bg={Color.PRIMARY}
+                borderRadius="2"
+              />
+            )}
+          </Box>
+        ))}
+      </Stack>
       <Box>{children}</Box>
     </Grid>
   )

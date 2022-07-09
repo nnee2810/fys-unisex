@@ -19,12 +19,17 @@ import {
 import { ModalBaseProps } from "interfaces"
 import { ActionOTP } from "modules/auth/dto"
 import { useFormUpdatePhone } from "modules/users/hooks"
+import { useEffect } from "react"
 import { FormProvider } from "react-hook-form"
 import { IoPhonePortraitOutline } from "react-icons/io5"
 
 export function ModalUpdatePhone({ isOpen, onClose }: ModalBaseProps) {
   const { methods, handleSubmit, isLoading } = useFormUpdatePhone(onClose)
   const watchStep = methods.watch("step")
+
+  useEffect(() => {
+    if (!isOpen) methods.reset()
+  }, [isOpen])
 
   return (
     <Modal
