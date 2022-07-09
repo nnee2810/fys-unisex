@@ -8,7 +8,7 @@ interface PageContainerProps {
 
 export function PageContainer({ children }: PageContainerProps) {
   return (
-    <Box w={{ ...responsiveW }} mx="auto" py="30px">
+    <Box w={{ ...responsiveW }} mx="auto" pt="30px" pb="60px">
       {children}
     </Box>
   )

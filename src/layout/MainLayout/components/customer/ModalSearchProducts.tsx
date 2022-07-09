@@ -26,7 +26,7 @@ interface ModalSearchProductsProps {
   onClose(): void
 }
 
-export default function ModalSearchProducts({
+export function ModalSearchProducts({
   isOpen,
   onClose,
 }: ModalSearchProductsProps) {
@@ -69,9 +69,7 @@ export default function ModalSearchProducts({
                 name="name"
                 component={
                   <TextField
-                    onChange={(e) => {
-                      handleChangeDebounce(e.target.value)
-                    }}
+                    onChange={(e) => handleChangeDebounce(e.target.value)}
                     placeholder="Tìm kiếm sản phẩm"
                     before={<AiOutlineSearch fontSize="20" />}
                     border="none"

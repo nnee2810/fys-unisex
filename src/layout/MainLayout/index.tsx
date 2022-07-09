@@ -8,13 +8,13 @@ import { useRouter } from "next/router"
 import { ReactNode, useEffect } from "react"
 import { AuthStatus } from "store/reducers/auth"
 import { getTitle } from "utils"
-import BackToTop from "./components/BackToTop"
-import Footer from "./components/Footer"
-import Header from "./components/Header"
+import { BackToTop } from "./components/BackToTop"
+import { CustomerFooter, CustomerHeader } from "./components/customer"
 
 export interface PageProps {
   title: string
   roles: UserRole[]
+  isDashboard?: boolean
 }
 
 interface MainLayoutProps {
@@ -22,23 +22,23 @@ interface MainLayoutProps {
   pageProps: PageProps
 }
 
-export function MainLayout({ children, pageProps }: MainLayoutProps) {
+export function MainLayout({
+  children,
+  pageProps: { isDashboard, roles, title },
+}: MainLayoutProps) {
   const router = useRouter()
   const { status, profile, fetchProfile } = useAuth()
 
   useEffect(() => {
     if (status === AuthStatus.LOADING) fetchProfile()
   }, [])
-  useEffect(() => {
-    if (!pageProps?.roles?.length) return
-  }, [status])
 
-  if (pageProps?.roles?.length) {
+  if (roles?.length) {
     if (status === AuthStatus.LOADING) return <LoadingPage />
     if (
       !canAccess({
         userRole: profile?.role,
-        pageRoles: pageProps.roles,
+        pageRoles: roles,
       })
     ) {
       router.push("/")
@@ -49,16 +49,21 @@ export function MainLayout({ children, pageProps }: MainLayoutProps) {
   return (
     <>
       <Head>
-        <title>{getTitle(pageProps.title)}</title>
+        <title>{getTitle(title)}</title>
       </Head>
-      <Box mt="54px">
-        <Header />
-        <Box pos="relative" minH="calc(100vh - 54px)">
-          {children}
+
+      {isDashboard ? (
+        children
+      ) : (
+        <Box mt="54px">
+          <CustomerHeader />
+          <Box pos="relative" minH="calc(100vh - 54px)">
+            {children}
+          </Box>
+          <CustomerFooter />
         </Box>
-        <Footer />
-        <BackToTop />
-      </Box>
+      )}
+      <BackToTop />
     </>
   )
 }

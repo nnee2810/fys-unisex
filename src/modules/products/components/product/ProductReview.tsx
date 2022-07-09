@@ -12,7 +12,7 @@ export function ProductReview({ data }: ProductReviewProps) {
   return (
     <Grid templateColumns="40px auto" gap="2">
       <NextImage
-        src={data.user.image}
+        src={data.user.avatar?.src}
         alt="avatar"
         w="40px"
         h="40px"

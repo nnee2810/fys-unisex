@@ -1,61 +1,13 @@
-import { AspectRatio, Box, Grid, Stack, Text } from "@chakra-ui/react"
+import { AspectRatio, Box, Grid, HStack, Stack, Text } from "@chakra-ui/react"
 import { NextLink } from "components"
 import { responsiveW } from "configs/constants"
-import { ILink } from "interfaces"
 import styled from "styled-components"
 import { Color } from "styles/theme"
+import { exploreItems, serviceItems, socialItems } from "../../constants"
 
-const footerItems: {
-  label: string
-  childs: ILink[]
-}[] = [
-  {
-    label: "Khám phá",
-    childs: [
-      {
-        name: "Đồ nam",
-        href: "#",
-      },
-      {
-        name: "Đồ nữ",
-        href: "#",
-      },
-      {
-        name: "Phụ kiện",
-        href: "#",
-      },
-      {
-        name: "Set đồ",
-        href: "#",
-      },
-    ],
-  },
-  {
-    label: "Dịch vụ",
-    childs: [
-      {
-        name: "Hỏi đáp - FAQs",
-        href: "#",
-      },
-      {
-        name: "Chính sách khuyến mãi",
-        href: "#",
-      },
-      {
-        name: "Chính sách giao hàng",
-        href: "#",
-      },
-      {
-        name: "Chính sách đổi trả",
-        href: "#",
-      },
-    ],
-  },
-]
-
-export default function Footer() {
+export function CustomerFooter() {
   return (
-    <Box bg={Color.PRIMARY} py="60px">
+    <Box py="50px" borderTop={`1px solid ${Color.LIGHT_GRAY}`}>
       <Grid
         templateColumns={{
           md: "repeat(2, 1fr)",
@@ -65,23 +17,36 @@ export default function Footer() {
         gap="40px"
         w={{ ...responsiveW }}
         mx="auto"
-        bg={Color.PRIMARY}
-        color="white"
       >
-        {footerItems.map((item, idx) => (
-          <Box key={idx}>
-            <SectionTitle>{item.label}</SectionTitle>
-            <Stack alignItems="flex-start">
-              {item.childs.map((child, idx) => (
-                <NextLink href={child.href} styleOnHover key={idx}>
-                  {child.name}
-                </NextLink>
-              ))}
-            </Stack>
-          </Box>
-        ))}
+        <Box>
+          <SectionTitle>Khám phá</SectionTitle>
+          <Stack alignItems="flex-start">
+            {exploreItems.map((item, idx) => (
+              <NextLink href={item.href} styleOnHover key={idx}>
+                {item.name}
+              </NextLink>
+            ))}
+          </Stack>
+        </Box>
+        <Box>
+          <SectionTitle>Dịch vụ</SectionTitle>
+          <Stack alignItems="flex-start">
+            {serviceItems.map((item, idx) => (
+              <NextLink href={item.href} styleOnHover key={idx}>
+                {item.name}
+              </NextLink>
+            ))}
+          </Stack>
+        </Box>
         <Box>
           <SectionTitle>Mạng xã hội</SectionTitle>
+          <HStack spacing="4" fontSize="20">
+            {socialItems.map((item, idx) => (
+              <a href={item.href} target="_blank" key={idx}>
+                {item.name}
+              </a>
+            ))}
+          </HStack>
         </Box>
         <Box>
           <SectionTitle>Liên hệ</SectionTitle>

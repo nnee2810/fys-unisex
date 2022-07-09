@@ -1,6 +1,6 @@
-import { Box, Grid, Text } from "@chakra-ui/react"
+import { Box, Grid } from "@chakra-ui/react"
 import { isNumber, isString } from "class-validator"
-import { NextAlertModal, NextBreadcrumb, PageContainer } from "components"
+import { NextBreadcrumb, PageContainer } from "components"
 import { PageTitle } from "configs/constants"
 import { PageProps } from "layout"
 import {
@@ -12,7 +12,6 @@ import { GetProductListDto, ProductSort } from "modules/products/dto"
 import { useGetProductList } from "modules/products/hooks"
 import { ProductClassify, ProductSize } from "modules/products/interfaces"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
-import { useRouter } from "next/router"
 import { deleteWhiteSpace } from "utils"
 
 interface ProductsProps {
@@ -48,8 +47,7 @@ export async function getServerSideProps({
   }
 }
 export default function Products({ query }: ProductsProps) {
-  const router = useRouter()
-  const { data, isLoading, isError, refetch } = useGetProductList(query)
+  const { data, isLoading } = useGetProductList(query)
 
   return (
     <Box>
@@ -72,14 +70,6 @@ export default function Products({ query }: ProductsProps) {
           </Box>
         </Grid>
       </PageContainer>
-      <NextAlertModal
-        isOpen={isError}
-        title="Ôi không 😵"
-        onClose={refetch}
-        onConfirm={() => router.push("/")}
-      >
-        <Text>Không tìm thấy sản phẩm hoặc lỗi trang</Text>
-      </NextAlertModal>
     </Box>
   )
 }

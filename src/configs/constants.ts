@@ -13,6 +13,7 @@ export enum PageTitle {
   PRODUCT_DETAIL = "Chi tiết sản phẩm",
   USER_PROFILE = "Tài khoản của tôi",
   USER_ADDRESS = "Địa chỉ",
+  DASHBOARD_OVERVIEW = "Dashboard - Tổng quan",
 }
 export enum SuccessMessage {
   SIGN_UP_SUCCESS = "Tạo tài khoản thành công, hãy đăng nhập",

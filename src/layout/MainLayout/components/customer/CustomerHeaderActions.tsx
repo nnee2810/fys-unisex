@@ -8,8 +8,10 @@ import {
   useBoolean,
 } from "@chakra-ui/react"
 import { Badge, NextLink } from "components"
+import { isStaff } from "helpers"
 import { useAuth } from "modules/auth/hooks"
 import {
+  AiOutlineAppstore,
   AiOutlineFileText,
   AiOutlinePoweroff,
   AiOutlineSearch,
@@ -18,10 +20,10 @@ import {
   AiOutlineUser,
 } from "react-icons/ai"
 import { AuthStatus } from "store/reducers/auth"
-import ModalSearchProducts from "../ModalSearchProducts"
+import { ModalSearchProducts } from "."
 
-export default function HeaderActions() {
-  const { status, signOut } = useAuth()
+export function CustomerHeaderActions() {
+  const { status, profile, signOut } = useAuth()
   const [openSearch, setOpenSearch] = useBoolean()
 
   return (
@@ -43,6 +45,13 @@ export default function HeaderActions() {
               <AiOutlineUser fontSize="24" />
             </MenuButton>
             <MenuList>
+              {isStaff(profile) && (
+                <NextLink href="/dashboard/overview">
+                  <MenuItem icon={<AiOutlineAppstore fontSize="20" />}>
+                    Bảng điều khiển
+                  </MenuItem>
+                </NextLink>
+              )}
               <NextLink href="/user/profile">
                 <MenuItem icon={<AiOutlineSolution fontSize="20" />}>
                   Tài khoản của tôi

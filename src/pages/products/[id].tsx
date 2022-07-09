@@ -1,5 +1,5 @@
-import { Box, Divider, Grid, Skeleton, Stack, Text } from "@chakra-ui/react"
-import { NextAlertModal, NextBreadcrumb, PageContainer } from "components"
+import { Box, Divider, Grid, Skeleton, Stack } from "@chakra-ui/react"
+import { NextBreadcrumb, PageContainer } from "components"
 import { PageTitle } from "configs/constants"
 import { PageProps } from "layout"
 import {
@@ -12,7 +12,6 @@ import {
 } from "modules/products/components"
 import { useGetProduct } from "modules/products/hooks"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
-import { useRouter } from "next/router"
 import { getArrayNumber } from "utils"
 
 interface ProductProps {
@@ -34,8 +33,7 @@ export function getServerSideProps({
 }
 
 export default function Product({ id }: ProductProps) {
-  const router = useRouter()
-  const { data, isLoading, isError, refetch } = useGetProduct(id)
+  const { data, isLoading } = useGetProduct(id)
 
   return (
     <Box>
@@ -74,14 +72,6 @@ export default function Product({ id }: ProductProps) {
           )
         )}
       </PageContainer>
-      <NextAlertModal
-        isOpen={isError}
-        title="Ôi không 😵"
-        onClose={refetch}
-        onConfirm={() => router.push("/")}
-      >
-        <Text>Không tìm thấy sản phẩm hoặc lỗi trang</Text>
-      </NextAlertModal>
     </Box>
   )
 }

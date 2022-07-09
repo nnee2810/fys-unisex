@@ -1,10 +1,10 @@
 import { Box, Fade, useBoolean } from "@chakra-ui/react"
 import { zIndex } from "configs/constants"
-import React, { useCallback, useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { BsArrowUp } from "react-icons/bs"
 import { Color } from "styles/theme"
 
-export default function BackToTop() {
+export function BackToTop() {
   const [visible, setVisible] = useBoolean()
 
   const handleScroll = useCallback(() => {

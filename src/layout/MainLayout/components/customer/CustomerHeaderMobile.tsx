@@ -21,10 +21,9 @@ import { useEffect } from "react"
 import { AiOutlineMenu } from "react-icons/ai"
 import styled from "styled-components"
 import { Color } from "styles/theme"
-import { HeaderProps } from "."
-import HeaderActions from "./HeaderActions"
+import { CustomerHeaderActions, CustomerHeaderProps } from "."
 
-export default function HeaderMobile({ path }: HeaderProps) {
+export function CustomerHeaderMobile({ path }: CustomerHeaderProps) {
   const router = useRouter()
   const [navOpen, setNavOpen] = useBoolean()
 
@@ -45,7 +44,7 @@ export default function HeaderMobile({ path }: HeaderProps) {
         <Center>
           <Logo />
         </Center>
-        <HeaderActions />
+        <CustomerHeaderActions />
       </Grid>
       <Drawer placement="left" isOpen={navOpen} onClose={setNavOpen.off}>
         <DrawerOverlay />

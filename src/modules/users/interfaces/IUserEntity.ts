@@ -7,6 +7,11 @@ export enum UserRole {
   ADMIN = "ADMIN",
 }
 
+export enum StaffRole {
+  MOD = "MOD",
+  ADMIN = "ADMIN",
+}
+
 export enum UserGender {
   MALE = "MALE",
   FEMALE = "FEMALE",

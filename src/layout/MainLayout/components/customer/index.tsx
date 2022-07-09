@@ -1,0 +1,6 @@
+export * from "./CustomerFooter"
+export * from "./CustomerHeader"
+export * from "./CustomerHeaderActions"
+export * from "./CustomerHeaderDesktop"
+export * from "./CustomerHeaderMobile"
+export * from "./ModalSearchProducts"
