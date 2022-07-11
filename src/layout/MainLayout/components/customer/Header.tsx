@@ -2,13 +2,13 @@ import { Box, useBoolean } from "@chakra-ui/react"
 import { zIndex } from "configs/constants"
 import { useRouter } from "next/router"
 import { useCallback, useEffect, useRef } from "react"
-import { CustomerHeaderDesktop, CustomerHeaderMobile } from "."
+import { HeaderDesktop, HeaderMobile } from "."
 
-export interface CustomerHeaderProps {
+export interface HeaderProps {
   path: string
 }
 
-export function CustomerHeader() {
+export function Header() {
   const router = useRouter()
   const [visible, setVisible] = useBoolean(true)
   const lastScrollY = useRef(0)
@@ -43,8 +43,8 @@ export function CustomerHeader() {
       transition="all .4s"
       zIndex={zIndex.HEADER}
     >
-      <CustomerHeaderDesktop path={router.pathname} />
-      <CustomerHeaderMobile path={router.pathname} />
+      <HeaderDesktop path={router.pathname} />
+      <HeaderMobile path={router.pathname} />
     </Box>
   )
 }

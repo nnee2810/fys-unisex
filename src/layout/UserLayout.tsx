@@ -62,13 +62,15 @@ export function UserLayout({ children }: ProfileLayoutProps) {
               <HStack
                 px="3"
                 py="2"
-                backgroundColor={
-                  item.href === router.pathname ? Color.LIGHT_GRAY : "#fff"
-                }
+                bg={item.href === router.pathname ? Color.PRIMARY : "#fff"}
+                color={item.href === router.pathname ? "#fff" : "#000"}
                 borderRadius="6"
                 transition="all .2s"
                 _hover={{
-                  backgroundColor: Color.LIGHT_GRAY,
+                  bg:
+                    item.href === router.pathname
+                      ? Color.PRIMARY
+                      : Color.LIGHT_GRAY,
                 }}
               >
                 {item.icon}

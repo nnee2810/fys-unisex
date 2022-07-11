@@ -5,7 +5,7 @@ import styled from "styled-components"
 import { Color } from "styles/theme"
 import { exploreItems, serviceItems, socialItems } from "../../constants"
 
-export function CustomerFooter() {
+export function Footer() {
   return (
     <Box py="50px" borderTop={`1px solid ${Color.LIGHT_GRAY}`}>
       <Grid

@@ -40,7 +40,7 @@ export async function getServerSideProps({
 
   return {
     props: {
-      title: PageTitle.PRODUCT_LIST,
+      title: PageTitle.PRODUCTS,
       roles: [],
       query: queryData,
     },
@@ -56,7 +56,7 @@ export default function Products({ query }: ProductsProps) {
           data={[
             {
               href: "/products",
-              name: PageTitle.PRODUCT_LIST,
+              name: PageTitle.PRODUCTS,
             },
           ]}
         />

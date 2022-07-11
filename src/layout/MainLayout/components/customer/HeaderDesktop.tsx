@@ -4,9 +4,9 @@ import { responsiveW } from "configs/constants"
 import { navItems } from "modules/home/constants"
 import styled from "styled-components"
 import { Color } from "styles/theme"
-import { CustomerHeaderActions, CustomerHeaderProps } from "."
+import { HeaderActions, HeaderProps } from "."
 
-export function CustomerHeaderDesktop({ path }: CustomerHeaderProps) {
+export function HeaderDesktop({ path }: HeaderProps) {
   return (
     <Box pos="relative" display={{ base: "none", lg: "block" }}>
       <Grid
@@ -52,7 +52,7 @@ export function CustomerHeaderDesktop({ path }: CustomerHeaderProps) {
             </NavItemContainer>
           ))}
         </HStack>
-        <CustomerHeaderActions />
+        <HeaderActions />
       </Grid>
     </Box>
   )

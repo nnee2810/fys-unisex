@@ -9,11 +9,12 @@ export enum PageTitle {
   SIGN_IN = "Đăng nhập",
   SIGN_UP = "Tạo tài khoản",
   RESET_PASSWORD = "Quên mật khẩu",
-  PRODUCT_LIST = "Sản phẩm",
+  PRODUCTS = "Sản phẩm",
   PRODUCT_DETAIL = "Chi tiết sản phẩm",
   USER_PROFILE = "Tài khoản của tôi",
   USER_ADDRESS = "Địa chỉ",
-  DASHBOARD_OVERVIEW = "Dashboard - Tổng quan",
+  DASHBOARD_OVERVIEW = "Tổng quan",
+  DASHBOARD_PRODUCTS = "Sản phẩm",
 }
 export enum SuccessMessage {
   SIGN_UP_SUCCESS = "Tạo tài khoản thành công, hãy đăng nhập",

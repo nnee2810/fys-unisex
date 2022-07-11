@@ -42,7 +42,7 @@ export default function Product({ id }: ProductProps) {
           data={[
             {
               href: "/products",
-              name: PageTitle.PRODUCT_LIST,
+              name: PageTitle.PRODUCTS,
             },
             {
               href: `/products/${id}`,

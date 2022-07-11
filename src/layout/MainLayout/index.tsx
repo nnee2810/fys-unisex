@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react"
+import { Box, Grid } from "@chakra-ui/react"
 import { LoadingPage } from "components"
 import { canAccess } from "helpers"
 import { useAuth } from "modules/auth/hooks"
@@ -9,7 +9,14 @@ import { ReactNode, useEffect } from "react"
 import { AuthStatus } from "store/reducers/auth"
 import { getTitle } from "utils"
 import { BackToTop } from "./components/BackToTop"
-import { CustomerFooter, CustomerHeader } from "./components/customer"
+import {
+  Footer as CustomerFooter,
+  Header as CustomerHeader,
+} from "./components/customer"
+import {
+  Header as DashboardHeader,
+  Sidebar as DashboardSidebar,
+} from "./components/dashboard"
 
 export interface PageProps {
   title: string
@@ -49,11 +56,19 @@ export function MainLayout({
   return (
     <>
       <Head>
-        <title>{getTitle(title)}</title>
+        <title>{getTitle(title, isDashboard)}</title>
       </Head>
 
       {isDashboard ? (
-        children
+        <Grid h="100vh" templateColumns="300px auto">
+          <DashboardSidebar />
+          <Box>
+            <DashboardHeader title={title} />
+            <Box h="calc(100vh - 59.5px)" px="8" overflow="auto">
+              {children}
+            </Box>
+          </Box>
+        </Grid>
       ) : (
         <Box mt="54px">
           <CustomerHeader />

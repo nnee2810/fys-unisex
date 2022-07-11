@@ -22,7 +22,7 @@ import {
 import { AuthStatus } from "store/reducers/auth"
 import { ModalSearchProducts } from "."
 
-export function CustomerHeaderActions() {
+export function HeaderActions() {
   const { status, profile, signOut } = useAuth()
   const [openSearch, setOpenSearch] = useBoolean()
 

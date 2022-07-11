@@ -32,7 +32,7 @@ export function ProductCard({ data, layout }: ProductCardProps) {
             alignItems="center"
           >
             {data.in_sale ? (
-              <Tag fontWeight="500" color="#fff" backgroundColor={Color.RED}>
+              <Tag fontWeight="500" color="#fff" bg={Color.RED}>
                 SALE
               </Tag>
             ) : (

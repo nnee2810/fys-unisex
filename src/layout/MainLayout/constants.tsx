@@ -1,4 +1,11 @@
-import { ILink } from "interfaces"
+import { ILink, ILinkWithIcon } from "interfaces"
+import {
+  AiOutlineAppstore,
+  AiOutlineFileText,
+  AiOutlineSetting,
+  AiOutlineSkin,
+  AiOutlineUser,
+} from "react-icons/ai"
 import { BsFacebook, BsInstagram } from "react-icons/bs"
 import { IoLogoTiktok } from "react-icons/io5"
 
@@ -50,5 +57,32 @@ export const socialItems: ILink[] = [
   {
     name: <IoLogoTiktok />,
     href: "#",
+  },
+]
+export const dashboardSidebarItems: ILinkWithIcon[] = [
+  {
+    name: "Tổng quan",
+    href: "/dashboard/overview",
+    icon: <AiOutlineAppstore fontSize="20" />,
+  },
+  {
+    name: "Đơn hàng",
+    href: "/dashboard/orders",
+    icon: <AiOutlineFileText fontSize="20" />,
+  },
+  {
+    name: "Sản phẩm",
+    href: "/dashboard/products",
+    icon: <AiOutlineSkin fontSize="20" />,
+  },
+  {
+    name: "Người dùng",
+    href: "/dashboard/users",
+    icon: <AiOutlineUser fontSize="20" />,
+  },
+  {
+    name: "Cài đặt",
+    href: "/dashboard/settings",
+    icon: <AiOutlineSetting fontSize="20" />,
   },
 ]

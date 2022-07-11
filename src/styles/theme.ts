@@ -7,6 +7,7 @@ export enum Color {
   DARK_GRAY = "#b3b3b3",
   GREEN = "#1DB954",
   RED = "#ff3102",
+  BLUE = "#2E89FF",
 }
 
 export default extendTheme(
