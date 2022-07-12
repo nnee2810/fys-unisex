@@ -11,9 +11,7 @@ export function useTableProductList(data: IProductEntity[]) {
       {
         Header: "Phân loại",
       },
-      {
-        Header: "Giới tính",
-      },
+
       {
         Header: "Giá / Giá sale",
       },

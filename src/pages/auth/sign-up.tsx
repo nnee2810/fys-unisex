@@ -1,4 +1,4 @@
-import { Box, Center, Collapse, Heading } from "@chakra-ui/react"
+import { Box, Center, Collapse, Heading, Stack } from "@chakra-ui/react"
 import { Field, NextButton, StepBar, TextField } from "components"
 import { FieldEnterOTP } from "components/FieldEnterOTP"
 import { PageTitle } from "configs/constants"
@@ -103,7 +103,12 @@ export default function SignUp() {
                 />
               </Collapse>
               <Collapse in={watchStep === 4} unmountOnExit>
-                <FieldEnterOTP field_phone="phone" action={ActionOTP.SIGN_UP} />
+                <Stack>
+                  <FieldEnterOTP
+                    field_phone="phone"
+                    action={ActionOTP.SIGN_UP}
+                  />
+                </Stack>
               </Collapse>
               <Collapse in={watchStep === 5} unmountOnExit>
                 <SignUpSuccess />

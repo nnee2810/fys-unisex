@@ -52,10 +52,14 @@ export function SelectField({
 const StyledSelect = styled(Select)<SelectProps>`
   .react-select {
     &__control {
-      min-height: 40px;
+      height: 35px;
+      min-height: 35px;
     }
-  }
-  .react-select__menu {
-    z-index: 999;
+    &__menu {
+      z-index: 999;
+    }
+    &__indicator {
+      padding: 7px;
+    }
   }
 `

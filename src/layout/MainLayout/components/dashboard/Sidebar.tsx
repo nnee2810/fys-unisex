@@ -63,19 +63,21 @@ export function Sidebar() {
         </Stack>
       </Box>
       <Flex justifyContent="space-between" alignItems="center">
-        <HStack>
-          <NextImage
-            w="40px"
-            h="40px"
-            src={profile?.avatar?.src}
-            alt="avatar"
-            borderRadius="6"
-          />
-          <Box>
-            <Text fontWeight="500">{profile?.name}</Text>
-            <Tag colorScheme="green">{profile?.role}</Tag>
-          </Box>
-        </HStack>
+        <NextLink href="/user/profile">
+          <HStack>
+            <NextImage
+              w="40px"
+              h="40px"
+              src={profile?.avatar?.src}
+              alt="avatar"
+              borderRadius="6"
+            />
+            <Box>
+              <Text fontWeight="500">{profile?.name}</Text>
+              <Tag colorScheme="green">{profile?.role}</Tag>
+            </Box>
+          </HStack>
+        </NextLink>
         <AiOutlinePoweroff fontSize="20" cursor="pointer" onClick={signOut} />
       </Flex>
     </Flex>

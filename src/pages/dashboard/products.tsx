@@ -1,4 +1,5 @@
-import { Box } from "@chakra-ui/react"
+import { Flex, Stack, useBoolean } from "@chakra-ui/react"
+import { NextButton } from "components"
 import { PageTitle } from "configs/constants"
 import { PageProps } from "layout"
 import {
@@ -23,10 +24,15 @@ export async function getStaticProps(
 
 export default function DashboardProducts() {
   const { data, isLoading } = useGetProductList({})
+  const [openCreate, setOpenCreate] = useBoolean()
+
   return (
-    <Box>
+    <Stack>
+      <Flex justifyContent="flex-end">
+        <NextButton onClick={setOpenCreate.on}>Thêm sản phẩm</NextButton>
+      </Flex>
       <FormSearchProducts />
-      <ProductList data={data?.data || []} />
-    </Box>
+      <ProductList data={data?.data || []} isLoading={isLoading} />
+    </Stack>
   )
 }

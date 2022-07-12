@@ -61,9 +61,7 @@ export function ProductList({ data, isLoading }: ProductListProps) {
                   <Text>{rowData.name}</Text>
                 </HStack>
               </Td>
-              <Td>
-                <Tag>{rowData.classify}</Tag>
-              </Td>
+
               <Td>
                 <Tag>{rowData.classify}</Tag>
               </Td>
@@ -88,13 +86,13 @@ export function ProductList({ data, isLoading }: ProductListProps) {
               <Td>{moment(rowData.created_at).format("HH:mm DD/MM/YYYY")}</Td>
               <Td>
                 <Menu placement="bottom-end">
-                  <MenuButton>
-                    <IconButton
-                      aria-label="actions"
-                      icon={<MdOutlineMoreHoriz fontSize="20" />}
-                      colorScheme="gray"
-                    />
-                  </MenuButton>
+                  <MenuButton
+                    as={IconButton}
+                    aria-label="actions"
+                    icon={<MdOutlineMoreHoriz fontSize="20" />}
+                    colorScheme="gray"
+                  />
+
                   <MenuList minW="100px" w="fit-content">
                     <MenuItem
                       icon={<AiOutlineEdit fontSize="20" />}

@@ -16,9 +16,24 @@ export const productClassifyOptions: ISelectOption[] = Object.keys(
   value: key,
 }))
 
-export const sortOptions: ISelectOption[] = Object.keys(ProductSort).map(
+export const productSortOptions: ISelectOption[] = Object.keys(ProductSort).map(
   (key) => ({
     label: key,
     value: key,
   })
 )
+
+export const productStatusOptions: ISelectOption[] = [
+  {
+    label: "Đang bán",
+    value: "on_sale",
+  },
+  {
+    label: "Giảm giá",
+    value: "in_sale",
+  },
+  {
+    label: "Có sẵn",
+    value: "in_stock",
+  },
+]

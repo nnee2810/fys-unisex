@@ -8,12 +8,6 @@ export enum ProductClassify {
   SET = "SET",
 }
 
-export enum ProductGender {
-  MALE = "MALE",
-  FEMALE = "FEMALE",
-  UNISEX = "UNISEX",
-}
-
 export enum ProductSize {
   S = "S",
   M = "M",
@@ -28,7 +22,6 @@ export interface IProductEntity extends IBaseEntity {
   slug: string
   images: string[]
   classify: ProductClassify
-  gender: ProductGender
   sizes: ProductSize[]
   price: number
   sale_price: number

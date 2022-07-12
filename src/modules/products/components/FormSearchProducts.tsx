@@ -116,14 +116,26 @@ export function FormSearchProducts({
               <HStack alignItems="flex-start">
                 <Field
                   name="min_price"
-                  component={<TextField type="number" placeholder="Từ" />}
+                  component={
+                    <TextField
+                      type="number"
+                      placeholder="Từ"
+                      after={<Text>đ</Text>}
+                    />
+                  }
                 />
                 <Text transform="translateY(8px)" translateX="8px">
                   —
                 </Text>
                 <Field
                   name="max_price"
-                  component={<TextField type="number" placeholder="Đến" />}
+                  component={
+                    <TextField
+                      type="number"
+                      placeholder="Đến"
+                      after={<Text>đ</Text>}
+                    />
+                  }
                 />
               </HStack>
             </Box>

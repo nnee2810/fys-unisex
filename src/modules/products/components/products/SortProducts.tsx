@@ -1,5 +1,5 @@
 import { SelectBoxField } from "components"
-import { sortOptions } from "modules/products/constants"
+import { productSortOptions } from "modules/products/constants"
 import { GetProductListDto } from "modules/products/dto"
 import { useRouter } from "next/router"
 import qs from "query-string"
@@ -21,7 +21,7 @@ export function SortProducts({ query }: SortProductsProps) {
 
   return (
     <SelectBoxField
-      options={sortOptions}
+      options={productSortOptions}
       onChange={handleChangeSort}
       value={query.sort}
     />
