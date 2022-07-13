@@ -18,6 +18,7 @@ export function TextField({ before, after, ...props }: TextFieldProps) {
     <InputGroup>
       {before && <InputLeftElement h="100%">{before}</InputLeftElement>}
       <Input
+        h="38px"
         borderColor={Color.GRAY}
         focusBorderColor={Color.PRIMARY}
         _disabled={{

@@ -6,17 +6,8 @@ import { useMutation, useQueryClient } from "react-query"
 import { toast } from "react-toastify"
 import { deleteWhiteSpace } from "utils"
 import * as yup from "yup"
+import { CreateAddressDto } from "../dto"
 import { createAddress } from "../services"
-
-interface FormValues {
-  name: string
-  phone: string
-  province_code?: number
-  district_code?: number
-  ward_code?: number
-  address_detail: string
-  is_default: boolean
-}
 
 const schema = yup.object({
   name: formSchemas.name,
@@ -29,7 +20,7 @@ const schema = yup.object({
 
 export function useFormCreateAddress(onClose: () => void) {
   const queryClient = useQueryClient()
-  const methods = useForm<FormValues>({
+  const methods = useForm<CreateAddressDto>({
     defaultValues: {
       name: "",
       phone: "",
@@ -48,7 +39,7 @@ export function useFormCreateAddress(onClose: () => void) {
     district_code,
     ward_code,
     ...data
-  }: FormValues) => {
+  }: CreateAddressDto) => {
     if (!province_code || !district_code || !ward_code) return
     mutate(
       {

@@ -13,7 +13,7 @@ export function FormUpdateAvatar() {
     <Box>
       <Box pos="relative">
         <NextImage
-          src={profile?.avatar?.src}
+          src={profile?.avatar}
           alt="avatar"
           borderRadius="50%"
           ratio={1}

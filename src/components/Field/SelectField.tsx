@@ -52,8 +52,8 @@ export function SelectField({
 const StyledSelect = styled(Select)<SelectProps>`
   .react-select {
     &__control {
-      height: 35px;
-      min-height: 35px;
+      height: 38px;
+      min-height: 38px;
     }
     &__menu {
       z-index: 999;

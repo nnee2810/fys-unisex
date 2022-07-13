@@ -8,11 +8,11 @@ import {
   FlashSale,
   Story,
 } from "modules/home/components"
-import { GetStaticPropsContext, GetStaticPropsResult } from "next"
+import { GetStaticPropsResult } from "next"
 
-export async function getStaticProps(
-  context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<PageProps>> {
+export async function getStaticProps(): Promise<
+  GetStaticPropsResult<PageProps>
+> {
   return {
     props: {
       title: PageTitle.HOME,

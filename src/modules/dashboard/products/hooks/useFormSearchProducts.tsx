@@ -6,7 +6,7 @@ interface FormValues {
   classify?: ProductClassify
 }
 
-export function useFormSearchProducts() {
+export function useFormFilterProducts() {
   const methods = useForm<FormValues>()
   return { methods }
 }

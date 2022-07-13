@@ -22,7 +22,6 @@ const queryClient = new QueryClient({
       retry: 1,
       onError(error) {
         if (error instanceof AxiosError) {
-          error.response?.data?.message
           toast.error(
             error.response?.data?.message || ErrorMessage.INTERNAL_SERVER_ERROR
           )
@@ -32,7 +31,6 @@ const queryClient = new QueryClient({
     mutations: {
       onError(error) {
         if (error instanceof AxiosError) {
-          error.response?.data?.message
           toast.error(
             error.response?.data?.message || ErrorMessage.INTERNAL_SERVER_ERROR
           )

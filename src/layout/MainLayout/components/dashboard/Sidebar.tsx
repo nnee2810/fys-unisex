@@ -68,7 +68,7 @@ export function Sidebar() {
             <NextImage
               w="40px"
               h="40px"
-              src={profile?.avatar?.src}
+              src={profile?.avatar}
               alt="avatar"
               borderRadius="6"
             />

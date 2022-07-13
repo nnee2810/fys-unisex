@@ -12,13 +12,13 @@ import { PageTitle } from "configs/constants"
 import { PageProps } from "layout"
 import { FormSignIn } from "modules/auth/components/sign-in"
 import { UserRole } from "modules/users/interfaces"
-import { GetStaticPropsContext, GetStaticPropsResult } from "next"
+import { GetStaticPropsResult } from "next"
 import { Color } from "styles/theme"
 import { getAwsCloudFrontUrl } from "utils"
 
-export async function getStaticProps(
-  context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<PageProps>> {
+export async function getStaticProps(): Promise<
+  GetStaticPropsResult<PageProps>
+> {
   return {
     props: {
       title: PageTitle.SIGN_IN,

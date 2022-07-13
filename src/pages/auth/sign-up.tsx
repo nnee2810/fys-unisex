@@ -13,16 +13,16 @@ import {
 import { ActionOTP } from "modules/auth/dto"
 import { useFormSignUp } from "modules/auth/hooks"
 import { UserRole } from "modules/users/interfaces"
-import { GetStaticPropsContext, GetStaticPropsResult } from "next"
+import { GetStaticPropsResult } from "next"
 import { useEffect } from "react"
 import { FormProvider } from "react-hook-form"
 import { IoPhonePortraitOutline } from "react-icons/io5"
 import { Color } from "styles/theme"
 import { getAwsCloudFrontUrl } from "utils"
 
-export async function getStaticProps(
-  context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<PageProps>> {
+export async function getStaticProps(): Promise<
+  GetStaticPropsResult<PageProps>
+> {
   return {
     props: {
       title: PageTitle.SIGN_UP,

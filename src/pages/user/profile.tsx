@@ -9,12 +9,12 @@ import {
   FormUpdateProfile,
 } from "modules/users/components/profile"
 import { UserRole } from "modules/users/interfaces"
-import { GetStaticPropsContext, GetStaticPropsResult } from "next"
+import { GetStaticPropsResult } from "next"
 import { useEffect } from "react"
 
-export async function getStaticProps(
-  context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<PageProps>> {
+export async function getStaticProps(): Promise<
+  GetStaticPropsResult<PageProps>
+> {
   return {
     props: {
       title: PageTitle.USER_PROFILE,
