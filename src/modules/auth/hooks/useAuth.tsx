@@ -1,5 +1,5 @@
 import { AxiosError } from "axios"
-import { Key, SuccessMessage } from "configs/constants"
+import { Key } from "configs/constants"
 import { useAppDispatch, useAppSelector } from "hooks"
 import Cookies from "js-cookie"
 import { getProfile } from "modules/users/services"
@@ -31,7 +31,7 @@ export function useAuth() {
   }
   const signOut = () => {
     dispatch(SIGN_OUT())
-    toast.success(SuccessMessage.SIGN_OUT_SUCCESS)
+    toast.success("Đăng xuất thành công")
   }
 
   return { ...auth, fetchProfile, signOut }

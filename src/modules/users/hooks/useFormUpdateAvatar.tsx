@@ -1,4 +1,4 @@
-import { ErrorMessage, SuccessMessage } from "configs/constants"
+import { ErrorMessage } from "configs/constants"
 import { useAppDispatch } from "hooks"
 import { FileRejection, useDropzone } from "react-dropzone"
 import { useMutation } from "react-query"
@@ -11,7 +11,7 @@ export function useFormUpdateAvatar() {
 
   const { mutate, isLoading } = useMutation("update-avatar", updateAvatar, {
     onSuccess(data) {
-      toast.success(SuccessMessage.UPDATE_AVATAR_SUCCESS)
+      toast.success("Cập nhật ảnh đại điện thành công")
       dispatch(SET_PROFILE_AVATAR_SRC(data))
     },
   })

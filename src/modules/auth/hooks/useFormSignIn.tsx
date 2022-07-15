@@ -3,8 +3,9 @@ import { Key } from "configs/constants"
 import { formSchemas } from "helpers"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
+import { useMutation } from "react-query"
 import * as yup from "yup"
-import { useSignInByPassword } from "."
+import { signInByPassword } from "../services"
 import { useAuth } from "./useAuth"
 
 interface FormValues {
@@ -26,7 +27,7 @@ export function useFormSignIn() {
     },
     resolver: yupResolver(schema),
   })
-  const { mutate, isLoading } = useSignInByPassword()
+  const { mutate, isLoading } = useMutation("sign-in", signInByPassword)
 
   const handleSubmit = (data: FormValues) => {
     mutate(data, {

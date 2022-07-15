@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { SuccessMessage } from "configs/constants"
 import { formSchemas } from "helpers"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
@@ -66,7 +65,7 @@ export function useFormUpdateAddress({
       {
         onSuccess() {
           onClose()
-          toast.success(SuccessMessage.UPDATE_ADDRESS_SUCCESS)
+          toast.success("Cập nhật địa chỉ thành công")
           queryClient.invalidateQueries("get-address-list")
         },
       }

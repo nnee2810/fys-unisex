@@ -40,7 +40,7 @@ export function ModalCreateAddress({ isOpen, onClose }: ModalBaseProps) {
         <ModalCloseButton />
         <ModalHeader>Thêm địa chỉ</ModalHeader>
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(handleSubmit)}>
+          <form onSubmit={handleSubmit}>
             <ModalBody>
               <Stack>
                 <Grid templateColumns="1fr 1fr" gap="2">

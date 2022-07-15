@@ -12,12 +12,12 @@ import {
   useBoolean,
 } from "@chakra-ui/react"
 import { NextAlertModal } from "components"
-import { SuccessMessage } from "configs/constants"
-import { useDeleteAddress, useUpdateAddress } from "modules/users/hooks"
+import { useUpdateAddress } from "modules/users/hooks"
 import { IAddressEntity } from "modules/users/interfaces"
+import { deleteAddress } from "modules/users/services"
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai"
 import { MdOutlineLocationOn, MdOutlineMoreHoriz } from "react-icons/md"
-import { useQueryClient } from "react-query"
+import { useMutation, useQueryClient } from "react-query"
 import { toast } from "react-toastify"
 import styled from "styled-components"
 import { Color } from "styles/theme"
@@ -31,8 +31,10 @@ export function AddressBox({ data }: AddressBoxProps) {
   const queryClient = useQueryClient()
   const { mutate: mutateUpdate, isLoading: isLoadingUpdate } =
     useUpdateAddress()
-  const { mutate: mutateDelete, isLoading: isLoadingDelete } =
-    useDeleteAddress()
+  const { mutate: mutateDelete, isLoading: isLoadingDelete } = useMutation(
+    "delete-address",
+    deleteAddress
+  )
   const [openUpdate, setOpenUpdate] = useBoolean()
   const [openDelete, setOpenDelete] = useBoolean()
 
@@ -45,7 +47,7 @@ export function AddressBox({ data }: AddressBoxProps) {
       },
       {
         onSuccess() {
-          toast.success(SuccessMessage.UPDATE_ADDRESS_SUCCESS)
+          toast.success("Đặt địa chỉ mặc định thành công")
           queryClient.invalidateQueries("get-address-list")
         },
       }
@@ -55,7 +57,7 @@ export function AddressBox({ data }: AddressBoxProps) {
     mutateDelete(data.id, {
       onSuccess() {
         setOpenDelete.off()
-        toast.success(SuccessMessage.DELETE_ADDRESS_SUCCESS)
+        toast.success("Xóa địa chị chỉ thành công")
         queryClient.invalidateQueries("get-address-list")
       },
     })

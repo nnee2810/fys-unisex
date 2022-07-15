@@ -1,13 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { isPhoneNumber } from "class-validator"
-import { SuccessMessage } from "configs/constants"
 import { ActionOTP } from "modules/auth/dto"
 import { useSendOTP } from "modules/auth/hooks"
 import { useForm } from "react-hook-form"
+import { useMutation } from "react-query"
 import { toast } from "react-toastify"
-import { getValidateInvalidMessage, getValidateRequiredMessage } from "utils"
+import { validateInvalidMessage, validateRequiredMessage } from "utils"
 import * as yup from "yup"
-import { useUpdatePhone } from "."
+import { updatePhone } from "../services"
 
 export interface FormUpdatePhoneValues {
   step: number
@@ -24,11 +24,11 @@ const schema = yup.object({
       is: 1,
       then: yup
         .string()
-        .required(getValidateRequiredMessage)
-        .max(10, getValidateInvalidMessage)
+        .required(validateRequiredMessage)
+        .max(10, validateInvalidMessage)
         .test({
           test: (value) => (value ? isPhoneNumber(value, "VN") : false),
-          message: getValidateInvalidMessage,
+          message: validateInvalidMessage,
         }),
     }),
   otp: yup
@@ -38,8 +38,8 @@ const schema = yup.object({
       is: 2,
       then: yup
         .string()
-        .required(getValidateRequiredMessage)
-        .length(6, getValidateInvalidMessage),
+        .required(validateRequiredMessage)
+        .length(6, validateInvalidMessage),
     }),
 })
 
@@ -54,7 +54,7 @@ export function useFormUpdatePhone(onClose: () => void) {
   })
   const { mutate: mutateSendOTP, isLoading: isLoadingSendOTP } = useSendOTP()
   const { mutate: mutateUpdatePhone, isLoading: isLoadingUpdatePhone } =
-    useUpdatePhone()
+    useMutation("update-phone", updatePhone)
 
   const watchStep = methods.watch("step")
   const nextStep = () => {
@@ -91,7 +91,7 @@ export function useFormUpdatePhone(onClose: () => void) {
           {
             onSuccess() {
               onClose()
-              toast.success(SuccessMessage.UPDATE_PHONE_SUCCESS)
+              toast.success("Cập nhật số điện thoại thành công")
             },
           }
         )

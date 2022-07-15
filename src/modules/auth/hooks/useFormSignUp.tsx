@@ -2,14 +2,16 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { isPhoneNumber } from "class-validator"
 import { Regex } from "configs/constants"
 import { useForm } from "react-hook-form"
+import { useMutation } from "react-query"
 import {
-  getValidateInvalidMessage,
-  getValidateNotMatchMessage,
-  getValidateRequiredMessage,
+  validateInvalidMessage,
+  validateNotMatchMessage,
+  validateRequiredMessage,
 } from "utils"
 import * as yup from "yup"
-import { useSendOTP, useSignUp } from "."
+import { useSendOTP } from "."
 import { ActionOTP } from "../dto"
+import { signUp } from "../services"
 
 export interface FormSignUpValues {
   step: number
@@ -31,28 +33,28 @@ const schema = yup.object({
     .label("Họ và tên")
     .when("step", {
       is: 1,
-      then: yup.string().required(getValidateRequiredMessage),
+      then: yup.string().required(validateRequiredMessage),
     }),
   province_code: yup
     .number()
     .label("Tỉnh/Thành phố")
     .when("step", {
       is: 1,
-      then: yup.number().required(getValidateRequiredMessage),
+      then: yup.number().required(validateRequiredMessage),
     }),
   district_code: yup
     .number()
     .label("Quận/Huyện")
     .when("step", {
       is: 1,
-      then: yup.number().required(getValidateRequiredMessage),
+      then: yup.number().required(validateRequiredMessage),
     }),
   ward_code: yup
     .number()
     .label("Phường/Xã")
     .when("step", {
       is: 1,
-      then: yup.number().required(getValidateRequiredMessage),
+      then: yup.number().required(validateRequiredMessage),
     }),
   address_detail: yup.string(),
   password: yup
@@ -62,7 +64,7 @@ const schema = yup.object({
       is: 2,
       then: yup
         .string()
-        .required(getValidateRequiredMessage)
+        .required(validateRequiredMessage)
         .matches(
           Regex.PASSWORD,
           ({ label }) =>
@@ -76,8 +78,8 @@ const schema = yup.object({
       is: 2,
       then: yup
         .string()
-        .required(getValidateRequiredMessage)
-        .oneOf([yup.ref("password")], getValidateNotMatchMessage),
+        .required(validateRequiredMessage)
+        .oneOf([yup.ref("password")], validateNotMatchMessage),
     }),
   phone: yup
     .string()
@@ -86,11 +88,11 @@ const schema = yup.object({
       is: 3,
       then: yup
         .string()
-        .required(getValidateRequiredMessage)
-        .max(10, getValidateInvalidMessage)
+        .required(validateRequiredMessage)
+        .max(10, validateInvalidMessage)
         .test({
           test: (value) => (value ? isPhoneNumber(value, "VN") : false),
-          message: getValidateInvalidMessage,
+          message: validateInvalidMessage,
         }),
     }),
   otp: yup
@@ -100,8 +102,8 @@ const schema = yup.object({
       is: 4,
       then: yup
         .string()
-        .required(getValidateRequiredMessage)
-        .length(6, getValidateInvalidMessage),
+        .required(validateRequiredMessage)
+        .length(6, validateInvalidMessage),
     }),
 })
 
@@ -118,7 +120,10 @@ export function useFormSignUp() {
     },
     resolver: yupResolver(schema),
   })
-  const { mutate: mutateSignUp, isLoading: isLoadingSignUp } = useSignUp()
+  const { mutate: mutateSignUp, isLoading: isLoadingSignUp } = useMutation(
+    "sign-up",
+    signUp
+  )
   const { mutate: mutateSendOTP, isLoading: isLoadingSendOTP } = useSendOTP()
 
   const watchStep = methods.watch("step")

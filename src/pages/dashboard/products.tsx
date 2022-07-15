@@ -4,12 +4,12 @@ import { PageTitle } from "configs/constants"
 import { PageProps } from "layout"
 import {
   DrawerCreateProduct,
-  DrawerFilterProducts,
   ProductList,
 } from "modules/dashboard/products/components"
 import { useGetProductList } from "modules/products/hooks"
 import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsResult } from "next"
+import { BiFilterAlt } from "react-icons/bi"
 
 export async function getStaticProps(): Promise<
   GetStaticPropsResult<PageProps>
@@ -33,9 +33,14 @@ export default function DashboardProducts() {
       <Stack>
         <Flex justifyContent="space-between">
           <NextButton onClick={setOpenCreate.on}>Thêm sản phẩm</NextButton>
-          <NextButton onClick={setOpenFilter.on}>Lọc sản phẩm</NextButton>
+          <NextButton
+            leftIcon={<BiFilterAlt fontSize="18" />}
+            onClick={setOpenFilter.on}
+          >
+            Lọc
+          </NextButton>
         </Flex>
-        <DrawerFilterProducts isOpen={openFilter} onClose={setOpenFilter.off} />
+
         <ProductList data={data?.data || []} isLoading={isLoading} />
       </Stack>
       <DrawerCreateProduct isOpen={openCreate} onClose={setOpenCreate.off} />

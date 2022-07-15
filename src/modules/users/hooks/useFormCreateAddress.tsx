@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { SuccessMessage } from "configs/constants"
 import { formSchemas } from "helpers"
 import { useForm } from "react-hook-form"
 import { useMutation, useQueryClient } from "react-query"
@@ -32,33 +31,35 @@ export function useFormCreateAddress(onClose: () => void) {
 
   const { mutate, isLoading } = useMutation("create-address", createAddress)
 
-  const handleSubmit = ({
-    name,
-    address_detail,
-    province_code,
-    district_code,
-    ward_code,
-    ...data
-  }: CreateAddressDto) => {
-    if (!province_code || !district_code || !ward_code) return
-    mutate(
-      {
-        ...data,
-        name: deleteWhiteSpace(name),
-        province_code,
-        district_code,
-        ward_code,
-        address_detail: deleteWhiteSpace(address_detail),
-      },
-      {
-        onSuccess() {
-          onClose()
-          toast.success(SuccessMessage.CREATE_ADDRESS_SUCCESS)
-          queryClient.invalidateQueries("get-address-list")
+  const handleSubmit = methods.handleSubmit(
+    ({
+      name,
+      address_detail,
+      province_code,
+      district_code,
+      ward_code,
+      ...data
+    }: CreateAddressDto) => {
+      if (!province_code || !district_code || !ward_code) return
+      mutate(
+        {
+          ...data,
+          name: deleteWhiteSpace(name),
+          province_code,
+          district_code,
+          ward_code,
+          address_detail: deleteWhiteSpace(address_detail),
         },
-      }
-    )
-  }
+        {
+          onSuccess() {
+            onClose()
+            toast.success("Thêm địa chỉ thành công")
+            queryClient.invalidateQueries("get-address-list")
+          },
+        }
+      )
+    }
+  )
 
   return { methods, handleSubmit, isLoading }
 }

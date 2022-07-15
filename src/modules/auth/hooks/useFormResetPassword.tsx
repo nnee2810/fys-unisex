@@ -2,14 +2,15 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { isPhoneNumber } from "class-validator"
 import { Regex } from "configs/constants"
 import { useForm } from "react-hook-form"
+import { useMutation } from "react-query"
 import {
-  getValidateInvalidMessage,
-  getValidateNotMatchMessage,
-  getValidateRequiredMessage,
+  validateInvalidMessage,
+  validateNotMatchMessage,
+  validateRequiredMessage,
 } from "utils"
 import * as yup from "yup"
-import { useResetPassword } from "."
 import { ActionOTP } from "../dto"
+import { resetPassword } from "../services"
 import { useSendOTP } from "./useSendOTP"
 
 export interface FormResetPasswordValues {
@@ -29,11 +30,11 @@ const schema = yup.object({
       is: 1,
       then: yup
         .string()
-        .required(getValidateRequiredMessage)
-        .max(10, getValidateInvalidMessage)
+        .required(validateRequiredMessage)
+        .max(10, validateInvalidMessage)
         .test({
           test: (value) => (value ? isPhoneNumber(value, "VN") : false),
-          message: getValidateInvalidMessage,
+          message: validateInvalidMessage,
         }),
     }),
   otp: yup
@@ -43,8 +44,8 @@ const schema = yup.object({
       is: 2,
       then: yup
         .string()
-        .required(getValidateRequiredMessage)
-        .length(6, getValidateInvalidMessage),
+        .required(validateRequiredMessage)
+        .length(6, validateInvalidMessage),
     }),
   password: yup
     .string()
@@ -53,7 +54,7 @@ const schema = yup.object({
       is: 2,
       then: yup
         .string()
-        .required(getValidateRequiredMessage)
+        .required(validateRequiredMessage)
         .matches(
           Regex.PASSWORD,
           ({ label }) =>
@@ -67,8 +68,8 @@ const schema = yup.object({
       is: 2,
       then: yup
         .string()
-        .required(getValidateRequiredMessage)
-        .oneOf([yup.ref("password")], getValidateNotMatchMessage),
+        .required(validateRequiredMessage)
+        .oneOf([yup.ref("password")], validateNotMatchMessage),
     }),
 })
 
@@ -85,7 +86,7 @@ export function useFormResetPassword() {
   })
   const { mutate: mutateSendOTP, isLoading: isLoadingSendOTP } = useSendOTP()
   const { mutate: mutateResetPassword, isLoading: isLoadingResetPassword } =
-    useResetPassword()
+    useMutation("reset-password", resetPassword)
 
   const watchStep = methods.watch("step")
   const nextStep = () => {

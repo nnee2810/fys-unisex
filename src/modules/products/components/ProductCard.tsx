@@ -17,7 +17,7 @@ export function ProductCard({ data, layout }: ProductCardProps) {
         <Box pos="relative">
           <NextLink href={`/products/${data.id}`}>
             <NextImage
-              src={data.images[0]}
+              src={data.images?.[0]}
               alt={data.name}
               borderRadius="8"
               ratio={3 / 4}
@@ -49,7 +49,7 @@ export function ProductCard({ data, layout }: ProductCardProps) {
       <NextLink href={`/products/${data.id}`}>
         <HStack>
           <NextImage
-            src={data.images[0]}
+            src={data.images?.[0]}
             alt="product"
             w="40px"
             borderRadius="6"

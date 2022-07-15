@@ -1,3 +1,3 @@
-export * from "./useCreateProduct"
+export * from "./useFormSearchProducts"
 export * from "./useGetProduct"
 export * from "./useGetProductList"

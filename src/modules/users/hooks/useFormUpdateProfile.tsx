@@ -1,12 +1,11 @@
 import { useAuth } from "modules/auth/hooks"
 import {
   deleteWhiteSpace,
-  getValidateInvalidMessage,
-  getValidateRequiredMessage,
+  validateInvalidMessage,
+  validateRequiredMessage,
 } from "utils"
 
 import { yupResolver } from "@hookform/resolvers/yup"
-import { SuccessMessage } from "configs/constants"
 import { formSchemas } from "helpers"
 import { useAppDispatch } from "hooks"
 import { useForm } from "react-hook-form"
@@ -29,8 +28,8 @@ const schema = yup.object({
   gender: yup
     .string()
     .label("Giới tính")
-    .required(getValidateRequiredMessage)
-    .oneOf(Object.keys(UserGender), getValidateInvalidMessage)
+    .required(validateRequiredMessage)
+    .oneOf(Object.keys(UserGender), validateInvalidMessage)
     .nullable(),
 })
 
@@ -40,7 +39,7 @@ export function useFormUpdateProfile() {
 
   const { mutate, isLoading } = useMutation("update-profile", updateProfile, {
     onSuccess(data) {
-      toast.success(SuccessMessage.UPDATE_PROFILE_SUCCESS)
+      toast.success("Cập nhật tài khoản thành công")
       dispatch(SET_PROFILE(data))
     },
   })

@@ -6,7 +6,6 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import styled from "styled-components"
 import { Color } from "styles/theme"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { getImageFallback } from "utils"
 
 interface ProductImagesPreviewProps {
   data: IProductEntity
@@ -28,7 +27,7 @@ export function ProductImagesPreview({
       <NextImage
         h="650px"
         borderRadius="16"
-        src={images[selectedImage] || getImageFallback(500)}
+        src={images?.[selectedImage]}
         alt={"productImage" + selectedImage}
       />
       <Box pos="absolute" bottom="4" w="100%" px="4">
@@ -37,7 +36,7 @@ export function ProductImagesPreview({
           spaceBetween={12}
           className="swiper-slide-fit"
         >
-          {images.map((image, idx) => (
+          {images?.map((image, idx) => (
             <SwiperSlide key={idx}>
               <NextImage
                 w="50px"

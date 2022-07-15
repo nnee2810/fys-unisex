@@ -16,16 +16,7 @@ export enum PageTitle {
   DASHBOARD_OVERVIEW = "Tổng quan",
   DASHBOARD_PRODUCTS = "Sản phẩm",
 }
-export enum SuccessMessage {
-  SIGN_UP_SUCCESS = "Tạo tài khoản thành công, hãy đăng nhập",
-  SIGN_OUT_SUCCESS = "Đăng xuất thành công",
-  UPDATE_PROFILE_SUCCESS = "Cập nhật tài khoản thành công",
-  UPDATE_PHONE_SUCCESS = "Cập nhật số điện thoại thành công",
-  UPDATE_AVATAR_SUCCESS = "Cập nhật ảnh đại điện thành công",
-  CREATE_ADDRESS_SUCCESS = "Thêm địa chỉ thành công",
-  UPDATE_ADDRESS_SUCCESS = "Cập nhật địa chỉ thành công",
-  DELETE_ADDRESS_SUCCESS = "Xóa địa chị chỉ thành công",
-}
+
 export enum ErrorMessage {
   INTERNAL_SERVER_ERROR = "Không thể xử lý yêu cầu, vui lòng thử lại sau",
   FILE_INVALID_TYPE = "Tệp không hợp lệ",

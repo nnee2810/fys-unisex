@@ -2,7 +2,6 @@ import { PaginationDto } from "dto/pagination.dto"
 import { ProductClassify, ProductSize } from "../interfaces"
 
 export enum ProductSort {
-  TIME = "TIME",
   PRICE_ASC = "PRICE_ASC",
   PRICE_DESC = "PRICE_DESC",
   PERCENT = "PERCENT",

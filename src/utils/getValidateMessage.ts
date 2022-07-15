@@ -6,14 +6,14 @@ const enum ValidateMessage {
   NOT_MATCH = "không khớp",
 }
 
-export function getValidateRequiredMessage({ label }: MessageParams) {
+export function validateRequiredMessage({ label }: MessageParams) {
   return label + " " + ValidateMessage.REQUIRED
 }
 
-export function getValidateInvalidMessage({ label }: MessageParams) {
+export function validateInvalidMessage({ label }: MessageParams) {
   return label + " " + ValidateMessage.INVALID
 }
 
-export function getValidateNotMatchMessage({ label }: MessageParams) {
+export function validateNotMatchMessage({ label }: MessageParams) {
   return label + " " + ValidateMessage.NOT_MATCH
 }
