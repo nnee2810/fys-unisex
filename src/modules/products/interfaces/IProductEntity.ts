@@ -19,10 +19,8 @@ export enum ProductSize {
 
 export interface IProductEntity extends IBaseEntity {
   name: string
-  slug: string
   images: string[]
   classify: ProductClassify
-  sizes: ProductSize[]
   price: number
   sale_price: number
   sale_percent: number

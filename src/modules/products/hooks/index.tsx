@@ -1,3 +1,5 @@
+export * from "./useDeleteProduct"
 export * from "./useFormSearchProducts"
 export * from "./useGetProduct"
 export * from "./useGetProductList"
+export * from "./useUpdateProduct"

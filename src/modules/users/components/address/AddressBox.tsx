@@ -53,7 +53,7 @@ export function AddressBox({ data }: AddressBoxProps) {
       }
     )
   }
-  const handleDeleteAddress = () => {
+  const handleDelete = () => {
     mutateDelete(data.id, {
       onSuccess() {
         setOpenDelete.off()
@@ -132,7 +132,7 @@ export function AddressBox({ data }: AddressBoxProps) {
         title="Xóa địa chỉ"
         confirmText="Xóa"
         onClose={setOpenDelete.off}
-        onConfirm={handleDeleteAddress}
+        onConfirm={handleDelete}
         isLoading={isLoadingDelete}
       >
         <Box>Bạn có chắc muốn xoá địa chỉ này?</Box>

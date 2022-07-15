@@ -24,7 +24,7 @@ export function DrawerCreateProduct({ isOpen, onClose }: DrawerBaseProps) {
   }, [isOpen])
 
   return (
-    <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+    <Drawer isOpen={isOpen} size="sm" placement="left" onClose={onClose}>
       <DrawerOverlay />
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit}>

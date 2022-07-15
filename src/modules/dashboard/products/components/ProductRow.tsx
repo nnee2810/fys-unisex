@@ -13,7 +13,6 @@ import {
 import { NextImage } from "components"
 import { IProductEntity } from "modules/products/interfaces"
 import moment from "moment"
-import router from "next/router"
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai"
 import { MdOutlineMoreHoriz } from "react-icons/md"
 import { Row } from "react-table"
@@ -21,10 +20,14 @@ import { formatCurrency } from "utils"
 
 interface ProductRowProps {
   row: Row<IProductEntity>
+  onSelectUpdate: () => void
+  onSelectDelete: () => void
 }
 
 export function ProductRow({
   row: { getRowProps, original },
+  onSelectUpdate,
+  onSelectDelete,
 }: ProductRowProps) {
   return (
     <Tr {...getRowProps()}>
@@ -68,11 +71,16 @@ export function ProductRow({
           <MenuList minW="100px" w="fit-content">
             <MenuItem
               icon={<AiOutlineEdit fontSize="20" />}
-              onClick={() => router.push(`/dashboard/products/${original.id}`)}
+              onClick={onSelectUpdate}
             >
               Sửa
             </MenuItem>
-            <MenuItem icon={<AiOutlineDelete fontSize="20" />}>Xóa</MenuItem>
+            <MenuItem
+              icon={<AiOutlineDelete fontSize="20" />}
+              onClick={onSelectDelete}
+            >
+              Xóa
+            </MenuItem>
           </MenuList>
         </Menu>
       </Td>
