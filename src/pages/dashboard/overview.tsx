@@ -1,6 +1,6 @@
 import { PageTitle } from "configs/constants"
+import { UserRole } from "interfaces/entities"
 import { PageProps } from "layout"
-import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsResult } from "next"
 
 export async function getStaticProps(): Promise<

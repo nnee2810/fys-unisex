@@ -1,3 +1,4 @@
+import { ISelectOption } from "interfaces"
 import { ToastContainerProps } from "react-toastify"
 
 export const TAKE_PER_PAGE = 20
@@ -35,7 +36,6 @@ export enum ImageSource {
   DEFAULT = "https://dummyimage.com/",
   AVATAR = "https://ui-avatars.com/api/",
 }
-
 export const toastConfig: ToastContainerProps = {
   draggable: false,
   autoClose: 3000,
@@ -44,3 +44,13 @@ export const responsiveW = {
   base: "90vw",
   "2xl": "1400px",
 }
+export const confirmOptions: ISelectOption[] = [
+  {
+    label: "Có",
+    value: true,
+  },
+  {
+    label: "Không",
+    value: false,
+  },
+]

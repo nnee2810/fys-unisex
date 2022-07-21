@@ -1,6 +1,6 @@
 import { ISelectOption } from "interfaces"
+import { ProductClassify, ProductSize } from "interfaces/entities"
 import { ProductSort } from "./dto"
-import { ProductClassify, ProductSize } from "./interfaces"
 
 export const productSizeOptions: ISelectOption[] = Object.keys(ProductSize).map(
   (key) => ({
@@ -26,10 +26,10 @@ export const productSortOptions: ISelectOption[] = Object.keys(ProductSort).map(
 export const productStatusOptions: ISelectOption[] = [
   {
     label: "Đang bán",
-    value: "on_sale",
+    value: "for_sale",
   },
   {
-    label: "Giảm giá",
+    label: "Đang sale",
     value: "in_sale",
   },
   {

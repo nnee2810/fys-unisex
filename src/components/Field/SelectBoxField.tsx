@@ -4,8 +4,8 @@ import { ISelectOption } from "interfaces"
 
 interface SelectBoxFieldProps {
   options: ISelectOption[]
-  onChange?: (value: number | string) => void
-  value?: number | string
+  onChange?: (value: unknown) => void
+  value?: unknown
 }
 
 export function SelectBoxField({
@@ -13,9 +13,9 @@ export function SelectBoxField({
   onChange,
   value,
 }: SelectBoxFieldProps) {
-  const handleChangeSelect = (newValue: number | string) => {
-    newValue = newValue === value ? "" : newValue
-    if (onChange) onChange(newValue)
+  const handleChangeSelect = (newValue: unknown) => {
+    if (!onChange) return
+    if (newValue !== value) onChange(newValue)
   }
 
   return (

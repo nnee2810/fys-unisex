@@ -6,7 +6,7 @@ export interface UpdateProductDto {
   classify?: ProductClassify
   price?: number
   sale_price?: number
-  on_sale?: boolean
+  for_sale?: boolean
   in_sale?: boolean
   in_stock?: boolean
   is_featured?: boolean

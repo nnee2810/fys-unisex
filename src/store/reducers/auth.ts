@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Key } from "configs/constants"
+import { IUserEntity } from "interfaces/entities"
 import Cookies from "js-cookie"
-import { IUserEntity } from "modules/users/interfaces"
 import { RootState } from "store"
+import { getAwsCloudFrontUrl } from "utils"
 
 export enum AuthStatus {
   LOADING,
@@ -27,13 +28,12 @@ const authSlice = createSlice({
     SET_AUTH_STATUS(state, { payload }: PayloadAction<AuthStatus>) {
       state.status = payload
     },
-    SET_PROFILE_AVATAR_SRC(state, { payload }: PayloadAction<string>) {
-      if (state.profile)
-        state.profile.avatar = {
-          src: payload,
-        }
+    SET_AVATAR(state, { payload }: PayloadAction<string>) {
+      if (!state.profile) return
+      state.profile.avatar = getAwsCloudFrontUrl(payload)
     },
     SET_PROFILE(_, { payload }: PayloadAction<IUserEntity>) {
+      if (payload?.avatar) payload.avatar = getAwsCloudFrontUrl(payload.avatar)
       return {
         status: AuthStatus.AUTHENTICATED,
         profile: payload,
@@ -50,10 +50,6 @@ const authSlice = createSlice({
 })
 
 export const authSelector = (state: RootState) => state.auth
-export const {
-  SET_AUTH_STATUS,
-  SET_PROFILE_AVATAR_SRC,
-  SET_PROFILE,
-  SIGN_OUT,
-} = authSlice.actions
+export const { SET_AUTH_STATUS, SET_AVATAR, SET_PROFILE, SIGN_OUT } =
+  authSlice.actions
 export const authReducer = authSlice.reducer

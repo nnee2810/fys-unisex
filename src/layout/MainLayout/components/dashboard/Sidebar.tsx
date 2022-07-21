@@ -30,7 +30,9 @@ export function Sidebar() {
                   px="3"
                   py="2"
                   justifyContent="space-between"
-                  bg={item.href === router.pathname ? Color.PRIMARY : "#fff"}
+                  bgColor={
+                    item.href === router.pathname ? Color.PRIMARY : "#fff"
+                  }
                   color={item.href === router.pathname ? "#fff" : "#000"}
                   borderRadius="6"
                   transition="all .2s"
@@ -54,7 +56,7 @@ export function Sidebar() {
                   left="-8px"
                   w="4px"
                   h="29px"
-                  bg={Color.PRIMARY}
+                  bgColor={Color.PRIMARY}
                   borderRadius="2"
                 />
               )}

@@ -21,7 +21,7 @@ export function Badge({ children, value, max }: BadgeProps) {
         px="1"
         border="2px solid white"
         borderRadius="10"
-        bg={Color.RED}
+        bgColor={Color.RED}
         color="white"
         fontSize="11"
         fontWeight="500"

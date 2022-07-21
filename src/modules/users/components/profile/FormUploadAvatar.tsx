@@ -1,13 +1,13 @@
 import { Box, Center, Spinner, Text } from "@chakra-ui/react"
 import { NextImage } from "components"
 import { useAuth } from "modules/auth/hooks"
-import { useFormUpdateAvatar } from "modules/users/hooks"
+import { useUploadAvatar } from "modules/users/hooks"
 import { AiOutlineCamera } from "react-icons/ai"
 import { Color } from "styles/theme"
 
-export function FormUpdateAvatar() {
+export function FormUploadAvatar() {
   const { profile } = useAuth()
-  const { isLoading, getInputProps, getRootProps } = useFormUpdateAvatar()
+  const { isLoading, getRootProps } = useUploadAvatar()
 
   return (
     <Box>
@@ -32,7 +32,6 @@ export function FormUpdateAvatar() {
           _hover={{ opacity: 1 }}
           {...getRootProps()}
         >
-          <input {...getInputProps()} />
           {isLoading ? (
             <Spinner size="lg" />
           ) : (

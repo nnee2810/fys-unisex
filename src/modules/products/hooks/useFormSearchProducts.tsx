@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { ProductClassify, ProductSize } from "modules/products/interfaces"
+import { ProductClassify, ProductSize } from "interfaces/entities"
 import { useRouter } from "next/router"
 import qs from "query-string"
 import { useForm } from "react-hook-form"

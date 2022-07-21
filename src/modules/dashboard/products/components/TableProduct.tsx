@@ -1,21 +1,21 @@
 import { Box, Tbody, Th, Thead, Tr } from "@chakra-ui/react"
 import { NextAlertModal, NextTable, TableSkeleton } from "components"
+import { IProductEntity } from "interfaces/entities"
 import { useDeleteProduct } from "modules/products/hooks"
-import { IProductEntity } from "modules/products/interfaces"
 import { useCallback, useState } from "react"
 import { useQueryClient } from "react-query"
 import { toast } from "react-toastify"
-import { DrawerUpdateProduct, ProductRow } from "."
-import { useTableProductList } from "../hooks"
+import { DrawerUpdateProduct, RowProduct } from "."
+import { useTableProduct } from "../hooks"
 
-interface ProductListProps {
+interface TableProductProps {
   data: IProductEntity[]
   isLoading?: boolean
 }
 
-export function ProductList({ data, isLoading }: ProductListProps) {
+export function TableProduct({ data, isLoading }: TableProductProps) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTableProductList(data)
+    useTableProduct(data)
   const queryClient = useQueryClient()
   const { mutate: mutateDelete, isLoading: isLoadingDelete } =
     useDeleteProduct()
@@ -54,7 +54,7 @@ export function ProductList({ data, isLoading }: ProductListProps) {
             rows.map((row) => {
               prepareRow(row)
               return (
-                <ProductRow
+                <RowProduct
                   row={row}
                   key={row.original.id}
                   onSelectUpdate={() => setSelectUpdate(row.original.id)}

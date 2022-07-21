@@ -1,4 +1,4 @@
-import { IBaseEntity } from "interfaces"
+import { IBaseEntity } from "."
 
 export interface IAddressEntity extends IBaseEntity {
   name: string

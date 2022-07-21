@@ -21,8 +21,7 @@ export function SelectField({
   const handleChange = (newValue: unknown) => {
     if (!onChange) return
     if (!newValue) return onChange(undefined)
-    if ((newValue as ISelectOption).value !== value)
-      onChange((newValue as ISelectOption).value)
+    onChange((newValue as ISelectOption).value)
   }
 
   return (

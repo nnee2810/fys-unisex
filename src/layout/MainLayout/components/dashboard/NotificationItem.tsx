@@ -18,7 +18,7 @@ export function NotificationItem() {
           </Text>
           <Text color={Color.DARK_GRAY}>2 phút trước</Text>
         </Box>
-        <Box w="8px" h="8px" bg={Color.BLUE} borderRadius="50%" />
+        <Box w="8px" h="8px" bgColor={Color.BLUE} borderRadius="50%" />
       </HStack>
     </NextLink>
   )

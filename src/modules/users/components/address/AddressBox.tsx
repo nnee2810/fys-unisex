@@ -12,8 +12,8 @@ import {
   useBoolean,
 } from "@chakra-ui/react"
 import { NextAlertModal } from "components"
+import { IAddressEntity } from "interfaces/entities"
 import { useUpdateAddress } from "modules/users/hooks"
-import { IAddressEntity } from "modules/users/interfaces"
 import { deleteAddress } from "modules/users/services"
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai"
 import { MdOutlineLocationOn, MdOutlineMoreHoriz } from "react-icons/md"
@@ -72,7 +72,7 @@ export function AddressBox({ data }: AddressBoxProps) {
             <HStack>
               <Text>{data.name}</Text>
               {data.is_default && (
-                <Tag bg={Color.GREEN} color="#fff">
+                <Tag bgColor={Color.GREEN} color="#fff">
                   Mặc định
                 </Tag>
               )}

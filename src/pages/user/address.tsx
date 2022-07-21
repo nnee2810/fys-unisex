@@ -6,12 +6,12 @@ import {
   PageHeader,
 } from "components"
 import { PageTitle } from "configs/constants"
+import { UserRole } from "interfaces/entities"
 import { PageProps, UserLayout } from "layout"
 import {
   AddressList,
   ModalCreateAddress,
 } from "modules/users/components/address"
-import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsResult } from "next"
 
 export async function getStaticProps(): Promise<

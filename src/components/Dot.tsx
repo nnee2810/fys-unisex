@@ -11,7 +11,7 @@ export function Dot({ value, size }: DotProps) {
     <Box
       w={size ? size + "px" : "8px"}
       h={size ? size + "px" : "8px"}
-      bg={value ? Color.GREEN : Color.RED}
+      bgColor={value ? Color.GREEN : Color.RED}
       borderRadius="100%"
     />
   )

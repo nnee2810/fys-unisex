@@ -38,10 +38,12 @@
     "react-table": "^7.8.0",
     "react-timer-hook": "^3.0.5",
     "react-toastify": "^9.0.1",
+    "react-viewer": "^3.2.2",
     "rooks": "^5.11.2",
     "sass": "^1.51.0",
     "styled-components": "^5.3.5",
     "swiper": "^8.1.4",
+    "uuid": "^8.3.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
@@ -54,6 +56,7 @@
     "@types/react-google-recaptcha": "^2.1.5",
     "@types/react-table": "^7.7.12",
     "@types/styled-components": "^5.1.25",
+    "@types/uuid": "^8.3.4",
     "eslint": "8.14.0",
     "eslint-config-next": "12.1.5",
     "husky": "^7.0.4",

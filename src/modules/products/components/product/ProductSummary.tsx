@@ -22,7 +22,7 @@ export function ProductSummary({ data }: ProductSummaryProps) {
             <Text color={Color.GRAY} textDecor="line-through">
               {formatCurrency(data.price)}
             </Text>
-            <Tag bg={Color.RED} color="#fff">
+            <Tag bgColor={Color.RED} color="#fff">
               -{data.sale_percent}%
             </Tag>
           </>

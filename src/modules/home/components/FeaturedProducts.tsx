@@ -9,13 +9,13 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-  Tabs
+  Tabs,
 } from "@chakra-ui/react"
 import { NextLink } from "components"
 import { responsiveW, zIndex } from "configs/constants"
+import { ProductClassify } from "interfaces/entities"
 import { ProductCard } from "modules/products/components"
 import { useGetProductList } from "modules/products/hooks"
-import { ProductClassify } from "modules/products/interfaces"
 import { getArrayNumber } from "utils"
 
 export function FeaturedProducts() {

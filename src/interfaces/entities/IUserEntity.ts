@@ -1,4 +1,4 @@
-import { IBaseEntity } from "interfaces"
+import { IBaseEntity } from "."
 
 export enum UserRole {
   GUEST = "GUEST",

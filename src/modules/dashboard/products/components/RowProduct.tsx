@@ -11,33 +11,32 @@ import {
   Tr,
 } from "@chakra-ui/react"
 import { NextImage } from "components"
-import { IProductEntity } from "modules/products/interfaces"
-import moment from "moment"
+import { IProductEntity } from "interfaces/entities"
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai"
 import { MdOutlineMoreHoriz } from "react-icons/md"
 import { Row } from "react-table"
-import { formatCurrency } from "utils"
+import { formatCurrency, formatDatetime, getAwsCloudFrontUrl } from "utils"
 
-interface ProductRowProps {
+interface RowProductProps {
   row: Row<IProductEntity>
   onSelectUpdate: () => void
   onSelectDelete: () => void
 }
 
-export function ProductRow({
+export function RowProduct({
   row: { getRowProps, original },
   onSelectUpdate,
   onSelectDelete,
-}: ProductRowProps) {
+}: RowProductProps) {
   return (
     <Tr {...getRowProps()}>
       <Td>
         <HStack>
           <NextImage
-            w="40px"
-            h="40px"
+            w="46px"
+            h="46px"
             borderRadius="6"
-            src={original.images?.[0]}
+            src={getAwsCloudFrontUrl(original.images?.[0]?.key)}
             alt={original.name}
           />
           <Text>{original.name}</Text>
@@ -52,13 +51,13 @@ export function ProductRow({
       </Td>
       <Td>
         <HStack justifyContent="center">
-          <Tag colorScheme={original.on_sale ? "green" : "gray"}>Đang bán</Tag>
-          <Tag colorScheme={original.in_sale ? "green" : "gray"}>Giảm giá</Tag>
+          <Tag colorScheme={original.for_sale ? "green" : "gray"}>Đang bán</Tag>
+          <Tag colorScheme={original.in_sale ? "green" : "gray"}>Đang sale</Tag>
           <Tag colorScheme={original.in_stock ? "green" : "gray"}>Có sẵn</Tag>
         </HStack>
       </Td>
-      <Td>{moment(original.updated_at).format("HH:mm DD/MM/YYYY")}</Td>
-      <Td>{moment(original.created_at).format("HH:mm DD/MM/YYYY")}</Td>
+      <Td>{formatDatetime(original.updated_at)}</Td>
+      <Td>{formatDatetime(original.created_at)}</Td>
       <Td>
         <Menu placement="bottom-end">
           <MenuButton

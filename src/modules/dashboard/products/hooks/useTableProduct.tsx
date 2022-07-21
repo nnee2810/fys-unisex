@@ -1,8 +1,8 @@
-import { IProductEntity } from "modules/products/interfaces"
+import { IProductEntity } from "interfaces/entities"
 import { useMemo } from "react"
 import { ColumnWithLooseAccessor, useTable } from "react-table"
 
-export function useTableProductList(data: IProductEntity[]) {
+export function useTableProduct(data: IProductEntity[]) {
   const columns = useMemo<ColumnWithLooseAccessor<IProductEntity>[]>(
     () => [
       {

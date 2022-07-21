@@ -1,4 +1,4 @@
-import { IUserEntity, StaffRole } from "modules/users/interfaces"
+import { IUserEntity, StaffRole } from "interfaces/entities"
 
 export function isStaff(user: IUserEntity | null) {
   if (!user) return false

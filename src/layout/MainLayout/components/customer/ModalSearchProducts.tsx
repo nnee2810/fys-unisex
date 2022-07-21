@@ -71,7 +71,7 @@ export function ModalSearchProducts({
                   <TextField
                     onChange={(e) => handleChangeDebounce(e.target.value)}
                     placeholder="Tìm kiếm sản phẩm"
-                    before={<AiOutlineSearch fontSize="20" />}
+                    before={<AiOutlineSearch fontSize="18" />}
                     border="none"
                     focusBorderColor="none"
                   />

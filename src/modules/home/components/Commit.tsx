@@ -19,7 +19,7 @@ export function Commit() {
               <Box fontSize="40">{item.icon}</Box>
               <Text
                 align="center"
-                fontSize="18"
+                fontSize="20"
                 fontWeight="700"
                 textTransform="uppercase"
               >

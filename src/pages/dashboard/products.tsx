@@ -1,14 +1,22 @@
-import { Box, Flex, Stack, useBoolean } from "@chakra-ui/react"
+import {
+  Box,
+  Flex,
+  HStack,
+  IconButton,
+  Stack,
+  useBoolean,
+} from "@chakra-ui/react"
 import { NextButton } from "components"
 import { PageTitle } from "configs/constants"
+import { UserRole } from "interfaces/entities"
 import { PageProps } from "layout"
 import {
   DrawerCreateProduct,
-  ProductList,
+  TableProduct,
 } from "modules/dashboard/products/components"
 import { useGetProductList } from "modules/products/hooks"
-import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsResult } from "next"
+import { AiOutlineReload } from "react-icons/ai"
 import { BiFilterAlt } from "react-icons/bi"
 
 export async function getStaticProps(): Promise<
@@ -24,7 +32,7 @@ export async function getStaticProps(): Promise<
 }
 
 export default function DashboardProducts() {
-  const { data, isLoading } = useGetProductList({})
+  const { data, isLoading, refetch, isRefetching } = useGetProductList({})
   const [openCreate, setOpenCreate] = useBoolean()
   const [openFilter, setOpenFilter] = useBoolean()
 
@@ -33,15 +41,24 @@ export default function DashboardProducts() {
       <Stack>
         <Flex justifyContent="space-between">
           <NextButton onClick={setOpenCreate.on}>Thêm sản phẩm</NextButton>
-          <NextButton
-            leftIcon={<BiFilterAlt fontSize="18" />}
-            onClick={setOpenFilter.on}
-          >
-            Lọc
-          </NextButton>
+          <HStack>
+            <IconButton
+              isLoading={isLoading || isRefetching}
+              aria-label="refetch"
+              icon={<AiOutlineReload fontSize="20" />}
+              colorScheme="gray"
+              onClick={() => refetch()}
+            />
+            <NextButton
+              leftIcon={<BiFilterAlt fontSize="20" />}
+              onClick={setOpenFilter.on}
+            >
+              Lọc
+            </NextButton>
+          </HStack>
         </Flex>
 
-        <ProductList data={data?.data || []} isLoading={isLoading} />
+        <TableProduct data={data?.data || []} isLoading={isLoading} />
       </Stack>
       <DrawerCreateProduct isOpen={openCreate} onClose={setOpenCreate.off} />
     </Box>

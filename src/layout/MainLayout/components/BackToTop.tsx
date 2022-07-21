@@ -32,7 +32,7 @@ export function BackToTop() {
         bottom="4"
         right="4"
         p="2"
-        bg={Color.LIGHT_GRAY}
+        bgColor={Color.LIGHT_GRAY}
         borderRadius="8"
         cursor="pointer"
         zIndex={zIndex.BACK_TO_TOP}

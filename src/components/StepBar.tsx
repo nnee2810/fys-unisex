@@ -12,12 +12,12 @@ export function StepBar({ steps, activeStep }: StepBarProps) {
       <Box color={Color.GREEN} fontWeight="500">
         {steps[activeStep - 1]} ({activeStep}/{steps.length})
       </Box>
-      <Box pos="relative" h="2" bg={Color.LIGHT_GRAY} overflow="hidden">
+      <Box pos="relative" h="2" bgColor={Color.LIGHT_GRAY} overflow="hidden">
         <Box
           pos="absolute"
           w={`${(100 / steps.length) * activeStep}%`}
           h="100%"
-          bg={Color.GREEN}
+          bgColor={Color.GREEN}
           transition="all .5s"
         />
       </Box>

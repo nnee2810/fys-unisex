@@ -1,6 +1,7 @@
 export * from "./addCountryCode"
 export * from "./deleteWhiteSpace"
 export * from "./formatCurrency"
+export * from "./formatDatetime"
 export * from "./getArrayNumber"
 export * from "./getAwsCloudFrontUrl"
 export * from "./getImageFallback"

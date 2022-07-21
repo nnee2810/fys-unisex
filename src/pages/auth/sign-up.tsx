@@ -4,6 +4,7 @@ import { FieldEnterOTP } from "components/FieldEnterOTP"
 import { PageTitle } from "configs/constants"
 import { firebaseAuth } from "configs/firebase"
 import { RecaptchaVerifier } from "firebase/auth"
+import { UserRole } from "interfaces/entities"
 import { PageProps } from "layout"
 import {
   FormCreatePassword,
@@ -12,7 +13,6 @@ import {
 } from "modules/auth/components/sign-up"
 import { ActionOTP } from "modules/auth/dto"
 import { useFormSignUp } from "modules/auth/hooks"
-import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsResult } from "next"
 import { useEffect } from "react"
 import { FormProvider } from "react-hook-form"

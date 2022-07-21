@@ -3,13 +3,13 @@ import { Field, NextButton, StepBar, TextField } from "components"
 import { PageTitle } from "configs/constants"
 import { firebaseAuth } from "configs/firebase"
 import { RecaptchaVerifier } from "firebase/auth"
+import { UserRole } from "interfaces/entities"
 import { PageProps } from "layout"
 import {
   FormResetPassword,
   ResetPasswordSuccess,
 } from "modules/auth/components/reset-password"
 import { useFormResetPassword } from "modules/auth/hooks"
-import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsResult } from "next"
 import { useEffect } from "react"
 import { FormProvider } from "react-hook-form"

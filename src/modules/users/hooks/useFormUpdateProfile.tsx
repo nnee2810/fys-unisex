@@ -8,12 +8,12 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup"
 import { formSchemas } from "helpers"
 import { useAppDispatch } from "hooks"
+import { UserGender } from "interfaces/entities"
 import { useForm } from "react-hook-form"
 import { useMutation } from "react-query"
 import { toast } from "react-toastify"
 import { SET_PROFILE } from "store/reducers/auth"
 import * as yup from "yup"
-import { UserGender } from "../interfaces"
 import { updateProfile } from "../services"
 
 interface FormValues {

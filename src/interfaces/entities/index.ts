@@ -1,0 +1,6 @@
+export * from "./IAddressEntity"
+export * from "./IBaseEntity"
+export * from "./IFileUploadEntity"
+export * from "./IProductEntity"
+export * from "./IProductImageEntity"
+export * from "./IUserEntity"

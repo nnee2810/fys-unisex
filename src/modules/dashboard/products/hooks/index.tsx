@@ -1,4 +1,5 @@
 export * from "./useFormCreateProduct"
 export * from "./useFormFilterProducts"
 export * from "./useFormUpdateProduct"
-export * from "./useTableProductList"
+export * from "./useTableProduct"
+export * from "./useUploadProductImage"

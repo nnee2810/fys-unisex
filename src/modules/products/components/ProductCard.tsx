@@ -1,9 +1,9 @@
 import { Box, Flex, HStack, Tag, Text } from "@chakra-ui/react"
 import { NextImage, NextLink } from "components"
+import { IProductEntity } from "interfaces/entities"
 import { AiFillHeart } from "react-icons/ai"
 import { Color } from "styles/theme"
-import { formatCurrency } from "utils"
-import { IProductEntity } from "../interfaces"
+import { formatCurrency, getAwsCloudFrontUrl } from "utils"
 
 interface ProductCardProps {
   data: IProductEntity
@@ -17,7 +17,7 @@ export function ProductCard({ data, layout }: ProductCardProps) {
         <Box pos="relative">
           <NextLink href={`/products/${data.id}`}>
             <NextImage
-              src={data.images?.[0]}
+              src={getAwsCloudFrontUrl(data.images?.[0]?.key)}
               alt={data.name}
               borderRadius="8"
               ratio={3 / 4}
@@ -32,7 +32,7 @@ export function ProductCard({ data, layout }: ProductCardProps) {
             alignItems="center"
           >
             {data.in_sale ? (
-              <Tag fontWeight="500" color="#fff" bg={Color.RED}>
+              <Tag fontWeight="500" color="#fff" bgColor={Color.RED}>
                 SALE
               </Tag>
             ) : (
@@ -49,7 +49,7 @@ export function ProductCard({ data, layout }: ProductCardProps) {
       <NextLink href={`/products/${data.id}`}>
         <HStack>
           <NextImage
-            src={data.images?.[0]}
+            src={getAwsCloudFrontUrl(data.images?.[0]?.key)}
             alt="product"
             w="40px"
             borderRadius="6"
@@ -86,7 +86,7 @@ function renderProductInfo({ data, layout }: ProductCardProps) {
             <Text color={Color.GRAY} textDecor="line-through">
               {formatCurrency(data.price)}
             </Text>
-            <Tag size="sm" bg={Color.RED} color="#fff">
+            <Tag size="sm" bgColor={Color.RED} color="#fff">
               -{data.sale_percent}%
             </Tag>
           </>

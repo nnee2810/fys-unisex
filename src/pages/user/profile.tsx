@@ -3,12 +3,12 @@ import { NextBreadcrumb, PageContainer, PageHeader } from "components"
 import { PageTitle } from "configs/constants"
 import { firebaseAuth } from "configs/firebase"
 import { RecaptchaVerifier } from "firebase/auth"
+import { UserRole } from "interfaces/entities"
 import { PageProps, UserLayout } from "layout"
 import {
-  FormUpdateAvatar,
   FormUpdateProfile,
+  FormUploadAvatar,
 } from "modules/users/components/profile"
-import { UserRole } from "modules/users/interfaces"
 import { GetStaticPropsResult } from "next"
 import { useEffect } from "react"
 
@@ -54,7 +54,7 @@ export default function UserProfile() {
         <PageHeader label="Tài khoản của tôi" />
         <Grid templateColumns="auto 200px" gap="10">
           <FormUpdateProfile />
-          <FormUpdateAvatar />
+          <FormUploadAvatar />
         </Grid>
       </UserLayout>
       <div id="recaptcha" />
