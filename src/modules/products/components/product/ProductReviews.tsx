@@ -4,7 +4,7 @@ import { NextRate } from "components"
 export function ProductReviews() {
   return (
     <Box id="reviews">
-      <Heading size="lg">
+      <Heading size="md">
         50 đánh giá (5/5{" "}
         <Box as="span">
           <NextRate count={1} value={1} size={28} />

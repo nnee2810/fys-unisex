@@ -18,7 +18,6 @@ export function ProductCard({ data, layout }: ProductCardProps) {
           <NextLink href={`/products/${data.id}`}>
             <NextImage
               src={getAwsCloudFrontUrl(data.images?.[0]?.key)}
-              alt={data.name}
               borderRadius="8"
               ratio={3 / 4}
             />
@@ -50,7 +49,6 @@ export function ProductCard({ data, layout }: ProductCardProps) {
         <HStack>
           <NextImage
             src={getAwsCloudFrontUrl(data.images?.[0]?.key)}
-            alt="product"
             w="40px"
             borderRadius="6"
             ratio={1}

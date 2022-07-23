@@ -6,7 +6,7 @@ export function Logo() {
     <Flex>
       <NextLink href="/">
         <Flex alignItems="center">
-          <NextImage w="40px" ratio={1} alt="logo" />
+          <NextImage w="40px" ratio={1} />
         </Flex>
       </NextLink>
     </Flex>

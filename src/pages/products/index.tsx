@@ -2,6 +2,7 @@ import { Box, Grid } from "@chakra-ui/react"
 import { isNumber, isString } from "class-validator"
 import { NextBreadcrumb, PageContainer } from "components"
 import { PageTitle } from "configs/constants"
+import { ProductClassify, ProductSize } from "interfaces/entities"
 import { PageProps } from "layout"
 import {
   FormSearchProducts,
@@ -10,7 +11,6 @@ import {
 } from "modules/products/components"
 import { GetProductListDto, ProductSort } from "modules/products/dto"
 import { useGetProductList } from "modules/products/hooks"
-import { ProductClassify, ProductSize } from "modules/products/interfaces"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import { deleteWhiteSpace } from "utils"
 

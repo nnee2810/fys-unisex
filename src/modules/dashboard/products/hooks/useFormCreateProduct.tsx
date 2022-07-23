@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { CreateProductDto } from "modules/products/dto"
-import { createProduct } from "modules/products/services"
+import { useCreateProduct } from "modules/products/hooks"
 import { useForm } from "react-hook-form"
-import { useMutation, useQueryClient } from "react-query"
+import { useQueryClient } from "react-query"
 import { toast } from "react-toastify"
 import { validateInvalidMessage, validateRequiredMessage } from "utils"
 import * as yup from "yup"
@@ -27,7 +27,7 @@ export function useFormCreateProduct(onClose: () => void) {
     },
     resolver: yupResolver(schema),
   })
-  const { mutate, isLoading } = useMutation("create-product", createProduct)
+  const { mutate, isLoading } = useCreateProduct()
 
   const handleSubmit = methods.handleSubmit((data: CreateProductDto) => {
     mutate(data, {

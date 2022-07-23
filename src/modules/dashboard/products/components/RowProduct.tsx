@@ -8,56 +8,53 @@ import {
   Tag,
   Td,
   Text,
-  Tr,
 } from "@chakra-ui/react"
 import { NextImage } from "components"
 import { IProductEntity } from "interfaces/entities"
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai"
 import { MdOutlineMoreHoriz } from "react-icons/md"
-import { Row } from "react-table"
 import { formatCurrency, formatDatetime, getAwsCloudFrontUrl } from "utils"
 
 interface RowProductProps {
-  row: Row<IProductEntity>
+  data: IProductEntity
   onSelectUpdate: () => void
   onSelectDelete: () => void
 }
 
 export function RowProduct({
-  row: { getRowProps, original },
+  data,
   onSelectUpdate,
   onSelectDelete,
 }: RowProductProps) {
   return (
-    <Tr {...getRowProps()}>
+    <>
       <Td>
         <HStack>
           <NextImage
             w="46px"
             h="46px"
             borderRadius="6"
-            src={getAwsCloudFrontUrl(original.images?.[0]?.key)}
-            alt={original.name}
+            src={getAwsCloudFrontUrl(data.images?.[0]?.key)}
           />
-          <Text>{original.name}</Text>
+          <Text>{data.name}</Text>
         </HStack>
       </Td>
 
       <Td>
-        <Tag>{original.classify}</Tag>
+        <Tag>{data.classify}</Tag>
       </Td>
       <Td>
-        {formatCurrency(original.price)} / {formatCurrency(original.sale_price)}
+        {formatCurrency(data.price)} / {formatCurrency(data.sale_price)}
       </Td>
       <Td>
         <HStack justifyContent="center">
-          <Tag colorScheme={original.for_sale ? "green" : "gray"}>Đang bán</Tag>
-          <Tag colorScheme={original.in_sale ? "green" : "gray"}>Đang sale</Tag>
-          <Tag colorScheme={original.in_stock ? "green" : "gray"}>Có sẵn</Tag>
+          <Tag colorScheme={data.for_sale ? "green" : "gray"}>Đang bán</Tag>
+          <Tag colorScheme={data.in_sale ? "green" : "gray"}>Đang sale</Tag>
+          <Tag colorScheme={data.in_stock ? "green" : "gray"}>Có sẵn</Tag>
         </HStack>
       </Td>
-      <Td>{formatDatetime(original.updated_at)}</Td>
-      <Td>{formatDatetime(original.created_at)}</Td>
+      <Td>{formatDatetime(data.updated_at)}</Td>
+      <Td>{formatDatetime(data.created_at)}</Td>
       <Td>
         <Menu placement="bottom-end">
           <MenuButton
@@ -83,6 +80,6 @@ export function RowProduct({
           </MenuList>
         </Menu>
       </Td>
-    </Tr>
+    </>
   )
 }

@@ -2,16 +2,14 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { isPhoneNumber } from "class-validator"
 import { Regex } from "configs/constants"
 import { useForm } from "react-hook-form"
-import { useMutation } from "react-query"
 import {
   validateInvalidMessage,
   validateNotMatchMessage,
   validateRequiredMessage,
 } from "utils"
 import * as yup from "yup"
-import { useSendOTP } from "."
+import { useSendOTP, useSignUp } from "."
 import { ActionOTP } from "../dto"
-import { signUp } from "../services"
 
 export interface FormSignUpValues {
   step: number
@@ -120,10 +118,7 @@ export function useFormSignUp() {
     },
     resolver: yupResolver(schema),
   })
-  const { mutate: mutateSignUp, isLoading: isLoadingSignUp } = useMutation(
-    "sign-up",
-    signUp
-  )
+  const { mutate: mutateSignUp, isLoading: isLoadingSignUp } = useSignUp()
   const { mutate: mutateSendOTP, isLoading: isLoadingSendOTP } = useSendOTP()
 
   const watchStep = methods.watch("step")

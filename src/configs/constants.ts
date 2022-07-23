@@ -1,4 +1,5 @@
 import { ISelectOption } from "interfaces"
+import { Accept } from "react-dropzone"
 import { ToastContainerProps } from "react-toastify"
 
 export const TAKE_PER_PAGE = 20
@@ -44,7 +45,7 @@ export const responsiveW = {
   base: "90vw",
   "2xl": "1400px",
 }
-export const confirmOptions: ISelectOption[] = [
+export const confirmOptions: ISelectOption<boolean>[] = [
   {
     label: "Có",
     value: true,
@@ -54,3 +55,8 @@ export const confirmOptions: ISelectOption[] = [
     value: false,
   },
 ]
+export const acceptImage: Accept = {
+  "image/jpg": [],
+  "image/jpeg": [],
+  "image/png": [],
+}

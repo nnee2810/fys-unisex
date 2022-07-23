@@ -54,17 +54,19 @@ export function TableProduct({ data, isLoading }: TableProductProps) {
             rows.map((row) => {
               prepareRow(row)
               return (
-                <RowProduct
-                  row={row}
-                  key={row.original.id}
-                  onSelectUpdate={() => setSelectUpdate(row.original.id)}
-                  onSelectDelete={() => setSelectDelete(row.original.id)}
-                />
+                <Tr {...row.getRowProps()} key={row.original.id}>
+                  <RowProduct
+                    data={row.original}
+                    onSelectUpdate={() => setSelectUpdate(row.original.id)}
+                    onSelectDelete={() => setSelectDelete(row.original.id)}
+                  />
+                </Tr>
               )
             })
           )}
         </Tbody>
       </NextTable>
+
       <DrawerUpdateProduct
         isOpen={!!selectUpdate}
         onClose={resetSelectUpdate}

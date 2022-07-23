@@ -1,32 +1,29 @@
 import { AspectRatio, Box, BoxProps } from "@chakra-ui/react"
-import Image from "next/image"
+import Image, { ImageProps } from "next/image"
 import { getImageFallback } from "utils"
 
 interface NextImageProps extends BoxProps {
   src?: string
-  alt: string
   ratio?: number
 }
 
-export function NextImage({ src, alt, ratio, ...props }: NextImageProps) {
+export function NextImage({ src, ratio, ...props }: NextImageProps) {
+  const imageProps: ImageProps = {
+    src: src || getImageFallback(300),
+    layout: "fill",
+    objectFit: "cover",
+    blurDataURL: src || getImageFallback(300),
+    placeholder: "blur",
+  }
+
   return (
     <Box position="relative" overflow="hidden" {...props}>
       {ratio ? (
         <AspectRatio ratio={ratio}>
-          <Image
-            src={src || getImageFallback(300)}
-            layout="fill"
-            objectFit="cover"
-            alt={alt || "image"}
-          />
+          <Image {...imageProps} alt="" />
         </AspectRatio>
       ) : (
-        <Image
-          src={src || getImageFallback(300)}
-          layout="fill"
-          objectFit="cover"
-          alt={alt || "image"}
-        />
+        <Image {...imageProps} alt="" />
       )}
     </Box>
   )

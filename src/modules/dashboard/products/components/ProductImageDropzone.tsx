@@ -1,58 +1,55 @@
-import { AspectRatio, Box, Center, Spinner, Text } from "@chakra-ui/react"
-import { BsFillCheckCircleFill, BsImages } from "react-icons/bs"
+import { AspectRatio, Center, Spinner, Text } from "@chakra-ui/react"
+import { acceptImage } from "configs/constants"
+import { useUpload } from "hooks"
+import { BsImages } from "react-icons/bs"
+import { useQueryClient } from "react-query"
+import { toast } from "react-toastify"
 import { Color } from "styles/theme"
-import { useUploadProductImage } from "../hooks"
 
 interface ProductImageDropzoneProps {
-  id?: string
+  id: string
+}
+
+const containerStyle = {
+  border: `2px dashed ${Color.DARK_GRAY}`,
+  borderRadius: "16",
 }
 
 export function ProductImageDropzone({ id }: ProductImageDropzoneProps) {
-  const { getRootProps, progress, queue } = useUploadProductImage(id)
+  const queryClient = useQueryClient()
+  const { getRootProps, isLoading, queue } = useUpload({
+    url: `/product/upload-product-image/${id}`,
+    accept: acceptImage,
+    maxSize: 5,
+    multiple: true,
+    onSuccess() {
+      toast.success("Thêm hình ảnh thành công")
+      queryClient.invalidateQueries("get-product-list")
+    },
+  })
 
   return (
     <>
-      {progress ? (
+      {isLoading ? (
         <AspectRatio ratio={3 / 4}>
-          <Center
-            pos="relative"
-            border={`2px dashed ${
-              progress === 100 ? Color.GREEN : Color.DARK_GRAY
-            }`}
-            borderRadius="16"
-          >
-            <Text
-              fontSize="28"
-              color={progress === 100 ? Color.GREEN : "#000"}
-              zIndex="1"
-            >
-              {progress === 100 ? <BsFillCheckCircleFill /> : progress + "%"}
-            </Text>
-            <Box
-              pos="absolute"
-              left="0"
-              w={progress + "%"}
-              h="100%"
-              bgColor={progress === 100 ? Color.GREEN + "40" : Color.LIGHT_GRAY}
-              transition="all .5s"
-            />
-          </Center>
-        </AspectRatio>
-      ) : null}
-      {queue.map((_, idx) => (
-        <AspectRatio ratio={3 / 4} key={idx}>
-          <Center border={`2px dashed ${Color.DARK_GRAY}`} borderRadius="16">
+          <Center pos="relative" {...containerStyle}>
             <Spinner />
           </Center>
         </AspectRatio>
-      ))}
+      ) : null}
+      {queue.length ? (
+        <AspectRatio ratio={3 / 4}>
+          <Center {...containerStyle}>
+            <Text>{queue.length} đang chờ...</Text>
+          </Center>
+        </AspectRatio>
+      ) : null}
       <AspectRatio ratio={3 / 4}>
         <Center
           flexDirection="column"
           color={Color.DARK_GRAY}
-          border={`2px dashed ${Color.DARK_GRAY}`}
-          borderRadius="16"
           cursor="pointer"
+          {...containerStyle}
           {...getRootProps()}
         >
           <BsImages fontSize="40" />

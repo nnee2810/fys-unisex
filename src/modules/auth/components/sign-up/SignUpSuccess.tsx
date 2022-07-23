@@ -24,7 +24,6 @@ export function SignUpSuccess() {
         w="100%"
         h="333px"
         src={getAwsCloudFrontUrl("static/sign-up-success.jpg")}
-        alt="sign-up-success"
       />
     </Box>
   )

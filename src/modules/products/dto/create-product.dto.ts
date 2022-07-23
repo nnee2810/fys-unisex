@@ -1,4 +1,4 @@
-import { ProductClassify } from "../interfaces"
+import { ProductClassify } from "interfaces/entities"
 
 export interface CreateProductDto {
   name: string

@@ -11,8 +11,8 @@ import {
 } from "@chakra-ui/react"
 import { Field, FieldEnterAddress, NextButton, TextField } from "components"
 import { ModalBaseProps } from "interfaces"
+import { IAddressEntity } from "interfaces/entities"
 import { useFormUpdateAddress } from "modules/users/hooks"
-import { IAddressEntity } from "modules/users/interfaces"
 import { useEffect } from "react"
 import { FormProvider } from "react-hook-form"
 

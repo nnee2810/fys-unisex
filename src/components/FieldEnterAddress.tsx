@@ -8,9 +8,13 @@ import { Field, SelectField, TextField } from "./Field"
 
 export function FieldEnterAddress() {
   const { watch, setValue } = useFormContext()
-  const [provinceOptions, setProvinceOptions] = useState<ISelectOption[]>([])
-  const [districtOptions, setDistrictOptions] = useState<ISelectOption[]>([])
-  const [wardOptions, setWardOptions] = useState<ISelectOption[]>([])
+  const [provinceOptions, setProvinceOptions] = useState<
+    ISelectOption<number>[]
+  >([])
+  const [districtOptions, setDistrictOptions] = useState<
+    ISelectOption<number>[]
+  >([])
+  const [wardOptions, setWardOptions] = useState<ISelectOption<number>[]>([])
   const [isMount, setIsMount] = useBoolean()
 
   const watchProvinceCode = watch("province_code")
@@ -26,7 +30,7 @@ export function FieldEnterAddress() {
       )
     )
     setIsMount.on()
-  }, [])
+  }, [setIsMount])
 
   useEffect(() => {
     if (isMount) {
@@ -42,7 +46,7 @@ export function FieldEnterAddress() {
           }))
         )
       )
-  }, [watchProvinceCode])
+  }, [watchProvinceCode, isMount, setValue])
 
   useEffect(() => {
     if (isMount) {
@@ -58,7 +62,7 @@ export function FieldEnterAddress() {
           }))
         )
       )
-  }, [watchDistrictCode])
+  }, [watchDistrictCode, isMount, setValue])
 
   return (
     <>

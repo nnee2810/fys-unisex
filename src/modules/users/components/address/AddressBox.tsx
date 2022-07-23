@@ -13,11 +13,10 @@ import {
 } from "@chakra-ui/react"
 import { NextAlertModal } from "components"
 import { IAddressEntity } from "interfaces/entities"
-import { useUpdateAddress } from "modules/users/hooks"
-import { deleteAddress } from "modules/users/services"
+import { useDeleteAddress, useUpdateAddress } from "modules/users/hooks"
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai"
 import { MdOutlineLocationOn, MdOutlineMoreHoriz } from "react-icons/md"
-import { useMutation, useQueryClient } from "react-query"
+import { useQueryClient } from "react-query"
 import { toast } from "react-toastify"
 import styled from "styled-components"
 import { Color } from "styles/theme"
@@ -31,10 +30,8 @@ export function AddressBox({ data }: AddressBoxProps) {
   const queryClient = useQueryClient()
   const { mutate: mutateUpdate, isLoading: isLoadingUpdate } =
     useUpdateAddress()
-  const { mutate: mutateDelete, isLoading: isLoadingDelete } = useMutation(
-    "delete-address",
-    deleteAddress
-  )
+  const { mutate: mutateDelete, isLoading: isLoadingDelete } =
+    useDeleteAddress()
   const [openUpdate, setOpenUpdate] = useBoolean()
   const [openDelete, setOpenDelete] = useBoolean()
 

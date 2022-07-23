@@ -1,11 +1,12 @@
 import { Box, BoxProps, Tag } from "@chakra-ui/react"
 import { NextImage } from "components"
-import { IProductEntity } from "modules/products/interfaces"
+import { IProductEntity } from "interfaces/entities"
 import { useCallback, useState } from "react"
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi"
 import styled from "styled-components"
 import { Color } from "styles/theme"
 import { Swiper, SwiperSlide } from "swiper/react"
+import { getAwsCloudFrontUrl } from "utils"
 
 interface ProductImagesPreviewProps {
   data: IProductEntity
@@ -27,8 +28,7 @@ export function ProductImagesPreview({
       <NextImage
         h="650px"
         borderRadius="16"
-        src={images?.[selectedImage]}
-        alt={"productImage" + selectedImage}
+        src={getAwsCloudFrontUrl(images?.[selectedImage]?.key)}
       />
       <Box pos="absolute" bottom="4" w="100%" px="4">
         <Swiper
@@ -46,8 +46,7 @@ export function ProductImagesPreview({
                 opacity={idx === selectedImage ? 1 : 0.5}
                 transition="all .2s"
                 cursor="pointer"
-                src={image}
-                alt={"productImage" + idx}
+                src={getAwsCloudFrontUrl(image.key)}
                 onClick={() => setSelectedImage(idx)}
               />
             </SwiperSlide>

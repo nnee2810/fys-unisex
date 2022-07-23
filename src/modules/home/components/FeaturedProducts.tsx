@@ -34,47 +34,45 @@ export function FeaturedProducts() {
               <Skeleton h="300px" borderRadius="8" key={item} />
             ))}
           </Grid>
-        ) : (
-          data?.data?.length && (
-            <Tabs align="center">
-              <TabList
-                position="sticky"
-                top="0"
-                bg="white"
-                zIndex={zIndex.FEATURED_TABS}
-              >
-                <Tab>Áo</Tab>
-                <Tab>Quần</Tab>
-                <Tab>Phụ kiện</Tab>
-              </TabList>
-              <TabPanels>
-                {Object.keys(ProductClassify).map((classify, idx) => (
-                  <TabPanel key={idx} px="0">
-                    <Grid
-                      templateColumns={{
-                        base: "repeat(2, 1fr)",
-                        md: "repeat(3, 1fr)",
-                        lg: "repeat(4, 1fr)",
-                        xl: "repeat(5, 1fr)",
-                      }}
-                      gap="5"
-                    >
-                      {data.data
-                        .filter((product) => product.classify === classify)
-                        .map((product) => (
-                          <ProductCard
-                            data={product}
-                            layout="vertical"
-                            key={product.id}
-                          />
-                        ))}
-                    </Grid>
-                  </TabPanel>
-                ))}
-              </TabPanels>
-            </Tabs>
-          )
-        )}
+        ) : data?.data?.length ? (
+          <Tabs align="center">
+            <TabList
+              position="sticky"
+              top="0"
+              bg="white"
+              zIndex={zIndex.FEATURED_TABS}
+            >
+              <Tab>Áo</Tab>
+              <Tab>Quần</Tab>
+              <Tab>Phụ kiện</Tab>
+            </TabList>
+            <TabPanels>
+              {Object.keys(ProductClassify).map((classify, idx) => (
+                <TabPanel key={idx} px="0">
+                  <Grid
+                    templateColumns={{
+                      base: "repeat(2, 1fr)",
+                      md: "repeat(3, 1fr)",
+                      lg: "repeat(4, 1fr)",
+                      xl: "repeat(5, 1fr)",
+                    }}
+                    gap="5"
+                  >
+                    {data.data
+                      .filter((product) => product.classify === classify)
+                      .map((product) => (
+                        <ProductCard
+                          data={product}
+                          layout="vertical"
+                          key={product.id}
+                        />
+                      ))}
+                  </Grid>
+                </TabPanel>
+              ))}
+            </TabPanels>
+          </Tabs>
+        ) : null}
 
         <Center my="6">
           <NextLink href="/products">

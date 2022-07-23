@@ -26,7 +26,6 @@ export function Banners() {
             <NextImage
               h={{ base: "calc(100vh - 56px)", lg: "calc(100vh - 53px)" }}
               src={item}
-              alt={"banner" + idx}
             />
           </SwiperSlide>
         ))}

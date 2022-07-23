@@ -2,20 +2,20 @@ import { HStack } from "@chakra-ui/react"
 import { NextButton } from "components"
 import { ISelectOption } from "interfaces"
 
-interface SelectBoxFieldProps {
-  options: ISelectOption[]
-  onChange?: (value: unknown) => void
-  value?: unknown
+interface SelectBoxFieldProps<T> {
+  options: ISelectOption<T>[]
+  onChange?: (value: T) => void
+  value?: T
 }
 
-export function SelectBoxField({
+export function SelectBoxField<T>({
   options,
   onChange,
   value,
-}: SelectBoxFieldProps) {
-  const handleChangeSelect = (newValue: unknown) => {
+}: SelectBoxFieldProps<T>) {
+  const handleChangeSelect = (selected: T) => {
     if (!onChange) return
-    if (newValue !== value) onChange(newValue)
+    if (selected !== value) onChange(selected)
   }
 
   return (

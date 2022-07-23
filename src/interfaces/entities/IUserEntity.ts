@@ -19,7 +19,7 @@ export enum UserGender {
 
 export interface IUserEntity extends IBaseEntity {
   name: string
-  gender: UserGender
+  gender?: UserGender
   avatar: string
   phone: string
   role: UserRole

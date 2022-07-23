@@ -1,6 +1,7 @@
 import { Box, Flex, Heading, HStack, Tag, Text } from "@chakra-ui/react"
+
 import { NextLink, NextRate } from "components"
-import { IProductEntity } from "modules/products/interfaces"
+import { IProductEntity } from "interfaces/entities"
 import { Color } from "styles/theme"
 import { formatCurrency } from "utils"
 
@@ -31,7 +32,7 @@ export function ProductSummary({ data }: ProductSummaryProps) {
       <Flex>
         <NextLink href="#reviews">
           <HStack>
-            <NextRate disabled size={24} value={4} />
+            <NextRate value={4} disabled />
             <Text>|</Text>
             <Text>
               <u>Đánh giá:</u> 1000

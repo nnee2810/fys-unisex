@@ -3,11 +3,10 @@ import { isPhoneNumber } from "class-validator"
 import { ActionOTP } from "modules/auth/dto"
 import { useSendOTP } from "modules/auth/hooks"
 import { useForm } from "react-hook-form"
-import { useMutation } from "react-query"
 import { toast } from "react-toastify"
 import { validateInvalidMessage, validateRequiredMessage } from "utils"
 import * as yup from "yup"
-import { updatePhone } from "../services"
+import { useUpdatePhone } from "."
 
 export interface FormUpdatePhoneValues {
   step: number
@@ -54,7 +53,7 @@ export function useFormUpdatePhone(onClose: () => void) {
   })
   const { mutate: mutateSendOTP, isLoading: isLoadingSendOTP } = useSendOTP()
   const { mutate: mutateUpdatePhone, isLoading: isLoadingUpdatePhone } =
-    useMutation("update-phone", updatePhone)
+    useUpdatePhone()
 
   const watchStep = methods.watch("step")
   const nextStep = () => {

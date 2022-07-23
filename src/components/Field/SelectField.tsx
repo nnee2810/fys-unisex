@@ -3,33 +3,31 @@ import Select, { Props as SelectProps, Theme } from "react-select"
 import styled from "styled-components"
 import { Color } from "styles/theme"
 
-interface SelectFieldProps {
-  options: ISelectOption[]
-  value?: number | string | null
+interface SelectFieldProps<T> {
+  options: ISelectOption<T>[]
+  value?: T
   placeholder?: string
   isClearable?: boolean
-  onChange?: (value?: number | string) => void
+  onChange?: (value?: T) => void
 }
 
-export function SelectField({
+export function SelectField<T>({
   options,
   value,
   placeholder,
   isClearable,
   onChange,
-}: SelectFieldProps) {
-  const handleChange = (newValue: unknown) => {
+}: SelectFieldProps<T>) {
+  const handleChange = (selected: unknown) => {
     if (!onChange) return
-    if (!newValue) return onChange(undefined)
-    onChange((newValue as ISelectOption).value)
+    if (!selected) return onChange(undefined)
+    onChange((selected as ISelectOption<T>).value)
   }
 
   return (
     <StyledSelect
       options={options}
-      value={
-        value ? options.find((option) => option.value === value) || null : null
-      }
+      value={options.filter((option) => option.value === value)}
       placeholder={placeholder || "Chọn..."}
       isClearable={isClearable}
       onChange={handleChange}

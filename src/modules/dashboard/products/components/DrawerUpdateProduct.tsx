@@ -15,7 +15,6 @@ import {
   Field,
   FieldLabel,
   NextButton,
-  NextViewer,
   SelectBoxField,
   SelectField,
   TextField,
@@ -24,7 +23,6 @@ import { confirmOptions } from "configs/constants"
 import { ModalBaseProps } from "interfaces"
 import { IProductEntity } from "interfaces/entities"
 import { productClassifyOptions } from "modules/products/constants"
-import { useState } from "react"
 import { FormProvider } from "react-hook-form"
 import { ProductImage, ProductImageDropzone } from "."
 import { useFormUpdateProduct } from "../hooks"
@@ -42,7 +40,6 @@ export function DrawerUpdateProduct({
     data,
     onClose,
   })
-  const [selectView, setSelectView] = useState("")
 
   return (
     <Drawer isOpen={isOpen} size="lg" placement="right" onClose={onClose}>
@@ -93,13 +90,9 @@ export function DrawerUpdateProduct({
                   <FieldLabel>Hình ảnh</FieldLabel>
                   <Grid templateColumns="repeat(3, 1fr)" gap="2">
                     {data?.images?.map((item) => (
-                      <ProductImage
-                        data={item}
-                        key={item.id}
-                        onSelectView={setSelectView}
-                      />
+                      <ProductImage data={item} key={item.id} />
                     ))}
-                    <ProductImageDropzone id={data?.id} />
+                    {data && <ProductImageDropzone id={data?.id} />}
                   </Grid>
                 </Box>
               </Stack>
@@ -112,11 +105,6 @@ export function DrawerUpdateProduct({
           </DrawerContent>
         </form>
       </FormProvider>
-      <NextViewer
-        visible={!!selectView}
-        onClose={() => setSelectView("")}
-        images={[{ src: "", alt: "" }]}
-      />
     </Drawer>
   )
 }

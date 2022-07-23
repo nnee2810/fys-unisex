@@ -1,4 +1,4 @@
-import { ProductClassify } from "modules/products/interfaces"
+import { ProductClassify } from "interfaces/entities"
 import { useForm } from "react-hook-form"
 
 interface FormValues {

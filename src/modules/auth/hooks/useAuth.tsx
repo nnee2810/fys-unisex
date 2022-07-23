@@ -2,7 +2,7 @@ import { AxiosError } from "axios"
 import { Key } from "configs/constants"
 import { useAppDispatch, useAppSelector } from "hooks"
 import Cookies from "js-cookie"
-import { getProfile } from "modules/users/services"
+import { getProfile } from "modules/users/services/getProfile"
 import { toast } from "react-toastify"
 import {
   authSelector,
@@ -20,8 +20,7 @@ export function useAuth() {
     try {
       if (Cookies.get(Key.ACCESS_TOKEN)) {
         const profile = await getProfile()
-        if (profile) dispatch(SET_PROFILE(profile))
-        else dispatch(SET_AUTH_STATUS(AuthStatus.UNAUTHENTICATED))
+        dispatch(SET_PROFILE(profile))
       } else dispatch(SET_AUTH_STATUS(AuthStatus.UNAUTHENTICATED))
     } catch (error) {
       dispatch(SET_AUTH_STATUS(AuthStatus.UNAUTHENTICATED))

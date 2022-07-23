@@ -1,6 +1,9 @@
+import { API } from "configs/services"
 import { useMutation } from "react-query"
-import { updateAddress } from "../services"
+import { UpdateAddressDto } from "../dto"
 
 export function useUpdateAddress() {
-  return useMutation("update-address", updateAddress)
+  return useMutation("update-address", ({ id, ...data }: UpdateAddressDto) =>
+    API.patch(`/user/update-address/${id}`, data)
+  )
 }

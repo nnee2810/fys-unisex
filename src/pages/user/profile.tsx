@@ -6,8 +6,8 @@ import { RecaptchaVerifier } from "firebase/auth"
 import { UserRole } from "interfaces/entities"
 import { PageProps, UserLayout } from "layout"
 import {
+  AvatarDropzone,
   FormUpdateProfile,
-  FormUploadAvatar,
 } from "modules/users/components/profile"
 import { GetStaticPropsResult } from "next"
 import { useEffect } from "react"
@@ -54,7 +54,7 @@ export default function UserProfile() {
         <PageHeader label="Tài khoản của tôi" />
         <Grid templateColumns="auto 200px" gap="10">
           <FormUpdateProfile />
-          <FormUploadAvatar />
+          <AvatarDropzone />
         </Grid>
       </UserLayout>
       <div id="recaptcha" />

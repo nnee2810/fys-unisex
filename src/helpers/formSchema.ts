@@ -3,7 +3,7 @@ import { Regex } from "configs/constants"
 import { validateInvalidMessage, validateRequiredMessage } from "utils"
 import * as yup from "yup"
 
-export const formSchemas = {
+export const formSchema = {
   name: yup.string().label("Họ tên").required(validateRequiredMessage),
   phone: yup
     .string()

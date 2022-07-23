@@ -5,6 +5,7 @@ import { useAuth } from "modules/auth/hooks"
 import { useRouter } from "next/router"
 import { AiOutlinePoweroff } from "react-icons/ai"
 import { Color } from "styles/theme"
+import { getAwsCloudFrontUrl } from "utils"
 
 export function Sidebar() {
   const router = useRouter()
@@ -70,13 +71,12 @@ export function Sidebar() {
             <NextImage
               w="40px"
               h="40px"
-              src={profile?.avatar}
-              alt="avatar"
+              src={getAwsCloudFrontUrl(profile.avatar)}
               borderRadius="6"
             />
             <Box>
-              <Text fontWeight="500">{profile?.name}</Text>
-              <Tag colorScheme="green">{profile?.role}</Tag>
+              <Text fontWeight="500">{profile.name}</Text>
+              <Tag colorScheme="green">{profile.role}</Tag>
             </Box>
           </HStack>
         </NextLink>

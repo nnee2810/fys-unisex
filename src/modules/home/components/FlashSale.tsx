@@ -29,31 +29,29 @@ export function FlashSale() {
               <Skeleton h="300px" borderRadius="8" key={item} />
             ))}
           </Grid>
-        ) : (
-          data?.data?.length && (
-            <Swiper
-              centeredSlides
-              slidesPerView="auto"
-              spaceBetween={20}
-              autoplay={{
-                delay: 2000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              }}
-              modules={[Autoplay]}
-              loop
-              className="swiper-slide-fit"
-            >
-              {data?.data?.map((product) => (
-                <SwiperSlide key={product.id}>
-                  <Box w="270px">
-                    <ProductCard data={product} layout="vertical" />
-                  </Box>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          )
-        )}
+        ) : data?.data?.length ? (
+          <Swiper
+            centeredSlides
+            slidesPerView="auto"
+            spaceBetween={20}
+            autoplay={{
+              delay: 2000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            modules={[Autoplay]}
+            loop
+            className="swiper-slide-fit"
+          >
+            {data?.data?.map((product) => (
+              <SwiperSlide key={product.id}>
+                <Box w="270px">
+                  <ProductCard data={product} layout="vertical" />
+                </Box>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : null}
       </Box>
     </Box>
   )

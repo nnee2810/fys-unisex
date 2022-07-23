@@ -24,7 +24,6 @@ export function ResetPasswordSuccess() {
         w="100%"
         h="333px"
         src={getAwsCloudFrontUrl("static/sign-up-success.jpg")}
-        alt="reset-password-success"
       />
     </Box>
   )

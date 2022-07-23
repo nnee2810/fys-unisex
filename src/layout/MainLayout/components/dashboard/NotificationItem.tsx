@@ -11,7 +11,7 @@ export function NotificationItem() {
         borderRadius="6"
         _hover={{ bg: Color.LIGHT_GRAY }}
       >
-        <NextImage w="40px" h="40px" alt="avatar" borderRadius="50%" />
+        <NextImage w="40px" h="40px" borderRadius="50%" />
         <Box>
           <Text maxW="400px">
             Đào Nam đã đặt đơn hàng mới, hãy kiểm tra ngay!

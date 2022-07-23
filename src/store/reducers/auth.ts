@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Key } from "configs/constants"
-import { IUserEntity } from "interfaces/entities"
+import { IUserEntity, UserRole } from "interfaces/entities"
 import Cookies from "js-cookie"
 import { RootState } from "store"
-import { getAwsCloudFrontUrl } from "utils"
 
 export enum AuthStatus {
   LOADING,
@@ -13,12 +12,21 @@ export enum AuthStatus {
 
 interface SliceState {
   status: AuthStatus
-  profile: IUserEntity | null
+  profile: IUserEntity
 }
 
 const initialState: SliceState = {
   status: AuthStatus.LOADING,
-  profile: null,
+  profile: {
+    id: "",
+    name: "",
+    phone: "",
+    avatar: "",
+    role: UserRole.GUEST,
+    gender: undefined,
+    created_at: "",
+    updated_at: "",
+  },
 }
 
 const authSlice = createSlice({
@@ -30,10 +38,9 @@ const authSlice = createSlice({
     },
     SET_AVATAR(state, { payload }: PayloadAction<string>) {
       if (!state.profile) return
-      state.profile.avatar = getAwsCloudFrontUrl(payload)
+      state.profile.avatar = payload
     },
     SET_PROFILE(_, { payload }: PayloadAction<IUserEntity>) {
-      if (payload?.avatar) payload.avatar = getAwsCloudFrontUrl(payload.avatar)
       return {
         status: AuthStatus.AUTHENTICATED,
         profile: payload,
@@ -41,10 +48,7 @@ const authSlice = createSlice({
     },
     SIGN_OUT() {
       Cookies.remove(Key.ACCESS_TOKEN)
-      return {
-        status: AuthStatus.UNAUTHENTICATED,
-        profile: null,
-      }
+      return { ...initialState }
     },
   },
 })

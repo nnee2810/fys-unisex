@@ -8,7 +8,7 @@ interface FormValues {
   quantity: number
 }
 
-export function ProductOrder({}: ProductOrderProps) {
+export function ProductOrder() {
   const methods = useForm<FormValues>({
     defaultValues: {
       quantity: 1,

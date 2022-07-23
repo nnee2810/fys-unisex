@@ -1,24 +1,35 @@
 import { Box, Center, Spinner, Text } from "@chakra-ui/react"
 import { NextImage } from "components"
+import { acceptImage } from "configs/constants"
+import { useAppDispatch, useUpload } from "hooks"
 import { useAuth } from "modules/auth/hooks"
-import { useUploadAvatar } from "modules/users/hooks"
 import { AiOutlineCamera } from "react-icons/ai"
+import { toast } from "react-toastify"
+import { SET_AVATAR } from "store/reducers/auth"
 import { Color } from "styles/theme"
+import { getAwsCloudFrontUrl } from "utils"
 
-export function FormUploadAvatar() {
+export function AvatarDropzone() {
+  const dispatch = useAppDispatch()
   const { profile } = useAuth()
-  const { isLoading, getRootProps } = useUploadAvatar()
+  const { getRootProps, isLoading } = useUpload<string>({
+    url: "/user/upload-avatar",
+    accept: acceptImage,
+    maxSize: 1 * 1024 * 1024,
+    onSuccess({ data: { data } }) {
+      toast.success("Cập nhật ảnh đại điện thành công")
+      dispatch(SET_AVATAR(data))
+    },
+  })
 
   return (
     <Box>
       <Box pos="relative">
         <NextImage
-          src={profile?.avatar}
-          alt="avatar"
+          src={getAwsCloudFrontUrl(profile.avatar)}
           borderRadius="50%"
           ratio={1}
         />
-
         <Center
           pos="absolute"
           top="0"

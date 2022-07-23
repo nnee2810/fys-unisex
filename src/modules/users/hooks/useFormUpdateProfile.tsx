@@ -6,15 +6,13 @@ import {
 } from "utils"
 
 import { yupResolver } from "@hookform/resolvers/yup"
-import { formSchemas } from "helpers"
+import { formSchema } from "helpers"
 import { useAppDispatch } from "hooks"
 import { UserGender } from "interfaces/entities"
 import { useForm } from "react-hook-form"
-import { useMutation } from "react-query"
 import { toast } from "react-toastify"
-import { SET_PROFILE } from "store/reducers/auth"
 import * as yup from "yup"
-import { updateProfile } from "../services"
+import { useUpdateProfile } from "."
 
 interface FormValues {
   name: string
@@ -23,8 +21,8 @@ interface FormValues {
 }
 
 const schema = yup.object({
-  name: formSchemas.name,
-  phone: formSchemas.phone,
+  name: formSchema.name,
+  phone: formSchema.phone,
   gender: yup
     .string()
     .label("Giới tính")
@@ -37,27 +35,29 @@ export function useFormUpdateProfile() {
   const dispatch = useAppDispatch()
   const { profile } = useAuth()
 
-  const { mutate, isLoading } = useMutation("update-profile", updateProfile, {
-    onSuccess(data) {
-      toast.success("Cập nhật tài khoản thành công")
-      dispatch(SET_PROFILE(data))
-    },
-  })
+  const { mutate, isLoading } = useUpdateProfile()
   const methods = useForm<FormValues>({
     defaultValues: {
-      name: profile?.name,
-      phone: profile?.phone,
-      gender: profile?.gender,
+      name: profile.name,
+      phone: profile.phone,
+      gender: profile.gender,
     },
     resolver: yupResolver(schema),
   })
 
   const handleSubmit = ({ phone, ...data }: FormValues) => {
     if (!profile) return
-    mutate({
-      ...data,
-      name: deleteWhiteSpace(data.name),
-    })
+    mutate(
+      {
+        ...data,
+        name: deleteWhiteSpace(data.name),
+      },
+      {
+        onSuccess() {
+          toast.success("Cập nhật tài khoản thành công")
+        },
+      }
+    )
   }
 
   return {

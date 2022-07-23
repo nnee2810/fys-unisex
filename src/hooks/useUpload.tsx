@@ -1,17 +1,30 @@
+import { AxiosResponse } from "axios"
 import { ErrorMessage } from "configs/constants"
-import { uploadProductImage } from "modules/products/services"
+import { API } from "configs/services"
+import { IResponse } from "interfaces"
 import { useEffect, useMemo, useState } from "react"
-import { FileRejection, useDropzone } from "react-dropzone"
-import { useMutation, useQueryClient } from "react-query"
+import { Accept, FileRejection, useDropzone } from "react-dropzone"
+import { useMutation } from "react-query"
 import { toast } from "react-toastify"
 
-export function useUploadProductImage(id?: string) {
-  const queryClient = useQueryClient()
-  const { mutate, isLoading } = useMutation(
-    "upload-product-image",
-    uploadProductImage
+interface UseUploadProps<T> {
+  url: string
+  accept: Accept
+  maxSize: number
+  multiple?: boolean
+  onSuccess?(data: AxiosResponse<IResponse<T>, any>): void
+}
+
+export function useUpload<T = unknown>({
+  url,
+  accept,
+  maxSize,
+  multiple,
+  onSuccess,
+}: UseUploadProps<T>) {
+  const { mutate, isLoading } = useMutation("upload", (data: any) =>
+    API.post<IResponse<T>>(url, data)
   )
-  const [progress, setProgress] = useState(0)
   const [queue, setQueue] = useState<File[]>([])
 
   const queueFn = useMemo(
@@ -26,66 +39,46 @@ export function useUploadProductImage(id?: string) {
     []
   )
   const mutateUpload = (file: File) => {
-    if (!id) return
     const formData = new FormData()
     formData.append("file", file)
-    mutate(
-      {
-        id,
-        data: formData,
-        updateProgress: setProgress,
-      },
-      {
-        onSuccess() {
-          toast.success("Thêm hình ảnh thành công")
-          queryClient.invalidateQueries("get-product-list")
-        },
-        onSettled() {
-          setProgress(0)
-        },
-      }
-    )
+    mutate(formData, {
+      onSuccess,
+    })
   }
   const onDrop = (acceptedFiles: File[], fileRejections: FileRejection[]) => {
-    if (!id) return
     if (fileRejections.length)
       fileRejections.forEach((file) =>
         file.errors.forEach((err) => {
           if (err.code === "file-invalid-type")
             toast.error(ErrorMessage.FILE_INVALID_TYPE)
           if (err.code === "file-too-large")
-            toast.error(ErrorMessage.FILE_TOO_LARGE + " (>5MB)")
+            toast.error(ErrorMessage.FILE_TOO_LARGE + ` (>${maxSize}MB)`)
         })
       )
     if (acceptedFiles.length) {
       const [firstFile, ...restFiles] = acceptedFiles
-      if (progress || queue.length) return queueFn.push(acceptedFiles)
-      else queueFn.push(restFiles)
+      if (isLoading || queue.length) return queueFn.push(acceptedFiles)
+      queueFn.push(restFiles)
       mutateUpload(firstFile)
     }
   }
   const { getRootProps } = useDropzone({
     onDrop,
-    accept: {
-      "image/jpg": [],
-      "image/jpeg": [],
-      "image/png": [],
-    },
-    multiple: true,
-    maxSize: 5 * 1024 * 1024,
+    accept,
+    maxSize: maxSize * 1024 * 1024,
+    multiple,
   })
 
   useEffect(() => {
-    if (!progress && queue.length) {
+    if (!isLoading && queue.length) {
       mutateUpload(queue[0])
       queueFn.shift()
     }
-  }, [progress])
+  }, [isLoading])
 
   return {
     getRootProps,
     isLoading,
-    progress,
     queue,
   }
 }

@@ -1,4 +1,4 @@
-import { ProductClassify } from "../interfaces"
+import { ProductClassify } from "interfaces/entities"
 
 export interface UpdateProductDto {
   id: string

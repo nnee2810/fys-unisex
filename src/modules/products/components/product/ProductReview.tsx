@@ -1,6 +1,6 @@
 import { Box, Grid, HStack, Text } from "@chakra-ui/react"
 import { NextImage, NextRate } from "components"
-import { IProductReview } from "modules/products/interfaces"
+import { IProductReview } from "interfaces/entities"
 import moment from "moment"
 import { Color } from "styles/theme"
 
@@ -11,13 +11,7 @@ interface ProductReviewProps {
 export function ProductReview({ data }: ProductReviewProps) {
   return (
     <Grid templateColumns="40px auto" gap="2">
-      <NextImage
-        src={data.user.avatar}
-        alt="avatar"
-        w="40px"
-        h="40px"
-        borderRadius="50%"
-      />
+      <NextImage src={data.user.avatar} w="40px" h="40px" borderRadius="50%" />
       <Box>
         <Text fontSize="12" fontWeight="700">
           {data.user.name}

@@ -1,5 +1,6 @@
 export * from "./addCountryCode"
 export * from "./deleteWhiteSpace"
+export * from "./encodeBase64"
 export * from "./formatCurrency"
 export * from "./formatDatetime"
 export * from "./getArrayNumber"

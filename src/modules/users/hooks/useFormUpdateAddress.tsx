@@ -1,12 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { formSchemas } from "helpers"
+import { formSchema } from "helpers"
+import { IAddressEntity } from "interfaces/entities"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useQueryClient } from "react-query"
 import { toast } from "react-toastify"
 import { deleteWhiteSpace } from "utils"
 import * as yup from "yup"
-import { IAddressEntity } from "../interfaces"
 import { useUpdateAddress } from "./useUpdateAddress"
 
 interface UseFormUpdateAddressProps {
@@ -23,12 +23,12 @@ interface FormValues {
   is_default: boolean
 }
 const schema = yup.object({
-  name: formSchemas.name,
-  phone: formSchemas.phone,
-  province_code: formSchemas.province_code,
-  district_code: formSchemas.district_code,
-  ward_code: formSchemas.ward_code,
-  address_detail: formSchemas.address_detail,
+  name: formSchema.name,
+  phone: formSchema.phone,
+  province_code: formSchema.province_code,
+  district_code: formSchema.district_code,
+  ward_code: formSchema.ward_code,
+  address_detail: formSchema.address_detail,
 })
 
 export function useFormUpdateAddress({

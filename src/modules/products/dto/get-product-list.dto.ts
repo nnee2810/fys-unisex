@@ -1,5 +1,5 @@
 import { PaginationDto } from "dto/pagination.dto"
-import { ProductClassify, ProductSize } from "../interfaces"
+import { ProductClassify, ProductSize } from "interfaces/entities"
 
 export enum ProductSort {
   PRICE_ASC = "PRICE_ASC",

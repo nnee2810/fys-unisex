@@ -25,7 +25,7 @@ export function Explore() {
                   filter: "grayscale(0%)",
                 }}
               >
-                <NextImage h="100%" src={item.src} alt={"explore" + idx} />
+                <NextImage h="100%" src={item.src} />
                 <Center position="absolute" bottom="50%" w="100%">
                   <Box
                     w="80%"

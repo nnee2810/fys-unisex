@@ -2,16 +2,14 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { isPhoneNumber } from "class-validator"
 import { Regex } from "configs/constants"
 import { useForm } from "react-hook-form"
-import { useMutation } from "react-query"
 import {
   validateInvalidMessage,
   validateNotMatchMessage,
   validateRequiredMessage,
 } from "utils"
 import * as yup from "yup"
+import { useResetPassword, useSendOTP } from "."
 import { ActionOTP } from "../dto"
-import { resetPassword } from "../services"
-import { useSendOTP } from "./useSendOTP"
 
 export interface FormResetPasswordValues {
   step: number
@@ -86,7 +84,7 @@ export function useFormResetPassword() {
   })
   const { mutate: mutateSendOTP, isLoading: isLoadingSendOTP } = useSendOTP()
   const { mutate: mutateResetPassword, isLoading: isLoadingResetPassword } =
-    useMutation("reset-password", resetPassword)
+    useResetPassword()
 
   const watchStep = methods.watch("step")
   const nextStep = () => {

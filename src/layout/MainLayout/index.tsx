@@ -1,6 +1,5 @@
 import { Box, Grid } from "@chakra-ui/react"
 import { LoadingPage } from "components"
-import { canAccess } from "helpers"
 import { UserRole } from "interfaces/entities"
 import { useAuth } from "modules/auth/hooks"
 import Head from "next/head"
@@ -40,14 +39,9 @@ export function MainLayout({
     if (status === AuthStatus.LOADING) fetchProfile()
   }, [])
 
-  if (roles?.length) {
+  if (roles.length) {
     if (status === AuthStatus.LOADING) return <LoadingPage />
-    if (
-      !canAccess({
-        userRole: profile?.role,
-        pageRoles: roles,
-      })
-    ) {
+    if (!roles.includes(profile.role)) {
       router.push("/")
       return <LoadingPage />
     }
