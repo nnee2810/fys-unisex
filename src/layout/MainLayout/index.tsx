@@ -39,7 +39,7 @@ export function MainLayout({
     if (status === AuthStatus.LOADING) fetchProfile()
   }, [])
 
-  if (roles.length) {
+  if (roles?.length) {
     if (status === AuthStatus.LOADING) return <LoadingPage />
     if (!roles.includes(profile.role)) {
       router.push("/")
