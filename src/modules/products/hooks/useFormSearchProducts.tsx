@@ -5,7 +5,7 @@ import qs from "query-string"
 import { useForm } from "react-hook-form"
 import { deleteWhiteSpace, validateInvalidMessage } from "utils"
 import * as yup from "yup"
-import { GetProductListDto } from "../dto"
+import { GetProductsDto } from "../dto"
 
 interface FormValues {
   name?: string
@@ -44,7 +44,7 @@ const schema = yup.object({
     .transform((value) => (isNaN(value) ? undefined : value)),
 })
 
-export function useFormSearchProducts(query: GetProductListDto) {
+export function useFormSearchProducts(query: GetProductsDto) {
   const router = useRouter()
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -58,7 +58,7 @@ export function useFormSearchProducts(query: GetProductListDto) {
   })
 
   const handleSubmit = methods.handleSubmit((data: FormValues) => {
-    let submitData: GetProductListDto = {
+    let submitData: GetProductsDto = {
       ...query,
       ...data,
       name: deleteWhiteSpace(data.name),

@@ -30,7 +30,7 @@ export function Explore() {
                   <Box
                     w="80%"
                     py="2.5"
-                    bg="white"
+                    bgColor="white"
                     textAlign="center"
                     fontWeight="700"
                     borderRadius="16"

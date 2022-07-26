@@ -15,11 +15,11 @@ import { NextLink } from "components"
 import { responsiveW, zIndex } from "configs/constants"
 import { ProductClassify } from "interfaces/entities"
 import { ProductCard } from "modules/products/components"
-import { useGetProductList } from "modules/products/hooks"
+import { useGetProducts } from "modules/products/hooks"
 import { getArrayNumber } from "utils"
 
 export function FeaturedProducts() {
-  const { data, isLoading } = useGetProductList({
+  const { data, isLoading } = useGetProducts({
     is_featured: true,
     take: 30,
   })
@@ -39,7 +39,7 @@ export function FeaturedProducts() {
             <TabList
               position="sticky"
               top="0"
-              bg="white"
+              bgColor="white"
               zIndex={zIndex.FEATURED_TABS}
             >
               <Tab>Áo</Tab>

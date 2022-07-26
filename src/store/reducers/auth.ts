@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Key } from "configs/constants"
 import { IUserEntity, UserRole } from "interfaces/entities"
 import Cookies from "js-cookie"
+import { toast } from "react-toastify"
 import { RootState } from "store"
 
 export enum AuthStatus {
@@ -47,8 +48,9 @@ const authSlice = createSlice({
       }
     },
     SIGN_OUT() {
+      toast.success("Đăng xuất thành công")
       Cookies.remove(Key.ACCESS_TOKEN)
-      return { ...initialState }
+      return { ...initialState, status: AuthStatus.UNAUTHENTICATED }
     },
   },
 })

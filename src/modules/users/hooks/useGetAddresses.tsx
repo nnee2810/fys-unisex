@@ -3,11 +3,11 @@ import { IResponse } from "interfaces"
 import { IAddressEntity } from "interfaces/entities"
 import { useQuery } from "react-query"
 
-export function useGetAddressList() {
+export function useGetAddresses() {
   return useQuery(
-    "get-address-list",
+    "get-addresses",
     async () =>
-      (await API.get<IResponse<IAddressEntity[]>>("/user/get-address-list"))
-        .data.data
+      (await API.get<IResponse<IAddressEntity[]>>("/user/get-addresses")).data
+        .data
   )
 }

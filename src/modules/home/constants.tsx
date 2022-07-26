@@ -4,7 +4,7 @@ import { AiOutlineGift } from "react-icons/ai"
 import { BsHeadset } from "react-icons/bs"
 import { GrDeliver } from "react-icons/gr"
 import { MdLoop } from "react-icons/md"
-import { getImageFallback } from "utils"
+import { getFallbackImg } from "utils"
 
 interface NavItem extends ILink {
   childs?: NavItem[]
@@ -113,17 +113,17 @@ export const exploreItems: ExploreItem[] = [
   {
     name: "Áo",
     href: "#",
-    src: getImageFallback(500),
+    src: getFallbackImg(500),
   },
   {
     name: "Quần",
     href: "#",
-    src: getImageFallback(500),
+    src: getFallbackImg(500),
   },
   {
     name: "Phụ kiện",
     href: "#",
-    src: getImageFallback(500),
+    src: getFallbackImg(500),
   },
 ]
 export const commitItems: CommitItem[] = [

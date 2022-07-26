@@ -45,7 +45,7 @@ export function AddressBox({ data }: AddressBoxProps) {
       {
         onSuccess() {
           toast.success("Đặt địa chỉ mặc định thành công")
-          queryClient.invalidateQueries("get-address-list")
+          queryClient.invalidateQueries("get-addresses")
         },
       }
     )
@@ -55,7 +55,7 @@ export function AddressBox({ data }: AddressBoxProps) {
       onSuccess() {
         setOpenDelete.off()
         toast.success("Xóa địa chị chỉ thành công")
-        queryClient.invalidateQueries("get-address-list")
+        queryClient.invalidateQueries("get-addresses")
       },
     })
   }

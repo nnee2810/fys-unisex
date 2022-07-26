@@ -3,23 +3,23 @@ import { API } from "configs/services"
 import { IPagination, IResponse } from "interfaces"
 import { IProductEntity } from "interfaces/entities"
 import { useQuery } from "react-query"
-import { GetProductListDto } from "../dto"
+import { GetProductsDto } from "../dto"
 
-export function useGetProductList(
-  { page = 1, take = TAKE_PER_PAGE, ...data }: GetProductListDto,
+export function useGetProducts(
+  { page = 1, take = TAKE_PER_PAGE, ...data }: GetProductsDto,
   options?: any
 ) {
   return useQuery(
-    ["get-product-list", data],
+    ["get-products", data],
     async () =>
       (
         await API.get<IResponse<IPagination<IProductEntity[]>>>(
-          "/product/get-product-list",
+          "/product/get-products",
           {
             params: { page, take, ...data },
           }
         )
       ).data.data,
-    options
+    { ...options, refetchInterval: 5000 }
   )
 }

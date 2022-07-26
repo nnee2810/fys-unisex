@@ -50,10 +50,6 @@ img {
   }
 }
 
-.bg-fit {
-  background-size: cover;
-  background-position: center;
-}
 .chakra-popover__content {
   border: 0 !important;
   width: auto !important;
@@ -61,16 +57,6 @@ img {
 .swiper-slide-fit {
   .swiper-slide {
     width: auto !important;
-  }
-}
-.react-rater {
-  font-size: 20px;
-  line-height: unset;
-
-  &-star {
-    &.is-active {
-      color: #ff3102;
-    }
   }
 }
 .chakra-collapse {

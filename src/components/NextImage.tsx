@@ -1,6 +1,6 @@
 import { AspectRatio, Box, BoxProps } from "@chakra-ui/react"
 import Image, { ImageProps } from "next/image"
-import { getImageFallback } from "utils"
+import { getFallbackImg } from "utils"
 
 interface NextImageProps extends BoxProps {
   src?: string
@@ -9,10 +9,10 @@ interface NextImageProps extends BoxProps {
 
 export function NextImage({ src, ratio, ...props }: NextImageProps) {
   const imageProps: ImageProps = {
-    src: src || getImageFallback(300),
+    src: src || getFallbackImg(300),
     layout: "fill",
     objectFit: "cover",
-    blurDataURL: src || getImageFallback(300),
+    blurDataURL: src || getFallbackImg(300),
     placeholder: "blur",
   }
 

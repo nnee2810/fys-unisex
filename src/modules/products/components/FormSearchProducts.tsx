@@ -9,11 +9,11 @@ import {
 import { useRouter } from "next/router"
 import { FormProvider } from "react-hook-form"
 import { productClassifyOptions, productSizeOptions } from "../constants"
-import { GetProductListDto } from "../dto"
+import { GetProductsDto } from "../dto"
 import { useFormSearchProducts } from "../hooks"
 
 interface FormSearchProductsProps {
-  query: GetProductListDto
+  query: GetProductsDto
   isLoading?: boolean
 }
 

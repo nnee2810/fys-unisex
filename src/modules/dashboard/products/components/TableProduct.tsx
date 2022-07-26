@@ -30,7 +30,7 @@ export function TableProduct({ data, isLoading }: TableProductProps) {
       onSuccess() {
         resetSelectDelete()
         toast.success("Xóa sản phẩm thành công")
-        queryClient.invalidateQueries("get-product-list")
+        queryClient.invalidateQueries("get-products")
       },
     })
   }, [selectDelete])

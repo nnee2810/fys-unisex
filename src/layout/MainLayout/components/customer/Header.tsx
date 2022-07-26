@@ -37,7 +37,7 @@ export function Header() {
       pos="fixed"
       top="0"
       w="100%"
-      bg="white"
+      bgColor="white"
       boxShadow="md"
       transform={`translateY(${visible ? 0 : -54}px)`}
       transition="all .4s"

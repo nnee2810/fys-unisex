@@ -41,7 +41,7 @@ export default function SignIn() {
       <Box
         w={{ base: "100%", md: "600px" }}
         p="8"
-        bg="#fff"
+        bgColor="#fff"
         border={`1px solid ${Color.LIGHT_GRAY}`}
         borderRadius="16"
         boxShadow="2xl"

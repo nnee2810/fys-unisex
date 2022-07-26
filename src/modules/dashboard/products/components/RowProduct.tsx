@@ -11,7 +11,8 @@ import {
 } from "@chakra-ui/react"
 import { NextImage } from "components"
 import { IProductEntity } from "interfaces/entities"
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai"
+import { useRouter } from "next/router"
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai"
 import { MdOutlineMoreHoriz } from "react-icons/md"
 import { formatCurrency, formatDatetime, getAwsCloudFrontUrl } from "utils"
 
@@ -26,6 +27,8 @@ export function RowProduct({
   onSelectUpdate,
   onSelectDelete,
 }: RowProductProps) {
+  const router = useRouter()
+
   return (
     <>
       <Td>
@@ -64,7 +67,13 @@ export function RowProduct({
             colorScheme="gray"
           />
 
-          <MenuList minW="100px" w="fit-content">
+          <MenuList minW="120px">
+            <MenuItem
+              icon={<AiOutlineEye fontSize="20" />}
+              onClick={() => router.push(`/products/${data.id}`)}
+            >
+              Chi tiết
+            </MenuItem>
             <MenuItem
               icon={<AiOutlineEdit fontSize="20" />}
               onClick={onSelectUpdate}

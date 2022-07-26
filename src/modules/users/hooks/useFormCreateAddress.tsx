@@ -54,7 +54,7 @@ export function useFormCreateAddress(onClose: () => void) {
           onSuccess() {
             onClose()
             toast.success("Thêm địa chỉ thành công")
-            queryClient.invalidateQueries("get-address-list")
+            queryClient.invalidateQueries("get-addresses")
           },
         }
       )

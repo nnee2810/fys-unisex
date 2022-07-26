@@ -4,7 +4,7 @@ import { cloneElement, ReactElement } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Color } from "styles/theme"
 
-interface FieldProps {
+export interface FieldProps {
   name: string
   component: ReactElement
   label?: string

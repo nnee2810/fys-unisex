@@ -26,7 +26,6 @@ export function getServerSideProps({
   return {
     props: {
       title: PageTitle.PRODUCT_DETAIL,
-      roles: [],
       id: String(query.id),
     },
   }

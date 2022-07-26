@@ -16,7 +16,6 @@ export async function getStaticProps(): Promise<
   return {
     props: {
       title: PageTitle.HOME,
-      roles: [],
     },
   }
 }

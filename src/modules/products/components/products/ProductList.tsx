@@ -3,13 +3,13 @@ import { NextPagination } from "components"
 import { IPagination } from "interfaces"
 import { IProductEntity } from "interfaces/entities"
 import { ProductCard } from "modules/products/components"
-import { GetProductListDto } from "modules/products/dto"
+import { GetProductsDto } from "modules/products/dto"
 import { useRouter } from "next/router"
 import qs from "query-string"
 import { getArrayNumber } from "utils"
 
 interface ProductListProps {
-  query: GetProductListDto
+  query: GetProductsDto
   data?: IPagination<IProductEntity[]>
   isLoading?: boolean
 }

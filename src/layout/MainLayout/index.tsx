@@ -19,7 +19,7 @@ import {
 
 export interface PageProps {
   title: string
-  roles: UserRole[]
+  roles?: UserRole[]
   isDashboard?: boolean
 }
 
@@ -37,7 +37,7 @@ export function MainLayout({
 
   useEffect(() => {
     if (status === AuthStatus.LOADING) fetchProfile()
-  }, [])
+  }, [status])
 
   if (roles?.length) {
     if (status === AuthStatus.LOADING) return <LoadingPage />

@@ -34,7 +34,7 @@ export function useFormCreateProduct(onClose: () => void) {
       onSuccess() {
         onClose()
         toast.success("Thêm sản phẩm thành công")
-        queryClient.invalidateQueries("get-product-list")
+        queryClient.invalidateQueries("get-products")
       },
     })
   })

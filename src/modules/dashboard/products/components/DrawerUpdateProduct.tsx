@@ -15,6 +15,7 @@ import {
   Field,
   FieldLabel,
   NextButton,
+  NextPreview,
   SelectBoxField,
   SelectField,
   TextField,
@@ -23,7 +24,9 @@ import { confirmOptions } from "configs/constants"
 import { ModalBaseProps } from "interfaces"
 import { IProductEntity } from "interfaces/entities"
 import { productClassifyOptions } from "modules/products/constants"
+import { useState } from "react"
 import { FormProvider } from "react-hook-form"
+import { getAwsCloudFrontUrl } from "utils"
 import { ProductImage, ProductImageDropzone } from "."
 import { useFormUpdateProduct } from "../hooks"
 
@@ -40,9 +43,16 @@ export function DrawerUpdateProduct({
     data,
     onClose,
   })
+  const [openPreview, setOpenPreview] = useState(0)
 
   return (
-    <Drawer isOpen={isOpen} size="lg" placement="right" onClose={onClose}>
+    <Drawer
+      isOpen={isOpen}
+      size="lg"
+      placement="right"
+      onClose={onClose}
+      trapFocus={!!!openPreview}
+    >
       <DrawerOverlay />
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit}>
@@ -90,7 +100,11 @@ export function DrawerUpdateProduct({
                   <FieldLabel>Hình ảnh</FieldLabel>
                   <Grid templateColumns="repeat(3, 1fr)" gap="2">
                     {data?.images?.map((item) => (
-                      <ProductImage data={item} key={item.id} />
+                      <ProductImage
+                        data={item}
+                        key={item.id}
+                        onPreview={() => setOpenPreview(item.position)}
+                      />
                     ))}
                     {data && <ProductImageDropzone id={data?.id} />}
                   </Grid>
@@ -105,6 +119,13 @@ export function DrawerUpdateProduct({
           </DrawerContent>
         </form>
       </FormProvider>
+      <NextPreview
+        isOpen={!!openPreview}
+        data={data?.images?.map((item) => getAwsCloudFrontUrl(item.key)) || []}
+        position={openPreview}
+        onChange={(value) => setOpenPreview(value)}
+        onClose={() => setOpenPreview(0)}
+      />
     </Drawer>
   )
 }

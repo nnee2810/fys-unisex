@@ -1,7 +1,7 @@
 import { Box, Center, Flex } from "@chakra-ui/react"
 import { NextLink } from "components"
 import { responsiveW } from "configs/constants"
-import { getImageFallback } from "utils"
+import { getFallbackImg } from "utils"
 
 export function Story() {
   return (
@@ -11,11 +11,13 @@ export function Story() {
           w={{ ...responsiveW }}
           h="500px"
           borderRadius="16"
-          bgImg={getImageFallback(500)}
+          bgImg={getFallbackImg(500)}
           className="bg-fit"
+          backgroundSize="cover"
+          backgroundPosition="center"
         >
           <Box
-            bg="#00000054"
+            bgColor="#00000054"
             p="4"
             borderRadius="32"
             color="white"

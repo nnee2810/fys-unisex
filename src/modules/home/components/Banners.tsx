@@ -2,9 +2,9 @@ import { Box } from "@chakra-ui/react"
 import { NextImage } from "components"
 import { Autoplay, Pagination } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { getArrayNumber, getImageFallback } from "utils"
+import { getArrayNumber, getFallbackImg } from "utils"
 
-const bannerItems = getArrayNumber(5).map(() => getImageFallback(1000))
+const bannerItems = getArrayNumber(5).map(() => getFallbackImg(1000))
 
 export function Banners() {
   return (

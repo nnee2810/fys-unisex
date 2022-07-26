@@ -66,7 +66,7 @@ export function useFormUpdateAddress({
         onSuccess() {
           onClose()
           toast.success("Cập nhật địa chỉ thành công")
-          queryClient.invalidateQueries("get-address-list")
+          queryClient.invalidateQueries("get-addresses")
         },
       }
     )

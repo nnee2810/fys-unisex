@@ -14,7 +14,7 @@ import {
   DrawerCreateProduct,
   TableProduct,
 } from "modules/dashboard/products/components"
-import { useGetProductList } from "modules/products/hooks"
+import { useGetProducts } from "modules/products/hooks"
 import { GetStaticPropsResult } from "next"
 import { AiOutlineReload } from "react-icons/ai"
 import { BiFilterAlt } from "react-icons/bi"
@@ -32,7 +32,7 @@ export async function getStaticProps(): Promise<
 }
 
 export default function DashboardProducts() {
-  const { data, isLoading, refetch, isRefetching } = useGetProductList({})
+  const { data, isLoading, refetch, isRefetching } = useGetProducts({})
   const [openCreate, setOpenCreate] = useBoolean()
   const [openFilter, setOpenFilter] = useBoolean()
 

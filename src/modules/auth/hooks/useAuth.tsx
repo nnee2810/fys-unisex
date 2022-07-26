@@ -3,7 +3,6 @@ import { Key } from "configs/constants"
 import { useAppDispatch, useAppSelector } from "hooks"
 import Cookies from "js-cookie"
 import { getProfile } from "modules/users/services/getProfile"
-import { toast } from "react-toastify"
 import {
   authSelector,
   AuthStatus,
@@ -28,10 +27,7 @@ export function useAuth() {
         Cookies.remove(Key.ACCESS_TOKEN)
     }
   }
-  const signOut = () => {
-    dispatch(SIGN_OUT())
-    toast.success("Đăng xuất thành công")
-  }
+  const signOut = () => dispatch(SIGN_OUT())
 
   return { ...auth, fetchProfile, signOut }
 }

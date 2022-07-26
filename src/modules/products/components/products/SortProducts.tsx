@@ -1,11 +1,11 @@
 import { SelectBoxField } from "components"
 import { productSortOptions } from "modules/products/constants"
-import { GetProductListDto } from "modules/products/dto"
+import { GetProductsDto } from "modules/products/dto"
 import { useRouter } from "next/router"
 import qs from "query-string"
 
 interface SortProductsProps {
-  query: GetProductListDto
+  query: GetProductsDto
 }
 
 export function SortProducts({ query }: SortProductsProps) {

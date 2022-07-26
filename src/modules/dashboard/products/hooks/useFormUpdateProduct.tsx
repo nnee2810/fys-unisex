@@ -59,7 +59,7 @@ export function useFormUpdateProduct({
         onSuccess() {
           onClose()
           toast.success("Cập nhật sản phẩm thành công")
-          queryClient.invalidateQueries("get-product-list")
+          queryClient.invalidateQueries("get-products")
         },
       }
     )

@@ -10,7 +10,7 @@ import {
 import { Field, NextLink, StackSkeleton, TextField } from "components"
 import { debounce } from "lodash"
 import { ProductCard } from "modules/products/components"
-import { useGetProductList } from "modules/products/hooks"
+import { useGetProducts } from "modules/products/hooks"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -37,7 +37,7 @@ export function ModalSearchProducts({
     },
   })
   const [queryName, setQueryName] = useState("")
-  const { data, isLoading, refetch } = useGetProductList(
+  const { data, isLoading, refetch } = useGetProducts(
     { name: queryName, take: 10 },
     { enabled: false }
   )

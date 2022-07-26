@@ -6,23 +6,23 @@ import {
   Divider,
 } from "@chakra-ui/react"
 import { NextFlipMove, StackSkeleton } from "components"
-import { useGetAddressList } from "modules/users/hooks"
+import { useGetAddresses } from "modules/users/hooks"
 import { AddressBox } from "./AddressBox"
 
 export function AddressList() {
-  const { data: dataGetAddressList, isLoading: isLoadingGetAddressList } =
-    useGetAddressList()
+  const { data: dataGetAddresses, isLoading: isLoadingGetAddresses } =
+    useGetAddresses()
 
   return (
     <Box>
-      {isLoadingGetAddressList ? (
+      {isLoadingGetAddresses ? (
         <StackSkeleton value={5} h="100px" />
-      ) : dataGetAddressList?.length ? (
+      ) : dataGetAddresses?.length ? (
         <NextFlipMove enterAnimation="fade" leaveAnimation="fade">
-          {dataGetAddressList.map((address, idx) => (
+          {dataGetAddresses.map((address, idx) => (
             <Box key={address.id}>
               <AddressBox data={address} />
-              {idx < dataGetAddressList.length - 1 && <Divider my="5" />}
+              {idx < dataGetAddresses.length - 1 && <Divider my="5" />}
             </Box>
           ))}
         </NextFlipMove>

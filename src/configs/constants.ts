@@ -33,13 +33,13 @@ export enum zIndex {
   BACK_TO_TOP = 3,
   HEADER = 4,
 }
-export enum ImageSource {
-  DEFAULT = "https://dummyimage.com/",
-  AVATAR = "https://ui-avatars.com/api/",
+export enum ImageSrc {
+  DEFAULT = "https://dummyimage.com",
 }
 export const toastConfig: ToastContainerProps = {
   draggable: false,
   autoClose: 3000,
+  position: "top-center",
 }
 export const responsiveW = {
   base: "90vw",

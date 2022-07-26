@@ -9,13 +9,13 @@ import {
   ProductList,
   SortProducts,
 } from "modules/products/components"
-import { GetProductListDto, ProductSort } from "modules/products/dto"
-import { useGetProductList } from "modules/products/hooks"
+import { GetProductsDto, ProductSort } from "modules/products/dto"
+import { useGetProducts } from "modules/products/hooks"
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import { deleteWhiteSpace } from "utils"
 
 interface ProductsProps {
-  query: GetProductListDto
+  query: GetProductsDto
 }
 
 export async function getServerSideProps({
@@ -23,7 +23,7 @@ export async function getServerSideProps({
 }: GetServerSidePropsContext): Promise<
   GetServerSidePropsResult<PageProps & ProductsProps>
 > {
-  const queryData: GetProductListDto = {}
+  const queryData: GetProductsDto = {}
   if (isString(query.name)) queryData.name = deleteWhiteSpace(query.name)
   if (isString(query.size) && Object.keys(ProductSize).includes(query.size))
     queryData.size = query.size as ProductSize
@@ -41,13 +41,12 @@ export async function getServerSideProps({
   return {
     props: {
       title: PageTitle.PRODUCTS,
-      roles: [],
       query: queryData,
     },
   }
 }
 export default function Products({ query }: ProductsProps) {
-  const { data, isLoading } = useGetProductList(query)
+  const { data, isLoading } = useGetProducts(query)
 
   return (
     <Box>

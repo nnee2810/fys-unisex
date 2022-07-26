@@ -24,7 +24,7 @@ export function ProductImageDropzone({ id }: ProductImageDropzoneProps) {
     multiple: true,
     onSuccess() {
       toast.success("Thêm hình ảnh thành công")
-      queryClient.invalidateQueries("get-product-list")
+      queryClient.invalidateQueries("get-products")
     },
   })
 
