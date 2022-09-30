@@ -1,39 +1,42 @@
+import { useMutation } from "@tanstack/react-query"
 import { AxiosResponse } from "axios"
-import { ErrorMessage } from "configs/constants"
-import { API } from "configs/services"
-import { IResponse } from "interfaces"
+import { API } from "configs/api"
+import { getAxiosMessageError } from "helpers"
+import { ImageType } from "modules/images/interfaces"
 import { useEffect, useMemo, useState } from "react"
 import { Accept, FileRejection, useDropzone } from "react-dropzone"
-import { useMutation } from "react-query"
-import { toast } from "react-toastify"
+import toast from "react-hot-toast"
 
 interface UseUploadProps<T> {
   url: string
   accept: Accept
   maxSize: number
+  type?: ImageType
   multiple?: boolean
-  onSuccess?(data: AxiosResponse<IResponse<T>, any>): void
+  onSuccess?(data: AxiosResponse<T, any>): string
 }
 
-export function useUpload<T = unknown>({
+export default function useUpload<T = unknown>({
   url,
   accept,
   maxSize,
+  type,
   multiple,
   onSuccess,
 }: UseUploadProps<T>) {
-  const { mutate, isLoading } = useMutation("upload", (data: any) =>
-    API.post<IResponse<T>>(url, data)
+  const { mutateAsync, isLoading } = useMutation((data: FormData) =>
+    API.post<T>(url, data)
   )
   const [queue, setQueue] = useState<File[]>([])
 
   const queueFn = useMemo(
     () => ({
-      push: (files: File[]) => setQueue((queue) => [...queue, ...files]),
+      push: (files: File[]) =>
+        setQueue((currentQueue) => [...currentQueue, ...files]),
       shift: () =>
-        setQueue((queue) => {
-          queue.shift()
-          return queue
+        setQueue((currentQueue) => {
+          currentQueue.shift()
+          return currentQueue
         }),
     }),
     []
@@ -41,26 +44,25 @@ export function useUpload<T = unknown>({
   const mutateUpload = (file: File) => {
     const formData = new FormData()
     formData.append("file", file)
-    mutate(formData, {
-      onSuccess,
+    if (type) formData.append("type", type)
+    toast.promise(mutateAsync(formData), {
+      loading:
+        "Uploading a file... " +
+        (queue.length > 1 ? `(${queue.length - 1} in queue)` : ""),
+      success: onSuccess || "Uploaded file successfully",
+      error: getAxiosMessageError,
     })
   }
   const onDrop = (acceptedFiles: File[], fileRejections: FileRejection[]) => {
     if (fileRejections.length)
       fileRejections.forEach((file) =>
         file.errors.forEach((err) => {
-          if (err.code === "file-invalid-type")
-            toast.error(ErrorMessage.FILE_INVALID_TYPE)
+          if (err.code === "file-invalid-type") toast.error("Invalid file type")
           if (err.code === "file-too-large")
-            toast.error(ErrorMessage.FILE_TOO_LARGE + ` (>${maxSize}MB)`)
+            toast.error(`File too large (>${maxSize}MB)`)
         })
       )
-    if (acceptedFiles.length) {
-      const [firstFile, ...restFiles] = acceptedFiles
-      if (isLoading || queue.length) return queueFn.push(acceptedFiles)
-      queueFn.push(restFiles)
-      mutateUpload(firstFile)
-    }
+    if (acceptedFiles.length) queueFn.push(acceptedFiles)
   }
   const { getRootProps } = useDropzone({
     onDrop,
@@ -74,7 +76,7 @@ export function useUpload<T = unknown>({
       mutateUpload(queue[0])
       queueFn.shift()
     }
-  }, [isLoading])
+  }, [isLoading, queue])
 
   return {
     getRootProps,
